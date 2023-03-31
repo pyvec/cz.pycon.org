@@ -1,0 +1,41 @@
+{% extends '_menu_base.html' %}
+
+
+
+{% block all %}
+    <nav role="navigation" class="navbar navbar-dark navbar-expand bg-dark px-2">
+        <div class="w-100 justify-content-sm-center column navbar-nav nav-pills flex-wrap">
+            {{ block.super }}
+        </div>
+    </nav>
+{% endblock %}
+
+
+{% block link_team %}{% endblock %}
+
+
+{% block link_privacy_policy %}{% endblock %}
+
+
+{% block link_coc %}{% endblock %}
+
+
+{% block link_board_game_night %}{% endblock %}
+
+
+{% block link_financial_aid %}
+    {# show finaid only if ticket sale isn't on and only if finaid is opened #}
+    {% if phases.ticket_sale != 'launched' and phases.finaid == 'launched' %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+
+{% block link_sponsorship %}
+    {% if phases.talks == 'not_public' and phases.workshops == 'not_public' %}
+        {# hide sponsorship link after sponsors detail are published  #}
+        {% if phases.sponsors != 'details_public' %}
+            {{ block.super }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

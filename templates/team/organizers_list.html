@@ -1,0 +1,52 @@
+{% extends '_layout.html' %}
+
+
+
+{% block meta_title %}PyCon CZ Team – {{ block.super }}{% endblock %}
+
+
+{% block main %}
+    <div class="container pb-5">
+        <h1>PyCon&nbsp;CZ Team</h1>
+        <div class="row">
+            <div class="col-sm">
+                <p class="lead">PyCon is a&nbsp;community event. There are more than 30&nbsp;people on our Slack channel and even more volunteers helped us by sending pull requests on GitHub.</p>
+                <p class="h3">We are here for <strong>you</strong>!</p>
+                <p class="lead">The main contact is <a href="mailto:info@pycon.cz">info@pycon.cz</a>.</p>
+            </div>
+            <div class="col-sm">
+                <p>If you drew the organization structure of the PyCon CZ team, <strong>you — the attendee</strong> would be at the top. The incredible amount of volunteers would follow. There's little or no difference between organizers and volunteers, because we all do it in our free time without any claim for wage. {% comment %}Below is a list of our core team members.{% endcomment %}</p>
+            </div>
+        </div>
+
+        <div class="card-columns">
+            {% for organizer in organizers %}
+                <div class="card border-0 mb-4" style="max-width:356px;">
+                    <img src="{{ organizer.photo.url }}" class="card-img-top pc-img-effect" alt="">
+                    <div class="card-body pb-0">
+                        <h2 class="h5 my-0 card-title">{{ organizer.full_name }}</h2>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex align-items-end flex-wrap" style="min-height:5.25rem;">
+                        {% if organizer.twitter %}
+                            <a
+                                class="d-inline-block mr-3 pc-iconlink pc-iconlink-blue pc-iconlink-twitter {% if type == 'keynoter' %}pc-iconlink-blue{% endif %}"
+                                href="https://twitter.com/{{ organizer.twitter }}"
+                            >
+                                {{ organizer.twitter }}
+                            </a>
+                        {% endif %}
+                        {% if organizer.github %}
+                            <a
+                                class="d-inline-block pc-iconlink pc-iconlink-blue pc-iconlink-github {% if type == 'keynoter' %}pc-iconlink-blue{% endif %}"
+                                href="https://github.com/{{ organizer.github }}"
+                            >
+                                {{ organizer.github }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

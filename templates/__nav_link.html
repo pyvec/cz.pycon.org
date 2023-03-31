@@ -1,0 +1,29 @@
+{% if type %}
+    {% url url type=type as link %}
+{% elif key %}
+    {% url url key=key as link %}
+{% else %}
+    {% url url as link %}
+{% endif %}
+
+{% if link %}
+    <a
+        class="
+            nav-link
+            {# links to currently shown page are different (only those without an anchor) #}
+            {% if request.path == link and not anchor %}
+                active
+            {% endif %}
+            {{ class }}
+        "
+        {% if request.path == link and not anchor %}
+            aria-current="page"
+        {% else %}
+            href="{{ link }}{{ anchor }}"
+        {% endif %}
+    >
+        {{ link_text }}
+    </a>
+{% elif debug %}
+    <span class="nav-link" style="color:red;background-color:yellow;">No URL for {{ url }}:{{ type }}</span>
+{% endif %}

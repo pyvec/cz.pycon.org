@@ -1,0 +1,110 @@
+{% comment %}
+This is a base menu template containing all items,
+other menus mostly remove these links when not needed.
+
+If you want to remove a menu item globally, comment it out here.
+
+{% endcomment %}
+{% block all %}
+    {% block basic %}
+
+<!--        {% block link_home %}-->
+<!--            {% include '__nav_link.html' with url='homepage' link_text='Home' links_to_homepage=True %}-->
+<!--        {% endblock %}-->
+
+        {% block link_about_city %}
+            {% if phases.city_info == 'published' %}
+                {% include '__nav_link.html' with url='city' link_text='Ostrava' %}
+            {% endif %}
+        {% endblock %}
+
+        {% block link_venue %}
+            {% if phases.date_venue == 'venue_details' %}
+                {% include '__nav_link.html' with url='venue' link_text='Venue' %}
+            {% endif %}
+        {% endblock %}
+
+        {% block link_tickets %}
+            {% if phases.ticket_sale == 'launched' %}
+                {% include '__nav_link.html' with url='tickets' link_text='Tickets' class='pc-nav-link-highlight' %}
+            {% endif %}
+        {% endblock %}
+
+        {% block link_call_for_papers %}
+            {% if phases.cfp == 'launched' %}
+                {% include '__nav_link.html' with url='proposals' link_text='Call for Papers' %}
+            {% endif %}
+        {% endblock %}
+
+        {% block link_financial_aid %}
+            {% if phases.finaid != 'not_launched' %}
+                {% include '__nav_link.html' with url='proposal_about' key='financial-aid' link_text='Financial Aid' %}
+            {% endif %}
+        {% endblock %}
+
+
+        {% block sessions %}
+
+            {% block link_talks %}
+                {% if phases.talks != 'not_public' %}
+                    {% include '__nav_link.html' with url='talks_list' link_text='Talks' %}
+                {% endif %}
+            {% endblock %}
+
+            {% block link_workshops %}
+                {% if phases.workshops != 'not_public' %}
+                    {% include '__nav_link.html' with url='workshops_list' link_text='Workshops' %}
+                {% endif %}
+            {% endblock %}
+
+            {% block link_schedule %}
+                {% if phases.schedule != 'not_public' %}
+                    {% include '__nav_link.html' with url='programme_schedule' link_text='Schedule' %}
+                {% endif %}
+            {% endblock %}
+
+        {% endblock %}
+
+    {% endblock %}
+
+
+    {% block secondary %}
+
+        {% block other %}
+
+            {% block link_board_game_night %}
+                {% if phases.board_game_night == 'details_public' %}
+                    {% include '__nav_link.html' with url='board_game_night' link_text='Board Game Night' %}
+                {% endif %}
+            {% endblock %}
+
+            {% block link_team %}
+                {% include '__nav_link.html' with url='team_list' link_text='Team' %}
+            {% endblock %}
+
+            {% block link_sponsors %}
+                {% if phases.sponsors == 'details_public' %}
+                    {% include '__nav_link.html' with url='sponsors_list' link_text='Sponsors' %}
+                {% endif %}
+            {% endblock %}
+
+<!--            {% block link_sponsorship %}-->
+<!--                {% if phases.sponsorship == 'prospectus_available' %}-->
+<!--                    {% include '__nav_link.html' with url='homepage' link_text='Sponsorship' anchor='#sponsors' %}-->
+<!--                {% elif phases.sponsorship == 'dedicated_page' %}-->
+<!--                    {% include '__nav_link.html' with url='sponsors_offer' link_text='Sponsorship' %}-->
+<!--                {% endif %}-->
+<!--            {% endblock %}-->
+
+            {% block link_coc %}
+                {% include '__nav_link.html' with url='coc' link_text='Code of Conduct' %}
+            {% endblock %}
+
+            {% block link_privacy_policy %}
+                {% include '__nav_link.html' with url='privacy_policy' link_text='Privacy Policy' %}
+            {% endblock %}
+
+        {% endblock %}
+
+    {% endblock %}
+{% endblock %}
