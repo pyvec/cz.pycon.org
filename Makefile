@@ -26,3 +26,7 @@ shell:
 # TODO: fix linters in Docker
 lint:
 	docker-compose run --rm web bash -c "isort . && black . & ruff"
+
+# create a superuser to log in to Django admin & Wagtail
+create-user:
+	docker-compose run web python manage.py createsuperuser

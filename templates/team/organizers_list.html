@@ -4,19 +4,14 @@
 
 {% block meta_title %}PyCon CZ Team – {{ block.super }}{% endblock %}
 
+{% load wagtailcore_tags %}
 
 {% block main %}
     <div class="container pb-5">
         <h1>PyCon&nbsp;CZ Team</h1>
-        <div class="row">
-            <div class="col-sm">
-                <p class="lead">PyCon is a&nbsp;community event. There are more than 30&nbsp;people on our Slack channel and even more volunteers helped us by sending pull requests on GitHub.</p>
-                <p class="h3">We are here for <strong>you</strong>!</p>
-                <p class="lead">The main contact is <a href="mailto:info@pycon.cz">info@pycon.cz</a>.</p>
-            </div>
-            <div class="col-sm">
-                <p>If you drew the organization structure of the PyCon CZ team, <strong>you — the attendee</strong> would be at the top. The incredible amount of volunteers would follow. There's little or no difference between organizers and volunteers, because we all do it in our free time without any claim for wage. {% comment %}Below is a list of our core team members.{% endcomment %}</p>
-            </div>
+        <div class="team-content">
+            {{ team_page.content|richtext }}
+        </div>
         </div>
 
         <div class="card-columns">

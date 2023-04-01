@@ -22,15 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-gijk%bb1-ss)p92h0(-ai2l4!j44vsjs+4ez+^v-f=k!&dtwh8"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-if DEBUG:
-    ALLOWED_HOSTS = ["0.0.0.0"]
-else:
-    ALLOWED_HOSTS = ["cz.pycon.org", "pycon.cz"]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +32,17 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.conf.urls",
+    "wagtail.contrib.modeladmin",
+    "wagtail.core",
+    "wagtail.admin",
+    "wagtail.documents",
+    "wagtail.snippets",
+    "wagtail.users",
+    "wagtail.images",
+    "wagtail.embeds",
+    "wagtail.search",
+    "wagtail.sites",
+    "taggit",
     "team",
 ]
 
@@ -53,6 +55,16 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+if DEBUG:
+    ALLOWED_HOSTS = ["0.0.0.0"]
+    # INSTALLED_APPS.append('debug_toolbar')
+    # MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+else:
+    ALLOWED_HOSTS = ["cz.pycon.org", "pycon.cz"]
 
 ROOT_URLCONF = "urls"
 
@@ -119,3 +131,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# WagTail settings
+WAGTAILADMIN_BASE_URL = ""
+WAGTAIL_SITE_NAME = "pycon"
+APPEND_SLASH = True
+
+# Media settings
+TMP_DIR = os.path.join(BASE_DIR, "..", "tmp")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(TMP_DIR, "media")
