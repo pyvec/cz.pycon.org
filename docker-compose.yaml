@@ -9,7 +9,7 @@ services:
       - db:/app/db
     ports:
       - "8000:8000"
-
+    tty: true
 volumes:
   db:
 
