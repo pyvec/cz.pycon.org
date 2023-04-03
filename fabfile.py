@@ -3,29 +3,19 @@ from fabric.api import task, cd, env, run
 PROJECT_ROOT = '/srv/app/'
 DOCKER_IMAGE_NAME = 'pycon'
 
-env.hosts = []
+def _deploy(c, branch='main'):
+    with c.cd(PROJECT_ROOT):
+        c.run("ssh-agent bash -c 'ssh-add ~/.ssh/github_pyconcz && git fetch'")
+        c.run(f'git reset --hard origin/{branch}')
+        c.run(f'docker build -t {DOCKER_IMAGE_NAME} .')
+        c.run(f'docker run -d -p 8000:8000 --name {DOCKER_IMAGE_NAME} {DOCKER_IMAGE_NAME}')
+        c.run('supervisorctl restart app')
 
-@task
-def beta():
-    env.hosts = ['app@node-13.rosti.cz:13128']
-    env.environment = 'beta'
-    env.branch = 'main'
+@task(hosts=['app@node-13.rosti.cz:13128'])
+def beta(c, branch='main'):
+    _deploy(c, branch=branch)
 
 
-def restart():
-    run('supervisorctl restart app')
-
-
-@task
-def deploy():
-    with cd(PROJECT_ROOT):
-        run('git pull origin %s' % env.branch)
-
-    # Build the Docker image
-    run('docker build -t %s .' % DOCKER_IMAGE_NAME)
-
-    # Start the container
-    run('docker run -d -p 8000:8000 --name %s %s' % (DOCKER_IMAGE_NAME, DOCKER_IMAGE_NAME))
-
-    # Restart the supervisor service
-    restart()
+@task(hosts=['app@node-12.rosti.cz:12768'])
+def deploy(c, branch='main'):
+    _deploy(c, branch=branch)
