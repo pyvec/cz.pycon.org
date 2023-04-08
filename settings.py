@@ -61,8 +61,6 @@ DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = ["0.0.0.0"]
-    # INSTALLED_APPS.append('debug_toolbar')
-    # MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 else:
     ALLOWED_HOSTS = ["cz.pycon.org", "pycon.cz"]
 
@@ -91,7 +89,14 @@ WSGI_APPLICATION = "wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME", "pycon"),
+        "USER": os.environ.get("DB_USER", "postgres"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
+        "HOST": os.environ.get("DB_HOST", "db"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
+    }
 }
 
 

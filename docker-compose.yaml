@@ -2,14 +2,26 @@ version: "3"
 
 services:
   web:
-    build: .
     command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/app
-      - db:/app/db
+    build: .
     ports:
       - "8000:8000"
     tty: true
-volumes:
+    depends_on:
+      - db
+    environment:
+      DEBUG: 1
+    volumes:
+      - .:/app
   db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pycon
+volumes:
+  postgres_data:
+
 
