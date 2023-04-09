@@ -18,5 +18,7 @@ from django.urls import include, re_path
 
 urlpatterns = [
     re_path("admin/", admin.site.urls),
+    re_path(r"^wagtail/", include("wagtail.admin.urls")),
     re_path(r"^team/", include("team.urls")),
+    re_path(r"^sponsors/", include("sponsors.urls")),
 ]

@@ -1,0 +1,26 @@
+{% load sponsors_tags %}
+
+{% get_sponsors as sponsors %}
+
+{% regroup sponsors by get_level_display as sponsors_list %}
+
+{% if sponsors %}
+    <section class="pc-sponsors">
+        {% for level in sponsors_list %}
+            <h2 class="h3 mb-5 text-center {% if forloop.first %}mt-2{% endif %}">{{ level.grouper }}</h2>
+            <div class="pc-sponsors-list">
+                {% for sponsor in level.list %}
+                    <a href="{{ sponsor.link_url }}"
+                       class="pc-sponsors-item pc-sponsors-item-{{ level.grouper|lower }}"
+                    >
+                        {% if sponsor.logo %}
+                            <img class="img-fluid pc-img-fluid-svg" src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
+                        {% else %}
+                            {{ sponsor.name }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </section>
+{% endif %}

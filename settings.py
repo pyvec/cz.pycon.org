@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "wagtail.sites",
     "taggit",
     "team",
+    "sponsors",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,7 @@ MIDDLEWARE = [
 DEBUG = True
 
 if DEBUG:
-    ALLOWED_HOSTS = ["0.0.0.0"]
+    ALLOWED_HOSTS = ["*"]
 else:
     ALLOWED_HOSTS = ["cz.pycon.org", "pycon.cz"]
 
