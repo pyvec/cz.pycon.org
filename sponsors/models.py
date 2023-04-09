@@ -25,7 +25,7 @@ class Sponsor(models.Model):
     )
 
     description = models.TextField(
-        null=True, blank=True, help_text="Markdown formatted"
+        null=True, blank=True, help_text="markdown formatted"
     )
     link_url = models.URLField()
     twitter = models.URLField(null=True, blank=True, help_text="full URL")

@@ -21,4 +21,5 @@ urlpatterns = [
     re_path(r"^wagtail/", include("wagtail.admin.urls")),
     re_path(r"^team/", include("team.urls")),
     re_path(r"^sponsors/", include("sponsors.urls")),
+    re_path(r"^announcements/", include("announcements.urls")),
 ]

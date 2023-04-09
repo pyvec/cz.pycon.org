@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "taggit",
     "team",
     "sponsors",
+    "announcements",
 ]
 
 MIDDLEWARE = [

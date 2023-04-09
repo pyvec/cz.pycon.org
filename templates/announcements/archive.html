@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+
+{% load formatting %}
+
+
+{% block body %}
+    <div class="container">
+        <h1>Annoucements</h1>
+        {% for announcement in announcements %}
+            <div class="mb-4 p-3 {% if announcement.is_public %}bg-secondary text-dark{% else %}bg-warning{% endif %}">
+                <h2 class="mt-0 mb-3">
+                    <span class="badge badge-dark">position: {{ announcement.position }}</span>
+
+                    {% if announcement.is_public %}
+                        <span class="badge badge-success">public</span>
+                    {% else %}
+                        <span class="badge badge-danger">hidden</span>
+
+                    {% endif %}
+                    <span class="badge badge-info">font size: {{ announcement.font_size }}</span>
+                </h2>
+                <div class="p-3 bg-dark text-white">
+                    {{ announcement.message|markdown }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
