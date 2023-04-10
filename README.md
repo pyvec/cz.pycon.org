@@ -27,7 +27,7 @@ In case you want to access admin page, either Django or Wagtail ones, you need t
 make create-user
 ```
 
-The development server runs at the address http://0.0.0.0:8000/, team admin at http://0.0.0.0:8000/team/admin and Wagtail admin at http://0.0.0.0:8000/team/wagtail for the time being. Other apps will be added later.
+The development server runs at the address http://0.0.0.0:8000/, admin at http://0.0.0.0:8000/xx/admin and Wagtail admin at http://0.0.0.0:8000/xx/wagtail.
 
 
 
