@@ -22,4 +22,6 @@ urlpatterns = [
     re_path(r"^team/", include("team.urls")),
     re_path(r"^sponsors/", include("sponsors.urls")),
     re_path(r"^announcements/", include("announcements.urls")),
+    re_path(r"^program/", include("program.urls")),
+    re_path(r"^intermissions/", include("intermissions.urls")),
 ]

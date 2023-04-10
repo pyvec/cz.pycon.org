@@ -1,0 +1,156 @@
+{% extends 'program/_base_list.html' %}
+
+
+{% load formatting %}
+
+
+{% block meta_title %}Preview – {{ block.super }}{% endblock %}
+
+
+{% block main %}
+    <div class="container">
+
+        {% for speaker in speakers %}
+
+            <div class="row bg-white my-6" id="speaker-{{ speaker.id }}">
+                <div class="col-12">
+                    <p class="display-4 mt-4">
+                        {{ speaker.full_name }} <a class="btn btn-sm btn-dark mt-2" href="/admin/programme/speaker/{{ speaker.id }}/change/">edit in admin</a>
+                        <a class="ml-5 text-black-50 small" href="#speaker-{{ speaker.id }}"># link here</a>
+                    </p>
+                    <p class="h3 m-0">
+                        {% if speaker.is_public %}
+                            <span class="badge badge-success">public</span>
+                        {% else %}
+                            <span class="badge badge-warning">not public</span>
+                        {% endif %}
+                    <p>
+                        Twitter
+                        {% if speaker.twitter %}
+                            <a href="https://twitter.com/{{ speaker.twitter }}">https://twitter.com/{{ speaker.twitter }}</a>
+                        {% else %}
+                            <span class="badge badge-warning">not set</span>
+                        {% endif %}
+
+                        <br>GitHub
+                        {% if speaker.github %}
+                            <a href="https://github.com/{{ speaker.github }}">https://github.com/{{ speaker.github }}</a>
+                        {% else %}
+                            <span class="badge badge-warning">not set</span>
+                        {% endif %}
+                    </p>
+
+                </div>
+                <div class="col">
+                    {% with words=speaker.bio|markdown|striptags|wordcount %}
+                        <p class="h3 p-3 text-white {% if words < 40 or words > 100 %}bg-danger{% else %}bg-white{% endif %}">
+                            Bio has
+                            <b>{{ words }}</b>&nbsp;words
+                            {% if words < 40 %}
+                                But should be more than 50 words.
+                            {% elif words > 100 %}
+                                But should be less than 90 words.
+                            {% endif %}
+                        </p>
+                    {% endwith %}
+
+                    <div class="bg-secondary p-3 mb-4">
+                        {{ speaker.bio|markdown }}
+                    </div>
+
+                    {% if session.is_keynote %}
+                        {% with words=speaker.short_bio|markdown|striptags|wordcount %}
+                            <p class="h3 p-3 text-white {% if words < 40 or words > 90 %}bg-danger{% else %}bg-white{% endif %}">
+                                Short Bio (for homepage) has
+                                <b>{{ words }}</b>&nbsp;words
+                                {% if words < 40 %}
+                                    But should be more than 50 words.
+                                {% elif words > 90 %}
+                                    But should be less than 80 words.
+                                {% endif %}
+                            </p>
+                        {% endwith %}
+
+                        <div class="bg-secondary p-3 mb-4">
+                            {{ speaker.short_bio|markdown }}
+                        </div>
+                    {% endif %}
+
+                    <p class="h3 mt-0 p-3 text-white {% if speaker.photo.width < 880 or speaker.photo.height < 880 %}bg-danger{% else %}bg-white{% endif %}">
+                        Photo is
+                        {{ speaker.photo.width }}&nbsp;px × {{ speaker.photo.height }}&nbsp;px
+                        {% if speaker.photo.width != speaker.photo.height %}
+                            But should be a&nbsp;square 880×880 pixels.
+                        {% elif speaker.photo.width < 880 or speaker.photo.height < 880 %}
+                            But should be a&nbsp;square 880×880 pixels.
+                        {% endif %}
+                    </p>
+
+                    <img src="{{ speaker.photo.url }}" alt="" class="img-fluid pc-img-effect mb-3 border border-primary" style="width: 440px;">
+
+                </div>
+                <div class="col-6 bg-dark">
+                    {% include 'program/__preview_session.html' with sessions=speaker.talks.all %}
+                    {% include 'program/__preview_session.html' with sessions=speaker.workshops.all %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <table>
+        <tr>
+            <th>id</th>
+            <th>full_name</th>
+            <th>twitter</th>
+            <th>talk_published</th>
+            <th>talk_title</th>
+            <th>talk_link</th>
+            <th>workshop_published</th>
+            <th>workshop_title</th>
+            <th>workshop_link</th>
+        </tr>
+        {% for speaker in speakers %}
+            <tr>
+                <td>{{ speaker.id }}</td>
+                <td>{{ speaker.full_name }}</td>
+                <td>{{ speaker.twitter }}</td>
+                <td>
+                    {% for session in speaker.talks.all %}
+                        {% if forloop.counter > 1 %} <br> {% endif %}
+                        {{ session.is_public }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for session in speaker.talks.all %}
+                        {% if forloop.counter > 1 %} <br> {% endif %}
+                        {{ session.title }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for session in speaker.talks.all %}
+                        {% if forloop.counter > 1 %} <br> {% endif %}
+                        https://{{ request.get_host }}{% url 'session_detail' type=session.type session_id=session.id %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for session in speaker.workshops.all %}
+                        {% if forloop.counter > 1 %} <br> {% endif %}
+                        {{ session.is_public }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for session in speaker.workshops.all %}
+                        {% if forloop.counter > 1 %} <br> {% endif %}
+                        {{ session.title }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for session in speaker.workshops.all %}
+                        {% if forloop.counter > 1 %} <br> {% endif %}
+                        https://{{ request.get_host }}{% url 'session_detail' type=session.type session_id=session.id %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

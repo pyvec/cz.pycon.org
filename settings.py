@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "team",
     "sponsors",
     "announcements",
+    "program",
+    "intermissions",
 ]
 
 MIDDLEWARE = [

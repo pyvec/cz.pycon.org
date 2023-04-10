@@ -1,0 +1,18 @@
+{% load formatting %}
+{% load static %}
+
+<div class="pc-intermission-content">
+    {% if announcements %}
+        <div class="mt-6">
+            {% for announcement in announcements %}
+                <div class="pc-intermission-announcement display-{{ announcement.font_size }} py-5">
+                    {{ announcement.message|markdown }}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="d-flex h-100 pb-5">
+            <img class="pc-img-fluid-svg w-100" src="{% static 'img/pycon19-logo.svg' %}" alt="">
+        </div>
+    {% endif %}
+</div>

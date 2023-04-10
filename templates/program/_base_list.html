@@ -1,0 +1,128 @@
+{% extends '_layout.html' %}
+
+
+{% load formatting %}
+{% load static %}
+
+
+{% block meta_social_customizable_image %}{% static 'img/social-media-image-1200x630-speakers.jpg' %}{% endblock %}
+
+
+{% block main %}
+    <div class="container pb-5">
+
+        <h1>{% block speakers_title %}{% endblock %}</h1>
+
+        {% block top_info %}
+            {% if more_to_come %}
+                <p class="lead">
+                    Here’s a&nbsp;<strong>taste</strong> of what and who you will see at PyCon&nbsp;CZ.
+                    <br><b>More will be announced soon.</b>
+                </p>
+            {% endif %}
+        {% endblock %}
+
+        <div class="card-columns d-block">
+            {% for session in sessions %}
+                <div class="card pc-session-list bg-transparent">
+                    <a
+                        class="
+                            card-img-overlay
+                            pc-img-effect-dark-fallback
+                            text-white text-decoration-none
+                            d-flex flex-column flex-wrap align-items-stretch
+                        "
+                        {% block detail_link %}
+                        href="{% url 'session_detail' type=session.type session_id=session.id %}#main"
+                        {% endblock %}
+                    >
+                        <div class="pc-session-list-speaker d-flex flex-column justify-content-between">
+                            <h2 class="card-title pc-session-list-list-heading">
+                                {{ session.title }}
+                            </h2>
+
+                            <p class="card-text font-weight-bold">
+                                {{ session.speakers.0.full_name }}
+                            </p>
+                        </div>
+
+                        {% for speaker in session.speakers %}
+                            {% if forloop.counter0 > 0 %}
+                                <div class="pc-session-list-speaker">
+                                    <p class="card-text font-weight-bold">
+                                        {{ speaker.full_name }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if session.in_data_track %}
+                            <div class="pc-session-list-pydata">
+                                <div class="pc-session-list-pydata-holder">
+                                    <span class="pc-session-list-pydata-text">Is part of the PyData&nbsp;track</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </a>
+
+
+                    {% for speaker in session.speakers %}
+                        <div
+                            class="embed-responsive
+                                {% if session.speakers|length > 1 %}
+                                    pc-embed-responsive-1by1-pb-3
+                                {% else %}
+                                    embed-responsive-1by1
+                                {% endif %}
+                            "
+                        >
+                            <img
+                                src="{{ speaker.photo.url }}"
+                                class="embed-responsive-item pc-object-fit-cover pc-img-effect-dark"
+                                alt=""
+                            >
+                        </div>
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+
+            {% if more_to_come %}
+                <div class="card pc-session-list bg-primary pc-box-shadow-dark">
+                    <a class="
+                            card-img-overlay
+                            text-white text-decoration-none
+                            d-flex flex-column flex-wrap align-items-stretch
+                    ">
+                        <div class="pc-session-list-speaker d-flex flex-column justify-content-between">
+                            <h2 class="card-title pc-session-list-list-heading">
+                                That’s not all!
+                            </h2>
+                            <p class="card-text font-weight-bold">
+                                We have more {% block more_sessions_name %}sessions{% endblock %} to&nbsp;be&nbsp;announced
+                            </p>
+                        </div>
+                    </a>
+                    <div class="embed-responsive embed-responsive-1by1"></div>
+                </div>
+            {% endif %}
+
+            {% block other_sessions %}
+                <div class="card pc-session-list bg-white pc-box-shadow">
+                    <a
+                        href="{{ other_session_url }}"
+                        class="card-img-overlay d-flex flex-column flex-wrap align-items-stretch"
+                    >
+                        <div class="pc-session-list-speaker d-flex flex-column justify-content-end">
+                            <p class="card-text font-weight-bold">
+                                See our {{ other_session_name }}
+                            </p>
+                        </div>
+                    </a>
+                    <div class="embed-responsive embed-responsive-1by1"></div>
+                </div>
+            {% endblock %}
+        </div>
+
+    </div>
+{% endblock %}

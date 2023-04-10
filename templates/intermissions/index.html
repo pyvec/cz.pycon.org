@@ -1,0 +1,93 @@
+{% extends '_base.html' %}
+
+
+{% load static %}
+
+
+{% block meta_title %}Intermissions – {{ block.super }}{% endblock %}
+
+
+{% block body_extras %}style="overflow:hidden;"{% endblock %}
+
+
+{% block body %}
+    <main role="main" class="pc-intermission" id="intermission-content"></main>
+{% endblock %}
+
+
+{% block after_scripts_loaded %}
+    <script>
+        $(document).ready(function(){
+            var urls = [
+                '{% url 'intermissions:announcements' %}',
+                '{% url 'intermissions:slido' %}',
+
+                '{% url 'intermissions:sponsors' level='platinum' %}',
+
+                '{% url 'intermissions:announcements' %}',
+                '{% url 'intermissions:slido' %}',
+
+                '{% url 'intermissions:sponsors' level='gold' %}',
+
+                '{% url 'intermissions:sponsors' level='silver' %}',
+
+                '{% url 'intermissions:announcements' %}',
+                '{% url 'intermissions:slido' %}',
+
+                '{% url 'intermissions:sponsors' level='bronze' %}',
+
+                '{% url 'intermissions:sponsors' level='partners' %}',
+
+            ];
+
+            function cycle(delay, f, xs){
+                var now = -1;
+                var active = true;
+                var show_current = function(){
+                    f(xs[now]);
+                };
+                var next = function(){
+                    now++;
+                    if (now >= xs.length) now = 0;
+                    show_current();
+                };
+                var prev = function(){
+                    now--;
+                    if (now < 0) now = xs.length - 1;
+                    show_current();
+                };
+                var run = function(){
+                    if (active) next();
+                    setTimeout(run, delay);
+                };
+                run();
+
+                function handle_keydown(event){
+                    if (['ArrowDown', 'ArrowLeft', 'PageDown'].includes(event.key)){
+                        active = false;
+                        next();
+                    }
+                    if (['ArrowUp', 'ArrowRight', 'PageUp'].includes(event.key)){
+                        active = false;
+                        prev();
+                    }
+                    if ([' '].includes(event.key)){
+                        active = true;
+                        show_current();
+                    }
+                }
+
+                document.addEventListener('keydown', handle_keydown, false);
+            }
+
+            function fetch_content(url){
+                $.get(url, function(data){
+                    $('#intermissions-content').hide().html(data).fadeIn(300);
+                });
+            }
+
+            cycle({{ interval }}, fetch_content, urls);
+        });
+    </script>
+
+{% endblock %}
