@@ -30,3 +30,7 @@ lint:
 # create a superuser to log in to Django admin & Wagtail
 create-user:
 	docker compose run web python manage.py createsuperuser
+
+# default WagTail content used only on localhost
+default-content:
+	docker compose run web python content/default_content.py
