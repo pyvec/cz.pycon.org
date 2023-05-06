@@ -8,7 +8,7 @@ class Speaker(models.Model):
     twitter = models.CharField(max_length=255, blank=True)
     github = models.CharField(max_length=255, blank=True)
     email = models.EmailField()
-    photo = models.ImageField(upload_to="program/speakers/")
+    photo = models.ImageField()
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
     workshops = models.ManyToManyField(
         "Workshop", blank=True, related_name="workshop_speakers"
@@ -56,7 +56,6 @@ class Session(models.Model):
         default="", blank=True, help_text="DO NOT SHOW ON WEBSITE"
     )
     og_image = models.ImageField(
-        upload_to="programme/images",
         null=True,
         blank=True,
         help_text="og:image (social media image) 1200×630 pixels",

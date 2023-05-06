@@ -21,7 +21,7 @@ class Sponsor(models.Model):
 
     name = models.CharField(max_length=200, unique=True)
     logo = models.FileField(
-        null=True, blank=True, upload_to="sponsors/images/", help_text="SVG only"
+        null=True, blank=True, help_text="SVG only"
     )
 
     description = models.TextField(

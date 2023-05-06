@@ -7,3 +7,6 @@ django-taggit
 psycopg2-binary
 markdown
 typer
+dj-database-url
+gunicorn
+whitenoise

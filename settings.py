@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-gijk%bb1-ss)p92h0(-ai2l4!j44vsjs+4ez+^v-f=k!&dtwh8"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Application definition
 
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -92,23 +94,8 @@ WSGI_APPLICATION = "wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-database_options = {
-    "ENGINE": "django.db.backends.postgresql",
-}
-
-if os.environ.get("DATABASE_URL"):
-    database_options["DATABASE_URL"] = os.environ.get("DATABASE_URL")
-else:
-    database_options.update({
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
-    })
-
 DATABASES = {
-    "default": database_options
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL')),
 }
 
 
@@ -142,7 +129,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -152,9 +139,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # WagTail settings
 WAGTAILADMIN_BASE_URL = ""
 WAGTAIL_SITE_NAME = "pycon"
+WAGTAIL_STATIC_URL = '/static/wagtail/'
 APPEND_SLASH = True
 
 # Media settings
-TMP_DIR = os.path.join(BASE_DIR, "..", "tmp")
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(TMP_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+CSRF_TRUSTED_ORIGINS = ['https://pycon-cz-beta.fly.dev']
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
