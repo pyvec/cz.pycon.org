@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for pycon-cz-beta on 2023-05-06T11:54:53+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "pycon-cz-beta"
+primary_region = "ams"
+
+[deploy]
+  release_command = "python manage.py migrate"
+
+[env]
+  PORT = "8000"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+[[statics]]
+  guest_path = "/code/static"
+  url_prefix = "/static/"
