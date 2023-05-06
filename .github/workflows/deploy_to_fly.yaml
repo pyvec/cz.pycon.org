@@ -1,0 +1,21 @@
+name: Deploy to Fly.io
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Fly CLI
+      run: |
+        curl -L https://fly.io/install.sh | sudo sh
+        echo ${{ secrets.FLY_API_TOKEN }} | fly login --stdin
+
+    - name: Deploy to Fly.io
+      run: fly deploy --remote-only
