@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -95,7 +96,7 @@ WSGI_APPLICATION = "wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL')),
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
 }
 
 
@@ -139,13 +140,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # WagTail settings
 WAGTAILADMIN_BASE_URL = ""
 WAGTAIL_SITE_NAME = "pycon"
-WAGTAIL_STATIC_URL = '/static/wagtail/'
+WAGTAIL_STATIC_URL = "/static/wagtail/"
 APPEND_SLASH = True
 
 # Media settings
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "data/mediafiles")
 
-CSRF_TRUSTED_ORIGINS = ['https://pycon-cz-beta.fly.dev']
+CSRF_TRUSTED_ORIGINS = ["https://pycon-cz-beta.fly.dev"]
 
+# WhiteNoise for serving static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

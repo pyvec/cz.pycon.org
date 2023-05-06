@@ -21,3 +21,11 @@ primary_region = "ams"
 [[statics]]
   guest_path = "/code/static"
   url_prefix = "/static/"
+
+[mounts]
+  source="django_images_data"
+  destination="/code/data"
+
+[regions]
+allow = ["ams"]
+

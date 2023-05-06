@@ -14,7 +14,7 @@ services:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/pycon
       SECRET_KEY: "django-insecure-gijk%bb1-ss)p92h0(-ai2l4!j44vsjs+4ez+^v-f=k!&dtwh8"
     volumes:
-      - .:/app
+      - .:/code
   db:
     image: postgres:14
     volumes:

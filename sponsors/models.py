@@ -20,9 +20,7 @@ class Sponsor(models.Model):
     level = models.IntegerField(choices=LEVELS, default=3)
 
     name = models.CharField(max_length=200, unique=True)
-    logo = models.FileField(
-        null=True, blank=True, help_text="SVG only"
-    )
+    logo = models.FileField(null=True, blank=True, help_text="SVG only")
 
     description = models.TextField(
         null=True, blank=True, help_text="markdown formatted"

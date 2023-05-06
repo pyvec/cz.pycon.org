@@ -198,8 +198,10 @@ class Migration(migrations.Migration):
                     models.TextField(
                         blank=True,
                         default="",
-                        help_text="include even the most obvious stuff: laptops, GIT, Python",
-                        verbose_name="What should attendees bring, install and know?",
+                        help_text="include even the most obvious stuff: "
+                        "laptops, GIT, Python",
+                        verbose_name="What should attendees bring, "
+                        "install and know?",
                     ),
                 ),
                 (
@@ -213,7 +215,8 @@ class Migration(migrations.Migration):
                             ("1d", "Full day (most sprints go here!)"),
                             (
                                 "xx",
-                                "Something else! (Please leave a note in the abstract!)",
+                                "Something else! "
+                                "(Please leave a note in the abstract!)",
                             ),
                         ],
                         max_length=2,
