@@ -46,6 +46,15 @@ The development server runs at the address http://0.0.0.0:8000/. Beta instance o
 ### Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.
 
+### Debugging 
+<details>
+  <summary>How to restart machine in fly.io if something gets stuck</summary>
+
+```
+fly machines list --app pycon-cz-beta-db
+fly machines restart machine-id --app pycon-cz-beta-db
+```
+</details>
 
 
 
