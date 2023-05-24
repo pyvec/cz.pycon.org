@@ -147,7 +147,10 @@ APPEND_SLASH = True
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "data/mediafiles")
 
-CSRF_TRUSTED_ORIGINS = ["https://pycon-cz-beta.fly.dev"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://pycon-cz-beta.fly.dev",
+    "https://pycon-cz-prod.fly.dev",
+]
 
 # WhiteNoise for serving static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
