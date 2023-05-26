@@ -2,18 +2,18 @@ ARG PYTHON_VERSION=3.10-slim-buster
 
 FROM python:${PYTHON_VERSION}
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-RUN mkdir -p /code
-
+# Workdir is created automatically when necessary.
 WORKDIR /code
 
-COPY requirements.txt /tmp/requirements.txt
-RUN set -ex && \
-    pip install --upgrade pip && \
-    pip install -r /tmp/requirements.txt && \
-    rm -rf /root/.cache/
+# Use of --mount=type=bind reduces number of layers in the Docker image, while maintaining ability to cache the
+# layer with dependencies depending on the contents of requirements.txt file.
+RUN --mount=type=bind,source=./requirements.txt,target=/tmp/requirements.txt \
+    set -ex && \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r /tmp/requirements.txt
 COPY . /code
 
 EXPOSE 8000
