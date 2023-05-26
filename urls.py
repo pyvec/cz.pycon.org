@@ -16,16 +16,18 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, re_path
+from django.urls import include, path
 
 urlpatterns = [
-    re_path("admin/", admin.site.urls),
-    re_path(r"^wagtail/", include("wagtail.admin.urls")),
-    re_path(r"^team/", include("team.urls")),
-    re_path(r"^sponsors/", include("sponsors.urls")),
-    re_path(r"^announcements/", include("announcements.urls")),
-    re_path(r"^program/", include("program.urls")),
-    re_path(r"^intermissions/", include("intermissions.urls")),
+    path('2023/', include([
+        path("admin/", admin.site.urls),
+        path("wagtail/", include("wagtail.admin.urls")),
+        path("team/", include("team.urls")),
+        path("sponsors/", include("sponsors.urls")),
+        path("announcements/", include("announcements.urls")),
+        path("program/", include("program.urls")),
+        path("intermissions/", include("intermissions.urls")),
+    ])),
 ]
 
 if settings.DEBUG:
