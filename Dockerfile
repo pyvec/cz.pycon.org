@@ -37,6 +37,14 @@ RUN --mount=type=bind,source=./requirements.txt,target=/tmp/requirements.txt \
     echo "error_log /dev/stdout info;" >> /etc/nginx/nginx.conf
 COPY . /code
 
+# Prepare the application
+RUN set -ex; \
+    # Use fake values for required environment variables - manage.py would fail to start without these variables. \
+    export DATABASE_URL=postgres://localhost/fake_db; \
+    export SECRET_KEY=notasecret; \
+    # Collect static files
+    python manage.py collectstatic --noinput;
+
 EXPOSE 8000
 
 CMD ["multirun", "gunicorn --bind unix:/code/gunicorn.sock --workers 2 wsgi", "nginx -g \"daemon off;\""]
