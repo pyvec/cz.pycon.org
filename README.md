@@ -2,7 +2,8 @@
 ## How to run on localhost
 
 ### Prerequisites
-For local development you only need to install Docker. Tested on version 23.0.2. 
+For local development you need Docker and make.
+Tested with Docker version 23.0.2.
 
 For Docker installation manuals check the following links:
 * Ubuntu - install Docker engine using the [apt repository](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository) and add user to `docker` group as described [here](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) so you can run Docker locally as a non-root user
