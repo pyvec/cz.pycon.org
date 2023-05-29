@@ -60,6 +60,13 @@ are already set in the provided `docker-compose.yaml`.
 | `SENTRY_ENVIRONMENT`  | Identifier of the environment for Sentry reporting. Set in `fly.toml` and `fly.prod.toml` for beta and production.                                   |
 | `HTTP_AUTH`           | When set, `nginx` will enable HTTP Basic Auth and use contents of this variable as its htpasswd file. No effect when running with Django dev server. |
 
+## Deployment
+
+We’re using [fly.io](https://fly.io). Deployment is automatic to [cz.pycon.org](https://cz.pycon.org) from `main` branch and to [beta (staging)](https://pycon-cz-beta.fly.dev) from `beta` branch.
+
+For more control [install flyctl](https://fly.io/docs/hands-on/install-flyctl/).
+
+
 ## Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.
 
