@@ -31,7 +31,7 @@ make up
 
 4. You can stop the server by pressing Ctrl+C, optionally you can run 
 ```bash
-make down 
+make down
 ```
 if there are any hanging containers
 
@@ -60,13 +60,13 @@ are already set in the provided `docker-compose.yaml`.
 | `SENTRY_ENVIRONMENT`  | Identifier of the environment for Sentry reporting. Set in `fly.toml` and `fly.prod.toml` for beta and production.                                   |
 | `HTTP_AUTH`           | When set, `nginx` will enable HTTP Basic Auth and use contents of this variable as its htpasswd file. No effect when running with Django dev server. |
 
-### Contributing
+## Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.
 
-### Monitoring
+## Monitoring
 We use [Sentry](https://sentry.monitora.cz/) to monitor both beta and production.
 
-### Debugging 
+## Debugging
 <details>
   <summary>How to restart machine in fly.io if something gets stuck</summary>
 
