@@ -41,8 +41,17 @@ In case you want to access admin page, either Django or Wagtail one, you need to
 make create-user
 ```
 
-The development server runs at the address http://0.0.0.0:8000/. Beta instance on fly.io runs on https://pycon-cz-beta.fly.dev/team/. 
+The development server runs at the address http://0.0.0.0:8000/. Beta instance on fly.io runs on https://pycon-cz-beta.fly.dev/team/.
 
+### Configuration
+
+The application can be configured using the following environment variables. Reasonable defaults for local  development
+are already set in the provided `docker-compose.yaml`.
+
+| Variable       | Description                                                                                                                    |
+|----------------|--------------------------------------------------------------------------------------------------------------------------------|
+| `DATABASE_URL` | *Required.* URL defining database connection parameter. See https://github.com/jazzband/dj-database-url#url-schema for syntax. |
+| `SECRET_KEY`   | *Required.* Secret key for Django, will be used to sign cookies for the admin.                                                 |
 
 ### Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.
