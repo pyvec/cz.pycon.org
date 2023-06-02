@@ -47,4 +47,7 @@ RUN set -ex; \
 
 EXPOSE 8000
 
+ARG SENTRY_RELEASE=dev
+ENV SENTRY_RELEASE=${SENTRY_RELEASE}
+
 CMD ["multirun", "gunicorn --bind unix:/code/gunicorn.sock --workers 2 wsgi", "nginx -g \"daemon off;\""]

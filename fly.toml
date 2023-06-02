@@ -11,6 +11,9 @@ primary_region = "ams"
 
 [env]
   PORT = "8000"
+  SENTRY_ENVIRONMENT = "beta"
+  # Trace all requests in beta for a better performance insights.
+  SENTRY_TRACES_SAMPLE_RATE = "1.0"
 
 [http_service]
   internal_port = 8000
@@ -28,4 +31,3 @@ primary_region = "ams"
 
 [regions]
 allow = ["ams"]
-

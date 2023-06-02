@@ -19,15 +19,20 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('2023/', include([
-        path("admin/", admin.site.urls),
-        path("wagtail/", include("wagtail.admin.urls")),
-        path("team/", include("team.urls")),
-        path("sponsors/", include("sponsors.urls")),
-        path("announcements/", include("announcements.urls")),
-        path("program/", include("program.urls")),
-        path("intermissions/", include("intermissions.urls")),
-    ])),
+    path(
+        "2023/",
+        include(
+            [
+                path("admin/", admin.site.urls),
+                path("wagtail/", include("wagtail.admin.urls")),
+                path("team/", include("team.urls")),
+                path("sponsors/", include("sponsors.urls")),
+                path("announcements/", include("announcements.urls")),
+                path("program/", include("program.urls")),
+                path("intermissions/", include("intermissions.urls")),
+            ]
+        ),
+    ),
 ]
 
 if settings.DEBUG:
