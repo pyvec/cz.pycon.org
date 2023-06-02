@@ -191,3 +191,18 @@ LOGGING = {
         "level": os.getenv("DEFAULT_LOG_LEVEL", "WARNING").upper(),
     },
 }
+
+if "SENTRY_DSN" in os.environ:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=os.getenv("SENTRY_DSN"),
+        release=os.getenv("SENTRY_RELEASE", "dev"),
+        environment=os.getenv("SENTRY_ENVIRONMENT", "development"),
+        integrations=[
+            DjangoIntegration(),
+        ],
+        # Collect traces for 1% of requests by default.
+        traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.01")),
+    )

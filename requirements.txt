@@ -10,3 +10,4 @@ typer
 dj-database-url
 gunicorn
 whitenoise
+sentry-sdk==1.24.0

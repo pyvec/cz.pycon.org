@@ -55,6 +55,9 @@ are already set in the provided `docker-compose.yaml`.
 | `DEBUG`               | Set to `1` or `true` to enable Django debug mode. Debug mode is disabled by default.                                                   |
 | `EXTRA_ALLOWED_HOSTS` | Comma separated list of hosts to allow in addition to the production ones. Can be used for debugging production configuration locally. |
 | `DEFAULT_LOG_LEVEL`   | Log level for the root logger. Can be `DEBUG`, `INFO`, `WARNING` (default), `ERROR`, or `CRITICAL`.                                    |
+| `SENTRY_DSN`          | DSN of the project in Sentry. When not set, Sentry will be disabled.                                                                   |
+| `SENTRY_RELEASE`      | Current release for Sentry reporting. Will be set to a short commit hash during deployment and baked to the Docker container.          |
+| `SENTRY_ENVIRONMENT`  | Identifier of the environment for Sentry reporting. Set in `fly.toml` and `fly.prod.toml` for beta and production.                     |                                                                                                                                    
 
 ### Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.
