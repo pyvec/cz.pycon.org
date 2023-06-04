@@ -18,6 +18,14 @@ down:
 build:
 	docker build -t pycon .
 
+# run bash inside Docker
+bash:
+	$(DC_RUN) web bash
+
+# run manage.py, usage: make manage "[commands and parameters here]"
+manage:
+	$(DC_RUN) web python manage.py $(filter-out $@,$(MAKECMDGOALS))
+
 # run Django migrations
 migrate:
 	$(DC_RUN) web python manage.py migrate
