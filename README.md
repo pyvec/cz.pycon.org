@@ -1,4 +1,5 @@
 # PyCon CZ webpage
+
 ## How to run on localhost
 
 ### Prerequisites
@@ -45,7 +46,7 @@ The development server runs at the address http://0.0.0.0:8000/. Beta instance o
 
 ### Configuration
 
-The application can be configured using the following environment variables. Reasonable defaults for local  development
+The application can be configured using the following environment variables. Reasonable defaults for local development
 are already set in the provided `docker-compose.yaml`.
 
 | Variable              | Description                                                                                                                                          |
@@ -61,11 +62,9 @@ are already set in the provided `docker-compose.yaml`.
 | `HTTP_AUTH`           | When set, `nginx` will enable HTTP Basic Auth and use contents of this variable as its htpasswd file. No effect when running with Django dev server. |
 
 ## Deployment
-
 We’re using [fly.io](https://fly.io). Deployment is automatic to [cz.pycon.org](https://cz.pycon.org) from `main` branch and to [beta (staging)](https://pycon-cz-beta.fly.dev) from `beta` branch.
 
 For more control [install flyctl](https://fly.io/docs/hands-on/install-flyctl/).
-
 
 ## Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.
