@@ -1,4 +1,4 @@
-Django==4.1.7
+Django==4.2.1
 wagtail==5.0.1
 ruff==0.0.260
 isort==5.12.0
