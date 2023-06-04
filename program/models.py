@@ -38,12 +38,13 @@ class Session(models.Model):
     )
     DIFFICULTY = (
         ("beginner", "Beginner"),
+        ("intermediate", "Intermediate"),
         ("advanced", "Advanced"),
     )
 
     type = models.CharField(max_length=10, choices=TYPE)
     language = models.CharField(max_length=2, choices=LANGUAGES, default="en")
-    difficulty = models.CharField(max_length=10, choices=DIFFICULTY, default="beginner")
+    difficulty = models.CharField(max_length=16, choices=DIFFICULTY, default="beginner")
     order = models.SmallIntegerField(
         unique=True, help_text="display order on front-end"
     )

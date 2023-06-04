@@ -34,7 +34,12 @@ RUN --mount=type=bind,source=./requirements.txt,target=/tmp/requirements.txt \
     # Configure logging for nginx
     sed -i 's|access_log /var/log/nginx/access.log;|access_log /dev/stdout combined;|g' /etc/nginx/nginx.conf && \
     sed -i 's|error_log /var/log/nginx/error.log;|error_log /dev/stdout info;|g' /etc/nginx/nginx.conf && \
-    echo "error_log /dev/stdout info;" >> /etc/nginx/nginx.conf
+    echo "error_log /dev/stdout info;" >> /etc/nginx/nginx.conf && \
+    # Prepare configuration required for dynamic configuration based on env. parameters
+    mkdir -p /etc/nginx/pycon-config-enabled/ && \
+    mkdir -p /etc/nginx/pycon-config-available/ && \
+    cp /tmp/nginx-conf/*.inc.conf /etc/nginx/pycon-config-available/
+
 COPY . /code
 
 # Prepare the application
@@ -43,8 +48,13 @@ RUN set -ex; \
     export DATABASE_URL=postgres://localhost/fake_db; \
     export SECRET_KEY=notasecret; \
     # Collect static files
-    python manage.py collectstatic --noinput;
+    python manage.py collectstatic --noinput; \
+    # Make nginx start script executable
+    chmod a+x /code/docker/nginx/start-nginx.sh;
 
 EXPOSE 8000
 
-CMD ["multirun", "gunicorn --bind unix:/code/gunicorn.sock --workers 2 wsgi", "nginx -g \"daemon off;\""]
+ARG SENTRY_RELEASE=dev
+ENV SENTRY_RELEASE=${SENTRY_RELEASE}
+
+CMD ["multirun", "gunicorn --bind unix:/code/gunicorn.sock --workers 2 wsgi", "/code/docker/nginx/start-nginx.sh"]

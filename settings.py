@@ -64,12 +64,25 @@ MIDDLEWARE = [
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "false").casefold() in {"1", "true", "yes", "on", "enabled"}
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
 else:
-    ALLOWED_HOSTS = ["cz.pycon.org", "pycon.cz"]
+    ALLOWED_HOSTS = [
+        "cz.pycon.org",
+        "pycon.cz",
+        # Hosts of fly.io apps, might be removed after all domains are properly set-up.
+        "pycon-cz-beta.fly.dev",
+        "pycon-cz-prod.fly.dev",
+        # Include any additional hosts from the EXTRA_ALLOWED_HOSTS env. variable.
+        # The variable is optional and contains comma-separated list of allowed hosts.
+        *(
+            map(str.strip, os.getenv("EXTRA_ALLOWED_HOSTS").split(","))
+            if "EXTRA_ALLOWED_HOSTS" in os.environ
+            else []
+        ),
+    ]
 
 ROOT_URLCONF = "urls"
 
@@ -154,3 +167,42 @@ CSRF_TRUSTED_ORIGINS = [
 
 # WhiteNoise for serving static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Logging configuration
+# https://docs.djangoproject.com/en/4.2/topics/logging/#configuring-logging
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": "[{asctime}] [{levelname}] [{name}] {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "default",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": os.getenv("DEFAULT_LOG_LEVEL", "WARNING").upper(),
+    },
+}
+
+if "SENTRY_DSN" in os.environ:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=os.getenv("SENTRY_DSN"),
+        release=os.getenv("SENTRY_RELEASE", "dev"),
+        environment=os.getenv("SENTRY_ENVIRONMENT", "development"),
+        integrations=[
+            DjangoIntegration(),
+        ],
+        # Collect traces for 1% of requests by default.
+        traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.01")),
+    )
