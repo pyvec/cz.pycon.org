@@ -6,21 +6,21 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>{% block meta_title %}PyCon CZ 2023, September 08-10, Prague{% endblock %}</title>
+        <title>{% block meta_title %}PyCon CZ 23, 15-17 September, Prague{% endblock %}</title>
 
         {% block meta_head %}
             <meta property="og:type" content="website">
-            <meta property="og:site_name" content="PyCon CZ 2023">
+            <meta property="og:site_name" content="PyCon CZ 23">
             <meta name="twitter:site" content="@pyconcz">
             <meta property="og:url" content="https://{{ request.get_host }}{{ request.path }}">
             {% block meta_social_customizable %}
-                <meta property="og:title" content="PyCon CZ 2023, June 08-10, Prague">
+                <meta property="og:title" content="PyCon CZ 23, 15-17 September, Prague">
                 <meta property="og:description" content="Join us for 3 days full of Python and fun!!!">
                 <meta property="og:image" content="https://{{ request.get_host }}{% block meta_social_customizable_image %}{% static 'img/social-media-image-1200x630.jpg' %}{% endblock %}">
                 <meta property="og:image:width" content="1200">
                 <meta property="og:image:height" content="630">
                 <meta name="twitter:card" content="summary_large_image">
-                <meta name="twitter:image:alt" content="PyCon CZ 2019">
+                <meta name="twitter:image:alt" content="PyCon CZ 23">
             {% endblock %}
         {% endblock %}
 
