@@ -7,7 +7,7 @@ app = "pycon-cz-prod"
 primary_region = "ams"
 
 [deploy]
-  release_command = "bash -c \"python manage.py migrate\""
+  release_command = "bash -c \"npm clean-install && npm run build && python manage.py migrate\""
 
 [env]
   PORT = "8000"

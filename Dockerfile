@@ -15,7 +15,11 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends \
         nginx \
         wget \
+        curl \
+        gnupg \
     ; \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash -; \
+    apt-get install -y nodejs; \
     rm -rf /var/lib/apt/lists/*; \
     # Download multirun - great for running both nginx and gunicorn in a single container, because it correctly forwards
     # all signals sent to the container to individual processes.
