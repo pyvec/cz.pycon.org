@@ -1,10 +1,10 @@
 {% extends '_layout.html' %}
 
+{% load wagtailcore_tags %}
 
 
 {% block meta_title %}PyCon CZ Team – {{ block.super }}{% endblock %}
 
-{% load wagtailcore_tags %}
 
 {% block main %}
     <div class="container pb-5">
@@ -12,36 +12,34 @@
         <div class="team-content">
             {{ team_page.content|richtext }}
         </div>
-        </div>
+    </div>
 
-        <div class="card-columns">
-            {% for organizer in organizers %}
-                <div class="card border-0 mb-4" style="max-width:356px;">
-                    <img src="{{ organizer.photo.url }}" class="card-img-top pc-img-effect" alt="">
-                    <div class="card-body pb-0">
-                        <h2 class="h5 my-0 card-title">{{ organizer.full_name }}</h2>
-                    </div>
-                    <div class="card-footer bg-transparent d-flex align-items-end flex-wrap" style="min-height:5.25rem;">
-                        {% if organizer.twitter %}
-                            <a
-                                class="d-inline-block mr-3 pc-iconlink pc-iconlink-blue pc-iconlink-twitter {% if type == 'keynoter' %}pc-iconlink-blue{% endif %}"
-                                href="https://twitter.com/{{ organizer.twitter }}"
-                            >
-                                {{ organizer.twitter }}
-                            </a>
-                        {% endif %}
-                        {% if organizer.github %}
-                            <a
-                                class="d-inline-block pc-iconlink pc-iconlink-blue pc-iconlink-github {% if type == 'keynoter' %}pc-iconlink-blue{% endif %}"
-                                href="https://github.com/{{ organizer.github }}"
-                            >
-                                {{ organizer.github }}
-                            </a>
-                        {% endif %}
-                    </div>
+    <div class="card-columns">
+        {% for organizer in organizers %}
+            <div class="card border-0 mb-4" style="max-width:356px;">
+                <img src="{{ organizer.photo.url }}" class="card-img-top pc-img-effect" alt="">
+                <div class="card-body pb-0">
+                    <h2 class="h5 my-0 card-title">{{ organizer.full_name }}</h2>
                 </div>
-            {% endfor %}
-        </div>
-
+                <div class="card-footer bg-transparent d-flex align-items-end flex-wrap" style="min-height:5.25rem;">
+                    {% if organizer.twitter %}
+                        <a
+                            class="d-inline-block mr-3 pc-iconlink pc-iconlink-blue pc-iconlink-twitter {% if type == 'keynoter' %}pc-iconlink-blue{% endif %}"
+                            href="https://twitter.com/{{ organizer.twitter }}"
+                        >
+                            {{ organizer.twitter }}
+                        </a>
+                    {% endif %}
+                    {% if organizer.github %}
+                        <a
+                            class="d-inline-block pc-iconlink pc-iconlink-blue pc-iconlink-github {% if type == 'keynoter' %}pc-iconlink-blue{% endif %}"
+                            href="https://github.com/{{ organizer.github }}"
+                        >
+                            {{ organizer.github }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

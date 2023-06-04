@@ -1,0 +1,67 @@
+// Helper styles for easier development
+
+// Breakpoints visualizer
+body::before {
+    z-index: 99999;
+    display: block;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: white;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid black;
+    outline: 1px solid white;
+    -webkit-text-stroke: 1px black;
+    font-weight: 900;
+    font-size: 28px;
+    font-family: "JetBrains Mono", Consolas, monospace;
+
+    content: "xs #{map-get($grid-breakpoints,xs)} to #{map-get($grid-breakpoints,sm)}";
+    background-color: rgba(teal, 0.2);
+
+    @include media-breakpoint-up("sm") {
+        content: "sm #{map-get($grid-breakpoints,sm)} to #{map-get($grid-breakpoints,md)}";
+        background-color: rgba(indigo, 0.2);
+    }
+    @include media-breakpoint-up("md") {
+        content: "md #{map-get($grid-breakpoints,md)} to #{map-get($grid-breakpoints,lg)}";
+        background-color: rgba(red, 0.2);
+    }
+    @include media-breakpoint-up("lg") {
+        content: "lg #{map-get($grid-breakpoints,lg)} to #{map-get($grid-breakpoints,xl)}";
+        background-color: rgba(deeppink, 0.2);
+    }
+    @include media-breakpoint-up("xl") {
+        content: "xl over #{map-get($grid-breakpoints,xl)}";
+        background-color: rgba(orange, 0.2);
+    }
+    @include media-breakpoint-up("xxl") {
+        content: "xxl over #{map-get($grid-breakpoints,xxl)}";
+        background-color: rgba(black, 0.2);
+    }
+}
+
+// Bootstrap Grid system visualizer
+.col,
+[class*="col-"] {
+    outline: 1px dotted rgb(0 0 0 / 30%) !important;
+    outline-offset: -2px;
+}
+
+.row {
+    outline: 2px dashed hsl(300deg 100% 50% / 30%) !important;
+    outline-offset: -1px;
+}
+
+.container,
+.container-xs,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+    outline: 2px solid hsl(120deg 100% 50% / 30%) !important;
+    outline-offset: -1px;
+}

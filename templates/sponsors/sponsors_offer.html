@@ -1,6 +1,6 @@
 {% extends '_layout.html' %}
-{% load wagtailcore_tags %}
 
+{% load wagtailcore_tags %}
 {% load static %}
 
 
@@ -9,38 +9,36 @@
 
 {% block main_classes %}bg-white text-dark{% endblock %}
 
-{% load wagtailcore_tags %}
-
 
 {% block main %}
     <div class="container pb-4">
-            <h1>Sponsor&shy;ship</h1>
+        <h1>Sponsor&shy;ship</h1>
 
-            <div class="row">
+        <div class="row">
 
-                {{ sponsors_offer.about|richtext }}
+            {{ sponsors_offer.about|richtext }}
+
+        </div>
+
+        <div class="row">
+            <div class="col-md">
+
+                <h2 class="mt-2">Sponsorship benefits</h2>
+                {{ sponsors_offer.benefits|richtext }}
+
+                <h2>Custom sponsorship</h2>
+                {{ sponsors_offer.custom_sponsorship|richtext }}
+
+            </div>
+            <div class="col-md">
+                <h2 class="mt-2">Event summary</h2>
+                {{ sponsors_offer.event_summary|richtext }}
+
+                <h2>Contacts</h2>
+                {{ sponsors_offer.contacts|richtext }}
 
             </div>
 
-            <div class="row">
-                <div class="col-md">
-
-                    <h2 class="mt-2">Sponsorship benefits</h2>
-                        {{ sponsors_offer.benefits|richtext }}
-
-                    <h2>Custom sponsorship</h2>
-                        {{ sponsors_offer.custom_sponsorship|richtext }}
-
-                </div>
-                <div class="col-md">
-                    <h2 class="mt-2">Event summary</h2>
-                        {{ sponsors_offer.event_summary|richtext }}
-
-                    <h2>Contacts</h2>
-                        {{ sponsors_offer.contacts|richtext }}
-
-                </div>
-
-            </div>
+        </div>
     </div>
 {% endblock %}

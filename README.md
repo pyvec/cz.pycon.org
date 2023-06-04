@@ -36,7 +36,31 @@ make down
 ```
 if there are any hanging containers
 
-### Admin & WagTail
+### Front end tooling
+This is optional just in the case you need to work with CSS.
+
+#### Instalation
+
+1. Install latest [node.js](https://nodejs.org/)
+
+2. Install all packages from `package.json` locally
+```shell
+npm ci
+```
+
+#### Usage
+To develop with automatic compilation and browser refreshing run
+```shell
+npm start
+```
+And see the result on `http://localhost:3366/`
+
+To build everything once for production
+```shell
+npm run build
+```
+
+### Admin & Wagtail
 In case you want to access admin page, either Django or Wagtail one, you need to create a superuser and log in with its credentials:
 ```bash
 make create-user
