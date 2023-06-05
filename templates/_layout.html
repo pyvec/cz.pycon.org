@@ -5,30 +5,36 @@
 
 {% block body %}
 
-    {% include '_menu_top.html' %}
-
+    <div class="container pt-2">
+        {% include '_menu_top.html' %}
+    </div>
 
     {% block header %}
-        <div class="container">
-            <header class="pc-header">
-                <div class="pc-header-text">
-                    <p class="pc-header-year">2023</p>
-                    <p class="pc-header-city-date">September 08–10, Prague</p>
-                </div>
+        <div class="container pt-4">
+            <header class="lead">
+                <a href="{% url 'homepage' %}">
+                    <img
+                        src="{% static 'img/logo-pycon-23.min.svg' %}"
+                        alt="PyCon CZ"
+                        class="img-fluid mb-3"
+                        width="320"
+                    >
+                </a>
+                <h1>PyCon CZ 23</h1>
+                <p>Prague, 15–17 September 2023</p>
             </header>
         </div>
     {% endblock %}
 
 
-    <main role="main" id="main" class="{% block main_classes %}bg-secondary text-black{% endblock %}">
+    <main class="container pt-4 mt-5">
         {% block main %}{% endblock %}
     </main>
 
+    <footer class="bg-dark-subtle mt-3">
+        <div class="container px-2 py-3">
 
-    <footer>
-        <div class="container md-sm-3 mt-md-4 mb-3 px-2 py-3">
-
-            <div class="row no-gutters align-items-baseline mb-3">
+            <div class="row no-gutters align-items-baseline">
 
                 {% include '_menu_footer.html' %}
 
@@ -38,6 +44,8 @@
                         <a class="nav-link" href="/2016/">PyCon&nbsp;CZ 2016</a>
                         <a class="nav-link" href="/2017/">PyCon&nbsp;CZ 2017</a>
                         <a class="nav-link" href="/2018/">PyCon&nbsp;CZ 2018</a>
+                        <a class="nav-link" href="/2019/">PyCon&nbsp;CZ 2019</a>
+                        <a class="nav-link" href="/2020/">PyCon&nbsp;CZ 2020</a>
                     </div>
                 </div>
 
@@ -45,8 +53,8 @@
                     <div class="nav flex-md-column mb-3">
                         <a class="nav-link" href="https://twitter.com/pyconcz">Twitter</a>
                         <a class="nav-link" href="https://www.facebook.com/events/2070764789904992/">Facebook</a>
-                        <a class="nav-link" href="https://www.instagram.com/pyconcz/">Instagram</a>
-                        <a class="nav-link" href="https://github.com/pyvec/cz.pycon.org-2019">GitHub</a>
+                        {# <a class="nav-link" href="https://www.instagram.com/pyconcz/">Instagram</a>#}
+                        <a class="nav-link" href="https://github.com/pyvec/cz.pycon.org">GitHub</a>
                         <a class="nav-link" href="https://www.youtube.com/channel/UCRC2Vu7p4SJxhhuRdl8rQ6g">YouTube</a>
                     </div>
                     <p class="text-monospace mx-3">
@@ -58,14 +66,9 @@
             </div>
 
             <p class="text-lg-center text-monospace small mx-3">
-                <a href="https://www.python.org/psf/trademarks/pycon/" class="text-white">PyCon</a>™
+                <a href="https://www.python.org/psf/trademarks/pycon/">PyCon</a>™
                 is a&nbsp;trademark for worldwide conference activities claimed by the
-                <a href="https://www.python.org/psf-landing/" class="text-white">Python Software Foundation</a> and used with permission.
-                <br>
-                Photos by <a class="text-white" href="https://www.zerzon.cz/">Jiří Zerzoň</a>, <a class="text-white" href="https://www.flickr.com/photos/kubajs/20958638705/">Jakub Souček</a> and <a class="text-white" href="https://www.flickr.com/photos/jirka-zapalka/">Jirka Zápalka</a>.
-                <br>
-                Site hosted by <a href="https://rosti.cz/" class="text-white">Roští.cz</a>.
-                Thank you!
+                <a href="https://www.python.org/psf-landing/">Python Software Foundation</a> and used with permission.
             </p>
         </div>
     </footer>

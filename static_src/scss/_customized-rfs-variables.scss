@@ -12,7 +12,7 @@ https://github.com/twbs/rfs/
 // $rfs-unit: rem; // rem
 
 // Breakpoint at where values start decreasing if screen width is smaller
-// $rfs-breakpoint: 1200px; // 1200px
+$rfs-breakpoint: map-get($grid-breakpoints, lg); // 1200px
 // $rfs-breakpoint-unit: px; // px
 
 // Resize values based on screen height and width

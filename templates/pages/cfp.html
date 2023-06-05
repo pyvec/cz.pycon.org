@@ -1,0 +1,186 @@
+{% extends '_layout.html' %}
+
+
+
+{% block meta_title %}Call for proposals – {{ block.super }}{% endblock %}
+
+
+{% block main %}
+    <div class="row align-items-end">
+        <div class="col-md col-lg-7">
+            <p class="lead">We would like to invite you to submit proposals for talks, workshops, and sprint ideas. Let’s make this a remarkable event together!</p>
+            <p><a href="https://pretalx.com/pycon-cz-23" class="btn btn-primary btn-lg">Send us your ideas!</a></p>
+            <p>The last chance will be on <b>June 25th, 2023</b>.</p>
+            <p>Our primary focus is on Python, software development, data science, and related topics. In addition, we welcome any valuable ideas connected to the Python ecosystem, work culture, and the wider tech community.</p>
+
+            <h2>Format</h2>
+            <div class="row">
+                <div class="col-md">
+                    <h3>Talks<br>(15–16 September)</h3>
+                    <p>30-minute talk in one of the three tracks — General, PyData, Beginners. Keynotes will take 40 minutes.</p>
+                </div>
+                <div class="col-md">
+                    <h3>Workshops/Sprints<br>(17 September)</h3>
+                    <p>Hands-on sessions of 1–3 hours or full day. Good for going deeper with a smaller but more focused audience. Sprints are great for working together with others on an open-source project.</p>
+                </div>
+            </div>
+
+            <h2>Not sure if you should apply?</h2>
+            <p>Don’t worry, we’re here to help you figure it out!</p>
+            <ul>
+                <li>Just starting out with Python and have something interesting to share? Go ahead and apply! We’d love to hear your fresh perspective.</li>
+                <li>Experienced Pythonista looking to share your knowledge? Apply! It’s a great opportunity to meet and learn from other experts.</li>
+                <li>Using Python in a different field or as part of a hobby project? Apply! Show us the versatility of Python and its many applications.</li>
+                <li>Have something to share but feel like an impostor? Apply anyway! Trust us, many of us have felt that way too.</li>
+            </ul>
+
+            <h2>Audience & Tracks</h2>
+            <p class="lead">At PyCon&nbsp;CZ, you’ll be presenting to a diverse audience. It includes Python beginners, experts, researchers, professionals from various companies, freelancers, students, and more.</p>
+            <p>From beginners to Python experts. Bigger and smaller companies’ employees, freelancers, startup founders and students. Developers, data analysts, testers, scientists as well as enthusiasts. One third doesn’t speak Czech or Slovak but everybody understands English.</p>
+
+
+            <h2>What do they want to hear</h2>
+            <p class="lead">Given our attendees’ varied backgrounds, many Python programming topics will be well-received, catering to all skill levels. We welcome topics regarding technology in general, in addition to Python-specific ones. For inspiration see programs from <a href="https://cz.pycon.org/2019/programme/talks/">2019</a> or <a href="https://cz.pycon.org/2018/programme/talks/">2018</a>.</p>
+
+            <div class="accordion mb-3" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                            <span class="h4 mb-0">General topics</span>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p>A track bringing together a very diverse audience of more seasoned developers, folks working in DevOps, scientists, and researchers. Topics for inspiration:</p>
+                            <ul>
+                                <li>Python’s internals, a Python language feature, or your experiences with a Python module</li>
+                                <li>QA, testing, and debugging</li>
+                                <li>Distributed computing</li>
+                                <li>Packaging and deployment</li>
+                                <li>Running code in production</li>
+                                <li>Web development</li>
+                                <li>MicroPython and embedded applications</li>
+                                <li>Databases and data storage</li>
+                                <li>Tips for collaboration on open source, organizing remote teams, or teaching and learning programming</li>
+                                <li>Career options for more senior developers, how to deal with imposter syndrome etc.</li>
+                                <li>You tell us!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <span class="h4 mb-0">PyData track</span> <img src="/2023/pydata.svg" alt="" class="img-fluid ms-4" width="80">
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p>A dedicated track for all data analysts, scientists, engineers, and everyone else interested in working with data. PyData track talks and workshops will target:</p>
+                            <ul>
+                                <li>Evergreens like Pandas or Jupyter</li>
+                                <li>Machine Learning, Artificial Intelligence</li>
+                                <li>Data Mesh</li>
+                                <li>Vector Databases</li>
+                                <li>Cloud LM services</li>
+                                <li>ML experiment tracking</li>
+                                <li>Model monitoring (drift, performance, etc.)</li>
+                                <li>MLOps and pipelines</li>
+                                <li>Running Language Models in production</li>
+                                <li>Cool visualization and dashboards</li>
+                                <li>Incredibly fast scientific computations</li>
+                                <li>Rich business applications</li>
+                                <li>Any other exciting topics for data-driven enthusiasts.</li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <span class="h4 mb-0">Beginners’ track</span>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p>This track will be mostly in Czech and the expected knowledge level of the audience is the <a href="https://naucse.python.cz/course/pyladies/">basics of Python</a>. It is a great opportunity for you to try your first talk even if you don’t think you’re a Python expert. Here are a few suggested topics:</p>
+                            <ul>
+                                <li>Introduction to Python libraries or frameworks (e.g. numpy, requests, …)</li>
+                                <li>Basics of debugging</li>
+                                <li>Classes, Object-Oriented Programming (OOP)</li>
+                                <li>Practical application of Python in non-purely-IT fields (science, education, IoT…)</li>
+                                <li>Tell us how you solved an interesting problem with Python</li>
+                                <li>Show a project you made: it doesn’t have to be complex or unique, the journey is what we’d like to hear</li>
+                                <li>Share a story about your path to becoming a developer or data analyst</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Speaker Support</h2>
+
+            <h3>Public Speaking Mentorship</h3>
+            <p>If you’re just starting your public speaking adventure, apply! Regardless of your technical experience, we can pair you with a mentor to help you hone your skills. We offer support in two areas: preparing the proposal, and preparing the talk itself.</p>
+
+            <h3>Childcare</h3>
+            <p>We will offer free childcare at the venue. During the conference hours, there will be a dedicated area with childcare professionals who will look after your children.</p>
+            <p>Please reach out to <a href="mailto:info@pycon.cz">info@pycon.cz</a> if you have questions regarding speaker support.
+            </p>
+
+            <h2>Do you have more than one idea?</h2>
+            <p>Great! Submit all of them. Each proposal will be evaluated separately. You can indicate in your proposal the maximum number of talks you’re willing to do, in case multiple of your submissions would be selected. We will choose those most fitting our audience.</p>
+
+            <h2>Want to promote your commercial project?</h2>
+            <p>PyCon&nbsp;CZ is a community conference with open-source at heart. We’re happy to learn from each other and hear from anyone who got their hands deep in Python-related projects. Be careful with blatant marketing, though — those talks usually aren’t as appreciated.</p>
+
+            <h2>Eager to learn more?</h2>
+            <p>You will find some advice for writing great proposals in our <a href="{% url 'cfp_guide' %}">CfP Guide.</a></p>
+            <p>We also recommend reading tips at <a href="https://speaking.io/">speaking.io</a>. It covers many aspects of speaking at a tech conference including choosing the right topic.</p>
+
+            <h3>Non-Profit & Organized by Volunteers</h3>
+            <p>PyCon&nbsp;CZ is organized by volunteers. All proceeds go to Pyvec, a non-profit service organization supporting a variety of Python communities across the Czech Republic. Please consider supporting Pyvec via <a href="{% url 'sponsorship' %}">PyCon&nbsp;CZ sponsorships</a>.</p>
+
+        </div>
+        <div class="col-md bg-dark-subtle p-4 mb-3">
+            <h2 class="mt-0">How do we choose?</h2>
+            <ol>
+                <li>We accept submissions up until the deadline.</li>
+                <li>Our committee, consisting of around 10 members, independently evaluates each submission based on the provided descriptions. Each submission receives a rating that is averaged to a single number. Some of the things we’re considering include:
+                    <ul>
+                        <li>Fit between the topic and the audience</li>
+                        <li>Clarity of the submission</li>
+                        <li>A coherent idea about the contents of the talk/workshop</li>
+                        <li>Engagement which the talk/workshop will generate</li>
+                    </ul>
+                </li>
+                <li>The highest-scoring submissions will be accepted. Additionally, at this stage, we consider:
+                    <ul>
+                        <li>Overall fit with the program</li>
+                        <li>Variety: we choose the better scoring talk about the same topic</li>
+                        <li>Depth and breadth of topics</li>
+                        <li>Financial requirements (our budget is not unlimited)</li>
+                    </ul>
+                </li>
+                <li>We notify all applicants of the results via email.</li>
+            </ol>
+
+            <div class="mb-3 mt-3">
+                <h2 class="mt-2">Can’t afford to speak at PyCon&nbsp;CZ?</h2>
+                <p>If money is the only thing stopping you from speaking at PyCon&nbsp;CZ, we’ll try to help. It wouldn’t be in a true community spirit if somebody wouldn’t come to PyCon&nbsp;CZ just because their budget is tight at the moment.</p>
+                <p>That’s why we provide financial aid to those who wouldn’t be able to attend otherwise. It helps cover travel, accommodation, and anything else you need to contribute to the conference.</p>
+                <p>While we do our best, our budget is limited so we have to find a balance between how great your contribution to PyCon&nbsp;CZ would be and how much it would cost us.</p>
+                <p>Please don’t let this stop you from submitting as we should be able to cover expenses of most speakers. Just fill out the relevant field in the <a href="https://pretalx.com/pycon-cz-23">submission form</a>.</p>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h2 class="mt-2">Let us know before it’s too late!</h2>
+                <p class="lead">Yes, there is a deadline: <strong>June 25th, 2023</strong>. Make sure you do not miss it. We’d miss you.</p>
+                <p>Not ready or sure yet? Feel free to ask for advice at <a class="text-dark fw-bold" href="mailto:info@pycon.cz">info@pycon.cz</a>.</p>
+                <p class="mt-5"><a href="https://pretalx.com/pycon-cz-23" class="btn btn-primary btn-lg">Send us your idea</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

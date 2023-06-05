@@ -1,0 +1,321 @@
+{% extends '_base.html' %}
+
+
+
+{% block meta_title %}Pyttern Library – {{ block.super }}{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>h1. Pyttern Library
+                    <small>Pyn&nbsp;intended</small>
+                </h1>
+
+                <h2>4 main background colors are available</h2>
+                <div class="row align-content-stretch">
+                    <div class="col-3">
+                        <div class="bg-white text-dark p-3 mb-3 h-100 pc-box-shadow">
+                            <code>#ffffff</code><br> background white
+                            <br><br><code>#1f130a</code><br> text dark
+                            <br><br><a href="#"><code>#005c7a</code><br> links deepblue </a>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-secondary text-black p-3 mb-3 h-100 pc-box-shadow">
+                            <code>#d2c6ad</code><br> background beige
+                            <br><br><code>#000000</code><br> text black
+                            <br><br><span class="text-white font-weight-bold lead"><code>#1f130a</code><br> other text white (big, bold, short only)</span>
+                            <br><br><a href="#"><code>#005c7a</code><br> links deepblue </a>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-dark text-white p-3 mb-3 h-100 pc-box-shadow">
+                            <code>#1f130a</code><br> background dark
+                            <br><br><code>#ffffff</code><br> text white
+                            <br><br><span class="text-primary"><code>#ff8800</code><br> other text orange</span>
+                            <br><br><a href="#"><code>#ff8800</code><br> links orange</a>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-black text-light p-3 mb-3 h-100 pc-box-shadow">
+                            <code>#000000</code><br> background black
+                            <br><br><code>#f1ede9</code><br> text light
+                            <br><br><span class="text-primary"><code>#ff8800</code><br> other text orange</span>
+                            <br><br><a href="#"><code>#ff8800</code><br> links orange</a>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>All other colors applied (not all have enough contrast)</h3>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="bg-white text-dark p-3 mb-3 h-100">
+                            <p><a href="#">link</a> non link normal</p>
+                            <p class="text-primary">.text-primary</p>
+                            <p class="text-secondary">.text-secondary</p>
+                            <p class="text-success">.text-success</p>
+                            <p class="text-danger">.text-danger</p>
+                            <p class="text-warning">.text-warning</p>
+                            <p class="text-info">.text-info</p>
+                            <p class="text-light">.text-light</p>
+                            <p class="text-black">.text-black</p>
+                            <p class="text-body">.text-body</p>
+                            <p class="text-muted">.text-muted</p>
+                            <p class="text-white">.text-white</p>
+                            <p class="text-black-50">.text-black-50</p>
+                            <p class="text-white-50">.text-white-50</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-secondary text-black p-3 mb-3 h-100">
+                            <p><a href="#">link</a> non link normal</p>
+                            <p class="text-primary">.text-primary</p>
+                            <p class="text-secondary">.text-secondary</p>
+                            <p class="text-success">.text-success</p>
+                            <p class="text-danger">.text-danger</p>
+                            <p class="text-warning">.text-warning</p>
+                            <p class="text-info">.text-info</p>
+                            <p class="text-light">.text-light</p>
+                            <p class="text-black">.text-black</p>
+                            <p class="text-body">.text-body</p>
+                            <p class="text-muted">.text-muted</p>
+                            <p class="text-white">.text-white</p>
+                            <p class="text-black-50">.text-black-50</p>
+                            <p class="text-white-50">.text-white-50</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-dark text-white p-3 mb-3 h-100">
+                            <p><a href="#">link</a> non link normal</p>
+                            <p class="text-primary">.text-primary</p>
+                            <p class="text-secondary">.text-secondary</p>
+                            <p class="text-success">.text-success</p>
+                            <p class="text-danger">.text-danger</p>
+                            <p class="text-warning">.text-warning</p>
+                            <p class="text-info">.text-info</p>
+                            <p class="text-light">.text-light</p>
+                            <p class="text-black">.text-black</p>
+                            <p class="text-body">.text-body</p>
+                            <p class="text-muted">.text-muted</p>
+                            <p class="text-white">.text-white</p>
+                            <p class="text-black-50">.text-black-50</p>
+                            <p class="text-white-50">.text-white-50</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-black text-light p-3 mb-3 h-100">
+                            <p><a href="#">link</a> non link normal</p>
+                            <p class="text-primary">.text-primary</p>
+                            <p class="text-secondary">.text-secondary</p>
+                            <p class="text-success">.text-success</p>
+                            <p class="text-danger">.text-danger</p>
+                            <p class="text-warning">.text-warning</p>
+                            <p class="text-info">.text-info</p>
+                            <p class="text-light">.text-light</p>
+                            <p class="text-black">.text-black</p>
+                            <p class="text-body">.text-body</p>
+                            <p class="text-muted">.text-muted</p>
+                            <p class="text-white">.text-white</p>
+                            <p class="text-black-50">.text-black-50</p>
+                            <p class="text-white-50">.text-white-50</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Buttons</h2>
+                <p>
+                    <button type="button" class="btn btn-primary">Primary</button>
+                    <button type="button" class="btn btn-secondary">Secondary</button>
+                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-light">Light</button>
+                    <button type="button" class="btn btn-dark">Dark</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                    <button type="button" class="btn btn-black">Black</button>
+                </p>
+
+                <p>
+                    <button type="button" class="btn btn-outline-primary">Primary</button>
+                    <button type="button" class="btn btn-outline-secondary">Secondary</button>
+                    <button type="button" class="btn btn-outline-success">Success</button>
+                    <button type="button" class="btn btn-outline-danger">Danger</button>
+                    <button type="button" class="btn btn-outline-warning">Warning</button>
+                    <button type="button" class="btn btn-outline-info">Info</button>
+                    <button type="button" class="btn btn-outline-light">Light</button>
+                    <button type="button" class="btn btn-outline-dark">Dark</button>
+                </p>
+
+                <p>
+                    <button type="button" class="btn btn-primary btn-lg">Large button</button>
+                    <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+                </p>
+
+                <p>
+                    <button type="button" class="btn btn-primary btn-sm">Small button</button>
+                    <button type="button" class="btn btn-secondary btn-sm">Small button</button>
+                </p>
+
+                <p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+                </p>
+
+                <h2>Navigation</h2>
+                <nav class="nav">
+                    <a class="nav-link active" aria-current="page">Do not use navs</a>
+                    <a class="nav-link" href="#">with lists <code>&lt;ul&gt;</code></a>
+                    <a class="nav-link" href="#">Just use links</a>
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">disabled link</a>
+                    <a class="nav-link active" href="#">current link shouldn't have <code>href</code></a>
+                </nav>
+                {% comment %}<h1 class="display-1">Display 1</h1>
+                <h1 class="display-2">Display 2</h1>
+                <h1 class="display-3">Display 3</h1>
+                <h1 class="display-4">Display 4</h1>{% endcomment %}
+
+                <h1>h1. Typography</h1>
+
+                <p class="lead">
+                    Lead paragraph vivamus sagittis lacus vel <a href="#">link somewhere</a> augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Aspernatur beatae molestiae nostrum possimus saepe! Cumque harum id inventore pariatur voluptates.
+                </p>
+
+                <h2>h2. A heading</h2>
+
+                <p>Ad animi <em>emphasis</em> blanditiis <i>text that is set off from the normal text for some reason</i> deleniti <strong>Strong&nbsp;Importance</strong> doloremque <b>Bring&nbsp;Attention&nbsp;To&nbsp;element</b> eius ipsam nihil odit quas quis reprehenderit? Corporis fugiat hic id inventore ipsa nam pariatur, quam repellat similique voluptas. Debitis explicabo id iure quas quis veniam voluptas voluptates? Consectetur cumque, dolor error explicabo fugiat fugit repellat rerum!</p>
+
+                <div class="row">
+                    <div class="col">
+                        <p>Cum, deserunt dolore fuga id laborum nesciunt repellat tempore voluptatum.</p>
+                        <h3>h3. A heading</h3>
+                        <p>Adipisci alias dolores eaque, esse harum ipsum, laborum mollitia perspiciatis placeat reprehenderit tempora veniam?</p>
+                        <ul>
+                            <li>Lists are a&nbsp;possibility here</li>
+                            <li>Culpa cumque dolorem ut voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+                            <li>Facere in minima possimus repellendus!</li>
+                            <li>Accusamus iusto nemo soluta unde.</li>
+                            <li>Doloremque facere recusandae reiciendis voluptatem?</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p>Accusantium commodi deserunt doloribus ipsa iste mollitia nobis odit.</p>
+                        <h4>h4. A heading</h4>
+                        <p>Culpa fuga illo minus quas quibusdam recusandae.</p>
+                        <p>A ab at ducimus et eum facere harum hic ipsum, iure labore natus pariatur possimus provident quae quidem rem sequi suscipit vero.</p>
+
+                        <ol>
+                            <li>Ordered list look like this</li>
+                            <li>Culpa cumque dolorem ut voluptatem.</li>
+                            <li>Facere in minima possimus repellendus!</li>
+                            <li>Accusamus iusto nemo soluta unde.</li>
+                            <li>Doloremque facere recusandae reiciendis voluptatem?</li>
+                        </ol>
+                        {% comment %}<h6>h6. A heading</h6>{% endcomment %}
+                    </div>
+                    <div class="col">
+                        <p>Ab dicta dolor earum, eos ipsam ipsum laborum libero nam repellat sunt?</p>
+                        <h5>h5. A heading</h5>
+                        <p>Paragraph with <strong>strong text</strong> and <em>emphasized text</em> and also a&nbsp;<b>bold</b> and <i>italic text</i>. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. <a href="#">link somewhere</a> Duis mollis, est non commodo luctus.</p>
+                        <blockquote class="blockquote">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a&nbsp;ante.</p>
+                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <pre class="text-white"><code>&lt;p&gt;Sample code here...&lt;/p&gt;
+&lt;p&gt;And another line of sample code here…&lt;/p&gt;
+</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-secondary text-black py-3">
+        <div class="container">
+            <h1>12 Column Grid</h1>
+            <div class="row mb-4">
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-12 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black">12</div>
+                </div>
+                <div class="col-1 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 1</div>
+                </div>
+                <div class="col-11 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black">11</div>
+                </div>
+                <div class="col-2 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 2</div>
+                </div>
+                <div class="col-10 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black">10</div>
+                </div>
+                <div class="col-3 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 3</div>
+                </div>
+                <div class="col-9 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 9</div>
+                </div>
+                <div class="col-4 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 4</div>
+                </div>
+                <div class="col-8 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 8</div>
+                </div>
+                <div class="col-5 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 5</div>
+                </div>
+                <div class="col-7 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 7</div>
+                </div>
+                <div class="col-6 bg-info">
+                    <div class="w-100 text-center my-2 bg-white text-black"> 6</div>
+                </div>
+                <div class="col-auto bg-warning">
+                    <div class="w-100 text-center my-2 bg-white text-black">.col-auto is sized automatically</div>
+                </div>
+                <div class="col bg-danger">
+                    <div class="w-100 text-center my-2 bg-white text-black">.col fills the rest</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

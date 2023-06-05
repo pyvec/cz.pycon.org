@@ -3,13 +3,10 @@
 
 
 {% block all %}
-    <nav role="navigation" class="navbar navbar-dark navbar-expand bg-dark px-2">
-        <div class="w-100 justify-content-sm-center column navbar-nav nav-pills flex-wrap">
-            {{ block.super }}
-        </div>
+    <nav role="navigation">
+        {{ block.super }}
     </nav>
 {% endblock %}
-
 
 {% block link_team %}{% endblock %}
 
@@ -20,8 +17,8 @@
 {% block link_coc %}{% endblock %}
 
 
+{% comment %}
 {% block link_board_game_night %}{% endblock %}
-
 
 {% block link_financial_aid %}
     {# show finaid only if ticket sale isn't on and only if finaid is opened #}
@@ -39,3 +36,4 @@
         {% endif %}
     {% endif %}
 {% endblock %}
+{% endcomment %}

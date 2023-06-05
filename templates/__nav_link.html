@@ -7,23 +7,25 @@
 {% endif %}
 
 {% if link %}
-    <a
-        class="
-            nav-link
-            {# links to currently shown page are different (only those without an anchor) #}
+    {% if url != 'homepage' or request.path != '/2023/' %}
+        <a
+            class="
+                nav-link
+                {# links to currently shown page are different (only those without an anchor) #}
+                {% if request.path == link and not anchor %}
+                    active
+                {% endif %}
+                {{ class }}
+            "
             {% if request.path == link and not anchor %}
-                active
-            {% endif %}
-            {{ class }}
-        "
-        {% if request.path == link and not anchor %}
             aria-current="page"
-        {% else %}
+            {% else %}
             href="{{ link }}{{ anchor }}"
-        {% endif %}
-    >
-        {{ link_text }}
-    </a>
+            {% endif %}
+        >
+            {{ link_text }}
+        </a>
+    {% endif %}
 {% elif debug %}
     <span class="nav-link" style="color:red;background-color:yellow;">No URL for {{ url }}:{{ type }}</span>
 {% endif %}

@@ -38,6 +38,16 @@
 
 @import "bootstrap-variables-init"; // init all variables so dart sass doesn’t throw deprecation warnings
 
+/*
+--bs-link-color: #ffffff;
+--bs-link-color-rgb: 255, 255, 255;
+--bs-link-hover-color: #afafaf;
+--bs-link-hover-color-rgb: 175, 175, 175;
+--bs-body-color: rgb(208 213 218);
+--bs-body-color-rgb: 208, 213, 218;
+
+*/
+
 %custom-bootstrap-variables {
     @import "node_modules/bootstrap/scss/functions";
     @import "node_modules/bootstrap/scss/variables";
@@ -76,15 +86,18 @@
     ); $grays: $grays !global;
     */
 
-    // $blue: #0d6efd; $blue: $blue !global; // #0d6efd
+    $blue: #0009d8;
+    $blue: $blue !global; // #0d6efd
     // $indigo: #6610f2; $indigo: $indigo !global; // #6610f2
     // $purple: #6f42c1; $purple: $purple !global; // #6f42c1
-    // $pink: #d63384; $pink: $pink !global; // #d63384
+    $pink: #ff00e5;
+    $pink: $pink !global; // #d63384
     // $red: #dc3545; $red: $red !global; // #dc3545
     // $orange: #fd7e14; $orange: $orange !global; // #fd7e14
     // $yellow: #ffc107; $yellow: $yellow !global; // #ffc107
     // $green: #198754; $green: $green !global; // #198754
-    // $teal: #20c997; $teal: $teal !global; // #20c997
+    $teal: #39f4c5;
+    $teal: $teal !global; // #20c997
     // $cyan: #0dcaf0; $cyan: $cyan !global; // #0dcaf0
 
     /*
@@ -345,8 +358,10 @@
     ); $cyans: $cyans !global;
     */
 
-    // $primary: $blue; $primary: $primary !global; // $blue
-    // $secondary: $gray-600; $secondary: $secondary !global; // $gray-600
+    $primary: $pink;
+    $primary: $primary !global; // $blue
+    $secondary: $teal;
+    $secondary: $secondary !global; // $gray-600
     // $success: $green; $success: $success !global; // $green
     // $info: $cyan; $info: $info !global; // $cyan
     // $warning: $yellow; $warning: $warning !global; // $yellow
@@ -445,18 +460,20 @@
     // variables. Mostly focused on spacing.
     // You can add more entries to the $spacers map, should you need more variation.
 
-    // $spacer: 1rem; $spacer: $spacer !global; // 1rem
+    $spacer: 1.125rem;
+    $spacer: $spacer !global; // 1rem
 
-    /*
     $spacers: (
-        0: 0,
-        1: $spacer * .25,
-        2: $spacer * .5,
+        //0: 0,
+        1: ($spacer * .25),
+        2: ($spacer * .5),
         3: $spacer,
-        4: $spacer * 1.5,
-        5: $spacer * 3,
-    ); $spacers: $spacers !global;
-    */
+        4: ($spacer * 1.5),
+        5: ($spacer * 2.8),
+        6: ($spacer * 5),
+        7: ($spacer * 14)
+    );
+    $spacers: $spacers !global;
 
     // Position
     //
@@ -490,7 +507,8 @@
     //
     // Style anchor elements.
 
-    // $link-color: $primary; $link-color: $link-color !global; // $primary
+    $link-color: $blue;
+    $link-color: $link-color !global; // $primary
     // $link-decoration: underline; $link-decoration: $link-decoration !global; // underline
     // $link-shade-percentage: 20%; $link-shade-percentage: $link-shade-percentage !global; // 20%
     // $link-hover-color: shift-color($link-color, $link-shade-percentage); $link-hover-color: $link-hover-color !global; // shift-color($link-color, $link-shade-percentage)
@@ -516,37 +534,37 @@
     //
     // Define the minimum dimensions at which your layout will change,
     // adapting to different screen sizes, for use in media queries.
-    /*
     $grid-breakpoints: (
-        xs: 0,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1200px,
-        xxl: 1400px
-    ); $grid-breakpoints: $grid-breakpoints !global;
-    */
+        xxs: 0,
+        xs: 420px,
+        sm: 630px,
+        md: 850px,
+        lg: 1170px,
+        xl: 1640px,
+        xxl: 1800px
+    );
+    $grid-breakpoints: $grid-breakpoints !global;
 
     // Grid containers
     //
     // Define the maximum width of `.container` for different screen sizes.
 
-    /*
     $container-max-widths: (
-        sm: 540px,
-        md: 720px,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1320px
-    ); $container-max-widths: $container-max-widths !global;
-    */
+        xs: 460px,
+        sm: 600px,
+        md: 790px,
+        lg: 1060px,
+        xl: 1200px,
+        xxl: 1720px
+    );
+    $container-max-widths: $container-max-widths !global;
 
     // Grid columns
     //
     // Set the number of columns and specify the width of the gutters.
 
     // $grid-columns: 12; $grid-columns: $grid-columns !global; // 12
-    // $grid-gutter-width: 1.5rem; $grid-gutter-width: $grid-gutter-width !global; // 1.5rem
+    $grid-gutter-width: 2 * $spacer; $grid-gutter-width: $grid-gutter-width !global; // 1.5rem
     // $grid-row-columns: 6; $grid-row-columns: $grid-row-columns !global; // 6
 
     // Container padding
@@ -618,8 +636,10 @@
     //
     // Font, line-height, and color for body text, headings, and more.
 
-    $font-family-sans-serif: "Chivo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; $font-family-sans-serif: $font-family-sans-serif !global; // system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
-    $font-family-monospace: "ChivoMono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; $font-family-monospace: $font-family-monospace !global; // SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+    $font-family-sans-serif: "Chivo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    $font-family-sans-serif: $font-family-sans-serif !global; // system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+    $font-family-monospace: "ChivoMono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    $font-family-monospace: $font-family-monospace !global; // SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
     // $font-family-base: var(--#{$prefix}font-sans-serif); $font-family-base: $font-family-base !global; // var(--#{$prefix}font-sans-serif)
     // $font-family-code: var(--#{$prefix}font-monospace); $font-family-code: $font-family-code !global; // var(--#{$prefix}font-monospace)
 
@@ -635,7 +655,7 @@
     // $font-weight-normal: 400; $font-weight-normal: $font-weight-normal !global; // 400
     // $font-weight-medium: 500; $font-weight-medium: $font-weight-medium !global; // 500
     // $font-weight-semibold: 600; $font-weight-semibold: $font-weight-semibold !global; // 600
-    // $font-weight-bold: 700; $font-weight-bold: $font-weight-bold !global; // 700
+    $font-weight-bold: 800; $font-weight-bold: $font-weight-bold !global; // 700
     // $font-weight-bolder: bolder; $font-weight-bolder: $font-weight-bolder !global; // bolder
 
     // $font-weight-base: $font-weight-normal; $font-weight-base: $font-weight-base !global; // $font-weight-normal
@@ -644,12 +664,12 @@
     // $line-height-sm: 1.25; $line-height-sm: $line-height-sm !global; // 1.25
     // $line-height-lg: 2; $line-height-lg: $line-height-lg !global; // 2
 
-    // $h1-font-size: $font-size-base * 2.5; $h1-font-size: $h1-font-size !global; // $font-size-base * 2.5
-    // $h2-font-size: $font-size-base * 2; $h2-font-size: $h2-font-size !global; // $font-size-base * 2
-    // $h3-font-size: $font-size-base * 1.75; $h3-font-size: $h3-font-size !global; // $font-size-base * 1.75
-    // $h4-font-size: $font-size-base * 1.5; $h4-font-size: $h4-font-size !global; // $font-size-base * 1.5
-    // $h5-font-size: $font-size-base * 1.25; $h5-font-size: $h5-font-size !global; // $font-size-base * 1.25
-    // $h6-font-size: $font-size-base; $h6-font-size: $h6-font-size !global; // $font-size-base
+    $h1-font-size: $font-size-base * 3; $h1-font-size: $h1-font-size !global; // $font-size-base * 2.5
+    $h2-font-size: $font-size-base * 2; $h2-font-size: $h2-font-size !global; // $font-size-base * 2
+    $h3-font-size: $font-size-base * 1.5; $h3-font-size: $h3-font-size !global; // $font-size-base * 1.75
+    $h4-font-size: $font-size-base * 1.25; $h4-font-size: $h4-font-size !global; // $font-size-base * 1.5
+    $h5-font-size: $font-size-base * 1; $h5-font-size: $h5-font-size !global; // $font-size-base * 1.25
+    $h6-font-size: $font-size-base * 0.875; $h6-font-size: $h6-font-size !global; // $font-size-base
 
     /*
     $font-sizes: (
@@ -663,9 +683,9 @@
     */
 
     // $headings-margin-bottom: $spacer * .5; $headings-margin-bottom: $headings-margin-bottom !global; // $spacer * .5
-    // $headings-font-family: null; $headings-font-family: $headings-font-family !global; // null
+    $headings-font-family: $font-family-monospace; $headings-font-family: $headings-font-family !global; // null
     // $headings-font-style: null; $headings-font-style: $headings-font-style !global; // null
-    // $headings-font-weight: 500; $headings-font-weight: $headings-font-weight !global; // 500
+    $headings-font-weight: $font-weight-bold; $headings-font-weight: $headings-font-weight !global; // 500
     // $headings-line-height: 1.2; $headings-line-height: $headings-line-height !global; // 1.2
     // $headings-color: inherit; $headings-color: $headings-color !global; // inherit
 
@@ -684,8 +704,8 @@
     // $display-font-weight: 300; $display-font-weight: $display-font-weight !global; // 300
     // $display-line-height: $headings-line-height; $display-line-height: $display-line-height !global; // $headings-line-height
 
-    // $lead-font-size: $font-size-base * 1.25; $lead-font-size: $lead-font-size !global; // $font-size-base * 1.25
-    // $lead-font-weight: 300; $lead-font-weight: $lead-font-weight !global; // 300
+    $lead-font-size: $font-size-base * 1.125; $lead-font-size: $lead-font-size !global; // $font-size-base * 1.25
+    $lead-font-weight: 400; $lead-font-weight: $lead-font-weight !global; // 300
 
     // $small-font-size: .875em; $small-font-size: $small-font-size !global; // .875em
 

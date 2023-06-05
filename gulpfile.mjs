@@ -31,6 +31,8 @@ const cleanupCss = () => deleteAsync("static/generated/**/*.{css,css.map}");
 const copyStatic = () =>
     src([
         "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js", // get JS bundle from currently used Bootstrap
+        // Sourcemap is also required, because it is referenced from comment in bootstrap.bundle.min.js:
+        "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map",
         // "node_modules/bootstrap/dist/js/bootstrap.min.js",
     ]).pipe(dest("static/generated"));
 

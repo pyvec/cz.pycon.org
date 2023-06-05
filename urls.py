@@ -17,12 +17,21 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path(
         "2023/",
         include(
             [
+                path("", TemplateView.as_view(template_name='pages/homepage.html'), name='homepage'),
+                path("coc/", TemplateView.as_view(template_name='pages/coc.html'), name='coc'),
+                path("privacy-policy/", TemplateView.as_view(template_name='pages/privacy_policy.html'), name='privacy_policy'),
+                path("cfp/", TemplateView.as_view(template_name='pages/cfp.html'), name='cfp'),
+                path("cfp-guide/", TemplateView.as_view(template_name='pages/cfp_guide.html'), name='cfp_guide'),
+                path("cfp-pruvodce/", TemplateView.as_view(template_name='pages/cfp_pruvodce.html'), name='cfp_pruvodce'),
+                path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
+
                 path("admin/", admin.site.urls),
                 path("wagtail/", include("wagtail.admin.urls")),
                 path("team/", include("team.urls")),

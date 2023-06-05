@@ -38,9 +38,6 @@
         {% block js_head %}{% endblock %}
     </head>
     <body {% block body_extras %}{% endblock %}>
-    <header>
-        <img src="{% static 'img/logo-pycon-23.min.svg' %}" alt="PyCon CZ">
-    </header>
     {% block body %}{% endblock %}
     <script src="{% static 'generated/bootstrap.bundle.min.js' %}"></script>
     {% if not debug %}
