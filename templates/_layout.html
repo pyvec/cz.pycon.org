@@ -5,24 +5,24 @@
 
 {% block body %}
 
-    <div class="container pt-2">
-        {% include '_menu_top.html' %}
-    </div>
-
     {% block header %}
-        <div class="container pt-4">
-            <header class="lead">
-                <a href="{% url 'homepage' %}">
-                    <img
-                        src="{% static 'img/logo-pycon-23.min.svg' %}"
-                        alt="PyCon CZ"
-                        class="img-fluid mb-3"
-                        width="320"
-                    >
-                </a>
-                <h1>PyCon CZ 23</h1>
-                <p>Prague, 15–17 September 2023</p>
-            </header>
+        <div class="bg-info text-white py-4">
+
+            <div class="container">
+                {% include '_menu_top.html' %}
+                <header class="lead">
+                    <a href="{% url 'homepage' %}">
+                        <img
+                            src="{% static 'img/logo-pycon-23.min.svg' %}"
+                            alt="PyCon CZ"
+                            class="img-fluid mb-3"
+                            width="320"
+                        >
+                    </a>
+                    <h1>PyCon CZ 23</h1>
+                    <p>Prague, 15–17 September 2023</p>
+                </header>
+            </div>
         </div>
     {% endblock %}
 
