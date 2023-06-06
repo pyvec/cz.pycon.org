@@ -72,6 +72,7 @@ else:
     ALLOWED_HOSTS = [
         "cz.pycon.org",
         "pycon.cz",
+        "www.pycon.cz",
         # Hosts of fly.io apps, might be removed after all domains are properly set-up.
         "pycon-cz-beta.fly.dev",
         "pycon-cz-prod.fly.dev",
