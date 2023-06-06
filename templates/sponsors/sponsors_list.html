@@ -12,7 +12,8 @@
 {% block main %}
     <div class="container">
         {% if phases.sponsors != 'details_public' and not user.is_staff %}
-            {% include '__404.html' %}
+            <h1>404 Not Found</h1>
+            <p>Sorry, this page is not available, please <a href="/">go to homepage</a>.</p>
         {% else %}
             {% regroup sponsors_list by get_level_display as sponsor_levels %}
 
