@@ -1,0 +1,13 @@
+.btn {
+    border-color: $black;
+    box-shadow: $box-shadow;
+}
+.btn-primary {
+    color: $white;
+    text-transform: uppercase;
+}
+.btn-primary:hover,
+.btn-primary:active{
+    background-color:  $secondary;
+    border-color: $black;
+}

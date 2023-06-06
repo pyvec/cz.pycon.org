@@ -1,0 +1,98 @@
+{% extends '_layout.html' %}
+
+{% load static %}
+
+
+{% block meta_title %}Sponsorship – {{ block.super }}{% endblock %}
+
+
+{% block main %}
+    <h1>Sponsorship</h1>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="lead">
+                The PyCon&nbsp;CZ 2023 organizers are pleased to invite your sponsorship of the sixth annual 3-day PyCon CZ
+                conference in Prague, Czech Republic, on 15–17 September&nbsp;2023. Sponsorship presents opportunities to
+                connect you with up to 600 expected attendees.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+
+            <h2 class="mt-2">Value for your company</h2>
+            <p>Sponsoring PyCon CZ is a great way to</p>
+            <ul>
+                <li><b>Support Python</b> and the open source ecosystem your company relies on.</li>
+                <li><b>Recruit developers, data analysts and testers</b>: talk to attendees looking for their next job.</li>
+                <li><b>Show your current employees you care</b> about their favourite language and even make the event into an informal team-building experience for them.</li>
+                <li><b>Promote your product</b>: attendees are curious people looking for new tools and ideas.</li>
+                <li><b>Find collaborators and partners</b> for future development.</li>
+            </ul>
+
+
+            <h2 class="mt-2">Sponsorship benefits</h2>
+            <p>Sponsorship packages start from 25000 CZK and can include:</p>
+            <ul>
+                <li>Partner announced on the PyCon CZ official social media channels</li>
+                <li>Logo on the conference website</li>
+                <li>Logo on the intermission slide deck</li>
+                <li>Roll-up (standing banner) at the venue</li>
+                <li>Booth at the venue</li>
+                <li>Promotional items or leaflets in the swag bag of every atendee</li>
+                <li>Promotional posts</li>
+                <li>Retweets/reshares on the PyCon CZ official social media channels</li>
+                <li>Free tickets to the conference</li>
+                <li>Option to be our exclusive lanyard, coffee or afterparty sponsor</li>
+            </ul>
+            <p>
+                <a
+                    class="btn btn-lg btn-primary"
+                    href="{% static 'pycon-cz-sponsorship-prospectus-2023.pdf' %}"
+                    download="pycon-cz-sponsorship-prospectus-2023.pdf"
+                >
+                    Download detailed sponsorship information in our prospectus (PDF)
+                </a>
+            </p>
+
+            <h2>Custom sponsorship</h2>
+            <p>
+                In the case that our sponsorship packages don't fit your needs, you can become a&nbsp;diversity sponsor
+                (provide free tickets for a&nbsp;target demographic), host or contribute prizes for a&nbsp;quiz/competition,
+                or become a&nbsp;sponsor of a&nbsp;connected event. And of course, if you have your own idea about
+                a&nbsp;custom sponsorship, we'd love to hear it!
+            </p>
+        </div>
+        <div class="col-md">
+            <h2 class="mt-2">Event summary</h2>
+            <ul>
+                <li>Friday September 15th to Sunday September 17th, 2023 in Prague</li>
+                <li><strong>600 attendees (20% more than previous PyCon CZ)</strong></>
+                <li>professionals, students and hobbyist Pythonistas</li>
+                <li>2 conference days with 3 tracks (one more than in the past) primarily in English including data track in cooperation with Czech PyData community</li>
+                <li>1 day of workshops and sprints</li>
+                <li>40+ diverse, local and international speakers</li>
+                <li>Recorded talks available to watch later for everyone</li>
+                <li>Part of talks & workshops is aimed at beginners</li>
+                <li>Broad range of both technical</li>
+                <li>and community topics</li>
+                <li>Sponsor booths (Friday & Saturday)</li>
+                <li>Social events and an after party</li>
+                <li>Organised by a community of volunteers</li>
+                <li>Friendly and inclusive environment</li>
+                <li>Food, coffee and tea provided on all 3 conference days</li>
+                <li>Interesting venue in Prague: Gabriel Loci, a former monastery located 15 minutes from the city centre</li>
+            </ul>
+
+            <h2>Contacts</h2>
+            <p>Primary contact is our e-mail <a href="mailto:info@pycon.cz">info@pycon.cz</a></p>
+            <p>
+                <b>Mr. Vojta Mádr</b>, Partnerships Lead – PyCon CZ 2023 <br /><a href="mailto:sponsorship@pycon.cz">sponsorship@pycon.cz</a>
+                <br /><a href="tel:++420728944917">+420&nbsp;728&nbsp;944&nbsp;917</a>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
