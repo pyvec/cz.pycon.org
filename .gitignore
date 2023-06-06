@@ -130,5 +130,8 @@ dmypy.json
 .pyre/
 
 # Frontend
-node_modules
-static/generated
+node_modules/
+# Local media and generated static files
+data/mediafiles/
+static/generated/
+staticfiles/
