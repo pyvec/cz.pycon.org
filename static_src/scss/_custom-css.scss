@@ -22,3 +22,8 @@
     background-color: $primary;
     color: $white;
 }
+
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: $secondary;
+}
