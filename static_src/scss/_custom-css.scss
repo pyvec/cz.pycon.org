@@ -2,12 +2,23 @@
     border-color: $black;
     box-shadow: $box-shadow;
 }
+
+.btn:hover {
+    border-color: $black;
+}
+
 .btn-primary {
     color: $white;
     text-transform: uppercase;
 }
+
 .btn-primary:hover,
-.btn-primary:active{
-    background-color:  $secondary;
-    border-color: $black;
+.btn-primary:active {
+    background-color: $secondary;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active {
+    background-color: $primary;
+    color: $white;
 }

@@ -800,8 +800,8 @@
     //
     // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
-    $input-btn-padding-y: 2rem; $input-btn-padding-y: $input-btn-padding-y !global; // .375rem
-    $input-btn-padding-x: 1rem; $input-btn-padding-x: $input-btn-padding-x !global; // .75rem
+    $input-btn-padding-y: 1rem; $input-btn-padding-y: $input-btn-padding-y !global; // .375rem
+    $input-btn-padding-x: 2rem; $input-btn-padding-x: $input-btn-padding-x !global; // .75rem
     $input-btn-font-family: $font-family-monospace; $input-btn-font-family: $input-btn-font-family !global; // null
     // $input-btn-font-size: $font-size-base; $input-btn-font-size: $input-btn-font-size !global; // $font-size-base
     $input-btn-line-height: $line-height-sm; $input-btn-line-height: $input-btn-line-height !global; // $line-height-base
@@ -812,11 +812,11 @@
     // $input-btn-focus-blur: $focus-ring-blur; $input-btn-focus-blur: $input-btn-focus-blur !global; // $focus-ring-blur
     // $input-btn-focus-box-shadow: $focus-ring-box-shadow; $input-btn-focus-box-shadow: $input-btn-focus-box-shadow !global; // $focus-ring-box-shadow
 
-    // $input-btn-padding-y-sm: .25rem; $input-btn-padding-y-sm: $input-btn-padding-y-sm !global; // .25rem
-    // $input-btn-padding-x-sm: .5rem; $input-btn-padding-x-sm: $input-btn-padding-x-sm !global; // .5rem
+     $input-btn-padding-y-sm: .5rem; $input-btn-padding-y-sm: $input-btn-padding-y-sm !global; // .25rem
+     $input-btn-padding-x-sm: 1rem; $input-btn-padding-x-sm: $input-btn-padding-x-sm !global; // .5rem
     // $input-btn-font-size-sm: $font-size-sm; $input-btn-font-size-sm: $input-btn-font-size-sm !global; // $font-size-sm
 
-    $input-btn-padding-y-lg: 2.5rem; $input-btn-padding-y-lg: $input-btn-padding-y-lg !global; // .5rem
+    $input-btn-padding-y-lg: 1.5rem; $input-btn-padding-y-lg: $input-btn-padding-y-lg !global; // .5rem
     $input-btn-padding-x-lg: 3rem; $input-btn-padding-x-lg: $input-btn-padding-x-lg !global; // 1rem
     // $input-btn-font-size-lg: $font-size-lg; $input-btn-font-size-lg: $input-btn-font-size-lg !global; // $font-size-lg
 
