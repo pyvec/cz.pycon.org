@@ -49,3 +49,58 @@ create-user:
 # default WagTail content used only on localhost
 default-content:
 	$(DC_RUN) web python content/default_content.py
+
+# Data sync
+.PHONY: copy-db-prod-to-local
+# Copy database from production to local database (starts the database when necessary).
+copy-db-prod-to-local:
+	docker compose up db --detach --wait
+
+	# Run pg_dump on remote database and download the file (local file must be removed, flyctl would fail otherwise).
+	flyctl ssh console -a pycon-cz-db -q -u postgres -C "pg_dump -p 5433 --format=custom pycon_cz_prod --file=/data/tmp-prod-local-dump.backup"
+	rm -f ./tmp-prod-local-dump.backup
+	flyctl ssh sftp get -a pycon-cz-db /data/tmp-prod-local-dump.backup
+	flyctl ssh console -a pycon-cz-db -q -u postgres -C "rm /data/tmp-prod-local-dump.backup"
+
+	# Run pg_restore in a local container
+	cat ./tmp-prod-local-dump.backup | docker compose exec --user postgres --no-TTY db pg_restore --clean --dbname=pycon --no-owner
+
+	# Cleanup local files
+	rm ./tmp-prod-local-dump.backup
+
+.PHONY: copy-media-prod-to-local
+# Copy media files from production to local folder.
+copy-media-prod-to-local:
+	# Ensure local media dir exists
+	mkdir -p data/mediafiles
+
+	# Create a TAR archive with mediafiles on remote and download it. Delete it after the download.
+	flyctl ssh console -a pycon-cz-prod -q -C "tar -c -f /code/data/tmp-mediafiles.tar -C /code/data/ mediafiles"
+	rm -f tmp-mediafiles.tar
+	flyctl ssh sftp get -a pycon-cz-prod /code/data/tmp-mediafiles.tar
+	flyctl ssh console -a pycon-cz-prod -q -C "rm /code/data/tmp-mediafiles.tar"
+
+	# Extract the tar locally and delete it afterwards. Please note that this does not delete any files, only adds new ones.
+	tar -x -f tmp-mediafiles.tar -C data/
+	rm tmp-mediafiles.tar
+
+.PHONY: copy-db-prod-to-beta
+# Copy database from production to beta. This overwrites ALL data in the beta database!
+copy-db-prod-to-beta:
+	# Run pg_dump on remote database and re-import it to beta database, then delete the file.
+	flyctl ssh console -a pycon-cz-db -q -u postgres -C "bash -c 'pg_dump -p 5433 --format=custom pycon_cz_prod --file=/data/tmp-prod-beta-dump.backup && pg_restore -p 5433 --clean --dbname=pycon_cz_beta --no-owner --role=pycon_cz_beta /data/tmp-prod-beta-dump.backup; rm /data/tmp-prod-beta-dump.backup'"
+
+.PHONY: copy-media-prod-to-beta
+# Copy media files from production to beta.
+# Unfortunately, this operation must copy the the files to local machine first, because there is no SSH between machines in fly.io.
+copy-media-prod-to-beta:
+	# Create a TAR archive with mediafiles on production and download it. Delete it after the download.
+	flyctl ssh console -a pycon-cz-prod -q -C "tar -c -f /code/data/tmp-mediafiles.tar -C /code/data/ mediafiles"
+	rm -f tmp-mediafiles.tar
+	flyctl ssh sftp get -a pycon-cz-prod /code/data/tmp-mediafiles.tar
+	flyctl ssh console -a pycon-cz-prod -q -C "rm /code/data/tmp-mediafiles.tar"
+
+	# Upload the TAR archive to beta and extract it.
+	echo "cd /code/data \n put tmp-mediafiles.tar" | flyctl ssh sftp shell -a pycon-cz-beta
+	rm tmp-mediafiles.tar
+	flyctl ssh console -a pycon-cz-beta -q -C "bash -c 'tar -x -f /code/data/tmp-mediafiles.tar -C /code/data; rm /code/data/tmp-mediafiles.tar'"
