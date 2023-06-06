@@ -17,77 +17,72 @@
 
 {% block after_scripts_loaded %}
     <script>
+        /*
+        // todo: remove jQuery and make this work with uncss (external script maybe?)
         $(document).ready(function(){
-            var urls = [
+            const urls = [
                 '{% url 'intermissions:announcements' %}',
                 '{% url 'intermissions:slido' %}',
-
                 '{% url 'intermissions:sponsors' level='platinum' %}',
-
                 '{% url 'intermissions:announcements' %}',
                 '{% url 'intermissions:slido' %}',
-
                 '{% url 'intermissions:sponsors' level='gold' %}',
-
                 '{% url 'intermissions:sponsors' level='silver' %}',
-
                 '{% url 'intermissions:announcements' %}',
                 '{% url 'intermissions:slido' %}',
-
                 '{% url 'intermissions:sponsors' level='bronze' %}',
-
-                '{% url 'intermissions:sponsors' level='partners' %}',
-
+                '{% url 'intermissions:sponsors' level='partners' %}'
             ];
 
-            function cycle(delay, f, xs){
-                var now = -1;
-                var active = true;
-                var show_current = function(){
+            const cycle = (delay, f, xs) => {
+                let now = -1;
+                let active = true;
+                const show_current = () => {
                     f(xs[now]);
                 };
-                var next = function(){
+                const next = () => {
                     now++;
                     if (now >= xs.length) now = 0;
                     show_current();
                 };
-                var prev = function(){
+                const prev = () => {
                     now--;
                     if (now < 0) now = xs.length - 1;
                     show_current();
                 };
-                var run = function(){
+                const run = () => {
                     if (active) next();
                     setTimeout(run, delay);
                 };
                 run();
 
-                function handle_keydown(event){
-                    if (['ArrowDown', 'ArrowLeft', 'PageDown'].includes(event.key)){
+                const handle_keydown = event => {
+                    if (["ArrowDown", "ArrowLeft", "PageDown"].includes(event.key)){
                         active = false;
                         next();
                     }
-                    if (['ArrowUp', 'ArrowRight', 'PageUp'].includes(event.key)){
+                    if (["ArrowUp", "ArrowRight", "PageUp"].includes(event.key)){
                         active = false;
                         prev();
                     }
-                    if ([' '].includes(event.key)){
+                    if ([" "].includes(event.key)){
                         active = true;
                         show_current();
                     }
-                }
+                };
 
-                document.addEventListener('keydown', handle_keydown, false);
-            }
+                document.addEventListener("keydown", handle_keydown, false);
+            };
 
-            function fetch_content(url){
+            const fetch_content = url => {
                 $.get(url, function(data){
-                    $('#intermissions-content').hide().html(data).fadeIn(300);
+                    $("#intermissions-content").hide().html(data).fadeIn(300);
                 });
-            }
+            };
 
             cycle({{ interval }}, fetch_content, urls);
         });
+        */
     </script>
 
 {% endblock %}

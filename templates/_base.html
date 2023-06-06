@@ -4,54 +4,45 @@
     <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block meta_title %}PyCon CZ 2023, September 08-10, Prague{% endblock %}</title>
+        <title>{% block meta_title %}PyCon CZ 23, 15-17 September, Prague{% endblock %}</title>
 
         {% block meta_head %}
             <meta property="og:type" content="website">
-            <meta property="og:site_name" content="PyCon CZ 2023">
+            <meta property="og:site_name" content="PyCon CZ 23">
             <meta name="twitter:site" content="@pyconcz">
             <meta property="og:url" content="https://{{ request.get_host }}{{ request.path }}">
             {% block meta_social_customizable %}
-                <meta property="og:title" content="PyCon CZ 2023, June 08-10, Prague">
+                <meta property="og:title" content="PyCon CZ 23, 15-17 September, Prague">
                 <meta property="og:description" content="Join us for 3 days full of Python and fun!!!">
                 <meta property="og:image" content="https://{{ request.get_host }}{% block meta_social_customizable_image %}{% static 'img/social-media-image-1200x630.jpg' %}{% endblock %}">
                 <meta property="og:image:width" content="1200">
                 <meta property="og:image:height" content="630">
                 <meta name="twitter:card" content="summary_large_image">
-                <meta name="twitter:image:alt" content="PyCon CZ 2019">
+                <meta name="twitter:image:alt" content="PyCon CZ 23">
             {% endblock %}
         {% endblock %}
 
-        <link href="{% static debug|yesno:'css/pyconcz19.css,css/pyconcz19.min.css' %}" type="text/css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,500,700|Roboto+Slab:400,700&amp;subset=latin-ext" rel="stylesheet">
+        <link href="{% static 'generated/index.css' %}" rel="stylesheet">
 
         {# favicons #}
-        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
-        <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-32x32.png' %}" sizes="32x32">
-        <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-16x16.png' %}" sizes="16x16">
-        <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %}">
-        <link rel="mask-icon" href="{% static 'img/favicon/safari-pinned-tab.svg' %}" color="#1f130a">
-        <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
-        <meta name="apple-mobile-web-app-title" content="PyCon CZ 2023">
-        <meta name="application-name" content="PyCon CZ 2023">
-        <meta name="msapplication-TileColor" content="#1f130a">
-        <meta name="msapplication-config" content="{% static 'img/favicon/browserconfig.xml' %}">
-        <meta name="theme-color" content="#1f130a">
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="theme-color" content="#39f4c5">
         {# endfavicons #}
 
         {% block js_head %}{% endblock %}
     </head>
     <body {% block body_extras %}{% endblock %}>
-    {% if phases.next_year_website == 'public' %}
-        <div style="text-align:center!important; background-color:#f2f2f2!important; padding:1rem 0!important; border-top-style:solid!important; border-bottom-style:solid!important; border-width: 4px!important; border-color: #d52034!important;">
-            <span style="color:black!important; font-size:2rem!important;">Looking for </span><a href="https://cz.pycon.org/" style="color:black!important; font-size:2rem!important; text-decoration:underline!important;">the latest PyCon&nbsp;CZ website</a><span style="color:black!important; font-size:2rem!important;">?</span>
-        </div>
-    {% endif %}
+    <header>
+        <img src="{% static 'img/logo-pycon-23.min.svg' %}" alt="PyCon CZ">
+    </header>
     {% block body %}{% endblock %}
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    <script src="{% static 'generated/bootstrap.bundle.min.js' %}"></script>
     {% if not debug %}
         <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
         <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>

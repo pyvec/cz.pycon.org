@@ -1,0 +1,79 @@
+%custom-bootstrap-variables {
+    @import "node_modules/bootstrap/scss/functions";
+    @import "node_modules/bootstrap/scss/variables";
+    @import "node_modules/bootstrap/scss/variables-dark";
+
+    // Dark color mode variables
+    //
+    // Custom variables for the `[data-bs-theme="dark"]` theme. Use this as a starting point for your own custom color modes by creating a new theme-specific file like `_variables-dark.scss` and adding the variables you need.
+
+    //
+    // Global colors
+    //
+
+    // $primary-text-emphasis-dark: tint-color($primary, 40%); $primary-text-emphasis-dark: $primary-text-emphasis-dark !global; // tint-color($primary, 40%)
+    // $secondary-text-emphasis-dark: tint-color($secondary, 40%); $secondary-text-emphasis-dark: $secondary-text-emphasis-dark !global; // tint-color($secondary, 40%)
+    // $success-text-emphasis-dark: tint-color($success, 40%); $success-text-emphasis-dark: $success-text-emphasis-dark !global; // tint-color($success, 40%)
+    // $info-text-emphasis-dark: tint-color($info, 40%); $info-text-emphasis-dark: $info-text-emphasis-dark !global; // tint-color($info, 40%)
+    // $warning-text-emphasis-dark: tint-color($warning, 40%); $warning-text-emphasis-dark: $warning-text-emphasis-dark !global; // tint-color($warning, 40%)
+    // $danger-text-emphasis-dark: tint-color($danger, 40%); $danger-text-emphasis-dark: $danger-text-emphasis-dark !global; // tint-color($danger, 40%)
+    // $light-text-emphasis-dark: $gray-100; $light-text-emphasis-dark: $light-text-emphasis-dark !global; // $gray-100
+    // $dark-text-emphasis-dark: $gray-300; $dark-text-emphasis-dark: $dark-text-emphasis-dark !global; // $gray-300
+
+    // $primary-bg-subtle-dark: shade-color($primary, 80%); $primary-bg-subtle-dark: $primary-bg-subtle-dark !global; // shade-color($primary, 80%)
+    // $secondary-bg-subtle-dark: shade-color($secondary, 80%); $secondary-bg-subtle-dark: $secondary-bg-subtle-dark !global; // shade-color($secondary, 80%)
+    // $success-bg-subtle-dark: shade-color($success, 80%); $success-bg-subtle-dark: $success-bg-subtle-dark !global; // shade-color($success, 80%)
+    // $info-bg-subtle-dark: shade-color($info, 80%); $info-bg-subtle-dark: $info-bg-subtle-dark !global; // shade-color($info, 80%)
+    // $warning-bg-subtle-dark: shade-color($warning, 80%); $warning-bg-subtle-dark: $warning-bg-subtle-dark !global; // shade-color($warning, 80%)
+    // $danger-bg-subtle-dark: shade-color($danger, 80%); $danger-bg-subtle-dark: $danger-bg-subtle-dark !global; // shade-color($danger, 80%)
+    // $light-bg-subtle-dark: $gray-800; $light-bg-subtle-dark: $light-bg-subtle-dark !global; // $gray-800
+    // $dark-bg-subtle-dark: mix($gray-800, $black); $dark-bg-subtle-dark: $dark-bg-subtle-dark !global; // mix($gray-800, $black)
+
+    // $primary-border-subtle-dark: shade-color($primary, 40%); $primary-border-subtle-dark: $primary-border-subtle-dark !global; // shade-color($primary, 40%)
+    // $secondary-border-subtle-dark: shade-color($secondary, 40%); $secondary-border-subtle-dark: $secondary-border-subtle-dark !global; // shade-color($secondary, 40%)
+    // $success-border-subtle-dark: shade-color($success, 40%); $success-border-subtle-dark: $success-border-subtle-dark !global; // shade-color($success, 40%)
+    // $info-border-subtle-dark: shade-color($info, 40%); $info-border-subtle-dark: $info-border-subtle-dark !global; // shade-color($info, 40%)
+    // $warning-border-subtle-dark: shade-color($warning, 40%); $warning-border-subtle-dark: $warning-border-subtle-dark !global; // shade-color($warning, 40%)
+    // $danger-border-subtle-dark: shade-color($danger, 40%); $danger-border-subtle-dark: $danger-border-subtle-dark !global; // shade-color($danger, 40%)
+    // $light-border-subtle-dark: $gray-700; $light-border-subtle-dark: $light-border-subtle-dark !global; // $gray-700
+    // $dark-border-subtle-dark: $gray-800; $dark-border-subtle-dark: $dark-border-subtle-dark !global; // $gray-800
+
+    // $body-color-dark: $gray-500; $body-color-dark: $body-color-dark !global; // $gray-500
+    // $body-bg-dark: $gray-900; $body-bg-dark: $body-bg-dark !global; // $gray-900
+    // $body-secondary-color-dark: rgba($body-color-dark, .75); $body-secondary-color-dark: $body-secondary-color-dark !global; // rgba($body-color-dark, .75)
+    // $body-secondary-bg-dark: $gray-800; $body-secondary-bg-dark: $body-secondary-bg-dark !global; // $gray-800
+    // $body-tertiary-color-dark: rgba($body-color-dark, .5); $body-tertiary-color-dark: $body-tertiary-color-dark !global; // rgba($body-color-dark, .5)
+    // $body-tertiary-bg-dark: mix($gray-800, $gray-900, 50%); $body-tertiary-bg-dark: $body-tertiary-bg-dark !global; // mix($gray-800, $gray-900, 50%)
+    // $body-emphasis-color-dark: $white; $body-emphasis-color-dark: $body-emphasis-color-dark !global; // $white
+    // $border-color-dark: $gray-700; $border-color-dark: $border-color-dark !global; // $gray-700
+    // $border-color-translucent-dark: rgba($white, .15); $border-color-translucent-dark: $border-color-translucent-dark !global; // rgba($white, .15)
+    // $headings-color-dark: inherit; $headings-color-dark: $headings-color-dark !global; // inherit
+    // $link-color-dark: tint-color($primary, 40%); $link-color-dark: $link-color-dark !global; // tint-color($primary, 40%)
+    // $link-hover-color-dark: shift-color($link-color-dark, -$link-shade-percentage); $link-hover-color-dark: $link-hover-color-dark !global; // shift-color($link-color-dark, -$link-shade-percentage)
+    // $code-color-dark: tint-color($code-color, 40%); $code-color-dark: $code-color-dark !global; // tint-color($code-color, 40%)
+
+    //
+    // Forms
+    //
+
+    // $form-select-indicator-color-dark: $body-color-dark; $form-select-indicator-color-dark: $form-select-indicator-color-dark !global; // $body-color-dark
+    // $form-select-indicator-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color-dark}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>"); $form-select-indicator-dark: $form-select-indicator-dark !global; // url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color-dark}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>")
+
+    // $form-switch-color-dark: rgba($white, .25); $form-switch-color-dark: $form-switch-color-dark !global; // rgba($white, .25)
+    // $form-switch-bg-image-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color-dark}'/></svg>"); $form-switch-bg-image-dark: $form-switch-bg-image-dark !global; // url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color-dark}'/></svg>")
+
+    // $form-valid-color-dark: $green-300; $form-valid-color-dark: $form-valid-color-dark !global; // $green-300
+    // $form-valid-border-color-dark: $green-300; $form-valid-border-color-dark: $form-valid-border-color-dark !global; // $green-300
+    // $form-invalid-color-dark: $red-300; $form-invalid-color-dark: $form-invalid-color-dark !global; // $red-300
+    // $form-invalid-border-color-dark: $red-300; $form-invalid-border-color-dark: $form-invalid-border-color-dark !global; // $red-300
+
+    //
+    // Accordion
+    //
+
+    // $accordion-icon-color-dark: $primary-text-emphasis-dark; $accordion-icon-color-dark: $accordion-icon-color-dark !global; // $primary-text-emphasis-dark
+    // $accordion-icon-active-color-dark: $primary-text-emphasis-dark; $accordion-icon-active-color-dark: $accordion-icon-active-color-dark !global; // $primary-text-emphasis-dark
+
+    // $accordion-button-icon-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>"); $accordion-button-icon-dark: $accordion-button-icon-dark !global; // url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>")
+    // $accordion-button-active-icon-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>"); $accordion-button-active-icon-dark: $accordion-button-active-icon-dark !global; // url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>")
+}

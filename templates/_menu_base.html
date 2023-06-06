@@ -8,9 +8,9 @@ If you want to remove a menu item globally, comment it out here.
 {% block all %}
     {% block basic %}
 
-<!--        {% block link_home %}-->
-<!--            {% include '__nav_link.html' with url='homepage' link_text='Home' links_to_homepage=True %}-->
-<!--        {% endblock %}-->
+        {% block link_home %}
+            {% include '__nav_link.html' with url='homepage' link_text='Home' links_to_homepage=True %}
+        {% endblock %}
 
         {% block link_about_city %}
             {% if phases.city_info == 'published' %}
@@ -88,13 +88,13 @@ If you want to remove a menu item globally, comment it out here.
                 {% endif %}
             {% endblock %}
 
-<!--            {% block link_sponsorship %}-->
-<!--                {% if phases.sponsorship == 'prospectus_available' %}-->
-<!--                    {% include '__nav_link.html' with url='homepage' link_text='Sponsorship' anchor='#sponsors' %}-->
-<!--                {% elif phases.sponsorship == 'dedicated_page' %}-->
-<!--                    {% include '__nav_link.html' with url='sponsors_offer' link_text='Sponsorship' %}-->
-<!--                {% endif %}-->
-<!--            {% endblock %}-->
+            {% block link_sponsorship %}
+                {% if phases.sponsorship == 'prospectus_available' %}
+                    {% include '__nav_link.html' with url='homepage' link_text='Sponsorship' anchor='#sponsors' %}
+                {% elif phases.sponsorship == 'dedicated_page' %}
+                    {% include '__nav_link.html' with url='sponsors_offer' link_text='Sponsorship' %}
+                {% endif %}
+            {% endblock %}
 
             {% block link_coc %}
                 {% include '__nav_link.html' with url='coc' link_text='Code of Conduct' %}

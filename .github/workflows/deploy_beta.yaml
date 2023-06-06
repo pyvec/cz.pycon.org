@@ -13,6 +13,14 @@ jobs:
       - id: vars
         name: Compute short SHA for SENTRY_RELEASE
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Build static assets
+        run: |
+          npm clean-install 
+          npm run build
       - name: Checkout repository with archived sites of previous years
         uses: actions/checkout@v3
         with:

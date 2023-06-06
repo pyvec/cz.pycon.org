@@ -129,6 +129,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Frontend
+node_modules/
 # Local media and generated static files
 data/mediafiles/
 static/generated/

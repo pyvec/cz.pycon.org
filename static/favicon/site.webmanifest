@@ -1,0 +1,19 @@
+{
+    "name": "PyCon CZ",
+    "short_name": "PyCon CZ",
+    "icons": [
+        {
+            "src": "/2023/static/favicon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/2023/static/favicon/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#39f4c5",
+    "background_color": "#39f4c5",
+    "display": "standalone"
+}
