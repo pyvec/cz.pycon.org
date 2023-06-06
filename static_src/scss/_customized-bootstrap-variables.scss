@@ -592,7 +592,7 @@
     // $border-color-translucent: rgba($black, .175); $border-color-translucent: $border-color-translucent !global; // rgba($black, .175)
 
     $border-radius: .75rem; $border-radius: $border-radius !global; // .375rem
-    // $border-radius-sm: .25rem; $border-radius-sm: $border-radius-sm !global; // .25rem
+    //$border-radius-sm: .25rem; $border-radius-sm: $border-radius-sm !global; // .25rem
     $border-radius-lg: 1rem; $border-radius-lg: $border-radius-lg !global; // .5rem
     $border-radius-xl: 2rem; $border-radius-xl: $border-radius-xl !global; // 1rem
     $border-radius-xxl: 3rem; $border-radius-xxl: $border-radius-xxl !global; // 2rem
@@ -812,12 +812,12 @@
     // $input-btn-focus-blur: $focus-ring-blur; $input-btn-focus-blur: $input-btn-focus-blur !global; // $focus-ring-blur
     // $input-btn-focus-box-shadow: $focus-ring-box-shadow; $input-btn-focus-box-shadow: $input-btn-focus-box-shadow !global; // $focus-ring-box-shadow
 
-     $input-btn-padding-y-sm: .5rem; $input-btn-padding-y-sm: $input-btn-padding-y-sm !global; // .25rem
-     $input-btn-padding-x-sm: 1rem; $input-btn-padding-x-sm: $input-btn-padding-x-sm !global; // .5rem
+    $input-btn-padding-y-sm: .75rem; $input-btn-padding-y-sm: $input-btn-padding-y-sm !global; // .25rem
+    $input-btn-padding-x-sm: 1.25rem; $input-btn-padding-x-sm: $input-btn-padding-x-sm !global; // .5rem
     // $input-btn-font-size-sm: $font-size-sm; $input-btn-font-size-sm: $input-btn-font-size-sm !global; // $font-size-sm
 
-    $input-btn-padding-y-lg: 1.5rem; $input-btn-padding-y-lg: $input-btn-padding-y-lg !global; // .5rem
-    $input-btn-padding-x-lg: 3rem; $input-btn-padding-x-lg: $input-btn-padding-x-lg !global; // 1rem
+    $input-btn-padding-y-lg: 1.25rem; $input-btn-padding-y-lg: $input-btn-padding-y-lg !global; // .5rem
+    $input-btn-padding-x-lg: 2.5rem; $input-btn-padding-x-lg: $input-btn-padding-x-lg !global; // 1rem
     // $input-btn-font-size-lg: $font-size-lg; $input-btn-font-size-lg: $input-btn-font-size-lg !global; // $font-size-lg
 
     // $input-btn-border-width: var(--#{$prefix}border-width); $input-btn-border-width: $input-btn-border-width !global; // var(--#{$prefix}border-width)
@@ -856,9 +856,9 @@
     // $btn-link-disabled-color: $gray-600; $btn-link-disabled-color: $btn-link-disabled-color !global; // $gray-600
 
     // Allows for customizing button radius independently from global border radius
-    // $btn-border-radius: var(--#{$prefix}border-radius); $btn-border-radius: $btn-border-radius !global; // var(--#{$prefix}border-radius)
-    // $btn-border-radius-sm: var(--#{$prefix}border-radius-sm); $btn-border-radius-sm: $btn-border-radius-sm !global; // var(--#{$prefix}border-radius-sm)
-    // $btn-border-radius-lg: var(--#{$prefix}border-radius-lg); $btn-border-radius-lg: $btn-border-radius-lg !global; // var(--#{$prefix}border-radius-lg)
+    $btn-border-radius: var(--#{$prefix}border-radius); $btn-border-radius: $btn-border-radius !global; // var(--#{$prefix}border-radius)
+    $btn-border-radius-sm: var(--#{$prefix}border-radius); $btn-border-radius-sm: $btn-border-radius-sm !global; // var(--#{$prefix}border-radius-sm)
+    $btn-border-radius-lg: var(--#{$prefix}border-radius); $btn-border-radius-lg: $btn-border-radius-lg !global; // var(--#{$prefix}border-radius-lg)
 
     // $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; $btn-transition: $btn-transition !global; // color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 
