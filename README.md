@@ -90,6 +90,24 @@ We’re using [fly.io](https://fly.io). Deployment is automatic to [cz.pycon.org
 
 For more control [install flyctl](https://fly.io/docs/hands-on/install-flyctl/).
 
+## Database and media synchronization
+
+The following commands can be used to copy database and media files between environments:
+
+* `copy-db-prod-to-local`: Copy database from production to local container. Starts the container with the database when necessary.
+* `copy-media-prod-to-local`: Copy media files from production to `./data/mediafiles`.
+* `copy-db-prod-to-beta`: Copy database from production to beta, overwriting ALL data on beta. Operation is performed remotely.
+* `copy-media-prod-to-beta`: Copy media files from production to beta. The media files are copied to local folder and then uploaded to beta.
+
+All command requires access to fly.io and `flyctl` must be installed. Before running these commands, [install flyctl](https://fly.io/docs/hands-on/install-flyctl/)
+and authenticate using the following command:
+
+```bash
+fly auth login
+```
+
+If you use WSL, you need to perform additional step - see [official login instructions](https://fly.io/docs/hands-on/sign-in/).
+
 ## Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.
 
