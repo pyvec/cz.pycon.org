@@ -38,7 +38,9 @@ RUN --mount=type=bind,source=./requirements.txt,target=/tmp/requirements.txt \
     # Prepare configuration required for dynamic configuration based on env. parameters
     mkdir -p /etc/nginx/pycon-config-enabled/ && \
     mkdir -p /etc/nginx/pycon-config-available/ && \
-    cp /tmp/nginx-conf/*.inc.conf /etc/nginx/pycon-config-available/
+    cp /tmp/nginx-conf/*.inc.conf /etc/nginx/pycon-config-available/ && \
+    # Validate nginx configuration
+    nginx -t
 
 COPY . /code
 
