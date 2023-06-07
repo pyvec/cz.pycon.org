@@ -23,7 +23,7 @@ jobs:
       - name: Checkout repository with archived sites of previous years
         uses: actions/checkout@v3
         with:
-          repository: pyvec/cz.pycon.org-2019
+          repository: pyvec/cz.pycon.org-archive
           path: _previous-years
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy -c fly.prod.toml --remote-only --build-arg SENTRY_RELEASE=${{ steps.vars.outputs.sha_short }}
