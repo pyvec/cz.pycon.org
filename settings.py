@@ -132,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Prague"
 
 USE_I18N = True
 
@@ -153,7 +153,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # WagTail settings
 WAGTAILADMIN_BASE_URL = ""
-WAGTAIL_SITE_NAME = "pycon"
+WAGTAIL_SITE_NAME = "PyCon CZ"
 WAGTAIL_STATIC_URL = "/static/wagtail/"
 APPEND_SLASH = True
 
