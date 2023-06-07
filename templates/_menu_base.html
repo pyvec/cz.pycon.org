@@ -89,13 +89,13 @@ If you want to remove a menu item globally, comment it out here.
                 {% endif %}
             {% endblock %}{% endcomment %}
 
-            {% comment %}{% block link_sponsorship %}
-                {% if phases.sponsorship == 'prospectus_available' %}
+            {% block link_sponsorship %}
+                {% comment %}{% if phases.sponsorship == 'prospectus_available' %}
                     {% include '__nav_link.html' with url='homepage' link_text='Sponsorship' anchor='#sponsors' %}
                 {% elif phases.sponsorship == 'dedicated_page' %}
-                    {% include '__nav_link.html' with url='sponsors_offer' link_text='Sponsorship' %}
-                {% endif %}
-            {% endblock %}{% endcomment %}
+                {% endif %}{% endcomment %}
+                {% include '__nav_link.html' with url='sponsorship' link_text='Sponsorship' %}
+            {% endblock %}
 
             {% block link_coc %}
                 {% include '__nav_link.html' with url='coc' link_text='Code of Conduct' %}

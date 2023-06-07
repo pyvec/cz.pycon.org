@@ -10,10 +10,12 @@
     {% if url != 'homepage' or request.path != '/2023/' %}
         <a
             class="
-                nav-link
+                text-uppercase
+                text-decoration-none
+                link-light
                 {# links to currently shown page are different (only those without an anchor) #}
                 {% if request.path == link and not anchor %}
-                    active
+                fw-semibold
                 {% endif %}
                 {{ class }}
             "

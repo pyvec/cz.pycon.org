@@ -5,18 +5,20 @@
 
 {% block main %}
     <p>Do you want to be notified when more information about PyCon CZ 23 will be available?</p>
-    <a class="btn btn-sm btn-primary" href="https://eepurl.com/gOHNvP">Subscribe to our newsletter</a>
+    <a class="btn btn-secondary" href="https://eepurl.com/gOHNvP">Subscribe to our newsletter</a>
 
     <hr>
+
     <h2>Sponsorship</h2>
     <p class="lead">
         PyCon CZ relies on sponsors to keep ticket prices affordable.
         <br>
-        If you would like to sponsor the conference please see our
-        <a href="{% static 'pycon-cz-sponsorship-prospectus-2023.pdf' %}" download="pycon-cz-sponsorship-prospectus-2023.pdf">sponsorship prospectus (PDF)</a>.
+        If you would like to sponsor the conference please
     </p>
+    <a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a>
 
     <hr>
+
     <h2>Organized by community for community</h2>
     <p>PyCon&nbsp;CZ is organized by volunteers from <a href="https://pyvec.org/">Czech Python community</a> for anyone interested in Python: professionals, novices, students and hobbyist Python programmers from Czechia and abroad.</p>
     <p>Watch a&nbsp;short video from the&nbsp;PyCon&nbsp;CZ 2019 or check talks from previous years on <a href="https://www.youtube.com/channel/UCRC2Vu7p4SJxhhuRdl8rQ6g">PyCon&nbsp;CZ YouTube channel</a>.</p>
