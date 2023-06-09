@@ -92,19 +92,31 @@
 {% endblock %}
 
 {% block main %}
-    <h2>More information coming soon</h2>
-    <p>Do you want to be notified when more information about PyCon CZ 23 will be available?</p>
-    <p><a class="btn btn-secondary" href="https://eepurl.com/gOHNvP">Subscribe to our newsletter</a></p>
 
+    <div class="d-flex flex-column flex-sm-row align-items-baseline column-gap-4 row-gap-3 rounded-3 border border-black p-4 mb-4">
+        <div>
+            <img src="{% static 'img/icons/email.min.svg' %}" width="100" height="100" alt="">
+        </div>
 
-    <h2>Sponsorship</h2>
-    <p class="lead">
-        PyCon CZ relies on sponsors to keep ticket prices affordable.
-        <br>
-        If you would like to sponsor the conference please
-    </p>
-    <p><a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a></p>
+        <div>
+            <h2 class="mt-0">More information coming soon</h2>
+            <p>Do you want to be notified when more information about PyCon CZ 23 will be available?</p>
+            <p>When tickets go on sale, speakers are announced or talk and workshops details are available?</p>
+            <p><a class="btn btn-secondary" href="https://eepurl.com/gOHNvP">Subscribe to our newsletter</a></p>
+        </div>
+    </div>
 
+    <div class="rounded-3 border border-primary bg-secondary-subtle p-4">
+        <h2 class="mt-0">Sponsorship</h2>
+        <div class="d-flex flex-column flex-sm-row  column-gap-4 row-gap-3 align-items-end">
+            <p class="lead">
+                PyCon CZ relies on sponsors to keep ticket prices affordable.
+                <br>
+                If you would like to sponsor the conference please
+            </p>
+            <p><a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a></p>
+        </div>
+    </div>
 
     <h2>Organized by community for community</h2>
     <p>PyCon&nbsp;CZ is organized by volunteers from <a href="https://pyvec.org/">Czech Python community</a> for anyone interested in Python: professionals, novices, students and hobbyist Python programmers from Czechia and abroad.</p>
