@@ -3,6 +3,12 @@
 {% load static %}
 
 
+
+{% block header_action %}
+    <a href="{% url 'cfp' %}" class="btn btn-primary btn-lg">Call for proposals is open!</a>
+{% endblock %}
+
+
 {% block header %}
     {{ block.super }}
     <section class="row row-gap-md-3 g-5 my-4 row-cols-1 row-cols-sm-2 row-cols-lg-4">
