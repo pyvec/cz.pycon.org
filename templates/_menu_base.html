@@ -30,10 +30,13 @@ If you want to remove a menu item globally, comment it out here.
             {% endif %}
         {% endblock %}{% endcomment %}
 
-        {% block link_call_for_papers %}
-            {% if phases.cfp == 'launched' %}
-                {% include '__nav_link.html' with url='cfp' link_text='Call for Papers' %}
-            {% endif %}
+        {% block link_call_for_proposals %}
+            {% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' %}
+            {% if phases.cfp == 'launched' %} {% endif %}
+        {% endblock %}
+
+        {% block link_call_for_proposals_guide %}
+            {% include '__nav_link.html' with url='cfp_guide' link_text='CfP Guide' %}
         {% endblock %}
 
         {% comment %}{% block link_financial_aid %}
