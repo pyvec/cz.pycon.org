@@ -11,8 +11,8 @@
         <a
             class="
                 text-uppercase
-                text-decoration-none
                 link-light
+                nav-link
                 {# links to currently shown page are different (only those without an anchor) #}
                 {% if request.path == link and not anchor %}
                 fw-semibold
