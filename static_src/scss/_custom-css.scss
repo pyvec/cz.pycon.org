@@ -39,11 +39,21 @@ h4,
 h5,
 h6 {
     margin-top: map-get($spacers, 4);
-     word-spacing: -.2ch;
+    word-spacing: -.2ch;
 }
 
 .PC-header {
     background-image: url(/static/img/header-bg.svg);
     background-size: cover;
     background-position: 50% 0;
+}
+
+nav .PC-nav-link-highlight {
+    padding-left: 2.5 * $navbar-nav-link-padding-x;
+    padding-right: 2.5 * $navbar-nav-link-padding-x;
+    background-repeat: no-repeat;
+    background-position: 5px 50%, right 5px top 50%;
+    background-size: 11px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 13'><g stroke='#{rgba($navbar-dark-active-color, 0.999999)}' stroke-width='1'><path d='M0 6.5h8' transform='rotate(18, 20, 7)' /><path d='M0 6.5h8' /><path d='M0 6.5h8' transform='rotate(-18, 20, 7)' /></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 13'><g stroke='#{rgba($navbar-dark-active-color, 0.999999)}' stroke-width='1' transform='scale(-1, 1)  translate(-9,0)'><path d='M0 6.5h8' transform='rotate(18, 20, 7)' /><path d='M0 6.5h8' /><path d='M0 6.5h8' transform='rotate(-18, 20, 7)' /></g></svg>");
 }
