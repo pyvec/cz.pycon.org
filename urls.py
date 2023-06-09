@@ -41,6 +41,7 @@ urlpatterns = [
                 path("announcements/", include("announcements.urls")),
                 path("program/", include("program.urls")),
                 path("intermissions/", include("intermissions.urls")),
+                path("", include("wagtail.urls")),
             ]
         ),
     ),
