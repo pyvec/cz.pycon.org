@@ -39,6 +39,10 @@ If you want to remove a menu item globally, comment it out here.
             {% include '__nav_link.html' with url='cfp_guide' link_text='CfP Guide' %}
         {% endblock %}
 
+        {% block link_call_for_proposals_pruvodce %}
+            {% include '__nav_link.html' with url='cfp_pruvodce' link_text='Průvodce CfP' %}
+        {% endblock %}
+
         {% comment %}{% block link_financial_aid %}
             {% if phases.finaid != 'not_launched' %}
                 {% include '__nav_link.html' with url='proposal_about' key='financial-aid' link_text='Financial Aid' %}
