@@ -39,6 +39,7 @@ h4,
 h5,
 h6 {
     margin-top: map-get($spacers, 4);
+     word-spacing: -.2ch;
 }
 
 .PC-header {
