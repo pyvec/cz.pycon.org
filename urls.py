@@ -34,7 +34,8 @@ urlpatterns = [
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
 
                 path("admin/", admin.site.urls),
-                path("wagtail/", include("wagtail.admin.urls")),
+                path("wt/", include("wagtail.admin.urls")),
+
                 path("team/", include("team.urls")),
                 path("sponsors/", include("sponsors.urls")),
                 path("announcements/", include("announcements.urls")),
