@@ -21,7 +21,7 @@
             <feGaussianBlur stdDeviation="0.5" result="blur" />
         </filter>
 
-        <filter id="floodBlur" x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <filter id="floodBlur" x="-300%" y="-300%" width="700%" height="700%" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
             <feFlood flood-opacity="0" result="BackgroundImageFix" />
             <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
             <feGaussianBlur stdDeviation="150" result="blur" />
