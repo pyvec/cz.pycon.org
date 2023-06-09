@@ -3,11 +3,78 @@
 {% load static %}
 
 
-{% block main %}
-    <p>Do you want to be notified when more information about PyCon CZ 23 will be available?</p>
-    <a class="btn btn-secondary" href="https://eepurl.com/gOHNvP">Subscribe to our newsletter</a>
+{% block header %}
+    {{ block.super }}
+    <section class="row row-gap-md-3 g-5 my-4 row-cols-1 row-cols-sm-2 row-cols-lg-3">
+        <article class="col d-flex gap-3">
+            <div>
+                <img src="{% static 'img/icons/bubble.min.svg' %}" width="80" height="80" alt="">
+            </div>
+            <div>
+                <h2 class="h4 mt-1">2 days of talks in 3 tracks</h2>
+                <p>Choose from 40+ talks in 3 parallel tracks during Friday and Saturday</p>
+            </div>
+        </article>
 
-    <hr>
+        <article class="col d-flex gap-3">
+            <div>
+                <img src="{% static 'img/icons/computer.min.svg' %}" width="80" height="80" alt="">
+            </div>
+            <div>
+                <h2 class="h4 mt-1">A day of workshops</h2>
+                <p>Learn deeper at workshops and sprints on Sunday</p>
+            </div>
+        </article>
+
+
+        <article class="col d-flex gap-3">
+            <div>
+                <img src="{% static 'img/icons/food.min.svg' %}" width="80" height="80" alt="">
+            </div>
+            <div>
+                <h2 class="h4 mt-1">Food, coffee & tea</h2>
+                <p>Great Food, coffee & tea every day</p>
+            </div>
+        </article>
+
+        <article class="col d-flex gap-3">
+            <div>
+                <img src="{% static 'img/icons/heart.min.svg' %}" width="80" height="80" alt="">
+            </div>
+            <div>
+                <h2 class="h4 mt-1">Afterparty</h2>
+                <p>Meet old and new friend at the afterparty on Saturday</p>
+            </div>
+        </article>
+
+        <article class="col d-flex gap-3">
+            <div>
+                <img src="{% static 'img/icons/person.min.svg' %}" width="80" height="80" alt="">
+            </div>
+            <div>
+                <h2 class="h4 mt-1">Board Game Night</h2>
+                <p>Have fun at Board game night on Friday</p>
+            </div>
+        </article>
+
+        <article class="col d-flex gap-3">
+            <div>
+                <img src="{% static 'img/icons/cubes.min.svg' %}" width="80" height="80" alt="">
+            </div>
+            <div>
+                <h2 class="h4 mt-1">Childcare</h2>
+                <p>We provide childcare for kids during all conference days at the venue</p>
+            </div>
+        </article>
+
+    </section>
+{% endblock %}
+
+{% block main %}
+    <h2>More information coming soon</h2>
+    <p>Do you want to be notified when more information about PyCon CZ 23 will be available?</p>
+    <p><a class="btn btn-secondary" href="https://eepurl.com/gOHNvP">Subscribe to our newsletter</a></p>
+
 
     <h2>Sponsorship</h2>
     <p class="lead">
@@ -15,9 +82,8 @@
         <br>
         If you would like to sponsor the conference please
     </p>
-    <a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a>
+    <p><a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a></p>
 
-    <hr>
 
     <h2>Organized by community for community</h2>
     <p>PyCon&nbsp;CZ is organized by volunteers from <a href="https://pyvec.org/">Czech Python community</a> for anyone interested in Python: professionals, novices, students and hobbyist Python programmers from Czechia and abroad.</p>

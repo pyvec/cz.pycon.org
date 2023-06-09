@@ -363,7 +363,8 @@
     $secondary: $teal;
     $secondary: $secondary !global; // $gray-600
     // $success: $green; $success: $success !global; // $green
-    $info: $blue; $info: $info !global; // $cyan
+    $info: $blue;
+    $info: $info !global; // $cyan
     // $warning: $yellow; $warning: $warning !global; // $yellow
     // $danger: $red; $danger: $danger !global; // $red
     // $light: $gray-100; $light: $light !global; // $gray-100
@@ -534,14 +535,16 @@
     //
     // Define the minimum dimensions at which your layout will change,
     // adapting to different screen sizes, for use in media queries.
+
     $grid-breakpoints: (
-        xxs: 0,
-        xs: 420px,
-        sm: 630px,
-        md: 850px,
-        lg: 1170px,
-        xl: 1640px,
-        xxl: 1800px
+        xxxs: 0,
+        xxs: 375px,
+        xs: 460px, // 0,
+        sm: 630px, // 576px,
+        md: 850px, // 768px,
+        lg: 1200px, // 992px,
+        xl: 1440px, // 1200px,
+        //xxl: 1800px // 1400px
     );
     $grid-breakpoints: $grid-breakpoints !global;
 
@@ -550,12 +553,13 @@
     // Define the maximum width of `.container` for different screen sizes.
 
     $container-max-widths: (
-        xs: 460px,
-        sm: 600px,
-        md: 790px,
-        lg: 1060px,
-        xl: 1200px,
-        xxl: 1720px
+        xxs: 339px,
+        xs: 424px,
+        sm: 582px, // 540px,
+        md: 802px, // 720px,
+        lg: 1140px, // 960px,
+        xl: 1360px, // 1140px,
+        //xxl: 1700px // 1320px
     );
     $container-max-widths: $container-max-widths !global;
 
@@ -564,7 +568,8 @@
     // Set the number of columns and specify the width of the gutters.
 
     // $grid-columns: 12; $grid-columns: $grid-columns !global; // 12
-    $grid-gutter-width: 2 * $spacer; $grid-gutter-width: $grid-gutter-width !global; // 1.5rem
+    $grid-gutter-width: 2 * $spacer;
+    $grid-gutter-width: $grid-gutter-width !global; // 1.5rem
     // $grid-row-columns: 6; $grid-row-columns: $grid-row-columns !global; // 6
 
     // Container padding
@@ -575,7 +580,8 @@
     //
     // Define common padding and border radius sizes and more.
 
-    $border-width: 2px; $border-width: $border-width !global; // 1px
+    $border-width: 2px;
+    $border-width: $border-width !global; // 1px
 
     /*
     $border-widths: (
@@ -591,15 +597,20 @@
     // $border-color: $gray-300; $border-color: $border-color !global; // $gray-300
     // $border-color-translucent: rgba($black, .175); $border-color-translucent: $border-color-translucent !global; // rgba($black, .175)
 
-    $border-radius: .75rem; $border-radius: $border-radius !global; // .375rem
+    $border-radius: .75rem;
+    $border-radius: $border-radius !global; // .375rem
     //$border-radius-sm: .25rem; $border-radius-sm: $border-radius-sm !global; // .25rem
-    $border-radius-lg: 1rem; $border-radius-lg: $border-radius-lg !global; // .5rem
-    $border-radius-xl: 2rem; $border-radius-xl: $border-radius-xl !global; // 1rem
-    $border-radius-xxl: 3rem; $border-radius-xxl: $border-radius-xxl !global; // 2rem
+    $border-radius-lg: 1rem;
+    $border-radius-lg: $border-radius-lg !global; // .5rem
+    $border-radius-xl: 2rem;
+    $border-radius-xl: $border-radius-xl !global; // 1rem
+    $border-radius-xxl: 3rem;
+    $border-radius-xxl: $border-radius-xxl !global; // 2rem
     // $border-radius-pill: 50rem; $border-radius-pill: $border-radius-pill !global; // 50rem
     // $border-radius-2xl: $border-radius-xxl; $border-radius-2xl: $border-radius-2xl !global; // $border-radius-xxl // Deprecated in v5.3.0
 
-    $box-shadow: 0 .375rem 0 $black; $box-shadow: $box-shadow !global; // 0 .5rem 1rem rgba($black, .15)
+    $box-shadow: 0 .375rem 0 $black;
+    $box-shadow: $box-shadow !global; // 0 .5rem 1rem rgba($black, .15)
     // $box-shadow-sm: 0 .125rem .25rem rgba($black, .075); $box-shadow-sm: $box-shadow-sm !global; // 0 .125rem .25rem rgba($black, .075)
     // $box-shadow-lg: 0 1rem 3rem rgba($black, .175); $box-shadow-lg: $box-shadow-lg !global; // 0 1rem 3rem rgba($black, .175)
     // $box-shadow-inset: inset 0 1px 2px rgba($black, .075); $box-shadow-inset: $box-shadow-inset !global; // inset 0 1px 2px rgba($black, .075)
@@ -655,21 +666,29 @@
     // $font-weight-normal: 400; $font-weight-normal: $font-weight-normal !global; // 400
     // $font-weight-medium: 500; $font-weight-medium: $font-weight-medium !global; // 500
     // $font-weight-semibold: 600; $font-weight-semibold: $font-weight-semibold !global; // 600
-    $font-weight-bold: 800; $font-weight-bold: $font-weight-bold !global; // 700
+    $font-weight-bold: 800;
+    $font-weight-bold: $font-weight-bold !global; // 700
     // $font-weight-bolder: bolder; $font-weight-bolder: $font-weight-bolder !global; // bolder
 
     // $font-weight-base: $font-weight-normal; $font-weight-base: $font-weight-base !global; // $font-weight-normal
 
     // $line-height-base: 1.5; $line-height-base: $line-height-base !global; // 1.5
-    $line-height-sm: 1.2; $line-height-sm: $line-height-sm !global; // 1.25
+    $line-height-sm: 1.2;
+    $line-height-sm: $line-height-sm !global; // 1.25
     // $line-height-lg: 2; $line-height-lg: $line-height-lg !global; // 2
 
-    $h1-font-size: $font-size-base * 3; $h1-font-size: $h1-font-size !global; // $font-size-base * 2.5
-    $h2-font-size: $font-size-base * 2; $h2-font-size: $h2-font-size !global; // $font-size-base * 2
-    $h3-font-size: $font-size-base * 1.5; $h3-font-size: $h3-font-size !global; // $font-size-base * 1.75
-    $h4-font-size: $font-size-base * 1.25; $h4-font-size: $h4-font-size !global; // $font-size-base * 1.5
-    $h5-font-size: $font-size-base * 1; $h5-font-size: $h5-font-size !global; // $font-size-base * 1.25
-    $h6-font-size: $font-size-base * 0.875; $h6-font-size: $h6-font-size !global; // $font-size-base
+    $h1-font-size: $font-size-base * 3;
+    $h1-font-size: $h1-font-size !global; // $font-size-base * 2.5
+    $h2-font-size: $font-size-base * 2;
+    $h2-font-size: $h2-font-size !global; // $font-size-base * 2
+    $h3-font-size: $font-size-base * 1.5;
+    $h3-font-size: $h3-font-size !global; // $font-size-base * 1.75
+    $h4-font-size: $font-size-base * 1.25;
+    $h4-font-size: $h4-font-size !global; // $font-size-base * 1.5
+    $h5-font-size: $font-size-base * 1;
+    $h5-font-size: $h5-font-size !global; // $font-size-base * 1.25
+    $h6-font-size: $font-size-base * 0.875;
+    $h6-font-size: $h6-font-size !global; // $font-size-base
 
     /*
     $font-sizes: (
@@ -683,9 +702,11 @@
     */
 
     // $headings-margin-bottom: $spacer * .5; $headings-margin-bottom: $headings-margin-bottom !global; // $spacer * .5
-    $headings-font-family: $font-family-monospace; $headings-font-family: $headings-font-family !global; // null
+    $headings-font-family: $font-family-monospace;
+    $headings-font-family: $headings-font-family !global; // null
     // $headings-font-style: null; $headings-font-style: $headings-font-style !global; // null
-    $headings-font-weight: $font-weight-bold; $headings-font-weight: $headings-font-weight !global; // 500
+    $headings-font-weight: $font-weight-bold;
+    $headings-font-weight: $headings-font-weight !global; // 500
     // $headings-line-height: 1.2; $headings-line-height: $headings-line-height !global; // 1.2
     // $headings-color: inherit; $headings-color: $headings-color !global; // inherit
 
@@ -704,8 +725,10 @@
     // $display-font-weight: 300; $display-font-weight: $display-font-weight !global; // 300
     // $display-line-height: $headings-line-height; $display-line-height: $display-line-height !global; // $headings-line-height
 
-    $lead-font-size: $font-size-base * 1.125; $lead-font-size: $lead-font-size !global; // $font-size-base * 1.25
-    $lead-font-weight: 400; $lead-font-weight: $lead-font-weight !global; // 300
+    $lead-font-size: $font-size-base * 1.125;
+    $lead-font-size: $lead-font-size !global; // $font-size-base * 1.25
+    $lead-font-weight: 400;
+    $lead-font-weight: $lead-font-weight !global; // 300
 
     // $small-font-size: .875em; $small-font-size: $small-font-size !global; // .875em
 
@@ -800,11 +823,15 @@
     //
     // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
-    $input-btn-padding-y: 1rem; $input-btn-padding-y: $input-btn-padding-y !global; // .375rem
-    $input-btn-padding-x: 2rem; $input-btn-padding-x: $input-btn-padding-x !global; // .75rem
-    $input-btn-font-family: $font-family-monospace; $input-btn-font-family: $input-btn-font-family !global; // null
+    $input-btn-padding-y: 1rem;
+    $input-btn-padding-y: $input-btn-padding-y !global; // .375rem
+    $input-btn-padding-x: 2rem;
+    $input-btn-padding-x: $input-btn-padding-x !global; // .75rem
+    $input-btn-font-family: $font-family-monospace;
+    $input-btn-font-family: $input-btn-font-family !global; // null
     // $input-btn-font-size: $font-size-base; $input-btn-font-size: $input-btn-font-size !global; // $font-size-base
-    $input-btn-line-height: $line-height-sm; $input-btn-line-height: $input-btn-line-height !global; // $line-height-base
+    $input-btn-line-height: $line-height-sm;
+    $input-btn-line-height: $input-btn-line-height !global; // $line-height-base
 
     // $input-btn-focus-width: $focus-ring-width; $input-btn-focus-width: $input-btn-focus-width !global; // $focus-ring-width
     // $input-btn-focus-color-opacity: $focus-ring-opacity; $input-btn-focus-color-opacity: $input-btn-focus-color-opacity !global; // $focus-ring-opacity
@@ -812,12 +839,16 @@
     // $input-btn-focus-blur: $focus-ring-blur; $input-btn-focus-blur: $input-btn-focus-blur !global; // $focus-ring-blur
     // $input-btn-focus-box-shadow: $focus-ring-box-shadow; $input-btn-focus-box-shadow: $input-btn-focus-box-shadow !global; // $focus-ring-box-shadow
 
-    $input-btn-padding-y-sm: .75rem; $input-btn-padding-y-sm: $input-btn-padding-y-sm !global; // .25rem
-    $input-btn-padding-x-sm: 1.25rem; $input-btn-padding-x-sm: $input-btn-padding-x-sm !global; // .5rem
+    $input-btn-padding-y-sm: .75rem;
+    $input-btn-padding-y-sm: $input-btn-padding-y-sm !global; // .25rem
+    $input-btn-padding-x-sm: 1.25rem;
+    $input-btn-padding-x-sm: $input-btn-padding-x-sm !global; // .5rem
     // $input-btn-font-size-sm: $font-size-sm; $input-btn-font-size-sm: $input-btn-font-size-sm !global; // $font-size-sm
 
-    $input-btn-padding-y-lg: 1.25rem; $input-btn-padding-y-lg: $input-btn-padding-y-lg !global; // .5rem
-    $input-btn-padding-x-lg: 2.5rem; $input-btn-padding-x-lg: $input-btn-padding-x-lg !global; // 1rem
+    $input-btn-padding-y-lg: 1.25rem;
+    $input-btn-padding-y-lg: $input-btn-padding-y-lg !global; // .5rem
+    $input-btn-padding-x-lg: 2.5rem;
+    $input-btn-padding-x-lg: $input-btn-padding-x-lg !global; // 1rem
     // $input-btn-font-size-lg: $font-size-lg; $input-btn-font-size-lg: $input-btn-font-size-lg !global; // $font-size-lg
 
     // $input-btn-border-width: var(--#{$prefix}border-width); $input-btn-border-width: $input-btn-border-width !global; // var(--#{$prefix}border-width)
@@ -856,9 +887,12 @@
     // $btn-link-disabled-color: $gray-600; $btn-link-disabled-color: $btn-link-disabled-color !global; // $gray-600
 
     // Allows for customizing button radius independently from global border radius
-    $btn-border-radius: var(--#{$prefix}border-radius); $btn-border-radius: $btn-border-radius !global; // var(--#{$prefix}border-radius)
-    $btn-border-radius-sm: var(--#{$prefix}border-radius); $btn-border-radius-sm: $btn-border-radius-sm !global; // var(--#{$prefix}border-radius-sm)
-    $btn-border-radius-lg: var(--#{$prefix}border-radius); $btn-border-radius-lg: $btn-border-radius-lg !global; // var(--#{$prefix}border-radius-lg)
+    $btn-border-radius: var(--#{$prefix}border-radius);
+    $btn-border-radius: $btn-border-radius !global; // var(--#{$prefix}border-radius)
+    $btn-border-radius-sm: var(--#{$prefix}border-radius);
+    $btn-border-radius-sm: $btn-border-radius-sm !global; // var(--#{$prefix}border-radius-sm)
+    $btn-border-radius-lg: var(--#{$prefix}border-radius);
+    $btn-border-radius-lg: $btn-border-radius-lg !global; // var(--#{$prefix}border-radius-lg)
 
     // $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; $btn-transition: $btn-transition !global; // color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 
