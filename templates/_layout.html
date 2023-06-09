@@ -14,7 +14,7 @@
 
                 <header>
                     {% block header %}
-                        <div class="d-flex flex-column flex-md-row column-gap-6 row-gap-3 align-items-md-center mb-3">
+                        <div class="d-flex flex-column flex-md-row column-gap-6 row-gap-3 align-items-md-start mt-4 mb-3">
                             <a href="{% url 'homepage' %}">
                                 <img
                                     class="img-fluid"
@@ -23,11 +23,15 @@
                                     width="500"
                                 >
                             </a>
-                            <h1>
-                                PyCon CZ 23
-                                <br>15–17 September
-                                <br>Prague
-                            </h1>
+                            <div>
+
+                                <h1 class="mt-0 mb-3">
+                                    PyCon CZ 23
+                                    <br>15–17 September
+                                    <br>Prague
+                                </h1>
+                                <a href="{% url 'cfp' %}" class="btn btn-primary">Call for proposals is open!</a>
+                            </div>
                         </div>
                     {% endblock %}
                 </header>
