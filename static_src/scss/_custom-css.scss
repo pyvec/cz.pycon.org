@@ -40,3 +40,9 @@ h5,
 h6 {
     margin-top: map-get($spacers, 4);
 }
+
+.PC-header {
+    background-image: url(/static/img/header-bg.svg);
+    background-size: cover;
+    background-position: 0 50%;
+}
