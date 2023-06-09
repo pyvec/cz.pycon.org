@@ -1,3 +1,8 @@
+::selection {
+    background-color: $secondary;
+    color: $blue;
+}
+
 .btn {
     border-color: $black;
     box-shadow: $box-shadow;
@@ -43,10 +48,15 @@ h6 {
 }
 
 .PC-header {
+    background-color: #0007ad;
     background-image: url(/static/img/header-bg.svg);
-    background-size: cover;
+
+    background-size: 100%;
     background-position: 50% 0;
+    background-repeat: no-repeat;
+    //background-attachment: fixed;
 }
+
 
 nav .PC-nav-link-highlight {
     padding-left: 2.5 * $navbar-nav-link-padding-x;
