@@ -97,34 +97,39 @@
 
 {% block main %}
 
-    <div class="d-flex flex-column flex-sm-row align-items-baseline column-gap-4 row-gap-3 rounded-3 border border-black p-4 mb-4">
-        <div>
-            <img src="{% static 'img/icons/email.min.svg' %}" width="100" height="100" alt="">
-        </div>
+    <div class="row row-gap-3">
 
-        <div>
-            <h2 class="mt-0">More information coming soon</h2>
-            <p>Do you want to be notified when more information about PyCon CZ 23 will be available?</p>
-            <p>When tickets go on sale, speakers are announced or talk and workshops details are available?</p>
-            <p><a class="btn btn-secondary" href="https://eepurl.com/gOHNvP">Subscribe to our newsletter</a></p>
+        <div class="col-lg">
+            <div class="h-100 rounded-3 border border-black p-4">
+                <h2 class="mt-0">More information coming soon</h2>
+                <p>Do you want to be notified when more information (tickets go on sale, speakers are announced or talk and workshops details online) about PyCon CZ 23 will be available?</p>
+                <p><a class="btn btn-secondary ps-3" href="https://eepurl.com/gOHNvP"> <img src="{% static 'img/icons/email.min.svg' %}" width="32" height="32" alt=""> Subscribe to our newsletter</a></p>
+            </div>
         </div>
-    </div>
+        <div class="col-lg">
+            <div class="h-100 rounded-3 border border-primary bg-secondary-subtle p-4">
+                <h2 class="mt-0">Sponsorship</h2>
 
-    <div class="rounded-3 border border-primary bg-secondary-subtle p-4">
-        <h2 class="mt-0">Sponsorship</h2>
-        <div class="d-flex flex-column flex-sm-row  column-gap-4 row-gap-3 align-items-end">
-            <p class="lead">
-                PyCon CZ relies on sponsors to keep ticket prices affordable.
-                <br>
-                If you would like to sponsor the conference please
-            </p>
-            <p><a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a></p>
+                <div class="h-lg-100 d-flex flex-column flex-sm-row flex-lg-column column-gap-4 row-gap-3 align-items-end align-items-lg-start">
+                    <p class="lead">
+                        PyCon CZ relies on sponsors to keep ticket prices affordable.
+                        <br>
+                        If you would like to sponsor the conference please
+                    </p>
+                    <p><a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a></p>
+                </div>
+            </div>
         </div>
     </div>
 
     <h2>Organized by community for community</h2>
-    <p>PyCon&nbsp;CZ is organized by volunteers from <a href="https://pyvec.org/">Czech Python community</a> for anyone interested in Python: professionals, novices, students and hobbyist Python programmers from Czechia and abroad.</p>
-    <p>Watch a&nbsp;short video from the&nbsp;PyCon&nbsp;CZ 2019 or check talks from previous years on <a href="https://www.youtube.com/channel/UCRC2Vu7p4SJxhhuRdl8rQ6g">PyCon&nbsp;CZ YouTube channel</a>.</p>
+    <div class="row align-items-end">
+        <div class="col-md-8 col-lg-6">
+            <p class="lead">PyCon&nbsp;CZ is organized by volunteers from <a href="https://pyvec.org/">Czech Python community</a> for anyone interested in Python: professionals, novices, students and hobbyist Python programmers from Czechia and abroad.</p>
+            <p>Watch a&nbsp;short video from the&nbsp;PyCon&nbsp;CZ 2019 or check talks from previous years on <a href="https://www.youtube.com/channel/UCRC2Vu7p4SJxhhuRdl8rQ6g">PyCon&nbsp;CZ YouTube channel</a>.</p>
+        </div>
+    </div>
+
     <div class="ratio ratio-16x9">
         <iframe width="960" height="407" src="https://www.youtube.com/embed/kL2gmhs0irI" allowfullscreen></iframe>
     </div>
