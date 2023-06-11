@@ -1,11 +1,12 @@
 {% extends '_layout.html' %}
 
+{% load static %}
 
 
 {% block meta_title %}Call for Proposals: A Guide to Successful Proposal Submissions – {{ block.super }}{% endblock %}
 
 
-{% block og_image_slug %}cfp{% endblock %}
+{% block og_image %}{% static 'img/social-media/cfp.min.jpg' %}{% endblock %}
 
 
 {% block main %}
