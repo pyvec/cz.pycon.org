@@ -42,6 +42,7 @@
     <script src="{% static 'generated/bootstrap.bundle.min.js' %}"></script>
     {% if not debug %}
         <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+        <script async src="https://scripts.simpleanalyticscdn.com/auto-events.js"></script>
         <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
     {% endif %}
     {% block after_scripts_loaded %}{% endblock %}
