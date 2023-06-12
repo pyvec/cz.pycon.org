@@ -1,4 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .a,
+        .b,
+        .c {
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+        transform-box: fill-box;
+        transform-origin: center;
+        }
+
+        .a { animation-name: a }
+        .b { animation-name: b }
+        .c { animation-name: c }
+
+        @keyframes a {
+        0% { transform: matrix(11,5,-5,11,1250,310)}
+        50% { transform: matrix(11,5,-5,11,350,370)}
+        100% { transform: matrix(0,-10,10,0,0,850)}
+        }
+
+        @keyframes b {
+        0% { transform: matrix(12,-4.5,4.5,12,930,650)}
+        50% { transform: matrix(12,-4.5,4.5,12,560,360)}
+        100% { transform: matrix(12,-4.5,4.5,12,880,720)}
+        }
+
+        @keyframes c {
+        0% { transform: matrix(12,-1,1,12,450,520)}
+        50% { transform: matrix(12,-5,5,12,940,690)}
+        100% { transform: matrix(13,9,-12,12,900,500)}
+        }
+    </style>
     <defs>
         <filter id="floodBlur"
                 x="-450%"
@@ -25,30 +59,6 @@
             <rect fill="url(#gradient)" x="0" y="20%" width="100%" height="80%" />
         </mask>
 
-        <symbol id="blobs1" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMin slice">
-            <g filter="url(#floodBlur)">
-                <path fill="#008DDD" d="M34 643c-101-110 91-364 200-478 27-4 85 5 97 78 16 91 143 100 315 38 172-63 515-131 568 2s-76 216-262 345-211-20-399 89a409 409 0 0 1-519-74Z" />
-                <path fill="#FF00E5" d="M1444 211c215 82 25 300 8 465-82-34-269-83-357-15-111 86-217 265-418 324-202 59-389-240-361-325s131-219 119-92c-12 128 229 121 480-31 252-152 313-408 529-326Z" />
-                <path fill="#00FFD1" fill-opacity=".8" d="M1012 344c-10 92-159 195-321 293-19-7-59-35-66-98-10-78-128-148-303-150-176-2-201-25-142-180C239 53 360-63 374-30c13 32 233 131 338 193s309 90 300 181Z" />
-            </g>
-        </symbol>
-
-        <symbol id="blobs2" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMin slice">
-            <g filter="url(#floodBlur)">
-                <path fill="#008DDD" d="M489 899c-131-74-26-350 43-479 25-11 83-17 118 45 43 78 167 54 313-45 145-99 452-246 544-140s-5 213-143 375c-138 163-208 35-354 180a430 430 0 0 1-521 64Z" />
-                <path fill="#FF00E5" d="M1191-26c213 76 25 277 9 429-82-31-265-76-353-13-109 79-213 245-412 299C236 744 53 468 80 389c28-78 129-203 117-85s226 112 474-29c247-141 308-377 520-301Z" />
-                <path fill="#00FDCF" fill-opacity=".8" d="M1716 270c-11 95-176 202-355 304-21-7-66-36-74-101-10-82-142-155-336-157-194-1-221-26-156-187s199-282 214-248 258 137 375 201c116 64 343 93 332 188Z" />
-            </g>
-        </symbol>
-
-        <symbol id="blobs3" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMin slice">
-            <g filter="url(#floodBlur)">
-                <path fill="#008DDD" d="M200 103c23-183 473-243 696-250 30 20 75 77 9 152-82 94 27 210 256 302 228 93 623 325 531 488-92 162-301 126-613 80S903 677 610 613 172 333 200 103Z" />
-                <path fill="#FF00E5" d="M1489 177c217 78 25 283 9 439-83-32-271-78-360-14-112 81-218 250-421 306S326 682 354 601c29-80 132-207 120-86-12 120 231 114 483-30 253-144 315-385 532-308Z" />
-                <path fill="#00FDCF" fill-opacity=".8" d="M155 342c78-11 192 69 306 157-1 14-17 46-67 63-63 21-97 113-62 229 34 117 20 138-121 128-140-9-260-67-236-83 25-15 62-179 91-261 30-81 11-222 89-233Z" />
-            </g>
-        </symbol>
-
         <pattern id="noise" width="256" height="256" patternUnits="userSpaceOnUse">
             <image
                     width="256"
@@ -60,8 +70,14 @@
                     y="0" />
         </pattern>
     </defs>
+
     <rect width="100%" height="100%" fill="#0007ad" />
-    <use width="100%" height="100%" x="0" y="0" href="#blobs2" />
+    <use width="100%" height="100%" x="0" y="0" href="#blobs" />
+    <g filter="url(#floodBlur)" opacity="0.9">
+        <path class="a" fill="#00ffd1" d="M98 6c3 9-9 26-22 43-2 0-8-1-12-7-4-7-21-8-40 0S1 49 0 32C-1 14 7-2 10 0c3 3 32 2 46 3 15 1 38-6 42 3z" />
+        <path class="b" fill="#ff00e5" d="M120 9c17 15-8 27-14 41-7-5-22-16-32-13-13 3-29 15-49 14C4 49-4 16 2 9 7 3 21-6 15 5c-5 11 17 19 45 14 28-4 42-25 59-10Z" />
+        <path class="c" fill="#008ddd" d="M2 46C-7 34 15 10 27 0c3 0 9 1 9 9 1 9 14 11 32 6 18-4 54-8 58 6s-10 21-30 32-21-4-41 5A42 41 0 0 1 2 46Z" />
+    </g>
     <rect width="100%" height="100%" fill="url(#gridCell)" mask="url(#gradientMask)" />
     <rect width="100%" height="100%" fill="url(#noise)" style="mix-blend-mode: soft-light" />
 </svg>
