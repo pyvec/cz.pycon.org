@@ -7,7 +7,7 @@
             animation-iteration-count: infinite;
             animation-timing-function: ease-in-out;
             animation-direction: alternate;
-            animation-delay: 10s;
+            animation-delay: 5s;
             transform-box: fill-box;
             transform-origin: center;
         }
