@@ -76,13 +76,13 @@
             />
         </pattern>
         <symbol id="blobs" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMin slice">
-            <path class="a" fill="#00ffd1" d="M98 6c3 9-9 26-22 43-2 0-8-1-12-7-4-7-21-8-40 0S1 49 0 32C-1 14 7-2 10 0c3 3 32 2 46 3 15 1 38-6 42 3z" />
-            <path class="b" fill="#008ddd" d="M2 46C-7 34 15 10 27 0c3 0 9 1 9 9 1 9 14 11 32 6 18-4 54-8 58 6s-10 21-30 32-21-4-41 5A42 41 0 0 1 2 46Z" />
-            <path class="c" fill="#ff00e5" d="M120 9c17 15-8 27-14 41-7-5-22-16-32-13-13 3-29 15-49 14C4 49-4 16 2 9 7 3 21-6 15 5c-5 11 17 19 45 14 28-4 42-25 59-10Z" />
+            <!--green #00ffd1--><path class="a" fill="#00cdca" d="M98 6c3 9-9 26-22 43-2 0-8-1-12-7-4-7-21-8-40 0S1 49 0 32C-1 14 7-2 10 0c3 3 32 2 46 3 15 1 38-6 42 3z" />
+            <!--blue  #008ddd--><path class="b" fill="#0072d3" d="M2 46C-7 34 15 10 27 0c3 0 9 1 9 9 1 9 14 11 32 6 18-4 54-8 58 6s-10 21-30 32-21-4-41 5A42 41 0 0 1 2 46Z" />
+            <!--pink  #ff00e5--><path class="c" fill="#cc01da" d="M120 9c17 15-8 27-14 41-7-5-22-16-32-13-13 3-29 15-49 14C4 49-4 16 2 9 7 3 21-6 15 5c-5 11 17 19 45 14 28-4 42-25 59-10Z" />
         </symbol>
     </defs>
     <rect width="100%" height="100%" fill="#0007ad" />
-    <g filter="url(#blur)" opacity="0.8">
+    <g filter="url(#blur)">
         <use href="#blobs" />
     </g>
     <rect width="100%" height="100%" fill="url(#grid)" mask="url(#gradientMask)" />
