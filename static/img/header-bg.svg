@@ -12,9 +12,9 @@
             transform-origin: center;
         }
 
-        .a { animation-name: a; transform: matrix(11,5,-5,11,350,370); }
-        .b { animation-name: c; transform: matrix(12,-5,5,12,940,690); }
-        .c { animation-name: b; transform: matrix(12,-4.5,4.5,12,560,360); }
+        .a { transform: matrix(11,5,-5,11,350,370); }
+        .b { transform: matrix(12,-5,5,12,940,690); }
+        .c { transform: matrix(12,-4.5,4.5,12,560,360); }
 
         @keyframes a {
             0% { transform: matrix(11,5,-5,11,350,370); }
@@ -32,6 +32,12 @@
             0% { transform: matrix(12,-4.5,4.5,12,560,360); }
             50% { transform: matrix(12,-4.5,4.5,12,880,720); }
             100% { transform: matrix(12,-4.5,4.5,12,930,650); }
+        }
+
+        @media (min-width: 850px) {
+            .a { animation-name: a; }
+            .b { animation-name: c; }
+            .c { animation-name: b; }
         }
     </style>
     <defs>
