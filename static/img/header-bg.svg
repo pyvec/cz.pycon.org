@@ -7,13 +7,14 @@
             animation-iteration-count: infinite;
             animation-timing-function: ease-in-out;
             animation-direction: alternate;
+            animation-delay: 10s;
             transform-box: fill-box;
             transform-origin: center;
         }
 
-        .a { animation-name: a; }
-        .b { animation-name: b; }
-        .c { animation-name: c; }
+        .a { animation-name: a; transform: matrix(11,5,-5,11,1250,310); }
+        .b { animation-name: b; transform: matrix(12,-4.5,4.5,12,930,650); }
+        .c { animation-name: c; transform: matrix(12,-1,1,12,450,520); }
 
         @keyframes a {
             0% { transform: matrix(11,5,-5,11,1250,310); }
@@ -75,7 +76,7 @@
         </symbol>
     </defs>
     <rect width="100%" height="100%" fill="#0007ad" />
-    <g opacity="0.8">
+    <g filter="url(#blur)" opacity="0.8">
         <use href="#blobs" />
     </g>
     <rect width="100%" height="100%" fill="url(#grid)" mask="url(#gradientMask)" />
