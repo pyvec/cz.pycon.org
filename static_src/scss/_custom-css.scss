@@ -54,6 +54,10 @@ h6 {
     background-position: 0, 50% 0;
     background-repeat: repeat, no-repeat;
     background-blend-mode: soft-light, normal;
+
+    @include media-breakpoint-up(md) {
+        background-image: url(/static/img/noise.svg), url(/static/img/header-bg-animated.svg);
+    }
 }
 
 nav .PC-nav-link-highlight {

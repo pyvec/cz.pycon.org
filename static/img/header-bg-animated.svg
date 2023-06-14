@@ -3,6 +3,11 @@
         .a,
         .b,
         .c {
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-direction: alternate;
+            animation-delay: 2s;
             transform-box: fill-box;
             transform-origin: center;
         }
@@ -10,6 +15,28 @@
         .a { transform: matrix(12,-5,5,12,940,690); }
         .b { transform: matrix(11,5,-5,11,350,370); }
         .c { transform: matrix(12,-4.5,4.5,12,560,360); }
+
+        .a { animation-name: a; }
+        .b { animation-name: b; }
+        .c { animation-name: c; }
+
+        @keyframes a {
+            0% { transform: matrix(12,-5,5,12,940,690); }
+            50% { transform: matrix(13,9,-12,12,900,500); }
+            100% { transform: matrix(12,-1,1,12,450,520); }
+        }
+
+        @keyframes b {
+            0% { transform: matrix(11,5,-5,11,350,370); }
+            50% { transform: matrix(0,-10,10,0,0,850); }
+            100% { transform: matrix(11,5,-5,11,1250,310); }
+        }
+
+        @keyframes c {
+            0% { transform: matrix(12,-4.5,4.5,12,560,360); }
+            50% { transform: matrix(12,-4.5,4.5,12,880,720); }
+            100% { transform: matrix(12,-4.5,4.5,12,930,650); }
+        }
     </style>
     <defs>
         <filter id="blur"
