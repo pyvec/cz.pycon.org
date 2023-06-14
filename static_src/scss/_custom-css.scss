@@ -49,12 +49,12 @@ h6 {
 
 .PC-header {
     background-color: #0007ad;
-    background-image: url(/static/img/header-bg.svg);
-    background-size: 100%;
-    background-position: 50% 0;
-    background-repeat: no-repeat;
+    background-image: url(/static/img/noise.svg), url(/static/img/header-bg.svg);
+    background-size: 96px, 100%;
+    background-position: 0, 50% 0;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: soft-light, normal;
 }
-
 
 nav .PC-nav-link-highlight {
     padding-left: 2.5 * $navbar-nav-link-padding-x;
