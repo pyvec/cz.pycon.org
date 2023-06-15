@@ -103,9 +103,9 @@ const startBrowsersync = () =>
     });
 
 // a function to reload Browsersync
-const reloadBrowserSync = (cb) => {
+const reloadBrowserSync = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 300)); // wait 300 ms to execute the reload
     browserSyncInstance.reload();
-    cb();
 };
 
 // a function to watch for changes
