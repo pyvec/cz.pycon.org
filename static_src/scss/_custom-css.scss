@@ -60,6 +60,12 @@ h6 {
     }
 }
 
+@-moz-document url-prefix() {
+    .PC-header {
+        background-image: url(/static/img/noise.svg), url(/static/img/header-bg.svg);
+    }
+}
+
 nav .PC-nav-link-highlight {
     padding-left: 2.5 * $navbar-nav-link-padding-x;
     padding-right: 2.5 * $navbar-nav-link-padding-x;
