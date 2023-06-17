@@ -43,9 +43,12 @@
             <!--pink  #ff00e5--><path class="c" fill="#cc01da" d="M119 9c17 15-8 27-14 41-7-5-22-16-32-13-13 3-29 15-49 14C4 49-4 16 2 9 7 3 21-6 15 5c-5 11 17 19 45 14 28-4 42-25 59-10Z" />
         </symbol>
     </defs>
+
     <rect width="100%" height="100%" fill="#0007ad" />
+
     <g filter="url(#blur)">
         <use href="#blobs" />
     </g>
+
     <rect width="100%" height="100%" fill="url(#grid)" mask="url(#gradientMask)" />
 </svg>

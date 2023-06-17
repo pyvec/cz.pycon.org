@@ -3,11 +3,6 @@
         .a,
         .b,
         .c {
-            animation-duration: 20s;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-            animation-direction: alternate;
-            animation-delay: 2s;
             transform-box: fill-box;
             transform-origin: center;
         }
@@ -15,28 +10,6 @@
         .a { transform: matrix(12,-5,5,12,940,690); }
         .b { transform: matrix(11,5,-5,11,350,370); }
         .c { transform: matrix(12,-4.5,4.5,12,560,360); }
-
-        .a { animation-name: a; }
-        .b { animation-name: b; }
-        .c { animation-name: c; }
-
-        @keyframes a {
-            0% { transform: matrix(12,-5,5,12,940,690); }
-            50% { transform: matrix(13,9,-12,12,900,500); }
-            100% { transform: matrix(12,-1,1,12,450,520); }
-        }
-
-        @keyframes b {
-            0% { transform: matrix(11,5,-5,11,350,370); }
-            50% { transform: matrix(0,-10,10,0,0,850); }
-            100% { transform: matrix(11,5,-5,11,1250,310); }
-        }
-
-        @keyframes c {
-            0% { transform: matrix(12,-4.5,4.5,12,560,360); }
-            50% { transform: matrix(12,-4.5,4.5,12,880,720); }
-            100% { transform: matrix(12,-4.5,4.5,12,930,650); }
-        }
     </style>
     <defs>
         <filter id="blur"
@@ -65,9 +38,9 @@
         </mask>
 
         <symbol id="blobs" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMin slice">
-            <!--blue  #008ddd--><path class="a" fill="#0072d3" d="M2 46C-7 34 15 10 27 0c3 0 9 1 9 9 1 9 14 11 32 6 18-4 54-8 58 6s-10 21-30 32-21-4-41 5A42 41 0 0 1 2 46Z" />
-            <!--green #00ffd1--><path class="b" fill="#00cdca" d="M98 6c3 9-9 26-22 43-2 0-8-1-12-7-4-7-21-8-40 0S1 49 0 32C-1 14 7-2 10 0c3 3 32 2 46 3 15 1 38-6 42 3z" />
-            <!--pink  #ff00e5--><path class="c" fill="#cc01da" d="M119 9c17 15-8 27-14 41-7-5-22-16-32-13-13 3-29 15-49 14C4 49-4 16 2 9 7 3 21-6 15 5c-5 11 17 19 45 14 28-4 42-25 59-10Z" />
+            <!--blue  #008ddd--><path class="a" fill="#0062cd" d="M2 46C-7 34 15 10 27 0c3 0 9 1 9 9 1 9 14 11 32 6 18-4 54-8 58 6s-10 21-30 32-21-4-41 5A42 41 0 0 1 2 46Z" />
+            <!--green #00ffd1--><path class="b" fill="#00c8c9" d="M98 6c3 9-9 26-22 43-2 0-8-1-12-7-4-7-21-8-40 0S1 49 0 32C-1 14 7-2 10 0c3 3 32 2 46 3 15 1 38-6 42 3z" />
+            <!--pink  #ff00e5--><path class="c" fill="#b801d5" d="M119 9c17 15-8 27-14 41-7-5-22-16-32-13-13 3-29 15-49 14C4 49-4 16 2 9 7 3 21-6 15 5c-5 11 17 19 45 14 28-4 42-25 59-10Z" />
         </symbol>
     </defs>
 
