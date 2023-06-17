@@ -49,7 +49,7 @@ h6 {
 
 .PC-header {
     background-color: #0007ad;
-    background-image: url(/static/img/xnoise.svg), url(/static/img/header-bg.svg);
+    background-image: url(/static/img/noise.svg), url(/static/img/header-bg.svg);
     background-size: 96px, 100%;
     background-position: 0, 50% 0;
     background-repeat: repeat, no-repeat;
@@ -63,7 +63,7 @@ h6 {
 
 @-moz-document url-prefix() {
     .PC-header {
-        background-image: url(/static/img/xnoise.svg), url(/static/img/header-bg-ff.svg);
+        background-image: url(/static/img/noise.svg), url(/static/img/header-bg-ff.svg);
     }
 }
 
