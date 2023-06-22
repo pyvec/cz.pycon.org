@@ -362,6 +362,8 @@
     $primary: $primary !global; // $blue
     $secondary: $teal;
     $secondary: $secondary !global; // $gray-600
+    $tertiary: $blue;
+    $tertiary: $tertiary !global;
     // $success: $green; $success: $success !global; // $green
     $info: $blue;
     $info: $info !global; // $cyan
@@ -370,10 +372,10 @@
     // $light: $gray-100; $light: $light !global; // $gray-100
     // $dark: $gray-900; $dark: $dark !global; // $gray-900
 
-    /*
     $theme-colors: (
         "primary": $primary,
         "secondary": $secondary,
+        "tertiary": $tertiary,
         "success": $success,
         "info": $info,
         "warning": $warning,
@@ -381,7 +383,7 @@
         "light": $light,
         "dark": $dark,
      ); $theme-colors: $theme-colors !global;
-    */
+
     // $primary-text-emphasis: shade-color($primary, 60%); $primary-text-emphasis: $primary-text-emphasis !global; // shade-color($primary, 60%)
     // $secondary-text-emphasis: shade-color($secondary, 60%); $secondary-text-emphasis: $secondary-text-emphasis !global; // shade-color($secondary, 60%)
     // $success-text-emphasis: shade-color($success, 60%); $success-text-emphasis: $success-text-emphasis !global; // shade-color($success, 60%)
@@ -391,8 +393,8 @@
     // $light-text-emphasis: $gray-700; $light-text-emphasis: $light-text-emphasis !global; // $gray-700
     // $dark-text-emphasis: $gray-700; $dark-text-emphasis: $dark-text-emphasis !global; // $gray-700
 
-    // $primary-bg-subtle: tint-color($primary, 80%); $primary-bg-subtle: $primary-bg-subtle !global; // tint-color($primary, 80%)
-    // $secondary-bg-subtle: tint-color($secondary, 80%); $secondary-bg-subtle: $secondary-bg-subtle !global; // tint-color($secondary, 80%)
+    $primary-bg-subtle: tint-color($primary, 70%); $primary-bg-subtle: $primary-bg-subtle !global; // tint-color($primary, 80%)
+    $secondary-bg-subtle: tint-color($secondary, 70%); $secondary-bg-subtle: $secondary-bg-subtle !global; // tint-color($secondary, 80%)
     // $success-bg-subtle: tint-color($success, 80%); $success-bg-subtle: $success-bg-subtle !global; // tint-color($success, 80%)
     // $info-bg-subtle: tint-color($info, 80%); $info-bg-subtle: $info-bg-subtle !global; // tint-color($info, 80%)
     // $warning-bg-subtle: tint-color($warning, 80%); $warning-bg-subtle: $warning-bg-subtle !global; // tint-color($warning, 80%)
@@ -437,7 +439,7 @@
     // $enable-button-pointers: true; $enable-button-pointers: $enable-button-pointers !global; // true
     // $enable-rfs: true; $enable-rfs: $enable-rfs !global; // true
     // $enable-validation-icons: true; $enable-validation-icons: $enable-validation-icons !global; // true
-    // $enable-negative-margins: false; $enable-negative-margins: $enable-negative-margins !global; // false
+    $enable-negative-margins: true; $enable-negative-margins: $enable-negative-margins !global; // false
     // $enable-deprecation-messages: true; $enable-deprecation-messages: $enable-deprecation-messages !global; // true
     // $enable-important-utilities: true; $enable-important-utilities: $enable-important-utilities !global; // true
 
@@ -875,7 +877,7 @@
 
     // $btn-border-width: $input-btn-border-width; $btn-border-width: $btn-border-width !global; // $input-btn-border-width
 
-    // $btn-font-weight: $font-weight-normal; $btn-font-weight: $btn-font-weight !global; // $font-weight-normal
+    $btn-font-weight: $font-weight-semibold; $btn-font-weight: $btn-font-weight !global; // $font-weight-normal
     // $btn-box-shadow: inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075); $btn-box-shadow: $btn-box-shadow !global; // inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075)
     // $btn-focus-width: $input-btn-focus-width; $btn-focus-width: $btn-focus-width !global; // $input-btn-focus-width
     // $btn-focus-box-shadow: $input-btn-focus-box-shadow; $btn-focus-box-shadow: $btn-focus-box-shadow !global; // $input-btn-focus-box-shadow

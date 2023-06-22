@@ -43,8 +43,8 @@ h3,
 h4,
 h5,
 h6 {
-    margin-top: map-get($spacers, 4);
-    word-spacing: -.2ch;
+    margin-top: map-get($spacers, 5);
+    word-spacing: -0.2ch;
 }
 
 .PC-header {
@@ -74,5 +74,14 @@ nav .PC-nav-link-highlight {
     background-position: 5px 50%, right 5px top 50%;
     background-size: 11px;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 13'><g stroke='#{rgba($navbar-dark-active-color, 0.999999)}' stroke-width='1'><path d='M0 6.5h8' transform='rotate(18, 20, 7)' /><path d='M0 6.5h8' /><path d='M0 6.5h8' transform='rotate(-18, 20, 7)' /></g></svg>"),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 13'><g stroke='#{rgba($navbar-dark-active-color, 0.999999)}' stroke-width='1' transform='scale(-1, 1)  translate(-9,0)'><path d='M0 6.5h8' transform='rotate(18, 20, 7)' /><path d='M0 6.5h8' /><path d='M0 6.5h8' transform='rotate(-18, 20, 7)' /></g></svg>");
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 13'><g stroke='#{rgba($navbar-dark-active-color, 0.999999)}' stroke-width='1' transform='scale(-1, 1)  translate(-9,0)'><path d='M0 6.5h8' transform='rotate(18, 20, 7)' /><path d='M0 6.5h8' /><path d='M0 6.5h8' transform='rotate(-18, 20, 7)' /></g></svg>");
+}
+
+.PC-multi-col {
+    column-width: 40ch;
+    column-gap: $grid-gutter-width;
+}
+
+ul {
+    list-style-type: "— ";
 }
