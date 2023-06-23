@@ -463,7 +463,7 @@
     // variables. Mostly focused on spacing.
     // You can add more entries to the $spacers map, should you need more variation.
 
-    $spacer: 1.125rem;
+    $spacer: 1rem;
     $spacer: $spacer !global; // 1rem
 
     $spacers: (
@@ -472,9 +472,8 @@
         2: ($spacer * .5),
         3: $spacer,
         4: ($spacer * 1.5),
-        5: ($spacer * 2.8),
-        6: ($spacer * 5),
-        7: ($spacer * 14)
+        5: ($spacer * 3),
+        6: ($spacer * 6)
     );
     $spacers: $spacers !global;
 
@@ -570,7 +569,7 @@
     // Set the number of columns and specify the width of the gutters.
 
     // $grid-columns: 12; $grid-columns: $grid-columns !global; // 12
-    $grid-gutter-width: 2 * $spacer;
+    $grid-gutter-width: map-get($spacers, 5);
     $grid-gutter-width: $grid-gutter-width !global; // 1.5rem
     // $grid-row-columns: 6; $grid-row-columns: $grid-row-columns !global; // 6
 
