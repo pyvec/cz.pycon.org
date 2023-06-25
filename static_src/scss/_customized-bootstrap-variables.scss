@@ -38,6 +38,8 @@
 
 @import "bootstrap-variables-init"; // init all variables so dart sass doesn’t throw deprecation warnings
 
+$PC-tertiary: null;
+
 /*
 --bs-link-color: #ffffff;
 --bs-link-color-rgb: 255, 255, 255;
@@ -362,8 +364,7 @@
     $primary: $primary !global; // $blue
     $secondary: $teal;
     $secondary: $secondary !global; // $gray-600
-    $tertiary: $blue;
-    $tertiary: $tertiary !global;
+    $PC-tertiary: $blue; $PC-tertiary: $PC-tertiary !global;
     // $success: $green; $success: $success !global; // $green
     $info: $blue;
     $info: $info !global; // $cyan
@@ -375,7 +376,7 @@
     $theme-colors: (
         "primary": $primary,
         "secondary": $secondary,
-        "tertiary": $tertiary,
+        "tertiary": $PC-tertiary,
         "success": $success,
         "info": $info,
         "warning": $warning,
