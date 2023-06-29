@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-8">
             <p class="lead">
-                Chceme vás motivovat, abyste přihlásili svou přednášku nebo workshop na největší českou Python konferenci <strong>PyCon CZ 2023</strong>. Ať jste zkušeným řečníkem nebo naopak nováčkem ve světě konferencí, tento průvodce vám pomůže vytvořit atraktivní přihlášku.
+                Chceme vás motivovat, abyste přihlásili svou přednášku nebo workshop na největší českou Python konferenci <strong>PyCon CZ 23</strong>. Ať jste zkušeným řečníkem nebo naopak nováčkem ve světě konferencí, tento průvodce vám pomůže vytvořit atraktivní přihlášku.
             </p>
 
             <h2>Obecné rady pro přednášky a workshopy</h2>
@@ -45,8 +45,9 @@
             <h2>Požádejte o zpětnou vazbu</h2>
             <p>Zkuste získat zpětnou vazbu od kolegů, spolupracovníků nebo mentorů. Požádejte je, aby zhodnotili vaši přihlášku a poskytli vám konstruktivní kritiku. Vylepšete podle ní svoji přihlášku a nebojte se poslat nám svoje nápady. V přihlášce uveďte pravdivé údaje, buďte autentičtí a využijte příležitost obohatit naši konferenci. Pokud máte nějaké otázky, neváhejte se obrátit na <a href="mailto:info@pycon.cz">info@pycon.cz</a>.</p>
 
-            <p>Nyní, když víte, jak na to, pokračujte a <a href="https://pretalx.com/pycon-cz-23/">odešlete svůj návrh na PyCon CZ 2023</a>. Těšíme se na vaše příspěvky a na to, že vás přivítáme jako řečníky nebo vedoucí workshopů!</p>
-
+            {% if cfp == 'open' %}
+                <p>Nyní, když víte, jak na to, pokračujte a <a href="https://pretalx.com/pycon-cz-23/">odešlete svůj návrh na PyCon CZ 23</a>. Těšíme se na vaše příspěvky a na to, že vás přivítáme jako řečníky nebo vedoucí workshopů!</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
