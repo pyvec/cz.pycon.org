@@ -33,6 +33,7 @@ urlpatterns = [
                 path("sponsorship/", TemplateView.as_view(template_name='pages/sponsorship.html'), name='sponsorship'),
                 path("tickets/", TemplateView.as_view(template_name='pages/tickets.html'), name='tickets'),
                 path("financial-aid/", TemplateView.as_view(template_name='pages/financial-aid.html'), name='financial_aid'),
+                path("financial-aid-grantees/", TemplateView.as_view(template_name='pages/financial-aid-grantees.html'), name='financial_aid_grantees'),
                 path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
 
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),

@@ -1,0 +1,104 @@
+{% extends '_layout.html' %}
+
+{% load static %}
+
+
+{% block meta_title %}Financial Aid – {{ block.super }}{% endblock %}
+
+
+{% block main %}
+    <div class="container pt-4 pb-3 mt-3">
+        <h1>Financial Aid — Information for Grantees</h1>
+        <div class="row">
+            <div class="col-md-7">
+                <h2>General Rules</h2>
+
+                <p>Grant is awarded to you personally. Transfers to other people are not possible.</p>
+                <p>The financial aid grants are fulfilled only to registered attendees actually attending the conference.</p>
+                <p>If you find out you cannot attend the conference for any reason, please let us know to <a href="mailto:info@pycon.cz">info@pycon.cz</a>, so that we can allocate the funds and/or tickets to someone else.</p>
+
+                <h2>Financial Aid for tickets</h2>
+                <p>Financial Aid for tickets is the simplest: we will send you a voucher code via e-mail to register a free ticket.</p>
+
+                <h2>Financial Aid for other costs</h2>
+                <h3>May cover</h3>
+                <ul>
+                    <li>accommodation costs</li>
+                    <li>travel costs</li>
+                    <li>other items agreed when granting Financial Aid</li>
+                </ul>
+
+                <h3>Will not cover</h3>
+                <ul>
+                    <li>food and beverages</li>
+                    <li>
+                        single costs up to 10 EUR or 230 CZK or equivalent in other currencies
+                        <small>(we don’t process receipts/invoices/bills with total amount smaller than this to lower our administrative burden)</small>
+                    </li>
+                </ul>
+
+                <h2>Financial Aid amount</h2>
+
+                <p>You’re granted an amount in EUR or CZK which is the upper limit of what you’ll be reimbursed by PyCon CZ in total.</p>
+                <p>PyCon CZ reimburses real costs only so the final amount might be lower than granted if you won’t need it.</p>
+                <p>If your costs are larger than your grant, you’ll only be reimbursed up to the granted amount.</p>
+                <p>The maximum amount to be paid <span class="nowrap">8<span class="PC-fig-space"></span>000 CZK</span> or 350 EUR per person. This limit is not applied for financial aid granted to speakers and workshop leaders.</p>
+                <p>Your costs in other currencies will be reimbursed in CZK or EUR to your banking account.</p>
+                <p>Reimbursements of costs paid in other currencies will be converted using the exchange rate for CZK at the time of reimbursement.</p>
+
+
+                <h2>Reimbursement process</h2>
+                <ol>
+                    <li>Pay everything yourself.</li>
+                    <li>Provide documents proving it.</li>
+                    <li>Get reimbursed.</li>
+                </ol>
+
+                <h3>1. Pay everything yourself</h3>
+                <p>We usually don’t cover costs before PyCon CZ starts but if you’re really not able to do it, ask us.</p>
+
+                <h3>2. Provide documents proving it</h3>
+                <p>PyCon CZ only covers costs for which you’re able to provide original documents corresponding to the purchase (receipts, invoices, bills etc.)</p>
+                <p>We trust you, but the law requires us to collect them. We need the documents even in the case of a partial reimbursement.</p>
+
+                <ul>
+                    <li>Send <b>electronic documents</b> to <a href="mailto:info@pycon.cz">info@pycon.cz</a>.</li>
+                    <li>
+                        If you happen to have <b>only paper documents</b>:
+                        <br>deliver them personally to the registration desk at PyCon CZ on Friday or Saturday during the <i>Coffee Break</i> where a dedicated organizer will be waiting for you.
+                        <br>You can mail originals to Pyvec, Drtinova 10/557 15000, Praha 5, Czech Republic.
+                    </li>
+                </ul>
+
+                <p>Each document should have:</p>
+                <ol>
+                    <li>Identification of payee (i.e. name, tax ID if applicable)</li>
+                    <li>The date of the transaction</li>
+                    <li>The amount of the transaction</li>
+                </ol>
+
+
+                <h3>3. Get reimbursed</h3>
+                <p>The reimbursement will be sent only <b>after</b> you provide all necessary documents and information i.e. payment info.</p>
+
+                <p>It can be done using one of these methods:</p>
+                <ul>
+                    <li>
+                        We prefer sending it to your <b>PayPal</b> account
+                        <small class="d-block">please provide your PayPal email address</small>
+                    </li>
+                    <li>
+                        We can send it by <b>a bank transfer to <a href="https://www.ecb.europa.eu/paym/retpaym/paymint/sepa/html/index.en.html">SEPA countries</a></b> (EU + Norway + Switzerland)
+                        <small class="d-block">please provide your IBAN and BIC or a Czech account number</small>
+                    </li>
+                    <li>
+                        We can – <b>but would like to avoid</b> – use a bank transfer to non‑SEPA countries
+                        <small class="d-block">please provide your bank account number and BIC</small>
+                    </li>
+                </ul>
+                <p>The money will be sent in 30 days after you provide everything necessary.</p>
+                <p>If you’re not able to provide the required documents before the end of 2023, your claim to reimbursement will void.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

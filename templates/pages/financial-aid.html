@@ -8,7 +8,52 @@
 
 {% block main %}
     <div class="container pt-4 pb-3 mt-3">
-        <h1>Financial Aid</h1>
-        <p class="lead">todo</p>
+    <h1>Financial Aid</h1>
+    <div class="row">
+        <div class="col-md-7">
+            <p class="lead">Financial Aid is available to everyone who would otherwise be unable to attend PyCon CZ because of the costs. This support may cover <b>ticket</b>, <b>accommodation</b> and/or <b>travel costs</b>.</p>
+        </div>
     </div>
+
+    <div class="row align-items-baseline">
+        <div class="col-md-7">
+
+            <h2>Who can apply for Financial Aid?</h2>
+            <p class="lead">Everyone who wants to attend but cannot afford it.</p>
+
+            <h2>How challenging is the process?</h2>
+            <ul>
+                <li><b>We don’t need proof.</b> You know better than us if you really need Financial Aid. We trust you. We don’t ask about your situation.</li>
+                <li>We only need your contact details and to know what you need: a free ticket or reimbursement of accommodation or travel costs.</li>
+                <li><b>It’s anonymous</b> – only people who really need your data will have it.</li>
+                <li><b>It’s easy!</b> Just <a class="fw-bold" href="https://forms.gle/iEdc8FueLKmkqPik7">fill in the form</a>.</li>
+                <li>We’ll let you know the result after 6 August.</li>
+            </ul>
+
+            <h2>Are there any rules?</h2>
+            <p>Only a few, don’t worry.</p>
+            <ul>
+                <li>There’s a deadline: You may ask for Financial Aid until the end of July.</li>
+                <li>Financial Aid may only be used for tickets, accommodation and/or travel costs.</li>
+                <li>We will reimburse you based on the invoices, bills or receipts you will provide us.</li>
+                <li>The maximum amount to be granted is <span class="nowrap">8<span class="PC-fig-space"></span>000 CZK</span> or 350 EUR) per person</li>
+                <li>Our budget is limited, so to maximize the impact we will choose the lowest.</li>
+                <li>For more details check <a class="fw-bold" href="{% url 'financial_aid_grantees' %}">Information for Financial Aid Grantees</a>.</li>
+            </ul>
+
+            <h2>Why do we offer Financial Aid?</h2>
+            <ul>
+                <li>We want everyone to have a chance to attend PyCon CZ!</li>
+                <li>We want to have PyCon CZ as diverse as possible!</li>
+                <li>We believe in the principle of solidarity: those who can afford to pay for tickets should subsidize those who cannot.</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h2>Couch surfing &amp; Ride sharing</h2>
+            <p>Couch surfing and ride sharing can be a great way to save money and meet new people.</p>
+            <p>More info coming soon.</p>
+        </div>
+
+    </div>
+    <p><a class="btn btn-primary btn-lg" href="https://forms.gle/iEdc8FueLKmkqPik7">Request Financial Aid</a></p>
 {% endblock %}
