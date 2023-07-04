@@ -18,29 +18,43 @@ body::before {
     font-size: 28px;
     font-family: "JetBrains Mono", Consolas, monospace;
 
-    content: "xs #{map-get($grid-breakpoints,xs)} to #{map-get($grid-breakpoints,sm)}";
-    background-color: rgba(teal, 0.2);
+    content: "xxxs #{map-get($grid-breakpoints,xxxs)} to #{map-get($grid-breakpoints,xxs)}";
+    background-color: rgba(teal, 0.9);
 
+    @include media-breakpoint-up("xxs") {
+        content: "xxs #{map-get($grid-breakpoints,xxs)} to #{map-get($grid-breakpoints,xs)}";
+        background-color: rgba(blue, 0.9);
+    }
+    @include media-breakpoint-up("xs") {
+        content: "xs #{map-get($grid-breakpoints,xs)} to #{map-get($grid-breakpoints,sm)}";
+        background-color: rgba(green, 0.9);
+    }
     @include media-breakpoint-up("sm") {
         content: "sm #{map-get($grid-breakpoints,sm)} to #{map-get($grid-breakpoints,md)}";
-        background-color: rgba(indigo, 0.2);
+        background-color: rgba(indigo, 0.9);
     }
     @include media-breakpoint-up("md") {
         content: "md #{map-get($grid-breakpoints,md)} to #{map-get($grid-breakpoints,lg)}";
-        background-color: rgba(red, 0.2);
+        background-color: rgba(red, 0.9);
     }
     @include media-breakpoint-up("lg") {
         content: "lg #{map-get($grid-breakpoints,lg)} to #{map-get($grid-breakpoints,xl)}";
-        background-color: rgba(deeppink, 0.2);
+        background-color: rgba(deeppink, 0.9);
     }
     @include media-breakpoint-up("xl") {
         content: "xl over #{map-get($grid-breakpoints,xl)}";
-        background-color: rgba(orange, 0.2);
+        background-color: rgba(orange, 0.9);
     }
+    /*
+    @include media-breakpoint-up("xl") {
+        content: "xl #{map-get($grid-breakpoints,xl)} to #{map-get($grid-breakpoints,xxl)}";
+        background-color: rgba(yellow, 0.9);
+    }
+
     @include media-breakpoint-up("xxl") {
-        content: "xxl over #{map-get($grid-breakpoints,xxl)}";
-        background-color: rgba(black, 0.2);
-    }
+        content: "xxxl over #{map-get($grid-breakpoints,xxxl)}";
+        background-color: rgba(black, 0.9);
+    }*/
 }
 
 // Bootstrap Grid system visualizer

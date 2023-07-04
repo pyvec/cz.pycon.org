@@ -1,0 +1,204 @@
+{% extends '_layout.html' %}
+
+{% load static %}
+
+
+{% block meta_title %}Tickets – {{ block.super }}{% endblock %}
+
+
+{% block og_image %}{% static 'img/social-media/tickets.min.jpg' %}{% endblock %}
+
+
+{% block main %}
+    <div class="container pt-4 pb-3 mt-3">
+
+        <div class="text-center">
+
+            <h1>Tickets</h1>
+            <p class="lead fw-bold">Ticket sale will start on 11 July 15:00 CEST.</p>
+
+            <section>
+                <h2>Included in each ticket</h2>
+                <div class="row row-gap-md-1 g-5 my-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 text-start text-sm-center text-md-start text-lg-center">
+                    <article class="col d-flex flex-sm-column flex-md-row flex-lg-column gap-3 align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
+                        <div>
+                            <img src="{% static 'img/icons/bubble.min.svg' %}" width="80" height="80" alt="">
+                        </div>
+                        <div>
+                            <h2 class="h4 mt-0">Talks on Friday and Saturday</h2>
+                            <p>3 parallel tracks filled with interesting topics.</p>
+                        </div>
+                    </article>
+
+                    <article class="col d-flex flex-sm-column flex-md-row flex-lg-column gap-3 align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
+                        <div>
+                            <img src="{% static 'img/icons/computer.min.svg' %}" width="80" height="80" alt="">
+                        </div>
+                        <div>
+                            <h2 class="h4 mt-0">Sunday workshops</h2>
+                            <p>
+                                Option for free workshop registration. Workshop capacity might be limited.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="col d-flex flex-sm-column flex-md-row flex-lg-column gap-3 align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
+                        <div>
+                            <img src="{% static 'img/icons/food.min.svg' %}" width="80" height="80" alt="">
+                        </div>
+                        <div>
+                            <h2 class="h4 mt-0">Food, coffee & tea</h2>
+                            <p>Breakfast and lunch during all 3 days. Vegan and gluten-free options included.</p>
+                        </div>
+                    </article>
+
+                    <article class="col d-flex flex-sm-column flex-md-row flex-lg-column gap-3 align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
+                        <div>
+                            <img src="{% static 'img/icons/person.min.svg' %}" width="80" height="80" alt="">
+                        </div>
+                        <div>
+                            <h2 class="h4 mt-0">Board Game Night</h2>
+                            <p>Stay at Gabriel Loci on Friday and play board games with other attendees.</p>
+                        </div>
+                    </article>
+
+                    <article class="col d-flex flex-sm-column flex-md-row flex-lg-column gap-3 align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
+                        <div>
+                            <img src="{% static 'img/icons/heart.min.svg' %}" width="80" height="80" alt="">
+                        </div>
+                        <div>
+                            <h2 class="h4 mt-0">Afterparty</h2>
+                            <p>On Saturday after talks at Gabriel Loci.</p>
+                        </div>
+                    </article>
+
+                    <article class="col d-flex flex-sm-column flex-md-row flex-lg-column gap-3 align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
+                        <div>
+                            <img src="{% static 'img/icons/cubes.min.svg' %}" width="80" height="80" alt="">
+                        </div>
+                        <div>
+                            <h2 class="h4 mt-0">Childcare</h2>
+                            <p>Free childcare available during all 3 days for kids over 3 years.</p>
+                        </div>
+                    </article>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <section class="PC-bg-blurry py-5 py-md-6 mb-3">
+        <div class="container">
+            <div class="row g-4 row-cols-1 row-cols-sm-2  row-cols-lg-4">
+
+                <div class="col">
+                    <div class="h-100 rounded-3 border border-black p-3 p-sm-4 bg-white shadow d-flex flex-column justify-content-between">
+                        <div>
+                            <h2 class="h3 mt-0">Educational</h2>
+                            <p class="lead">Are you a student, a teacher or have you attended PyLadies courses?</p>
+                            <p>Students need to bring a student ID to the registration.</p>
+                        </div>
+                        <div>
+                            <p class="mb-0 d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Early bird
+                                <span class="nowrap"><span class="text-primary fw-bold fs-1 lh-1">600</span> CZK</span>
+                            </p>
+                            <p class="text-light-emphasis">(30 left)</p>
+                            <p class="d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Regular <span class="nowrap">900 CZK</span>
+                            </p>
+                            <p class="text-light-emphasis fw-bold mb-0">sale starts on 11 July 15:00 CEST</p>
+                            {% comment %}<a class="btn btn-primary d-block mt-4" href="https://pretix.eu/pyconcz/pyconcz23/">Buy ticket</a>{% endcomment %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="h-100 rounded-3 border border-black p-3 p-sm-4 bg-white shadow d-flex flex-column justify-content-between">
+                        <div>
+                            <h2 class="h3 mt-0">Individual</h2>
+                            <p class="lead">Are you paying PyCon CZ from your own pocket?</p>
+                            <p>These tickets are for you only if your company doesn’t pay for them.</p>
+                            <p>Please respect that and buy a Company ticket if it does.</p>
+                        </div>
+                        <div>
+                            <p class="mb-0 d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Early bird
+                                <span class="nowrap"><span class="text-primary fw-bold fs-1 lh-1">1<span class="PC-fig-space"></span>600</span> CZK</span>
+                            </p>
+                            {% comment %}<p class="text-light-emphasis">(30 left)</p>{% endcomment %}
+                            <p class="d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Regular <span class="nowrap">2<span class="PC-fig-space"></span>200 CZK</span>
+                            </p>
+                            <p class="text-light-emphasis fw-bold mb-0">sale starts on 11 July 15:00 CEST</p>
+                            {% comment %}<a class="btn btn-primary d-block mt-4" href="https://pretix.eu/pyconcz/pyconcz23/">Buy ticket</a>{% endcomment %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="h-100 rounded-3 border border-black p-3 p-sm-4 bg-white shadow d-flex flex-column justify-content-between">
+                        <div>
+                            <h2 class="h3 mt-0">Company</h2>
+                            <p class="lead">Choose this ticket if your company is&nbsp;paying for it or if you are getting reimbursed later.</p>
+                            <p>Thank you for supporting PyCon&nbsp;CZ!</p>
+                        </div>
+                        <div>
+                            <p class="mb-0 d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Early bird
+                                <span class="nowrap"><span class="text-primary fw-bold fs-1 lh-1">2<span class="PC-fig-space"></span>900</span> CZK</span>
+                            </p>
+                            {% comment %}<p class="text-light-emphasis">(30 left)</p>{% endcomment %}
+                            <p class="d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Regular <span class="nowrap">3<span class="PC-fig-space"></span>600 CZK</span>
+                            </p>
+                            <p class="text-light-emphasis fw-bold mb-0">sale starts on 11 July 15:00 CEST</p>
+                            {% comment %}<a class="btn btn-primary d-block mt-4" href="https://pretix.eu/pyconcz/pyconcz23/">Buy ticket</a>{% endcomment %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="h-100 rounded-3 border border-black p-3 p-sm-4 bg-primary-subtle PC-bg-noise shadow d-flex flex-column justify-content-between">
+                        <div>
+                            <h2 class="h3 mt-0">VIP</h2>
+                            <p class="lead">Do you want to have the ultimate PyCon CZ experience?</p>
+                            <p>
+                                VIP ticket will get you a seat at the speakers’ dinner on Thursday 14 September.
+                                <br>Meet PyCon&nbsp;CZ speakers over great food included in the&nbsp;price.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-0 d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Early bird
+                                <span class="nowrap"><span class="text-primary fw-bold fs-1 lh-1">4<span class="PC-fig-space"></span>300</span> CZK</span>
+                            </p>
+                            {% comment %}<p class="text-dark-emphasis">(3 left)</p>{% endcomment %}
+                            <p class="d-flex flex-wrap align-items-baseline column-gap-3 justify-content-between">
+                                Regular <span class="nowrap">5<span class="PC-fig-space"></span>200 CZK</span>
+                            </p>
+                            <p class="text-dark-emphasis fw-bold mb-0">sale starts on 11 July 15:00 CEST</p>
+                            {% comment %}<a class="btn btn-primary d-block mt-4" href="https://pretix.eu/pyconcz/pyconcz23/">Buy ticket</a>{% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="fw-semibold text-center mt-4 mb-0">
+                We’re not VAT payers, all prices are final.
+                <br>When buying a&nbsp;ticket you accept PyCon&nbsp;CZ’s
+                <a href="{% url 'coc' %}">Code&nbsp;of&nbsp;Conduct</a>
+                and <a href="{% url 'privacy_policy' %}">Privacy&nbsp;Policy</a>.
+            </p>
+        </div>
+    </section>
+
+    <div class="container text-center mb-5 py-md-4">
+        <h2 class="mb-4">Financial Aid</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <p class="lead">If money is the <b>only factor</b> stopping you from attending PyCon&nbsp;CZ you&nbsp;can <a href="{% url 'financial_aid' %}">apply for Financial Aid</a> to cover your&nbsp;expenses.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

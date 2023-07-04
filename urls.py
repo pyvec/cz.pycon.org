@@ -31,6 +31,10 @@ urlpatterns = [
                 path("cfp-guide/", TemplateView.as_view(template_name='pages/cfp_guide.html'), name='cfp_guide'),
                 path("cfp-pruvodce/", TemplateView.as_view(template_name='pages/cfp_pruvodce.html'), name='cfp_pruvodce'),
                 path("sponsorship/", TemplateView.as_view(template_name='pages/sponsorship.html'), name='sponsorship'),
+                path("tickets/", TemplateView.as_view(template_name='pages/tickets.html'), name='tickets'),
+                path("financial-aid/", TemplateView.as_view(template_name='pages/financial-aid.html'), name='financial_aid'),
+                path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
+
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
 
                 path("admin/", admin.site.urls),

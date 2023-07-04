@@ -18,17 +18,20 @@ If you want to remove a menu item globally, comment it out here.
             {% endif %}
         {% endblock %}{% endcomment %}
 
-        {% comment %}{% block link_venue %}
-            {% if phases.date_venue == 'venue_details' %}
-                {% include '__nav_link.html' with url='venue' link_text='Venue' %}
-            {% endif %}
-        {% endblock %}{% endcomment %}
+        {% block link_venue %}
+            {% include '__nav_link.html' with url='venue' link_text='Venue' %}
+            {% if phases.date_venue == 'venue_details' %}{% endif %}
+        {% endblock %}
 
-        {% comment %}{% block link_tickets %}
-            {% if phases.ticket_sale == 'launched' %}
-                {% include '__nav_link.html' with url='tickets' link_text='Tickets' class='pc-nav-link-highlight' %}
-            {% endif %}
-        {% endblock %}{% endcomment %}
+        {% block link_tickets %}
+            {% include '__nav_link.html' with url='tickets' link_text='Tickets' class='xPC-nav-link-highlight' %}
+            {% if phases.ticket_sale == 'launched' %}{% endif %}
+        {% endblock %}
+
+        {% block link_financial_aid %}
+            {% include '__nav_link.html' with url='financial_aid' link_text='Financial Aid' %}
+            {% if phases.finaid != 'not_launched' %}{% endif %}
+        {% endblock %}
 
         {% block link_call_for_proposals %}
             {% comment %}{% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' class="PC-nav-link-highlight" %}{% endcomment %}
@@ -44,11 +47,7 @@ If you want to remove a menu item globally, comment it out here.
             {% include '__nav_link.html' with url='cfp_pruvodce' link_text='Průvodce CfP' %}
         {% endblock %}
 
-        {% comment %}{% block link_financial_aid %}
-            {% if phases.finaid != 'not_launched' %}
-                {% include '__nav_link.html' with url='proposal_about' key='financial-aid' link_text='Financial Aid' %}
-            {% endif %}
-        {% endblock %}{% endcomment %}
+
 
 
         {% comment %}{% block sessions %}

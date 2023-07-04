@@ -39,7 +39,7 @@
     </head>
     <body {% block body_extras %}{% endblock %}>
     {% block body %}{% endblock %}
-    <script src="{% static 'generated/bootstrap.bundle.min.js' %}"></script>
+    {% comment %}<script src="{% static 'generated/bootstrap.bundle.min.js' %}"></script>{% endcomment %}
     {% if not debug %}
         <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
         <script async src="https://scripts.simpleanalyticscdn.com/auto-events.js"></script>
