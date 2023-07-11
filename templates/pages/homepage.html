@@ -3,7 +3,11 @@
 {% load static %}
 
 
-{% block header_action %}{% endblock %}
+{% block header_action %}
+    <a href="{% url 'tickets' %}" class="btn btn-primary btn-lg">
+        Buy tickets now!
+    </a>
+{% endblock %}
 
 
 {% block header %}
@@ -100,8 +104,11 @@
             <div class="col-lg">
                 <div class="h-100 rounded-3 border border-black p-4">
                     <h2 class="mt-0">More information coming soon</h2>
-                    <p>Do you want to be notified when more information (tickets go on sale, speakers are announced or talk and workshops details online) about PyCon CZ 23 will be available?</p>
-                    <p><a class="btn btn-secondary ps-3" href="https://eepurl.com/gOHNvP"> <img src="{% static 'img/icons/email.min.svg' %}" width="32" height="32" alt=""> Subscribe to our newsletter</a></p>
+                    <p>Do you want to be notified when more information (tickets go on sale, speakers are announced or
+                        talk and workshops details online) about PyCon CZ 23 will be available?</p>
+                    <p><a class="btn btn-secondary ps-3" href="https://eepurl.com/gOHNvP"> <img
+                            src="{% static 'img/icons/email.min.svg' %}" width="32" height="32" alt=""> Subscribe to our
+                        newsletter</a></p>
                 </div>
             </div>
             <div class="col-lg">
@@ -114,7 +121,8 @@
                             <br>
                             If you would like to sponsor the conference please
                         </p>
-                        <p><a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship information</a></p>
+                        <p><a class="btn btn-primary" href="{% url 'sponsorship' %}">check our sponsorship
+                            information</a></p>
                     </div>
                 </div>
             </div>
@@ -123,8 +131,12 @@
         <h2>Organized by community for community</h2>
         <div class="row align-items-end">
             <div class="col-md-8 col-lg-6">
-                <p class="lead">PyCon&nbsp;CZ is organized by volunteers from <a href="https://pyvec.org/">Czech Python community</a> for anyone interested in Python: professionals, novices, students and hobbyist Python programmers from Czechia and abroad.</p>
-                <p>Watch a&nbsp;short video from the&nbsp;PyCon&nbsp;CZ 2019 or check talks from previous years on <a href="https://www.youtube.com/channel/UCRC2Vu7p4SJxhhuRdl8rQ6g">PyCon&nbsp;CZ YouTube channel</a>.</p>
+                <p class="lead">PyCon&nbsp;CZ is organized by volunteers from <a href="https://pyvec.org/">Czech Python
+                    community</a> for anyone interested in Python: professionals, novices, students and hobbyist Python
+                    programmers from Czechia and abroad.</p>
+                <p>Watch a&nbsp;short video from the&nbsp;PyCon&nbsp;CZ 2019 or check talks from previous years on <a
+                        href="https://www.youtube.com/channel/UCRC2Vu7p4SJxhhuRdl8rQ6g">PyCon&nbsp;CZ YouTube
+                    channel</a>.</p>
             </div>
         </div>
 
