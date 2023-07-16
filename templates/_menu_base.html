@@ -33,8 +33,13 @@ If you want to remove a menu item globally, comment it out here.
             {% if phases.finaid != 'not_launched' %}{% endif %}
         {% endblock %}
 
+
         {% block link_financial_aid_grantees %}
             {% include '__nav_link.html' with url='financial_aid_grantees' link_text='Financial Aid Grantees Info' %}
+        {% endblock %}
+
+        {% block link_accesssibility %}
+            {% include '__nav_link.html' with url='accessibility' link_text='Accessibility' %}
         {% endblock %}
 
         {% block link_call_for_proposals %}

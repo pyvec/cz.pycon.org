@@ -5,10 +5,69 @@
 
 {% block meta_title %}Venue – {{ block.super }}{% endblock %}
 
+{% block js_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+ // After loading the page
+ document.addEventListener('DOMContentLoaded', function() {
+     var map = L.map('map').setView([50.0749939, 14.3957058], 17);
+     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+         maxZoom: 19,
+         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+     }).addTo(map);
+     var marker = L.marker([50.0749939, 14.3957058]).addTo(map);
+
+     var venue_map = L.map('venue-map', {
+         crs: L.CRS.Simple,
+         minZoom: -5,
+     });
+
+     // Add the tile layer with your PNG file
+     var bounds = [[0,0], [6803,3780]];
+     L.imageOverlay('{% static "img/gabriel-loci-floorplan-accessible.png" %}', bounds).addTo(venue_map);
+     venue_map.fitBounds(bounds);
+ });
+
+</script>
+<style>
+ @media (min-width: 480px) {
+     #map {
+         height: 480px;
+         width: 40vw;
+     }
+ }
+ @media (max-width: 480px) {
+     #map {
+         height: 480px;
+         width: 80vw;
+     }
+ }
+ #venue-map {
+     height: 60vh;
+     width: 70vw;
+ }
+</style>
+{% endblock %}
+
+
 
 {% block main %}
     <div class="container pt-4 pb-3 mt-3">
         <h1>Venue</h1>
-        <p class="lead">todo</p>
+        <p> The conference will be held at the former <a href="https://en.wikipedia.org/wiki/St._Gabriel%27s_Abbey,_Prague">Abey of St. Gabriela</a>.</p>
+        <!-- address  with map to the right-->
+        <div class="row">
+            <div class="col-xs-1 col-md-1 col-lg-2">
+                <p> Holečkova 106/10</p>
+                <p> 150 00 Praha 5 – Smíchov</p>
+                <p> <a href="https://en.mapy.cz/s/rodasemeku"> map </a></p>
+            </div>
+            <div class="col">
+                <div id="map"></div>
+            </div>
+        </div>
+        <br>
+        <div id="venue-map"></div>
     </div>
 {% endblock %}
