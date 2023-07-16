@@ -1,0 +1,58 @@
+{% extends '_layout.html' %}
+
+{% load static %}
+
+
+{% block meta_title %}Venue – {{ block.super }}{% endblock %}
+
+{% block js_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+ // After loading the page
+ document.addEventListener('DOMContentLoaded', function() {
+     var venue_map = L.map('venue-map', {
+         crs: L.CRS.Simple,
+         minZoom: -5,
+     });
+
+     // Add the tile layer with your PNG file
+     var bounds = [[0,0], [6803,3780]];
+     L.imageOverlay('{% static "img/gabriel-loci-floorplan-accessible.png" %}', bounds).addTo(venue_map);
+     venue_map.fitBounds(bounds);
+ });
+
+</script>
+<style>
+ #venue-map {
+     height: 60vh;
+     width: 70vw;
+ }
+</style>
+{% endblock %}
+
+
+
+{% block main %}
+    <div class="container pt-4 pb-3 mt-3">
+        <h1>Accessibility</h1>
+        <br>
+        <p>We want to ensure that everyone can attend PyCon CZ 23. Anyone requiring special accommodations should contact <a href="mailto:info@pycon.cz">info@pycon.cz</a>. We are happy to help you in any way we can.</p>
+        <h2>Accessibility Information</h2>
+        <ul>
+            <li>✓♿ Ground floor</li>
+            <li>✓♿ Booths, food, & hallway</li>
+            <li>✓♿ Main hall</li>
+            <li>✓♿ Data track</li>
+            <li>❌♿ Beginners track</li>
+            <li>❌♿ Kids room</li>
+        </ul>
+        <p>The ground floor of the Venue is fully wheelchair accessible, providing easy access to booths, food area, hallway, main hall, and the data track. However, please note that the beginners track and the kids room are not wheelchair accessible due to a short stairwell between the elevator and the conference room.</p>
+        <p>For individuals using wheelchairs, the wheelchair accessible entrance is located at the back of the building. Additionally, there is a wheelchair accessible restroom available outside in the back of the building.</p>
+
+        <div id="venue-map"></div>
+        <br>
+        <p> This is the accessible door in the back. You will also find wheel chair accessible restrooms outside the venue. </p>
+        <img src="{% static "img/back-door.png" %}" alt="accessible-door" class="img-fluid"/>
+    </div>
+{% endblock %}
