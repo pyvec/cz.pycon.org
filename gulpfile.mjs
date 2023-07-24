@@ -34,6 +34,7 @@ const copyStatic = () =>
         // Sourcemap is also required, because it is referenced from comment in bootstrap.bundle.min.js:
         "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map",
         // "node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "node_modules/bootstrap-icons/font/*fonts/**/*",
     ]).pipe(dest("static/generated"));
 
 // 2) functions that generate files

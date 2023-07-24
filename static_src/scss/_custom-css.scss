@@ -115,3 +115,79 @@ ul {
     background-image: url(/static/img/noise.svg);
     background-size: 96px;
 }
+
+.PC-keynoters {
+    @include media-breakpoint-up(lg) {
+        max-width: 60rem;
+    }
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.PC-keynoters-keynoter {
+    overflow: hidden;
+    flex-direction: column;
+
+    @include media-breakpoint-up(md) {
+        flex-direction: row;
+        &:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+    }
+
+    position: relative;
+    background-color: transparent;
+    background-position: 0 0;
+    background-size: 96px, 100%;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: soft-light, normal;
+
+    background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 100% 0%, $primary, $white 80%);
+
+    @include media-breakpoint-up(md) {
+        background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 0% 100%, $primary, $white 60%);
+        &:nth-child(even) {
+            background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 100% 100%, $primary, $white 60%);
+        }
+    }
+
+}
+
+.PC-image-primary {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    &::before {
+        background-color: $primary;
+        mix-blend-mode: screen;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &::after {
+        background-image: url(/static/img/noise.svg);
+        background-size: 96px;
+        mix-blend-mode: overlay;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-height: 60vh;
+        @include media-breakpoint-up(md) {
+            max-height: 100%;
+        }
+    }
+}

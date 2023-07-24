@@ -96,31 +96,9 @@
     </section>
 {% endblock %}
 
+
 {% block main %}
     <div class="container pt-4 pb-3 mt-3">
-
-        {% if keynoters %}
-            <section id="keynoters">
-                <h2>Keynote speakers</h2>
-                {% comment %}{% for keynoter in keynoters %}
-                    {% include 'program/__keynoter_card.html' with speaker=keynoter %}
-                {% endfor %}{% endcomment %}
-
-                {% comment %}{% if phases.talks != 'not_public' or phases.workshops != 'not_public' %}
-                    <p class="text-center lead">
-                        Check the rest of
-                        {% if phases.talks != 'not_public' %}
-                            <a href="{% url 'talks_list' %}">talks</a>{% if phases.workshops != 'not_public' %},
-                        {% endif %}
-                        {% endif %}
-                        {% if phases.workshops != 'not_public' %}
-                            <a href="{% url 'workshops_list' %}">workshops &amp; sprints</a>
-                        {% endif %}
-                    </p>
-                {% endif %}{% endcomment %}
-            </section>
-        {% endif %}
-
         <div class="row row-gap-3">
             <div class="col-lg">
                 <div class="h-100 rounded-3 border border-black p-4">
@@ -130,7 +108,7 @@
                 </div>
             </div>
             <div class="col-lg">
-                <div class="h-100 rounded-3 border border-primary bg-secondary-subtle p-4">
+                <div class="h-100 rounded-3 border border-black shadow mb-5 bg-secondary-subtle p-4 overflow-hidden">
                     <h2 class="mt-0">Sponsorship</h2>
 
                     <div class="h-lg-100 d-flex flex-column flex-sm-row flex-lg-column column-gap-4 row-gap-3 align-items-end align-items-lg-start">
@@ -145,7 +123,10 @@
             </div>
         </div>
     </div>
-    <div class="mt-4 pt-4 pb-3 bg-dark text-white">
+
+    {% include 'pages/__keynoters.html' %}
+
+    <div class="pt-4 pb-3 bg-dark text-white">
         <div class="container">
             <h2 class="mt-0">Organized by community for community</h2>
             <div class="row align-items-end">
@@ -155,8 +136,9 @@
                 </div>
             </div>
 
-        <div class="ratio ratio-16x9">
-            <iframe width="960" height="407" src="https://www.youtube.com/embed/kL2gmhs0irI" allowfullscreen></iframe>
+            <div class="ratio ratio-16x9">
+                <iframe width="960" height="407" src="https://www.youtube.com/embed/kL2gmhs0irI" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 {% endblock %}
