@@ -13,11 +13,9 @@
                 text-uppercase
                 link-light
                 nav-link
+                {% if highlighted %} PC-nav-link-highlight {% endif %}
                 {# links to currently shown page are different (only those without an anchor) #}
-                {% if request.path == link and not anchor %}
-                fw-semibold
-                {% endif %}
-                {{ class }}
+                {% if request.path == link and not anchor %} fw-semibold {% endif %}
             "
             {% if request.path == link and not anchor %}
             aria-current="page"
