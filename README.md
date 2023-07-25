@@ -59,6 +59,7 @@ To build everything once for production
 ```shell
 npm run build
 ```
+_note: `removeUnusedCss` will throw “Error: Could not load script:…” but it doesn’t make stop it from working. Just ignore it.
 
 ### Admin & Wagtail
 In case you want to access admin page, either Django or Wagtail one, you need to create a superuser and log in with its credentials:
