@@ -116,26 +116,18 @@ ul {
     background-size: 96px;
 }
 
-.PC-keynoters {
-    @include media-breakpoint-up(lg) {
-        max-width: 60rem;
-    }
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.PC-keynoters-keynoter {
+.PC-keynoter {
     overflow: hidden;
+
     flex-direction: column;
 
     @include media-breakpoint-up(md) {
         flex-direction: row;
-        &:nth-child(even) {
+        &:nth-child(odd) .row {
             flex-direction: row-reverse;
         }
     }
 
-    position: relative;
     background-color: transparent;
     background-position: 0 0;
     background-size: 96px, 100%;
@@ -146,9 +138,13 @@ ul {
 
     @include media-breakpoint-up(md) {
         background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 0% 100%, $primary, $white 60%);
-        &:nth-child(even) {
+        &:nth-child(odd) {
             background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 100% 100%, $primary, $white 60%);
         }
+    }
+
+    p {
+        max-width: 60ch;
     }
 
 }
@@ -186,6 +182,7 @@ ul {
         height: 100%;
         object-fit: cover;
         max-height: 60vh;
+
         @include media-breakpoint-up(md) {
             max-height: 100%;
         }
