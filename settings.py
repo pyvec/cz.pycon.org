@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "wagtail.embeds",
     "wagtail.search",
     "wagtail.sites",
+    "flex",
     "taggit",
     "team",
     "sponsors",

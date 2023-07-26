@@ -24,23 +24,65 @@ urlpatterns = [
         "2023/",
         include(
             [
-                path("", TemplateView.as_view(template_name='pages/homepage.html'), name='homepage'),
-                path("coc/", TemplateView.as_view(template_name='pages/coc.html'), name='coc'),
-                path("privacy-policy/", TemplateView.as_view(template_name='pages/privacy_policy.html'), name='privacy_policy'),
-                path("cfp/", TemplateView.as_view(template_name='pages/cfp.html'), name='cfp'),
-                path("cfp-guide/", TemplateView.as_view(template_name='pages/cfp_guide.html'), name='cfp_guide'),
-                path("cfp-pruvodce/", TemplateView.as_view(template_name='pages/cfp_pruvodce.html'), name='cfp_pruvodce'),
-                path("sponsorship/", TemplateView.as_view(template_name='pages/sponsorship.html'), name='sponsorship'),
-                path("tickets/", TemplateView.as_view(template_name='pages/tickets.html'), name='tickets'),
-                path("financial-aid/", TemplateView.as_view(template_name='pages/financial-aid.html'), name='financial_aid'),
-                path("financial-aid-grantees/", TemplateView.as_view(template_name='pages/financial-aid-grantees.html'), name='financial_aid_grantees'),
-                path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
-
-                path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
-
+                path(
+                    "",
+                    TemplateView.as_view(template_name="pages/homepage.html"),
+                    name="homepage",
+                ),
+                path(
+                    "privacy-policy/",
+                    TemplateView.as_view(template_name="pages/privacy_policy.html"),
+                    name="privacy_policy",
+                ),
+                path(
+                    "cfp/",
+                    TemplateView.as_view(template_name="pages/cfp.html"),
+                    name="cfp",
+                ),
+                path(
+                    "cfp-guide/",
+                    TemplateView.as_view(template_name="pages/cfp_guide.html"),
+                    name="cfp_guide",
+                ),
+                path(
+                    "cfp-pruvodce/",
+                    TemplateView.as_view(template_name="pages/cfp_pruvodce.html"),
+                    name="cfp_pruvodce",
+                ),
+                path(
+                    "sponsorship/",
+                    TemplateView.as_view(template_name="pages/sponsorship.html"),
+                    name="sponsorship",
+                ),
+                path(
+                    "tickets/",
+                    TemplateView.as_view(template_name="pages/tickets.html"),
+                    name="tickets",
+                ),
+                path(
+                    "financial-aid/",
+                    TemplateView.as_view(template_name="pages/financial-aid.html"),
+                    name="financial_aid",
+                ),
+                path(
+                    "financial-aid-grantees/",
+                    TemplateView.as_view(
+                        template_name="pages/financial-aid-grantees.html"
+                    ),
+                    name="financial_aid_grantees",
+                ),
+                path(
+                    "venue/",
+                    TemplateView.as_view(template_name="pages/venue.html"),
+                    name="venue",
+                ),
+                path(
+                    "pattern-lib/",
+                    TemplateView.as_view(template_name="pages/pattern_lib.html"),
+                    name="pattern_lib",
+                ),
                 path("admin/", admin.site.urls),
                 path("wt/", include("wagtail.admin.urls")),
-
                 path("team/", include("team.urls")),
                 path("sponsors/", include("sponsors.urls")),
                 path("announcements/", include("announcements.urls")),
