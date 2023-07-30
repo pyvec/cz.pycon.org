@@ -37,6 +37,12 @@ If you want to remove a menu item globally, comment it out here.
             {% include '__nav_link.html' with url='financial_aid_grantees' link_text='Financial Aid Grantees Info' %}
         {% endblock %}
 
+         {% block link_schedule %}
+            {% if phases.schedule != 'not_public' %}
+                {% include '__nav_link.html' with url='schedule' link_text='Schedule' %}
+            {% endif %}
+        {% endblock %}
+
         {% block link_call_for_proposals %}
             {% comment %}{% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' highlighted='1' %}{% endcomment %}
             {% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' %}
@@ -50,6 +56,7 @@ If you want to remove a menu item globally, comment it out here.
         {% block link_call_for_proposals_pruvodce %}
             {% include '__nav_link.html' with url='cfp_pruvodce' link_text='Průvodce CfP' %}
         {% endblock %}
+
 
         {% comment %}{% block sessions %}
 
@@ -72,6 +79,9 @@ If you want to remove a menu item globally, comment it out here.
             {% endblock %}
 
         {% endblock %}{% endcomment %}
+
+
+
 
     {% endblock %}
 

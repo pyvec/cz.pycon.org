@@ -35,6 +35,7 @@ urlpatterns = [
                 path("financial-aid/", TemplateView.as_view(template_name='pages/financial-aid.html'), name='financial_aid'),
                 path("financial-aid-grantees/", TemplateView.as_view(template_name='pages/financial-aid-grantees.html'), name='financial_aid_grantees'),
                 path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
+                path("schedule/", TemplateView.as_view(template_name='pages/schedule.html'), name='schedule'),
 
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
 
