@@ -7,6 +7,8 @@ class Speaker(models.Model):
     short_bio = models.TextField(blank=True, help_text="for keynote speakers")
     twitter = models.CharField(max_length=255, blank=True)
     github = models.CharField(max_length=255, blank=True)
+    linkedin = models.CharField(max_length=255, blank=True)
+    personal_website = models.CharField(max_length=255, blank=True)
     email = models.EmailField()
     photo = models.ImageField()
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
@@ -41,10 +43,26 @@ class Session(models.Model):
         ("intermediate", "Intermediate"),
         ("advanced", "Advanced"),
     )
+    TRACK = {
+        ("general", "General"),
+        ("pydata", "PyData"),
+        ("beginners", "Beginners"),
+    }
+    TOPIC_KNOWLEDGE = {
+        ("no-previous-knowledge", "No previous knowledge needed"),
+        ("few-times", "Attendees who used it few times"),
+        ("regular-basis", "Attendees who use it on a regular basis"),
+    }
 
     type = models.CharField(max_length=10, choices=TYPE)
     language = models.CharField(max_length=2, choices=LANGUAGES, default="en")
-    difficulty = models.CharField(max_length=16, choices=DIFFICULTY, default="beginner")
+    minimum_python_knowledge = models.CharField(
+        max_length=16, choices=DIFFICULTY, default="beginner"
+    )
+    minimum_topic_knowledge = models.CharField(
+        max_length=256, choices=TOPIC_KNOWLEDGE, default="no-previous-knowledge"
+    )
+    track = models.CharField(max_length=16, choices=TRACK)
     order = models.SmallIntegerField(
         unique=True, help_text="display order on front-end"
     )
@@ -52,7 +70,6 @@ class Session(models.Model):
     abstract = models.TextField()
     is_backup = models.BooleanField(default=False, blank=True)
     is_public = models.BooleanField(default=False, blank=True)
-    in_data_track = models.BooleanField("PyData Track", default=False, blank=True)
     private_note = models.TextField(
         default="", blank=True, help_text="DO NOT SHOW ON WEBSITE"
     )
