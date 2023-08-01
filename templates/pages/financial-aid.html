@@ -9,7 +9,16 @@
 {% block main %}
     <div class="container-xs pt-4 pb-3 mt-3">
     <h1>Financial Aid
-    <small class="d-inline-block">(until 31 July)</small></h1>
+    <small class="d-inline-block">(closed since 1 August)</small></h1>
+    <div class="row">
+        <div class="col-md-7">
+            <p class="lead">Financial Aid was available to everyone who would otherwise be unable to attend PyCon CZ because of the costs. This support may cover <b>ticket</b>, <b>accommodation</b> and/or <b>travel costs</b>.</p>
+            <h2>Did you apply for financial aid?</h2>
+            <p class="lead">We are currently evaluating all requests and will let you know the result after 6 August to your email.</p>
+            <p>Meanwhile you can check detailed <a class="fw-bold" href="{% url 'financial_aid_grantees' %}">Information for Financial Aid Grantees</a>.</p>
+        </div>
+    </div>
+    {% comment %}
     <div class="row">
         <div class="col-md-7">
             <p class="lead">Financial Aid is available to everyone who would otherwise be unable to attend PyCon CZ because of the costs. This support may cover <b>ticket</b>, <b>accommodation</b> and/or <b>travel costs</b>.</p>
@@ -56,4 +65,5 @@
 
     </div>
     <p><a class="btn btn-primary btn-lg" href="https://docs.google.com/forms/d/e/1FAIpQLSdsilUfFICsdKSxKjtde8u7fjmmhF7GPgb6TS2fXeSqaElL2Q/viewform">Request Financial Aid</a></p>
+    {% endcomment %}
 {% endblock %}
