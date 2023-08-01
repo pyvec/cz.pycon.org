@@ -11,7 +11,7 @@
 
 
 {% block main %}
-    <div class="container-xs pt-4 pb-3 mt-3">
+    <div class="container-xs pt-4 mt-3">
 
         <div class="text-center">
 
@@ -26,7 +26,7 @@
                             <img src="{% static 'img/icons/bubble.min.svg' %}" width="80" height="80" alt="">
                         </div>
                         <div>
-                            <h2 class="h4 mt-0">40+ Talks on Friday and Saturday</h2>
+                            <h2 class="h4 mt-0">50+ Talks on Friday and Saturday</h2>
                             <p>3 parallel tracks filled with interesting topics.</p>
                         </div>
                     </article>
@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <section class="PC-bg-blurry py-5 py-md-6 mb-3">
+    <section class="PC-bg-blurry py-5 py-md-6">
         <div class="container-xs">
             <div class="row g-4 row-cols-1 row-cols-sm-2  row-cols-lg-4">
 
@@ -226,12 +226,14 @@
         </div>
     </section>
 
-    <div class="container-xs text-center mb-5 py-md-4">
-        <h2 class="mb-4">Financial Aid</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <p class="lead">If money is the <b>only factor</b> stopping you from attending PyCon&nbsp;CZ you&nbsp;can <a href="{% url 'financial_aid' %}">apply for Financial Aid</a> to cover your&nbsp;expenses.</p>
+    {% if financial_aid == 'open' %}
+        <div class="container-xs text-center mt-3 mb-5 py-md-4">
+            <h2 class="mb-4">Financial Aid</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <p class="lead">If money is the <b>only factor</b> stopping you from attending PyCon&nbsp;CZ you&nbsp;can <a href="{% url 'financial_aid' %}">apply for Financial Aid</a> to cover your&nbsp;expenses.</p>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
