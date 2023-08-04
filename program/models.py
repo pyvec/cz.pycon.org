@@ -43,16 +43,16 @@ class Session(models.Model):
         ("intermediate", "Intermediate"),
         ("advanced", "Advanced"),
     )
-    TRACK = {
+    TRACK = (
         ("general", "General"),
         ("pydata", "PyData"),
         ("beginners", "Beginners"),
-    }
-    TOPIC_KNOWLEDGE = {
+    )
+    TOPIC_KNOWLEDGE = (
         ("no-previous-knowledge", "No previous knowledge needed"),
         ("few-times", "Attendees who used it few times"),
         ("regular-basis", "Attendees who use it on a regular basis"),
-    }
+    )
 
     type = models.CharField(max_length=10, choices=TYPE)
     language = models.CharField(max_length=2, choices=LANGUAGES, default="en")
