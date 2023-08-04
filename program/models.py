@@ -19,6 +19,13 @@ class Speaker(models.Model):
         default=0, help_text="sort order on frontend displays"
     )
     is_public = models.BooleanField(default=True)
+    pretalx_code = models.CharField(
+        max_length=16, null=True, blank=True, editable=False, unique=True
+    )
+    """
+    Code of the speaker in pretalx. Will be used for synchronization.
+    When not set, this speaker will not be synchronized with pretalx.
+    """
 
 
 class Session(models.Model):
@@ -78,6 +85,13 @@ class Session(models.Model):
         blank=True,
         help_text="og:image (social media image) 1200×630 pixels",
     )
+    pretalx_code = models.CharField(
+        max_length=16, null=True, blank=True, editable=False, unique=True
+    )
+    """
+    Code of the submission in pretalx. Will be used for synchronization.
+    When not set, this submission (workshop or talk) will not be synchronized with pretalx.
+    """
 
 
 class Talk(Session):
