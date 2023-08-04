@@ -65,7 +65,7 @@ const removeUnusedCss = () =>
                 uncss({
                     html: ["templates/**/*.html"],
                     media: ["print"], // process additional media queries
-                    ignore: [], // provide a list of selectors that should not be removed by UnCSS
+                    ignore: [".PC-nav-link-highlight"], // provide a list of selectors that should not be removed by UnCSS
                 }),
             ])
         )
