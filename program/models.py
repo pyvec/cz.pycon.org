@@ -24,7 +24,7 @@ class Speaker(models.Model):
     linkedin = models.CharField(max_length=255, blank=True)
     personal_website = models.CharField(max_length=255, blank=True)
     email = models.EmailField()
-    photo = models.ImageField()
+    photo = models.ImageField(null=True, blank=True)
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
     workshops = models.ManyToManyField(
         "Workshop", blank=True, related_name="workshop_speakers"
