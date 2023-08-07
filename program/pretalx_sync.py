@@ -3,6 +3,7 @@ from typing import MutableMapping, Any
 
 from program import models
 from program import pretalx
+from collections.abc import Collection
 
 
 class PretalxSync:
@@ -15,6 +16,45 @@ class PretalxSync:
     def full_sync(self):
         all_speakers = self.sync_speakers()
         self.sync_submissions(all_speakers)
+
+    def update_speakers(self, speakers: Collection[models.Speaker]) -> None:
+        for speaker in speakers:
+            speaker_data = self.client.get_speaker(
+                code=speaker.pretalx_code,
+                questions=["all"],
+            )
+            speaker.update_from_pretalx(speaker_data)
+
+        models.Speaker.objects.bulk_update(
+            objs=speakers,
+            fields=models.Speaker.PRETALX_FIELDS,
+        )
+
+    def update_talks(self, talks: Collection[models.Talk]) -> None:
+        for talk in talks:
+            submission_data = self.client.get_submission(
+                code=talk.pretalx_code,
+                questions=["all"],
+            )
+            talk.update_from_pretalx(submission_data)
+
+        models.Talk.objects.bulk_update(
+            objs=talks,
+            fields=models.Talk.PRETALX_FIELDS,
+        )
+
+    def update_workshops(self, workshops: Collection[models.Workshop]) -> None:
+        for workshop in workshops:
+            submission_data = self.client.get_submission(
+                code=workshop.pretalx_code,
+                questions=["all"],
+            )
+            workshop.update_from_pretalx(submission_data)
+
+        models.Workshop.objects.bulk_update(
+            objs=workshops,
+            fields=models.Workshop.PRETALX_FIELDS,
+        )
 
     def sync_speakers(self) -> dict[str, models.Speaker]:
         speakers = self.client.list_speakers(
