@@ -139,7 +139,8 @@ class Session(models.Model):
     )
     track = models.CharField(max_length=16, choices=TRACK)
     order = models.SmallIntegerField(
-        unique=True, help_text="display order on front-end"
+        default=500,
+        help_text="display order on front-end",
     )
     title = models.CharField(max_length=250)
     abstract = models.TextField()
@@ -191,6 +192,7 @@ class Session(models.Model):
             self.type = self.get_pretalx_submission_type(
                 pretalx_submission["submission_type"]
             )
+
 
 class Talk(Session):
     PRETALX_FIELDS = Session.PRETALX_FIELDS + ["is_keynote"]
