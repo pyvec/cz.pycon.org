@@ -41,6 +41,9 @@ class Speaker(models.Model):
     When not set, this speaker will not be synchronized with pretalx.
     """
 
+    def __str__(self) -> str:
+        return self.full_name
+
     def update_from_pretalx(self, pretalx_speaker: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
         # when adding/removing fields synced with pretalx.
@@ -116,6 +119,7 @@ class Session(models.Model):
         ("general", "General"),
         ("pydata", "PyData"),
         ("beginners", "Beginners"),
+        ("keynote", "Keynote"),
     )
 
     TOPIC_KNOWLEDGE = (
@@ -165,6 +169,9 @@ class Session(models.Model):
     @classmethod
     def get_pretalx_submission_type(cls, submission_type: dict[str, str]) -> str:
         return cls.PRETALX_TYPE_MAP.get(submission_type["en"].casefold(), "talk")
+
+    def __str__(self) -> str:
+        return self.title
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
