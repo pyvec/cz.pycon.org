@@ -1,7 +1,21 @@
+from typing import Any
+
 from django.db import models
+from program import pretalx
 
 
 class Speaker(models.Model):
+    PRETALX_FIELDS = [
+        "full_name",
+        "bio",
+        "email",
+        "personal_website",
+        "github",
+        "twitter",
+        "linkedin",
+    ]
+    """List of fields synced from pretalx."""
+
     full_name = models.CharField(max_length=200)
     bio = models.TextField()
     short_bio = models.TextField(blank=True, help_text="for keynote speakers")
@@ -10,7 +24,7 @@ class Speaker(models.Model):
     linkedin = models.CharField(max_length=255, blank=True)
     personal_website = models.CharField(max_length=255, blank=True)
     email = models.EmailField()
-    photo = models.ImageField()
+    photo = models.ImageField(null=True, blank=True)
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
     workshops = models.ManyToManyField(
         "Workshop", blank=True, related_name="workshop_speakers"
@@ -19,10 +33,49 @@ class Speaker(models.Model):
         default=0, help_text="sort order on frontend displays"
     )
     is_public = models.BooleanField(default=True)
+    pretalx_code = models.CharField(
+        max_length=16, null=True, blank=True, editable=False, unique=True
+    )
+    """
+    Code of the speaker in pretalx. Will be used for synchronization.
+    When not set, this speaker will not be synchronized with pretalx.
+    """
+
+    def __str__(self) -> str:
+        return self.full_name
+
+    def update_from_pretalx(self, pretalx_speaker: dict[str, Any]) -> None:
+        # Note: remember to update the PRETALX_FIELDS class variable
+        # when adding/removing fields synced with pretalx.
+        self.full_name = pretalx_speaker["name"]
+        self.bio = (
+            pretalx_speaker["biography"]
+            if pretalx_speaker["biography"] is not None
+            else ""
+        )
+        self.email = pretalx_speaker["email"]
+
+        answers = pretalx.AnswersCollection(pretalx_speaker["answers"])
+        self.personal_website = answers.get_answer("Your personal website")
+        self.github = answers.get_answer("Your GitHub")
+        self.twitter = answers.get_answer("Your Twitter")
+        self.linkedin = answers.get_answer("Your LinkedIn")
 
 
 class Session(models.Model):
     """Base class with common fields for 'Workshop' and 'Talk'."""
+
+    PRETALX_FIELDS = [
+        "title",
+        "abstract",
+        "private_note",
+        "track",
+        "language",
+        "minimum_python_knowledge",
+        "minimum_topic_knowledge",
+        "type",
+    ]
+    """List of fields synced from pretalx."""
 
     class Meta:
         abstract = True
@@ -34,24 +87,50 @@ class Session(models.Model):
         ordering = ("order",)
 
     TYPE = (("workshop", "Workshop"), ("sprint", "Sprint"), ("talk", "Talk"))
+    PRETALX_TYPE_MAP = {
+        "talk": "talk",
+        "panel": "talk",
+        "keynote": "talk",
+        "workshop": "workshop",
+        "workshop full day": "sprint",
+    }
+
     LANGUAGES = (
         ("en", "English (preferred)"),
         ("cs", "Czech/Slovak"),
     )
+    PRETALX_LANGUAGE_MAP = {
+        "czech or slovak (preferred for beginners track)": "cs",
+        "english (preferred for the rest of talks and workshops)": "en",
+    }
+
     DIFFICULTY = (
         ("beginner", "Beginner"),
         ("intermediate", "Intermediate"),
         ("advanced", "Advanced"),
     )
-    TRACK = {
+    PRETALX_DIFFICULTY_MAP = {
+        "beginner: can write simple scripts (typical attendee of our beginner’s track)": "beginner",
+        "intermediate: uses frameworks and third-party libraries": "intermediate",
+        "advanced: understands advanced python concepts, such as generators and comprehensions, async/await, advanced usage of classes": "advanced",
+    }
+
+    TRACK = (
         ("general", "General"),
         ("pydata", "PyData"),
         ("beginners", "Beginners"),
-    }
-    TOPIC_KNOWLEDGE = {
+        ("keynote", "Keynote"),
+    )
+
+    TOPIC_KNOWLEDGE = (
         ("no-previous-knowledge", "No previous knowledge needed"),
         ("few-times", "Attendees who used it few times"),
         ("regular-basis", "Attendees who use it on a regular basis"),
+    )
+    PRETALX_TOPIC_KNOWLEDGE_MAP = {
+        "no previous knowledge is required: you will explain basic concepts and problems it solves": "no-previous-knowledge",
+        "attendees who used it just a few times": "few-times",
+        "attendees who use it on a regular basis": "regular-basis",
     }
 
     type = models.CharField(max_length=10, choices=TYPE)
@@ -64,7 +143,8 @@ class Session(models.Model):
     )
     track = models.CharField(max_length=16, choices=TRACK)
     order = models.SmallIntegerField(
-        unique=True, help_text="display order on front-end"
+        default=500,
+        help_text="display order on front-end",
     )
     title = models.CharField(max_length=250)
     abstract = models.TextField()
@@ -78,16 +158,73 @@ class Session(models.Model):
         blank=True,
         help_text="og:image (social media image) 1200×630 pixels",
     )
+    pretalx_code = models.CharField(
+        max_length=16, null=True, blank=True, editable=False, unique=True
+    )
+    """
+    Code of the submission in pretalx. Will be used for synchronization.
+    When not set, this submission (workshop or talk) will not be synchronized with pretalx.
+    """
+
+    @classmethod
+    def get_pretalx_submission_type(cls, submission_type: dict[str, str]) -> str:
+        return cls.PRETALX_TYPE_MAP.get(submission_type["en"].casefold(), "talk")
+
+    def __str__(self) -> str:
+        return self.title
+
+    def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
+        # Note: remember to update the PRETALX_FIELDS class variable
+        # when adding/removing fields synced with pretalx.
+        self.title = pretalx_submission["title"]
+        self.abstract = pretalx_submission["description"]
+        self.private_note = pretalx_submission["internal_notes"]
+        self.track = pretalx_submission["track"]["en"].casefold()
+
+        answers = pretalx.AnswersCollection(pretalx_submission["answers"])
+        self.language = answers.get_mapped_answer(
+            question_text="Language of your session",
+            value_map=self.PRETALX_LANGUAGE_MAP,
+        )
+        self.minimum_python_knowledge = answers.get_mapped_answer(
+            question_text="Minimum recommended Python knowledge",
+            value_map=self.PRETALX_DIFFICULTY_MAP,
+        )
+        self.minimum_topic_knowledge = answers.get_mapped_answer(
+            question_text="Minimum recommended topic knowledge",
+            value_map=self.PRETALX_TOPIC_KNOWLEDGE_MAP,
+        )
+
+        if not self.type:
+            self.type = self.get_pretalx_submission_type(
+                pretalx_submission["submission_type"]
+            )
 
 
 class Talk(Session):
+    PRETALX_FIELDS = Session.PRETALX_FIELDS + ["is_keynote"]
+
     video_id = models.CharField(
         max_length=100, default="", blank=True, help_text="YouTube URL"
     )
     is_keynote = models.BooleanField(default=False, blank=True)
 
+    def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
+        # Note: remember to update the PRETALX_FIELDS class variable
+        # when adding/removing fields synced with pretalx.
+        super().update_from_pretalx(pretalx_submission)
+        self.is_keynote = (
+            pretalx_submission["submission_type"]["en"].casefold() == "keynote"
+        )
+
 
 class Workshop(Session):
+    PRETALX_FIELDS = Session.PRETALX_FIELDS + [
+        "requirements",
+        "length",
+        "attendee_limit",
+    ]
+
     LENGTH = (
         ("1h", "1 hour"),
         ("2h", "2 hours"),
@@ -122,3 +259,26 @@ class Workshop(Session):
         blank=True,
         help_text="maximum number of attendees allowed",
     )
+
+    def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
+        # Note: remember to update the PRETALX_FIELDS class variable
+        # when adding/removing fields synced with pretalx.
+        super().update_from_pretalx(pretalx_submission)
+
+        answers = pretalx.AnswersCollection(pretalx_submission["answers"])
+        self.requirements = answers.get_answer("Prerequisties and Requirements")
+
+        if not self.length:
+            duration_minutes = pretalx_submission["duration"]
+            duration_hours = round(duration_minutes / 60)
+            if duration_hours > 3:
+                self.length = "1d"
+            elif 3 >= duration_hours >= 1:
+                self.length = f"{duration_hours}h"
+
+        if not self.attendee_limit:
+            participants_str = answers.get_answer("Number of participants")
+            try:
+                self.attendee_limit = int(participants_str) if participants_str else 0
+            except ValueError:
+                self.attendee_limit = 0
