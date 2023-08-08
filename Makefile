@@ -16,7 +16,7 @@ down:
 
 # build a new Docker image
 build:
-	docker build -t pycon .
+	docker compose build
 
 # run bash inside Docker
 bash:
