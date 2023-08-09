@@ -14,7 +14,7 @@ def create_pretalx_sync() -> pretalx_sync.PretalxSync:
 @admin.action(description="Make public")
 def make_public(self, request, queryset):
     queryset.update(is_public=True)
-    self.message_user(request, f"Selected items have been made public.")
+    self.message_user(request, "Selected items have been made public.")
 
 
 @admin.action(description="Update from pretalx")
