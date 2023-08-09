@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path(
@@ -35,7 +36,8 @@ urlpatterns = [
                 path("financial-aid/", TemplateView.as_view(template_name='pages/financial-aid.html'), name='financial_aid'),
                 path("financial-aid-grantees/", TemplateView.as_view(template_name='pages/financial-aid-grantees.html'), name='financial_aid_grantees'),
                 path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
-                path("schedule/", TemplateView.as_view(template_name='pages/schedule.html'), name='schedule'),
+                path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
+                path("program/schedule/", TemplateView.as_view(template_name='pages/schedule.html'), name='schedule'),
 
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
 
