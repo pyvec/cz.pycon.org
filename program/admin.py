@@ -37,6 +37,7 @@ class SpeakerAdmin(admin.ModelAdmin):
         "github",
         "linkedin",
         "personal_website",
+        "pretalx_code",
     ]
     actions = [make_public, speaker_update_from_pretalx]
 
@@ -59,9 +60,10 @@ class TalkAdmin(admin.ModelAdmin):
         "order",
         "is_public",
         "is_backup",
+        "pretalx_code",
     ]
     list_filter = ["is_keynote", "track", "language", "is_public", "is_backup"]
-    search_fields = ["title", "abstract", "talk_speakers__full_name"]
+    search_fields = ["title", "abstract", "talk_speakers__full_name", "pretalx_code"]
     ordering = ["title"]
     readonly_fields = [
         "title",
@@ -73,6 +75,7 @@ class TalkAdmin(admin.ModelAdmin):
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
         "type",
+        "pretalx_code",
     ]
     actions = [make_public, talk_update_from_pretalx]
 
@@ -103,9 +106,10 @@ class WorkshopAdmin(admin.ModelAdmin):
         "order",
         "is_public",
         "is_backup",
+        "pretalx_code",
     ]
     list_filter = ["type", "track", "language", "is_public", "is_backup"]
-    search_fields = ["title", "abstract", "workshop_speakers__full_name"]
+    search_fields = ["title", "abstract", "workshop_speakers__full_name", "pretalx_code"]
     ordering = ["title"]
     readonly_fields = [
         "title",
@@ -116,6 +120,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
         "type",
+        "pretalx_code",
     ]
     actions = [make_public, workshop_update_from_pretalx]
 
