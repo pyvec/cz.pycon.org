@@ -11,6 +11,12 @@ def create_pretalx_sync() -> pretalx_sync.PretalxSync:
     return pretalx_sync.PretalxSync(client)
 
 
+@admin.action(description="Make public")
+def make_public(self, request, queryset):
+    queryset.update(is_public=True)
+    self.message_user(request, f"Selected items have been made public.")
+
+
 @admin.action(description="Update from pretalx")
 def speaker_update_from_pretalx(modeladmin, request, queryset):
     sync = create_pretalx_sync()
@@ -32,7 +38,7 @@ class SpeakerAdmin(admin.ModelAdmin):
         "linkedin",
         "personal_website",
     ]
-    actions = [speaker_update_from_pretalx]
+    actions = [make_public, speaker_update_from_pretalx]
 
 
 @admin.action(description="Update from pretalx")
@@ -40,6 +46,7 @@ def talk_update_from_pretalx(modeladmin, request, queryset):
     sync = create_pretalx_sync()
     with transaction.atomic():
         sync.update_talks(queryset)
+
 
 @admin.register(Talk)
 class TalkAdmin(admin.ModelAdmin):
@@ -67,7 +74,7 @@ class TalkAdmin(admin.ModelAdmin):
         "minimum_topic_knowledge",
         "type",
     ]
-    actions = [talk_update_from_pretalx]
+    actions = [make_public, talk_update_from_pretalx]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -110,7 +117,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         "minimum_topic_knowledge",
         "type",
     ]
-    actions = [workshop_update_from_pretalx]
+    actions = [make_public, workshop_update_from_pretalx]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
