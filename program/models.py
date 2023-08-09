@@ -34,7 +34,7 @@ class Speaker(models.Model):
     )
     is_public = models.BooleanField(default=True)
     pretalx_code = models.CharField(
-        max_length=16, null=True, blank=True, editable=False, unique=True
+        max_length=16, null=True, blank=True, unique=True,
     )
     """
     Code of the speaker in pretalx. Will be used for synchronization.
@@ -159,7 +159,7 @@ class Session(models.Model):
         help_text="og:image (social media image) 1200×630 pixels",
     )
     pretalx_code = models.CharField(
-        max_length=16, null=True, blank=True, editable=False, unique=True
+        max_length=16, null=True, blank=True, unique=True
     )
     """
     Code of the submission in pretalx. Will be used for synchronization.

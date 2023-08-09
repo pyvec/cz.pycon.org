@@ -26,9 +26,24 @@ def speaker_update_from_pretalx(modeladmin, request, queryset):
 
 @admin.register(Speaker)
 class SpeakerAdmin(admin.ModelAdmin):
-    list_display = ["full_name", "email", "is_public", "pretalx_code"]
+    list_display = ["full_name", "email", "is_public", "display_position", "pretalx_code"]
     search_fields = ["full_name", "email"]
     ordering = ["full_name"]
+    fields = [
+        "pretalx_code",
+        "is_public",
+        "display_position",
+        "photo",
+        "talks",
+        "workshops",
+        "bio",
+        "short_bio",
+        "twitter",
+        "github",
+        "linkedin",
+        "personal_website",
+        "email",
+    ]
     readonly_fields = [
         "full_name",
         "email",
@@ -37,7 +52,6 @@ class SpeakerAdmin(admin.ModelAdmin):
         "github",
         "linkedin",
         "personal_website",
-        "pretalx_code",
     ]
     actions = [make_public, speaker_update_from_pretalx]
 
@@ -64,7 +78,23 @@ class TalkAdmin(admin.ModelAdmin):
     ]
     list_filter = ["is_keynote", "track", "language", "is_public", "is_backup"]
     search_fields = ["title", "abstract", "talk_speakers__full_name", "pretalx_code"]
-    ordering = ["title"]
+    ordering = ["is_backup", "-is_keynote", "track", "order", "title"]
+    fields = [
+        "pretalx_code",
+        "is_public",
+        "order",
+        "is_backup",
+        "og_image",
+        "video_id",
+        "private_note",
+        "language",
+        "track",
+        "type",
+        "minimum_python_knowledge",
+        "minimum_topic_knowledge",
+        "is_keynote",
+        "abstract",
+    ]
     readonly_fields = [
         "title",
         "speakers",
@@ -75,7 +105,6 @@ class TalkAdmin(admin.ModelAdmin):
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
         "type",
-        "pretalx_code",
     ]
     actions = [make_public, talk_update_from_pretalx]
 
@@ -110,17 +139,39 @@ class WorkshopAdmin(admin.ModelAdmin):
     ]
     list_filter = ["type", "track", "language", "is_public", "is_backup"]
     search_fields = ["title", "abstract", "workshop_speakers__full_name", "pretalx_code"]
-    ordering = ["title"]
+    ordering = ["is_backup", "track", "order", "title"]
+    fields = [
+        "pretalx_code",
+        "is_public",
+        "order",
+        "is_sold_out",
+        "og_image",
+        "registration",
+        "length",
+        "is_backup",
+        "private_note",
+        "language",
+        "track",
+        "type",
+        "minimum_python_knowledge",
+        "minimum_topic_knowledge",
+        "abstract",
+        "requirements",
+        "attendee_limit",
+
+    ]
     readonly_fields = [
         "title",
         "speakers",
         "abstract",
+        "requirements",
         "track",
+        "private_note",
         "language",
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
         "type",
-        "pretalx_code",
+        "attendee_limit",
     ]
     actions = [make_public, workshop_update_from_pretalx]
 
