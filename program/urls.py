@@ -3,7 +3,7 @@ from django.views.generic import RedirectView
 
 from .views import preview, talks_list, workshops_list
 
-app_name = "intermissions"
+app_name = "program"
 
 urlpatterns = [
     re_path("^$", RedirectView.as_view(pattern_name="talks_list")),
