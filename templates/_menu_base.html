@@ -28,60 +28,26 @@ If you want to remove a menu item globally, comment it out here.
             {% if phases.ticket_sale == 'launched' %}{% endif %}
         {% endblock %}
 
-        {% block link_financial_aid %}
-            {% include '__nav_link.html' with url='financial_aid' link_text='Financial Aid' %}
-            {% if phases.finaid != 'not_launched' %}{% endif %}
-        {% endblock %}
-
-        {% block link_financial_aid_grantees %}
-            {% include '__nav_link.html' with url='financial_aid_grantees' link_text='Financial Aid Grantees Info' %}
-        {% endblock %}
-
-         {% block link_schedule %}
-            {% if phases.schedule != 'not_public' %}
-                {% include '__nav_link.html' with url='schedule' link_text='Schedule' %}
-            {% endif %}
-        {% endblock %}
-
-        {% block link_call_for_proposals %}
-            {% comment %}{% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' highlighted='1' %}{% endcomment %}
-            {% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' %}
-            {% if phases.cfp == 'launched' %} {% endif %}
-        {% endblock %}
-
-        {% block link_call_for_proposals_guide %}
-            {% include '__nav_link.html' with url='cfp_guide' link_text='CfP Guide' %}
-        {% endblock %}
-
-        {% block link_call_for_proposals_pruvodce %}
-            {% include '__nav_link.html' with url='cfp_pruvodce' link_text='Průvodce CfP' %}
-        {% endblock %}
-
-
-        {% comment %}{% block sessions %}
-
+        {% block sessions %}
             {% block link_talks %}
-                {% if phases.talks != 'not_public' %}
-                    {% include '__nav_link.html' with url='talks_list' link_text='Talks' %}
-                {% endif %}
+                {% include '__nav_link.html' with url='program:talks_list' link_text='Talks' %}
+                {% if phases.talks != 'not_public' %}{% endif %}
             {% endblock %}
 
             {% block link_workshops %}
-                {% if phases.workshops != 'not_public' %}
-                    {% include '__nav_link.html' with url='workshops_list' link_text='Workshops' %}
-                {% endif %}
+                {% include '__nav_link.html' with url='program:workshops_list' link_text='Workshops' %}
+                {% if phases.workshops != 'not_public' %}{% endif %}
             {% endblock %}
 
             {% block link_schedule %}
                 {% if phases.schedule != 'not_public' %}
-                    {% include '__nav_link.html' with url='programme_schedule' link_text='Schedule' %}
+                    {% include '__nav_link.html' with url='schedule' link_text='Schedule' %}
                 {% endif %}
+                {% comment %}{% if phases.schedule != 'not_public' %}
+                    {% include '__nav_link.html' with url='program:schedule' link_text='Schedule' %}
+                {% endif %}{% endcomment %}
             {% endblock %}
-
-        {% endblock %}{% endcomment %}
-
-
-
+        {% endblock %}
 
     {% endblock %}
 
@@ -100,7 +66,6 @@ If you want to remove a menu item globally, comment it out here.
                 {% include '__nav_link.html' with url='team_list' link_text='Team' %}
             {% endblock %}{% endcomment %}
 
-
             {% comment %}{% block link_sponsors %}
                 {% if phases.sponsors == 'details_public' %}
                     {% include '__nav_link.html' with url='sponsors_list' link_text='Sponsors' %}
@@ -113,6 +78,29 @@ If you want to remove a menu item globally, comment it out here.
                 {% elif phases.sponsorship == 'dedicated_page' %}
                 {% endif %}{% endcomment %}
                 {% include '__nav_link.html' with url='sponsorship' link_text='Sponsorship' %}
+            {% endblock %}
+
+            {% block link_financial_aid %}
+                {% include '__nav_link.html' with url='financial_aid' link_text='Financial Aid' %}
+                {% if phases.finaid != 'not_launched' %}{% endif %}
+            {% endblock %}
+
+            {% block link_financial_aid_grantees %}
+                {% include '__nav_link.html' with url='financial_aid_grantees' link_text='Financial Aid Grantees Info' %}
+            {% endblock %}
+
+            {% block link_call_for_proposals %}
+                {% comment %}{% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' highlighted='1' %}{% endcomment %}
+                {% include '__nav_link.html' with url='cfp' link_text='Call for Proposals' %}
+                {% if phases.cfp == 'launched' %} {% endif %}
+            {% endblock %}
+
+            {% block link_call_for_proposals_guide %}
+                {% include '__nav_link.html' with url='cfp_guide' link_text='CfP Guide' %}
+            {% endblock %}
+
+            {% block link_call_for_proposals_pruvodce %}
+                {% include '__nav_link.html' with url='cfp_pruvodce' link_text='Průvodce CfP' %}
             {% endblock %}
 
             {% block link_coc %}
