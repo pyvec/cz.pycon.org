@@ -10,6 +10,7 @@
 {% block speakers_title %}Talks{% endblock %}
 
 
+{% comment %}
 {% block top_info %}
     {% if sessions and phases.talks != 'not_public' %}
         {{ block.super }}
@@ -28,6 +29,7 @@
     {% endif %}
 {% endblock %}
 
+{% endcomment %}
 
 {% block more_sessions_name %}talks{% endblock %}
 
