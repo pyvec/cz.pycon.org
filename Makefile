@@ -55,6 +55,10 @@ default-content:
 pretalx-sync-submissions:
 	$(DC_RUN) web python manage.py pretalx_sync_submissions
 
+.PHONY: generate-og-images
+generate-og-images:
+	$(DC_RUN) og_generator
+
 # Data sync
 .PHONY: copy-db-prod-to-local
 # Copy database from production to local database (starts the database when necessary).

@@ -27,5 +27,23 @@ services:
       POSTGRES_DB: pycon
     ports:
       - "5433:5432"
+
+  # Entry for OG image generator.
+  # Should be run as one-off tool, does not start automatically because of the profile entry.
+  og_generator:
+    profiles: ["tools"]
+    command: bash -c "python3 manage.py program_generate_og_images"
+    build:
+      context: .
+      dockerfile: og-generator.dockerfile
+    tty: true
+    depends_on:
+      - db
+    environment:
+      DEBUG: 1
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/pycon
+      SECRET_KEY: "required-but-not-used"
+    volumes:
+      - .:/code
 volumes:
   postgres_data:
