@@ -94,6 +94,14 @@ class SpeakerAdmin(admin.ModelAdmin):
             ro_fields = ro_fields + ["pretalx_code"]
         return ro_fields
 
+    def save_model(self, request, obj: Speaker, form, change: bool) -> None:
+        obj.save()
+
+        if not change and obj.pretalx_code:
+            sync = create_pretalx_sync()
+            sync.update_speakers([obj])
+
+
 
 @admin.action(description="Update from pretalx")
 def talk_update_from_pretalx(modeladmin, request, queryset):
@@ -183,6 +191,13 @@ class TalkAdmin(admin.ModelAdmin):
         if obj is not None and not obj.pretalx_code:
             ro_fields = ro_fields + ["pretalx_code"]
         return ro_fields
+
+    def save_model(self, request, obj: Talk, form, change: bool) -> None:
+        obj.save()
+
+        if not change and obj.pretalx_code:
+            sync = create_pretalx_sync()
+            sync.update_talks([obj])
 
 
 @admin.action(description="Update from pretalx")
@@ -284,3 +299,10 @@ class WorkshopAdmin(admin.ModelAdmin):
         if obj is not None and not obj.pretalx_code:
             ro_fields = ro_fields + ["pretalx_code"]
         return ro_fields
+
+    def save_model(self, request, obj: Workshop, form, change: bool) -> None:
+        obj.save()
+
+        if not change and obj.pretalx_code:
+            sync = create_pretalx_sync()
+            sync.update_workshops([obj])
