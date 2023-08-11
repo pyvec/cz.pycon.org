@@ -88,6 +88,12 @@ class SpeakerAdmin(admin.ModelAdmin):
     ]
     actions = [make_public, speaker_update_from_pretalx]
 
+    def get_readonly_fields(self, request, obj=None):
+        ro_fields: list = super().get_readonly_fields(request, obj)
+        if obj is not None and not obj.pretalx_code:
+            ro_fields = ro_fields + ["pretalx_code"]
+        return ro_fields
+
 
 @admin.action(description="Update from pretalx")
 def talk_update_from_pretalx(modeladmin, request, queryset):
@@ -171,6 +177,12 @@ class TalkAdmin(admin.ModelAdmin):
     @admin.display(description="Speakers", empty_value="not set")
     def speakers(self, talk: Talk) -> str:
         return ", ".join(speaker.full_name for speaker in talk.talk_speakers.all())
+
+    def get_readonly_fields(self, request, obj=None):
+        ro_fields: list = super().get_readonly_fields(request, obj)
+        if obj is not None and not obj.pretalx_code:
+            ro_fields = ro_fields + ["pretalx_code"]
+        return ro_fields
 
 
 @admin.action(description="Update from pretalx")
@@ -266,3 +278,9 @@ class WorkshopAdmin(admin.ModelAdmin):
         return ", ".join(
             speaker.full_name for speaker in workshop.workshop_speakers.all()
         )
+
+    def get_readonly_fields(self, request, obj=None):
+        ro_fields: list = super().get_readonly_fields(request, obj)
+        if obj is not None and not obj.pretalx_code:
+            ro_fields = ro_fields + ["pretalx_code"]
+        return ro_fields
