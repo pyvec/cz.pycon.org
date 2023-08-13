@@ -101,6 +101,7 @@ class TalkAdmin(admin.ModelAdmin):
         "is_keynote",
         "abstract",
         "track",
+        "private_note",
         "language",
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
