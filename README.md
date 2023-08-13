@@ -85,6 +85,8 @@ are already set in the provided `docker-compose.yaml`.
 | `SENTRY_RELEASE`      | Current release for Sentry reporting. Will be set to a short commit hash during deployment and baked to the Docker container.                        |
 | `SENTRY_ENVIRONMENT`  | Identifier of the environment for Sentry reporting. Set in `fly.toml` and `fly.prod.toml` for beta and production.                                   |
 | `HTTP_AUTH`           | When set, `nginx` will enable HTTP Basic Auth and use contents of this variable as its htpasswd file. No effect when running with Django dev server. |
+| `PRETALX_TOKEN`       | Token for authentication to the pretalx API.                                                                                                         |
+| `PRETALX_EVENT_SLUG`  | Slug of the pretalx event with speakers and submissions. Defaults to `pycon-cz-23`.                                                                  |
 
 ## Deployment
 We’re using [fly.io](https://fly.io). Deployment is automatic to [cz.pycon.org](https://cz.pycon.org) from `main` branch and to [beta (staging)](https://pycon-cz-beta.fly.dev) from `beta` branch.
@@ -108,6 +110,25 @@ fly auth login
 ```
 
 If you use WSL, you need to perform additional step - see [official login instructions](https://fly.io/docs/hands-on/sign-in/).
+
+## Pretalx synchronization
+
+The database of speakers, talks and workshops can be created and updated from pretalx event. To use the integration,
+set the `PRETALX_TOKEN` environment variable for the container.
+
+For development, this can be done by creating an `.env` file in the project root and adding the variable:
+
+```shell
+PRETALX_TOKEN="<YOUR TOKEN HERE>"
+```
+
+The variable from this file will be automatically used by `docker compose`.
+
+You can perform initial synchronization by running:
+
+```bash
+make pretalx-sync-submissions
+```
 
 ## Contributing
 If you want to contribute, please run `make lint` before pushing BE code to format it. This step will be automated in the future.

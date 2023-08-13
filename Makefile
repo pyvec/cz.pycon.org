@@ -16,7 +16,7 @@ down:
 
 # build a new Docker image
 build:
-	docker build -t pycon .
+	docker compose build
 
 # run bash inside Docker
 bash:
@@ -49,6 +49,11 @@ create-user:
 # default WagTail content used only on localhost
 default-content:
 	$(DC_RUN) web python content/default_content.py
+
+# Sync from pretalx
+.PHONY: pretalx-sync-submissions
+pretalx-sync-submissions:
+	$(DC_RUN) web python manage.py pretalx_sync_submissions
 
 # Data sync
 .PHONY: copy-db-prod-to-local

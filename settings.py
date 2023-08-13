@@ -207,3 +207,8 @@ if "SENTRY_DSN" in os.environ:
         # Collect traces for 1% of requests by default.
         traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.01")),
     )
+
+
+# Settings for pretalx integration
+PRETALX_EVENT_SLUG = os.getenv('PRETALX_EVENT_SLUG', 'pycon-cz-23')
+PRETALX_TOKEN = os.getenv('PRETALX_TOKEN', None)
