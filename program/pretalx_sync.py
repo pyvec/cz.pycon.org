@@ -12,6 +12,8 @@ class PretalxSync:
         # Used for assigning unique order numbers to new talks/workshops
         self._talks_order = 0
         self._workshops_order = 0
+        # Used assigning speakers when updating individual submissions
+        self._existing_speakers: dict[str, models.Speaker] | None = None
 
     def update_speakers(self, speakers: Collection[models.Speaker]) -> None:
         """
@@ -49,6 +51,12 @@ class PretalxSync:
                 questions=["all"],
             )
             talk.update_from_pretalx(submission_data)
+            talk.talk_speakers.set(
+                [
+                    self._get_or_fetch_speaker(speaker_data["code"])
+                    for speaker_data in submission_data["speakers"]
+                ]
+            )
 
         models.Talk.objects.bulk_update(
             objs=talks,
@@ -70,6 +78,12 @@ class PretalxSync:
                 questions=["all"],
             )
             workshop.update_from_pretalx(submission_data)
+            workshop.workshop_speakers.set(
+                [
+                    self._get_or_fetch_speaker(speaker_data["code"])
+                    for speaker_data in submission_data["speakers"]
+                ]
+            )
 
         models.Workshop.objects.bulk_update(
             objs=workshops,
@@ -265,3 +279,25 @@ class PretalxSync:
             all_workshops[code] = workshop
 
         workshop.update_from_pretalx(submission_data)
+
+    def _get_or_fetch_speaker(self, pretalx_code: str) -> models.Speaker:
+        if self._existing_speakers is None:
+            self._existing_speakers = models.Speaker.objects.filter(
+                pretalx_code__isnull=False,
+            ).in_bulk(field_name="pretalx_code")
+
+        speaker = self._existing_speakers.get(pretalx_code)
+        if speaker is None:
+            speaker_data = self.client.get_speaker(
+                code=pretalx_code,
+                questions=["all"],
+            )
+            speaker = models.Speaker(
+                is_public=False,
+                pretalx_code=pretalx_code,
+            )
+            speaker.update_from_pretalx(speaker_data)
+            speaker.save()
+            self._existing_speakers[pretalx_code] = speaker
+
+        return speaker
