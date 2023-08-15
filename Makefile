@@ -59,6 +59,11 @@ pretalx-sync-submissions:
 generate-og-images:
 	$(DC_RUN) og_generator
 
+
+.PHONY: link-og-images
+link-og-images:
+	$(DC_RUN) web python manage.py program_link_og_images
+
 # Data sync
 .PHONY: copy-db-prod-to-local
 # Copy database from production to local database (starts the database when necessary).
