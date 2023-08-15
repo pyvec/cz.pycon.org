@@ -128,3 +128,8 @@ upload-og-images:
 
 	# Extract the TAR file with OG images.
 	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'tar -x -f /code/data/tmp-og-images.tar -C /code/data; rm /code/data/tmp-og-images.tar'"
+
+.PHONY: publish-og-images
+# Uploads OG images to production and links it to sessions in the database.
+publish-og-images: upload-og-images
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'python manage.py program_link_og_images'"
