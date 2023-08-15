@@ -1,0 +1,12 @@
+{% extends "program/og_images/_og_base.html" %}
+{% block content %}
+    <h1>
+        {{ talk.title }}
+    </h1>
+
+    <p>
+        {% for speaker in talk.talk_speakers.all %}
+            {{ speaker }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    </p>
+{% endblock %}

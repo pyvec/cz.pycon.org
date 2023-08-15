@@ -55,6 +55,15 @@ default-content:
 pretalx-sync-submissions:
 	$(DC_RUN) web python manage.py pretalx_sync_submissions
 
+.PHONY: generate-og-images
+generate-og-images:
+	$(DC_RUN) og_generator
+
+
+.PHONY: link-og-images
+link-og-images:
+	$(DC_RUN) web python manage.py program_link_og_images
+
 # Data sync
 .PHONY: copy-db-prod-to-local
 # Copy database from production to local database (starts the database when necessary).
@@ -109,3 +118,13 @@ copy-media-prod-to-beta:
 	echo "cd /code/data \n put tmp-mediafiles.tar" | flyctl ssh sftp shell -a pycon-cz-beta
 	rm tmp-mediafiles.tar
 	flyctl ssh console -a pycon-cz-beta -q -C "bash -c 'tar -x -f /code/data/tmp-mediafiles.tar -C /code/data; rm /code/data/tmp-mediafiles.tar'"
+
+.PHONY: upload-og-images
+upload-og-images:
+	# Create TAR archive with OG images locally and upload it to production.
+	tar -c -f tmp-og-images.tar -C data/ mediafiles/og-images
+	echo "cd /code/data \n put tmp-og-images.tar" | flyctl ssh sftp shell -a pycon-cz-prod
+	rm tmp-og-images.tar
+
+	# Extract the TAR file with OG images.
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'tar -x -f /code/data/tmp-og-images.tar -C /code/data; rm /code/data/tmp-og-images.tar'"
