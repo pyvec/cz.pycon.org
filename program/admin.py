@@ -17,6 +17,12 @@ def make_public(self, request, queryset):
     self.message_user(request, "Selected items have been made public.")
 
 
+@admin.action(description="Make not public")
+def make_not_public(self, request, queryset):
+    queryset.update(is_public=False)
+    self.message_user(request, "Selected items have been made not public.")
+
+
 @admin.action(description="Update from pretalx")
 def speaker_update_from_pretalx(modeladmin, request, queryset):
     sync = create_pretalx_sync()
@@ -87,7 +93,7 @@ class SpeakerAdmin(admin.ModelAdmin):
         "talks",
         "workshops",
     ]
-    actions = [make_public, speaker_update_from_pretalx]
+    actions = [make_public, make_not_public, speaker_update_from_pretalx]
 
     def get_readonly_fields(self, request, obj=None):
         ro_fields: list = super().get_readonly_fields(request, obj)
@@ -175,7 +181,7 @@ class TalkAdmin(admin.ModelAdmin):
         "minimum_topic_knowledge",
         "type",
     ]
-    actions = [make_public, talk_update_from_pretalx]
+    actions = [make_public, make_not_public, talk_update_from_pretalx]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -281,7 +287,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         "type",
         "attendee_limit",
     ]
-    actions = [make_public, workshop_update_from_pretalx]
+    actions = [make_public, make_not_public, workshop_update_from_pretalx]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
