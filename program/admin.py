@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.db import transaction
+from django.utils.html import format_html
 
 from program.models import Speaker, Talk, Workshop
 from program import pretalx
@@ -95,6 +96,7 @@ class SpeakerAdmin(admin.ModelAdmin):
         "workshops",
     ]
     actions = [make_public, make_not_public, speaker_update_from_pretalx]
+    change_form_template = "program/admin/change_form_speaker.html"
 
     def get_readonly_fields(self, request, obj=None):
         ro_fields: list = super().get_readonly_fields(request, obj)
@@ -183,6 +185,7 @@ class TalkAdmin(admin.ModelAdmin):
         "type",
     ]
     actions = [make_public, make_not_public, talk_update_from_pretalx]
+    change_form_template = "program/admin/change_form_session.html"
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -289,6 +292,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         "attendee_limit",
     ]
     actions = [make_public, make_not_public, workshop_update_from_pretalx]
+    change_form_template = "program/admin/change_form_session.html"
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
