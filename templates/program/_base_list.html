@@ -35,38 +35,58 @@
 
         {% regroup sessions|dictsort:'track' by track as session_list %}
 
-        <div class="pt-6 mt-n4">
-            <h2 class="mt-0">Keynotes</h2>
-            <div class="PC-sessions">
-                {% for session in session_list.2.list|dictsort:'order' %}
-                    {% include 'program/__session.html' %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="pt-6 mt-n4" id="general">
-            <h2 class="mt-0">General</h2>
-            <div class="PC-sessions">
-                {% for session in session_list.1.list|dictsort:'order' %}
-                    {% include 'program/__session.html' %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="pt-6 mt-n4" id="pydata">
-            <h2 class="mt-0">PyData</h2>
-            <div class="PC-sessions">
-                {% for session in session_list.3.list|dictsort:'order' %}
-                    {% include 'program/__session.html' %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="pt-6 mt-n4" id="beginners">
-            <h2 class="mt-0">Beginners</h2>
-            <div class="PC-sessions">
-                {% for session in session_list.0.list|dictsort:'order' %}
-                    {% include 'program/__session.html' %}
-                {% endfor %}
-            </div>
-        </div>
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'keynotes' %}
+
+                <div class="pt-6 mt-n4">
+                    <h2 class="mt-0">Keynotes</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'general' %}
+                <div class="pt-6 mt-n4" id="general">
+                    <h2 class="mt-0">General</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'pydata' %}
+                <div class="pt-6 mt-n4" id="pydata">
+                    <h2 class="mt-0">PyData</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'beginners' %}
+                <div class="pt-6 mt-n4" id="beginners">
+                    <h2 class="mt-0">Beginners</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
 
         {% comment %}
         {% if more_to_come %}
