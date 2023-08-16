@@ -4,9 +4,13 @@
 {% comment %}<h2>{{ session.title }} talks</h2>{% endcomment %}
 {% comment %}<pre>{{ session|pprint }}</pre>{% endcomment %}
 
-<div class="col h-100">
-    <article class="h-100 PC-sessions-session PC-sessions-session-l-{{ session.talk_speakers.all|length }} border border-black shadow border-2 rounded">
-        <div class="PC-sessions-photo position-relative h-100">
+<div class="col">
+    <article class="
+        h-100 PC-sessions-session
+        PC-sessions-session-l-{{ session.talk_speakers.all|length }}
+        PC-sessions-session-l-{{ session.workshop_speakers.all|length }}
+        border border-black shadow border-2 rounded">
+        <div class="PC-sessions-photo position-relative">
             <div class="PC-image-primary d-flex">
                 {% for speaker in session.talk_speakers.all %}
                     <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
