@@ -4,21 +4,13 @@
 
 <article class="
         PC-sessions-session
-        PC-sessions-session-l-{{ session.talk_speakers.all|length }}
-        PC-sessions-session-l-{{ session.workshop_speakers.all|length }}
+        PC-sessions-session-l-{{ session.speakers|length }}
         shadow rounded border border-black border-2
+        position-relative
     ">
     <div class="PC-sessions-photos rounded-top">
-        {% for speaker in session.talk_speakers.all %}
-            <div class="PC-sessions-photo">
-                <div class="position-relative">
-                    <div class="PC-image-primary">
-                        <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        {% for speaker in session.workshop_speakers.all %}
+
+        {% for speaker in session.speakers %}
             <div class="PC-sessions-photo">
                 <div class="position-relative">
                     <div class="PC-image-primary">
@@ -29,12 +21,13 @@
         {% endfor %}
     </div>
     <div class="PC-sessions-text p-3">
-        <h3 class="h5 mt-0">{{ session.title }}</h3>
+        <h3 class="h5 mt-0">
+            <a class="stretched-link" href="{% url 'program:session_detail' type=session.type session_id=session.id %}">
+                {{ session.title }}
+            </a>
+        </h3>
         <p>
-            {% for speaker in session.talk_speakers.all %}
-                <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
-            {% endfor %}
-            {% for speaker in session.workshop_speakers.all %}
+            {% for speaker in session.speakers %}
                 <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
             {% endfor %}
         </p>

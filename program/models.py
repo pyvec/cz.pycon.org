@@ -206,6 +206,10 @@ class Talk(Session):
     )
     is_keynote = models.BooleanField(default=False, blank=True)
 
+    @property
+    def speakers(self):
+        return self.talk_speakers.all().order_by('talks__order')
+
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
         # when adding/removing fields synced with pretalx.
@@ -256,6 +260,10 @@ class Workshop(Session):
         blank=True,
         help_text="maximum number of attendees allowed",
     )
+
+    @property
+    def speakers(self):
+        return self.workshop_speakers.all().order_by('workshops__order')
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable

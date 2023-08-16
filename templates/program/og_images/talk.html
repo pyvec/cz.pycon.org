@@ -5,7 +5,7 @@
     </h1>
 
     <p>
-        {% for speaker in talk.talk_speakers.all %}
+        {% for speaker in talk.speakers %}
             {{ speaker }}{% if not forloop.last %},{% endif %}
         {% endfor %}
     </p>
