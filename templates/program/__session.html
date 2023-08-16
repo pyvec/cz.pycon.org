@@ -5,8 +5,8 @@
 {% comment %}<pre>{{ session|pprint }}</pre>{% endcomment %}
 
 <div class="col h-100">
-    <article class="h-100 PC-talks-talk PC-talks-talk-l-{{ session.talk_speakers.all|length }} border border-black shadow border-2 rounded">
-        <div class="PC-talks-photo position-relative h-100">
+    <article class="h-100 PC-sessions-session PC-sessions-session-l-{{ session.talk_speakers.all|length }} border border-black shadow border-2 rounded">
+        <div class="PC-sessions-photo position-relative h-100">
             <div class="PC-image-primary d-flex">
                 {% for speaker in session.talk_speakers.all %}
                     <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
@@ -16,7 +16,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="PC-talks-text p-3">
+        <div class="PC-sessions-text p-3">
             <h3 class="h5 mt-0">{{ session.title }}</h3>
             <p>
                 {% for speaker in session.talk_speakers.all %}
@@ -28,7 +28,6 @@
             </p>
         </div>
     </article>
-
 </div>
 
 {% comment %}<div class="text-muted d-flex gap-3">
