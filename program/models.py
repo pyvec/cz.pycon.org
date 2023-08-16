@@ -91,7 +91,7 @@ class Session(models.Model):
     }
 
     LANGUAGES = (
-        ("en", "English (preferred)"),
+        ("en", "English"),
         ("cs", "Czech/Slovak"),
     )
 
