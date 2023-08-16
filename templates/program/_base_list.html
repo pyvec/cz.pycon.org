@@ -38,7 +38,7 @@
         <div class="pt-6 mt-n4" id="general">
             <h2 class="mt-0">General</h2>
             <div class="PC-sessions">
-                {% for session in session_list.1.list|dictsortreversed:'order' %}
+                {% for session in session_list.1.list|dictsort:'order' %}
                     {% include 'program/__session.html' %}
                 {% endfor %}
             </div>
@@ -46,7 +46,7 @@
         <div class="pt-6 mt-n4" id="pydata">
             <h2 class="mt-0">PyData</h2>
             <div class="PC-sessions">
-                {% for session in session_list.2.list|dictsortreversed:'order' %}
+                {% for session in session_list.2.list|dictsort:'order' %}
                     {% include 'program/__session.html' %}
                 {% endfor %}
             </div>
@@ -54,7 +54,7 @@
         <div class="pt-6 mt-n4" id="beginners">
             <h2 class="mt-0">Beginners</h2>
             <div class="PC-sessions">
-                {% for session in session_list.0.list|dictsortreversed:'order' %}
+                {% for session in session_list.0.list|dictsort:'order' %}
                     {% include 'program/__session.html' %}
                 {% endfor %}
             </div>
