@@ -35,10 +35,9 @@
 
 
 {% block other_sessions %}
-    {% if phases.workshops != 'not_published' %}
-        {% url 'workshops_list' as other_session_url %}
-        {% with other_session_name='workshops' %}
-            {{ block.super }}
-        {% endwith %}
-    {% endif %}
+    {% url 'program:workshops_list' as other_session_url %}
+    {% with other_session_name='workshops' %}
+        {{ block.super }}
+    {% endwith %}
+    {% if phases.workshops != 'not_published' %}{% endif %}
 {% endblock %}
