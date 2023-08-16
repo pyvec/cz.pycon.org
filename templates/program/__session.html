@@ -32,10 +32,10 @@
         <h3 class="h5 mt-0">{{ session.title }}</h3>
         <p>
             {% for speaker in session.talk_speakers.all %}
-                {{ speaker.full_name }}{% if forloop.revcounter0 %},{% endif %}
+                <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
             {% endfor %}
             {% for speaker in session.workshop_speakers.all %}
-                {{ speaker.full_name }}{% if forloop.revcounter0 %},{% endif %}
+                <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
             {% endfor %}
         </p>
         {% comment %}{{ session.title|length }}{% endcomment %}
