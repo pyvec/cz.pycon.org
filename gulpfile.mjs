@@ -65,7 +65,7 @@ const removeUnusedCss = () =>
                 uncss({
                     html: ["templates/**/*.html"],
                     media: ["print"], // process additional media queries
-                    ignore: [".PC-nav-link-highlight"], // provide a list of selectors that should not be removed by UnCSS
+                     ignore: [/\.PC-.+/], // provide a list of selectors or regular expressions that should not be removed by UnCSS
                 }),
             ])
         )
@@ -131,7 +131,7 @@ const processCss = series(cleanupCss, sassCompile);
 export const develop = series(cleanupAll, copyStatic, sassCompile, parallel(runServer, startBrowsersync, watchFiles));
 
 // build everything for production
-export const build = series(cleanupAll, copyStatic, sassCompile/*, removeUnusedCss*/);
+export const build = series(cleanupAll, copyStatic, sassCompile, removeUnusedCss);
 
 // the default task runs when you run just `gulp`
 export default build;
