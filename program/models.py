@@ -80,13 +80,14 @@ class Session(models.Model):
         ]
         ordering = ("order",)
 
-    TYPE = (("workshop", "Workshop"), ("sprint", "Sprint"), ("talk", "Talk"))
+    TYPE = (("workshop", "Workshop"), ("sprint", "Sprint"), ("talk", "Talk"), ("panel", "Panel"))
+
     PRETALX_TYPE_MAP = {
         "talk": "talk",
-        "panel": "talk",
+        "panel": "panel",
         "keynote": "talk",
         "workshop": "workshop",
-        "workshop full day": "sprint",
+        "workshop full day": "workshop",
     }
 
     LANGUAGES = (
