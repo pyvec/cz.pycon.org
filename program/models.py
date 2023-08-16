@@ -205,7 +205,7 @@ class Talk(Session):
     PRETALX_FIELDS = Session.PRETALX_FIELDS + ["is_keynote"]
 
     video_id = models.CharField(
-        max_length=100, default="", blank=True, help_text="YouTube URL"
+        max_length=100, default="", blank=True, help_text="YouTube ID (from URL)"
     )
     is_keynote = models.BooleanField(default=False, blank=True)
 
