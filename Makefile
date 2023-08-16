@@ -55,6 +55,11 @@ default-content:
 pretalx-sync-submissions:
 	$(DC_RUN) web python manage.py pretalx_sync_submissions
 
+# Sync from pretalx to production
+.PHONY: pretalx-sync-submissions-prod
+pretalx-sync-submissions-prod:
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'python manage.py pretalx_sync_submissions'"
+
 .PHONY: generate-og-images
 generate-og-images:
 	$(DC_RUN) og_generator
