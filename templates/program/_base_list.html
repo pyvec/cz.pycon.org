@@ -36,8 +36,7 @@
         {% regroup sessions|dictsort:'track' by track as session_list %}
 
         {% for session_type in session_list %}
-            {% if session_type.grouper == 'keynotes' %}
-
+            {% if session_type.grouper == 'keynote' %}
                 <div class="pt-6 mt-n4">
                     <h2 class="mt-0">Keynotes</h2>
                     <div class="PC-sessions">
