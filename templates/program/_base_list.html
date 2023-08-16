@@ -35,7 +35,7 @@
 
         {% regroup sessions|dictsort:'track' by track as session_list %}
 
-        <div class="pt-6 mt-n4" id="general">
+        <div class="pt-6 mt-n4">
             <h2 class="mt-0">Keynotes</h2>
             <div class="PC-sessions">
                 {% for session in session_list.2.list|dictsort:'order' %}
