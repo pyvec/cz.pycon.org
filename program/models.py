@@ -26,16 +26,10 @@ class Speaker(models.Model):
     email = models.EmailField()
     photo = models.ImageField(null=True, blank=True)
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
-    workshops = models.ManyToManyField(
-        "Workshop", blank=True, related_name="workshop_speakers"
-    )
-    display_position = models.PositiveSmallIntegerField(
-        default=0, help_text="sort order on frontend displays"
-    )
+    workshops = models.ManyToManyField("Workshop", blank=True, related_name="workshop_speakers")
+    display_position = models.PositiveSmallIntegerField(default=0, help_text="sort order on frontend displays")
     is_public = models.BooleanField(default=True)
-    pretalx_code = models.CharField(
-        max_length=16, null=True, blank=True, unique=True,
-    )
+    pretalx_code = models.CharField(max_length=16, null=True, blank=True, unique=True, )
     """
     Code of the speaker in pretalx. Will be used for synchronization.
     When not set, this speaker will not be synchronized with pretalx.
@@ -99,6 +93,7 @@ class Session(models.Model):
         ("en", "English (preferred)"),
         ("cs", "Czech/Slovak"),
     )
+
     PRETALX_LANGUAGE_MAP = {
         "czech or slovak (preferred for beginners track)": "cs",
         "english (preferred for the rest of talks and workshops)": "en",
@@ -109,6 +104,7 @@ class Session(models.Model):
         ("intermediate", "Intermediate"),
         ("advanced", "Advanced"),
     )
+
     PRETALX_DIFFICULTY_MAP = {
         "beginner: can write simple scripts (typical attendee of our beginner’s track)": "beginner",
         "intermediate: uses frameworks and third-party libraries": "intermediate",
@@ -127,6 +123,7 @@ class Session(models.Model):
         ("few-times", "Attendees who used it few times"),
         ("regular-basis", "Attendees who use it on a regular basis"),
     )
+
     PRETALX_TOPIC_KNOWLEDGE_MAP = {
         "no previous knowledge is required: you will explain basic concepts and problems it solves": "no-previous-knowledge",
         "attendees who used it just a few times": "few-times",
@@ -214,7 +211,7 @@ class Talk(Session):
         # when adding/removing fields synced with pretalx.
         super().update_from_pretalx(pretalx_submission)
         self.is_keynote = (
-            pretalx_submission["submission_type"]["en"].casefold() == "keynote"
+                pretalx_submission["submission_type"]["en"].casefold() == "keynote"
         )
 
 
