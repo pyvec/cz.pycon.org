@@ -4,17 +4,7 @@ from django.template.loader import render_to_string
 from django.template.response import TemplateResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 
-from program.models import Speaker, Talk, Workshop
-
-
-def preview(request):
-    speakers = Speaker.objects.prefetch_related("talks", "workshops").order_by(
-        "full_name"
-    )
-
-    return TemplateResponse(
-        request, template="program/preview.html", context={"speakers": speakers}
-    )
+from program.models import Talk, Workshop
 
 
 def talks_list(request):
