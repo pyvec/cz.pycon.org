@@ -33,7 +33,8 @@ class SpeakerAdmin(admin.ModelAdmin):
         "display_position",
         "pretalx_code",
     ]
-    search_fields = ["full_name", "email"]
+    search_fields = ["full_name", "email", "pretalx_code"]
+    list_filter = ["is_public"]
     ordering = ["full_name"]
     fieldsets = [
         (
@@ -100,7 +101,6 @@ class SpeakerAdmin(admin.ModelAdmin):
         if not change and obj.pretalx_code:
             sync = create_pretalx_sync()
             sync.update_speakers([obj])
-
 
 
 @admin.action(description="Update from pretalx")
