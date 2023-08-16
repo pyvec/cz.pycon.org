@@ -131,7 +131,7 @@ const processCss = series(cleanupCss, sassCompile);
 export const develop = series(cleanupAll, copyStatic, sassCompile, parallel(runServer, startBrowsersync, watchFiles));
 
 // build everything for production
-export const build = series(cleanupAll, copyStatic, sassCompile, removeUnusedCss);
+export const build = series(cleanupAll, copyStatic, sassCompile/*, removeUnusedCss*/);
 
 // the default task runs when you run just `gulp`
 export default build;
