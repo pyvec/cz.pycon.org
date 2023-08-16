@@ -37,6 +37,7 @@ class SpeakerAdmin(admin.ModelAdmin):
         "email",
         "is_public",
         "display_position",
+        "photo",
         "pretalx_code",
     ]
     search_fields = ["full_name", "email", "pretalx_code"]
