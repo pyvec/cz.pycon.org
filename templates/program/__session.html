@@ -1,134 +1,49 @@
 {% load markdown %}
 {% load static %}
-{% comment %}<a {% block detail_link %} href="{% url 'session_detail' type=session.type session_id=session.id %}#main" {% endblock %}></a>{% endcomment %}
-{% comment %}<h2>{{ session.title }} talks</h2>{% endcomment %}
-{% comment %}<pre>{{ session|pprint }}</pre>{% endcomment %}
 
-<div class="col">
-    <article class="
-        h-100 PC-sessions-session
+
+<article class="
+        PC-sessions-session
         PC-sessions-session-l-{{ session.talk_speakers.all|length }}
         PC-sessions-session-l-{{ session.workshop_speakers.all|length }}
-        border border-black shadow border-2 rounded">
-        <div class="PC-sessions-photo position-relative">
-            <div class="PC-image-primary d-flex">
-                {% for speaker in session.talk_speakers.all %}
-                    <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
-                {% endfor %}
-                {% for speaker in session.workshop_speakers.all %}
-                    <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
-                {% endfor %}
+        shadow rounded border border-black border-2
+    ">
+    <div class="PC-sessions-photos rounded-top">
+        {% for speaker in session.talk_speakers.all %}
+            <div class="PC-sessions-photo">
+                <div class="position-relative">
+                    <div class="PC-image-primary">
+                        <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="PC-sessions-text p-3">
-            <h3 class="h5 mt-0">{{ session.title }}</h3>
-            <p>
-                {% for speaker in session.talk_speakers.all %}
-                    {{ speaker.full_name }}{% if forloop.revcounter0 %}<br>{% endif %}
-                {% endfor %}
-                {% for speaker in session.workshop_speakers.all %}
-                    {{ speaker.full_name }}{% if forloop.revcounter0 %}<br>{% endif %}
-                {% endfor %}
-            </p>
-        </div>
-    </article>
-</div>
-
-{% comment %}<div class="text-muted d-flex gap-3">
+        {% endfor %}
+        {% for speaker in session.workshop_speakers.all %}
+            <div class="PC-sessions-photo">
+                <div class="position-relative">
+                    <div class="PC-image-primary">
+                        <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="PC-sessions-text p-3">
+        <h3 class="h5 mt-0">{{ session.title }}</h3>
+        <p>
             {% for speaker in session.talk_speakers.all %}
-                <div>
-                    {% if session.talk_speakers.all|length > 1 %}
-                        <div class="position-relative">
-                            <div class="PC-image-primary">
-                                <img class="img-fluid" src="{{ speaker.photo.url }}" width="64" height="64" alt="">
-                            </div>
-                        </div>
-                    {% endif %}
-                    <div>{{ speaker.full_name }}</div>
-                </div>
+                {{ speaker.full_name }}{% if forloop.revcounter0 %},{% endif %}
             {% endfor %}
-
-
-        </div>{% endcomment %}
-
-{% comment %}{% if user.is_staff and false %}
-            <a class="btn btn-sm btn-outline-danger shadow-none" href="https://pretalx.com/orga/event/pycon-cz-23/submissions/{{ session.pretalx_code }}">Edit in preTALX</a>
-        {% endif %}{% endcomment %}
-
-{% comment %}<div class="row g-0 h-100">
-
-            {% if session.talk_speakers.all|length == 1 %}
-                {% for speaker in session.talk_speakers.all %}
-                    <div class="px-0 position-relative col-6">
-                        <div class="PC-image-primary">
-                            <img class="img-fluid" src="{{ speaker.photo.url }}" width="300" height="300" alt="">
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-
-            <div class="col px-3 py-3">
-                <h3 class="h5 mt-0 mb-1">
-                    {{ session.title }}
-                </h3>
-                <div class="text-muted d-flex gap-3">
-                    {% for speaker in session.talk_speakers.all %}
-                        <div>
-                            {% if session.talk_speakers.all|length > 1 %}
-                                <div class="position-relative">
-                                    <div class="PC-image-primary">
-                                        <img class="img-fluid" src="{{ speaker.photo.url }}" width="64" height="64" alt="">
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <div>{{ speaker.full_name }}</div>
-                        </div>
-                    {% endfor %}
-
-                </div>
-                {% if user.is_staff and false %}
-                    <a class="btn btn-sm btn-outline-danger shadow-none" href="https://pretalx.com/orga/event/pycon-cz-23/submissions/{{ session.pretalx_code }}">Edit in preTALX</a>
-                {% endif %}
-            </div>
-        </div>{% endcomment %}
-
-{% comment %}{{ session.title|length }}{% endcomment %}
-{% comment %}{% if session.language == 'cs' %} :flag_cz: {% endif %}{% endcomment %}
-{#order:                    {{ session.order|pprint }}#}
-{#minimum_python_knowledge: {{ session.minimum_python_knowledge|pprint }}#}
-{#minimum_topic_knowledge:  {{ session.minimum_topic_knowledge|pprint }}#}
-{% comment %}{{ session.abstract|render_markdown }}{% endcomment %}
-
-{% comment %}{% for speaker in session.speakers %}
-                    {% if forloop.counter0 > 0 %}
-                        <div>
-                            <p>
-                                {{ speaker.full_name }}
-                            </p>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
-                {% if session.in_data_track %}
-                    <p>Is part of the PyData&nbsp;track</p>
-                {% endif %}
-
-
-                {% for speaker in session.speakers %}
-                    <div
-                            class="embed-responsive
-                                {% if session.speakers|length > 1 %}
-                                    pc-embed-responsive-1by1-pb-3
-                                {% else %}
-                                    embed-responsive-1by1
-                                {% endif %}
-                            "
-                    >
-                        <img
-                                src="{{ speaker.photo.url }}"
-                                class="embed-responsive-item pc-object-fit-cover pc-img-effect-dark"
-                                alt=""
-                        >
-                    </div>
-                {% endfor %}{% endcomment %}
+            {% for speaker in session.workshop_speakers.all %}
+                {{ speaker.full_name }}{% if forloop.revcounter0 %},{% endif %}
+            {% endfor %}
+        </p>
+        {% comment %}{{ session.title|length }}{% endcomment %}
+        {% comment %}{% if session.language == 'cs' %} :flag_cz: {% endif %}{% endcomment %}
+        {% comment %}order:                    {{ session.order|pprint }}{% endcomment %}
+        {% comment %}minimum_python_knowledge: {{ session.minimum_python_knowledge|pprint }}{% endcomment %}
+        {% comment %}minimum_topic_knowledge:  {{ session.minimum_topic_knowledge|pprint }}{% endcomment %}
+        {% comment %}{{ session.abstract|render_markdown }}{% endcomment %}
+    </div>
+    {% comment %}<a {% block detail_link %} href="{% url 'session_detail' type=session.type session_id=session.id %}#main" {% endblock %}></a>{% endcomment %}
+</article>
