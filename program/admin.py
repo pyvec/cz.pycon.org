@@ -123,15 +123,15 @@ class TalkAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "speakers",
-        "is_keynote",
         "track",
         "language",
         "order",
+        "is_keynote",
         "is_public",
         "is_backup",
         "pretalx_code",
     ]
-    list_filter = ["is_keynote", "track", "language", "is_public", "is_backup"]
+    list_filter = ["is_keynote", "track", "type", "language", "is_public", "is_backup"]
     search_fields = ["title", "abstract", "talk_speakers__full_name", "pretalx_code"]
     ordering = ["is_backup", "-is_keynote", "track", "order", "title"]
     fieldsets = [
@@ -228,7 +228,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         "is_backup",
         "pretalx_code",
     ]
-    list_filter = ["type", "track", "language", "is_public", "is_backup"]
+    list_filter = ["type", "track", "type", "language", "is_public", "is_backup"]
     search_fields = [
         "title",
         "abstract",
