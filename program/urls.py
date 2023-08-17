@@ -16,7 +16,7 @@ urlpatterns = [
     re_path("^$", RedirectView.as_view(pattern_name="program:talks_list")),
     re_path("^talks/$", talks_list, name="talks_list"),
     re_path("^workshops/$", workshops_list, name="workshops_list"),
-    re_path('^(?P<type>(talk|workshop|sprint|panel))s/(?P<session_id>\\d+)/$', session_detail, name='session_detail'),
+    re_path("^(?P<type>(talk|workshop|sprint|panel))s/(?P<session_id>\\d+)/$", session_detail, name="session_detail"),
 
 ]
 
