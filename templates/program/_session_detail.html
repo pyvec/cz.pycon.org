@@ -79,8 +79,10 @@
         </div>
 
 
-        <div class="row align-items-baseline">
-            <div class="col-md"><h2 class="h3 mt-3">What do you need to know to enjoy this {{ session.type }}</h2></div>
+        <div class="row align-items-baseline mb-4">
+            <div class="col-md">
+                <h2 class="h3 mt-3">What do you need to know to enjoy this {{ session.type }}</h2>
+            </div>
             <div class="col-sm">
                 <h3 class="h4 mt-3">About Python</h3>
                 {% if session.minimum_python_knowledge == 'beginner' %}
@@ -94,13 +96,12 @@
             <div class="col-sm">
                 <h3 class="h4 mt-3">About the topic</h3>
                 {% if session.minimum_topic_knowledge == 'no-previous-knowledge' %}
-                    No previous knowledge of the topic is required, basic concepts will be explained.
+                    No previous knowledge of the topic is required, basic concepts will be explained.
                 {% elif  session.minimum_topic_knowledge == 'few-times' %}
-                    You used it just a few times.
+                    You used or did it just a few times.
                 {% elif session.minimum_topic_knowledge == 'regular-basis' %}
-                    You use it on a regular basis.
+                    You use it or do it on a regular basis.
                 {% endif %}
-
             </div>
         </div>
 
