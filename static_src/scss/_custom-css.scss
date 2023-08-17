@@ -1,3 +1,7 @@
+html {
+    font-variant-ligatures: none;
+}
+
 ::selection {
     background-color: $secondary;
     color: $blue;
