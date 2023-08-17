@@ -287,7 +287,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         "language",
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
-        "type",
+        # "type",
         "attendee_limit",
     ]
     actions = [make_public, make_not_public, workshop_update_from_pretalx]
