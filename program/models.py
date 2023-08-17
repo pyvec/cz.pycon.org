@@ -15,6 +15,8 @@ class Speaker(models.Model):
         "linkedin",
     ]
     """List of fields synced from pretalx."""
+    class Meta:
+        ordering = ("order",)
 
     full_name = models.CharField(max_length=200)
     bio = models.TextField()
@@ -27,7 +29,7 @@ class Speaker(models.Model):
     photo = models.ImageField(null=True, blank=True)
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
     workshops = models.ManyToManyField("Workshop", blank=True, related_name="workshop_speakers")
-    display_position = models.PositiveSmallIntegerField(default=0, help_text="sort order on frontend displays")
+    order = models.PositiveSmallIntegerField(default=500, help_text="display order on front end (lower the number, higher it is)")
     is_public = models.BooleanField(default=True)
     pretalx_code = models.CharField(max_length=16, null=True, blank=True, unique=True, )
     """
@@ -140,10 +142,7 @@ class Session(models.Model):
         max_length=256, choices=TOPIC_KNOWLEDGE, default="no-previous-knowledge"
     )
     track = models.CharField(max_length=16, choices=TRACK)
-    order = models.SmallIntegerField(
-        default=500,
-        help_text="display order on front-end",
-    )
+    order = models.PositiveSmallIntegerField(default=500, help_text="display order on front end (lower the number, higher it is)", )
     title = models.CharField(max_length=250)
     abstract = models.TextField()
     is_backup = models.BooleanField(default=False, blank=True)
@@ -209,7 +208,7 @@ class Talk(Session):
 
     @property
     def speakers(self):
-        return self.talk_speakers.all().order_by('talks__order')
+        return self.talk_speakers.all().filter(is_public=True)
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
@@ -264,7 +263,7 @@ class Workshop(Session):
 
     @property
     def speakers(self):
-        return self.workshop_speakers.all().order_by('workshops__order')
+        return self.workshop_speakers.all().order_by('workshops__workshop_speakers__order')
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable

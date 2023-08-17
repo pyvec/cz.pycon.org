@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.db import transaction
-from django.utils.html import format_html
 
 from program.models import Speaker, Talk, Workshop
 from program import pretalx
@@ -37,13 +36,13 @@ class SpeakerAdmin(admin.ModelAdmin):
         "full_name",
         "email",
         "is_public",
-        "display_position",
+        "order",
         "photo",
         "pretalx_code",
     ]
     search_fields = ["full_name", "email", "pretalx_code"]
     list_filter = ["is_public"]
-    ordering = ["full_name"]
+    ordering = ["order", "full_name"]
     fieldsets = [
         (
             None,
@@ -61,7 +60,7 @@ class SpeakerAdmin(admin.ModelAdmin):
             {
                 "fields": [
                     "is_public",
-                    "display_position",
+                    "order",
                 ],
             },
         ),

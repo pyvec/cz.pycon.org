@@ -1,0 +1,272 @@
+{% extends '_layout.html' %}
+
+
+{% load markdown %}
+{% load static %}
+
+
+{% block meta_title %}{{ session.title|markdown|striptags }} – {% for speaker in session.speakers %}{% if forloop.last and not forloop.first %} &amp; {% elif not forloop.first %}, {% endif %} {{ speaker }}{% endfor %} – {{ block.super }}{% endblock %}
+
+
+{% block meta_social_customizable %}
+    <meta property="og:title" content="PyCon CZ – {{ session.title|markdown|striptags }} – a&nbsp;{{ session.type }} by {{ session.speakers|join:' &amp; ' }}">
+    <meta property="og:description" content="{{ session.abstract|markdown|striptags|linebreaks|striptags|truncatechars:300 }}">
+    {% if session.og_image %}
+        <meta property="og:image" content="https://{{ request.get_host }}{{ session.og_image.url }}">
+        <meta property="og:image:width" content="{{ session.og_image.width }}">
+        <meta property="og:image:height" content="{{ session.og_image.height }}">
+    {% else %}
+        {% with og_speaker=session.speakers|first %}
+            <meta property="og:image" content="https://{{ request.get_host }}{{ og_speaker.photo.url }}">
+            <meta property="og:image:width" content="{{ og_speaker.photo.width }}">
+            <meta property="og:image:height" content="{{ og_speaker.photo.height }}">
+        {% endwith %}
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:alt" content="{{ session.speakers|join:' &amp; ' }}">
+{% endblock %}
+
+
+{% block main %}
+    <pre class="position-absolute top-0 bg-white p-3">{{ session.difficulty|pprint }}</pre>
+
+    <div class="container-xs pt-4 pb-3 mt-3">
+
+        <h1>
+            {{ session.title }}
+            <small class="text-muted fs-2 d-inline-block">
+                {% if session.type == 'talk' %}
+                    {% if session.language == 'en' %}
+                        a&nbsp;{{ session.type }} by
+                    {% elif session.language == 'cs' %}
+                        přednáší
+                    {% endif %}
+                {% elif session.type == 'panel' %}
+                    {% if session.language == 'en' %}
+                        a&nbsp;{{ session.type }} with
+                    {% elif session.language == 'cs' %}
+                        disktující:
+                    {% endif %}
+                {% elif session.type == 'workshop' %}
+                    {% if session.language == 'en' %}
+                        a&nbsp;{{ session.type }} with
+                    {% elif session.language == 'cs' %}
+                        workshop vede
+                    {% endif %}
+                {% elif session.type == 'sprint' %}
+                    {% if session.language == 'en' %}
+                        a&nbsp;{{ session.type }} lead by
+                    {% elif session.language == 'cs' %}
+                        sprint vede
+                    {% endif %}
+                {% endif %}
+
+                {% for speaker in session.speakers %}{% if forloop.last and not forloop.first %} <span class="d-inline-block">&amp; {% elif not forloop.first %}, <span class="d-inline-block">{% endif %}{% spaceless %}
+                    {{ speaker }}</span>
+                {% endspaceless %}{% endfor %}
+            </small>
+        </h1>
+
+        {% comment %}{% if session.language == 'cs' %}
+            <p class="bg-danger">
+                {{ session.language|pprint }}
+                This {{ session.type }} will be in Czech or Slovak.
+            </p>
+        {% endif %}{% endcomment %}
+
+        <div class="PC-multicol my-4">
+            {{ session.abstract|markdown }}
+        </div>
+
+
+        <div class="row align-items-baseline">
+            <div class="col-md"><h2 class="h3 mt-3">What do you need to know to enjoy this {{ session.type }}</h2></div>
+            <div class="col-sm">
+                <h3 class="h4 mt-3">About Python</h3>
+                {% if session.minimum_python_knowledge == 'beginner' %}
+                    You can write simple Python scripts.
+                {% elif  session.minimum_python_knowledge == 'intermediate' %}
+                    You use frameworks and third-party libraries.
+                {% elif session.minimum_python_knowledge == 'advanced' %}
+                    You understand advanced Python concepts, such as generators and comprehensions, async/await, advanced usage of classes.
+                {% endif %}
+            </div>
+            <div class="col-sm">
+                <h3 class="h4 mt-3">About the topic</h3>
+                {% if session.minimum_topic_knowledge == 'no-previous-knowledge' %}
+                    No previous knowledge of the topic is required, basic concepts will be explained.
+                {% elif  session.minimum_topic_knowledge == 'few-times' %}
+                    You used it just a few times.
+                {% elif session.minimum_topic_knowledge == 'regular-basis' %}
+                    You use it on a regular basis.
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% if user.is_staff %}
+            <a class="btn btn-lg btn-danger my-5" href="https://pretalx.com/orga/event/pycon-cz-23/submissions/{{ session.pretalx_code }}">
+                Edit session in preTALX
+            </a>
+        {% endif %}
+        {% comment %}{% if session.length and 'h' in session.length %}
+                <p>
+                    {{ session.type|capfirst }}
+                    will take
+                    {% if session.length == '1h' %}
+                        1&nbsp;hour.
+                    {% elif session.length == '2h' %}
+                        2&nbsp;hours.
+                    {% elif session.length == '3h' %}
+                        3&nbsp;hours.
+                    {% endif %}
+                </p>
+            {% endif %}{% endcomment %}
+
+        {% comment %}{% if phases.workshops == 'details_complete_public' and session.attendee_limit > 0 %}
+                <p>There will be maximum of {{ session.attendee_limit }} attendees.</p>
+            {% endif %}{% endcomment %}
+
+
+        {% for speaker in session.speakers %}
+            {% include 'program/__speaker_detail.html' with type='session_detail' %}
+        {% endfor %}
+
+        <div class="sticky-bottom mx-auto">
+            <div class="pb-2 mb-2 d-flex justify-content-between">
+                <a class="btn btn-secondary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.previous.type session_id=other_sessions.previous.id %}">
+                    previous {{ other_sessions.previous.type }}
+                </a>
+                <a class="btn btn-primary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.next.type session_id=other_sessions.next.id %}">
+                    next {{ other_sessions.next.type }}
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% comment %}
+
+
+{% block main %}
+    <div class="container">
+
+        {% if session.video_id %}
+            {% if user.is_staff or phases.videos == 'public' %}
+                {% if phases.videos != 'public' %}
+                    <div class="alert alert-warning">
+                        ℹ️ You’re seeing this video only because you’re logged in as a staff member.
+                    </div>
+                {% endif %}
+                <div class="embed-responsive embed-responsive-16by9 mb-3">
+                    <iframe class="embed-responsive-item" src="{{ session.video_embed_url }}?rel=0" allowfullscreen></iframe>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if phases.schedule == 'full' and session_slot %}
+            <p class="pc-session-date">
+                {{ session_slot.start|date:'l, d F, H:i' }} in&nbsp;{{ session_slot.room_name }}
+                {% if session.is_keynote %} and streamed live to&nbsp;<b>Club</b> {% endif %}
+            </p>
+        {% endif %}
+
+        {% block info %}
+            <div class="row">
+                <div class="{% block first_col_class %}col-md mb-3{% endblock %}">
+                    {% block primary_info %}
+                        <div class="mb-3">{{ session.abstract|markdown }}</div>
+
+                        <div class="pc-session-flags">
+                            <div class="row no-gutters mb-3">
+                                <div class="col-auto pr-3 pb-1">
+                                    <svg class="pc-img-fluid-svg d-block" style="width:3rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+                                        <path fill="var({% if session.difficulty == 'advanced' %}--dark{% else %}--white{% endif %})" d="M0 40V0h40v40z" />
+                                        <path fill="var({% if session.difficulty == 'advanced' %}--primary{% else %}--primary{% endif %})" stroke="var({% if session.difficulty == 'advanced' %}--dark{% else %}--white{% endif %})" stroke-width="1.1" d="M26.0614 8.1015L20 11.601m6.0614 4.8993L20 20m-6.0614-3.4996L20 20m0-8.399v23.797M13.9386 8.1016L20 11.601m-6.0614-3.4996L20 4.6019l6.0614 3.4996v23.797L20 35.3981l-6.0614-3.4996z" />
+                                    </svg>
+                                </div>
+                                <div class="col">
+                                    {% if session.difficulty == 'advanced' %}
+                                        <strong>This {{ session.type }} is aimed at advanced Pythonistas.</strong>
+                                        While it might be interesting for beginners we recommend them to choose another&nbsp;{{ session.type }}.
+                                    {% else %}
+                                        This {{ session.type }} is suitable for both beginner and advanced Pythonistas.
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% if session.in_data_track %}
+                                <div class="row no-gutters mb-3">
+                                    <div class="col-auto pr-3 pb-1">
+                                        <svg class="pc-img-fluid-svg d-block" style="width:3rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+                                            <path fill="#f80" d="M0 40V0h40v40z" />
+                                            <path fill="#fff" d="M20.4 20.1l6.3-3.3v6.8l-6.3 3.3m-.4-7.4l-6.4-3.3 6.4-3.3 6.4 3.3zm.4-14l6.3 3.3v6.8l-6.3-3.3zm-7.1 18.9l6.3 3.3v6.8l-6.3-3.3zm0-7.6l6.3 3.3v6.8l-6.3-3.3z" />
+                                        </svg>
+                                    </div>
+                                    <div class="col">Is part of the PyData&nbsp;track</div>
+                                </div>
+                            {% endif %}
+
+                            {% if session.language == 'cs' %}
+                                <div class="row no-gutters mb-3">
+                                    <div class="col-auto pr-3 pb-1">
+                                        <svg class="pc-img-fluid-svg align-baseline" style="width:3rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 60">
+                                            <rect width="90" height="60" fill="#d7141a"></rect>
+                                            <rect width="90" height="30" fill="#fff"></rect>
+                                            <path d="M 45,30 0,0 V 60 z" fill="#11457e"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="col">This {{ session.type }} will be in Czech only.</div>
+                                </div>
+                            {% endif %}
+
+                            {% if session.length and 'h' in session.length %}
+                                <p>
+                                    {{ session.type|capfirst }}
+                                    will take
+                                    {% if session.length == '1h' %}
+                                        1&nbsp;hour.
+                                    {% elif session.length == '2h' %}
+                                        2&nbsp;hours.
+                                    {% elif session.length == '3h' %}
+                                        3&nbsp;hours.
+                                    {% endif %}
+                                </p>
+                            {% endif %}
+
+                            {% if phases.workshops == 'details_complete_public' and session.attendee_limit > 0 %}
+                                <p>There will be maximum of {{ session.attendee_limit }} attendees.</p>
+                            {% endif %}
+                        </div>
+                    {% endblock %}
+                </div>
+
+                {% block secondary_info %}{% endblock %}
+            </div>
+        {% endblock %}
+
+
+        {% for speaker in session.speakers %}
+            {% include 'programme/__speaker_detail.html' with type='session_detail' odd=forloop.counter|divisibleby:'2' %}
+        {% endfor %}
+
+    </div>
+    {% if phases.schedule == 'full' and phases.workshops_registration == 'timed_out' or phases.schedule != 'full' and phases.workshops_registration != 'timed_out' %}
+        {# show only if mini schedule is not shown #}
+        <div class="pc-sticky-bottom pc-mw-max mx-auto">
+            <div class="pr-2 px-sm-3 pb-2 mb-2 d-flex justify-content-between">
+                <a class="btn btn-secondary px-2 px-sm-3" href="{% url 'session_detail' type=other_sessions.previous.type session_id=other_sessions.previous.id %}#main">
+                    previous {{ other_sessions.previous.type }}
+                </a>
+                <a class="btn btn-info px-2 px-sm-3" href="{% url 'session_detail' type=other_sessions.next.type session_id=other_sessions.next.id %}#main">
+                    next {{ other_sessions.next.type }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+{% endcomment %}

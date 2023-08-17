@@ -7,6 +7,71 @@ from django.shortcuts import get_object_or_404
 from program.models import Talk, Workshop
 
 
+def session_detail(request, type, session_id: int):
+    model_map = dict(talk=Talk, panel=Talk, workshop=Workshop, sprint=Workshop)
+    session = get_object_or_404(model_map.get(type), id=session_id, is_public=True, is_backup=False)
+
+    # session_slot = Slot.objects.filter(
+    #     content_type__app_label='program',
+    #     content_type__model=dict(talk='talk', workshop='workshop', sprint='workshop').get(type),
+    #     object_id=session_id,
+    # ).first()
+
+    session_previous = model_map.get(type).objects.filter(
+        is_public=True, is_backup=False, order__lt=session.order).order_by('order').last()
+
+    if not session_previous:  # at the first session provide the last one as previous
+        session_previous = model_map.get(type).objects.filter(
+            is_public=True, is_backup=False).order_by('order').last()
+
+    session_next = model_map.get(type).objects.filter(
+        is_public=True, is_backup=False, order__gt=session.order).order_by('order').first()
+
+    if not session_next:  # at the last session provide the first one as next
+        session_next = model_map.get(type).objects.filter(
+            is_public=True, is_backup=False).order_by('order').first()
+
+    # slots_remaining_in_day = Slot.objects.filter(
+    #     content_type__app_label='program',
+    #     content_type__model__in=['talk', 'workshop', 'utility'],
+    #     start__gte=session_slot.start,
+    #     start__day=session_slot.start.day,
+    # ).prefetch_related(
+    #     'content_object',
+    # ).order_by('start', 'room')
+
+    # remove redundant slots
+    # note: this expects that sessions and utilities do not mix at the same time
+    # previous_slot = None
+    # rows_having_session = 0
+    # slots = []
+
+    # for slot in slots_remaining_in_day:
+    #     if previous_slot and previous_slot.start != slot.start:  # when new row starts
+    #         # did previous row have a session?
+    #         if str(previous_slot.content_type) in ['talk', 'workshop']:
+    #             rows_having_session += 1
+    #             # only current and one future row with sessions is needed
+    #             if rows_having_session >= 2:
+    #                 break
+    #     slots.append(slot)
+    #     previous_slot = slot
+
+    return TemplateResponse(
+        request,
+        template='program/{}_detail.html'.format(type),
+        context={
+            'session': session,
+            'other_sessions': {
+                'previous': session_previous,
+                'next': session_next,
+            },
+            # 'session_slot': session_slot,
+            # 'slots': slots,
+        }
+    )
+
+
 def talks_list(request):
     talks = Talk.objects.filter(is_backup=False)
     public_talks = talks.filter(is_public=True).order_by("order")

@@ -97,6 +97,13 @@
             </article>
         </div>
 
+        <p class="text-center h3 text-white">
+            Check the rest of
+            <a class="link-light" href="{% url 'program:talks_list' %}">talks</a>
+            and
+            <a class="link-light" href="{% url 'program:workshops_list' %}">workshops</a>.
+        </p>
+
         {% comment %}
             {% for keynoter in keynoters %}
                 {% include 'program/__keynoter_card.html' with speaker=keynoter %}
