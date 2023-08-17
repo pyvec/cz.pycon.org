@@ -101,7 +101,7 @@ class OgImageGenerator:
             path=output_path,
             scale="device",
             type="jpeg",
-            quality=80,
+            quality=60,
         )
         return output_path
 
