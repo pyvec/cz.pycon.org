@@ -24,6 +24,8 @@ urlpatterns = [
 # Activated only in DEBUG mode.
 if settings.DEBUG:
     urlpatterns += [
-        path("og-image/talks/<int:session_id>", debug_og_image_for_talk),
-        path("og-image/workshops/<int:session_id>", debug_og_image_for_workshop),
+        path("og-image/talks/<int:session_id>/", debug_og_image_for_talk),
+        path("og-image/panels/<int:session_id>/", debug_og_image_for_talk),
+        path("og-image/workshops/<int:session_id>/", debug_og_image_for_workshop),
+        path("og-image/sprints/<int:session_id>/", debug_og_image_for_workshop),
     ]

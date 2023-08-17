@@ -1,12 +1,1 @@
-{% extends "program/og_images/_og_base.html" %}
-{% block content %}
-    <h1>
-        {{ workshop.title }}
-    </h1>
-
-    <p>
-        {% for speaker in workshop.speakers %}
-            {{ speaker }}{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    </p>
-{% endblock %}
+{% extends 'program/og_images/_og_base.html' %}

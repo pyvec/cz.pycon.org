@@ -104,7 +104,7 @@ def debug_og_image_for_talk(request, session_id: int) -> HttpResponse:
     return _render_og_template(
         request,
         template="program/og_images/talk.html",
-        context={"talk": talk},
+        context={"session": talk},
     )
 
 
@@ -116,7 +116,7 @@ def debug_og_image_for_workshop(request, session_id: int) -> HttpResponse:
     return _render_og_template(
         request,
         template="program/og_images/workshop.html",
-        context={"workshop": workshop},
+        context={"session": workshop},
     )
 
 
