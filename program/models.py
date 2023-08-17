@@ -263,7 +263,7 @@ class Workshop(Session):
 
     @property
     def speakers(self):
-        return self.workshop_speakers.all().order_by('workshops__workshop_speakers__order')
+        return self.workshop_speakers.all().filter(is_public=True)
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
