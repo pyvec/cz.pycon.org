@@ -57,7 +57,7 @@ class Command(BaseCommand):
             result = generator.generate_image(
                 template_name=template_name,
                 context={
-                    model_type._meta.model_name: obj,
+                    "session": obj,
                 },
                 output_path=output_path / f"{obj.type}-{obj.id}.jpg",
             )
