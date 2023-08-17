@@ -181,7 +181,7 @@ class TalkAdmin(admin.ModelAdmin):
         "language",
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
-        # "type",
+        "type",
     ]
     actions = [make_public, make_not_public, talk_update_from_pretalx]
     change_form_template = "program/admin/change_form_session.html"
