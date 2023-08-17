@@ -61,8 +61,8 @@
                     {% endif %}
                 {% endif %}
 
-                {% for speaker in session.speakers %}{% if forloop.last and not forloop.first %} <span class="d-inline-block">&amp; {% elif not forloop.first %}, <span class="d-inline-block">{% endif %}{% spaceless %}
-                    {{ speaker }}</span>
+                {% for speaker in session.speakers %}{% if forloop.last and not forloop.first %} <span class="d-inline-block">&amp; {% elif not forloop.first %},</span> <span class="d-inline-block">{% endif %}{% spaceless %}
+                    {{ speaker }}{% if forloop.last %}</span>{% endif %}
                 {% endspaceless %}{% endfor %}
             </small>
         </h1>
