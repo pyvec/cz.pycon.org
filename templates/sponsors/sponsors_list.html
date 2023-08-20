@@ -41,7 +41,7 @@
         </div>
 
         {% for level in sponsor_levels %}
-            <section class="PC-sponsor-detail">
+            <section class="PC-sponsor-detail" id="level-{{ level.grouper|slugify }}">
                 <h2 class="mt-md-6">{{ level.grouper }}</h2>
                 {% for sponsor in level.list %}
                     <div class="row {% if not sponsor.description %}align-items-center mt-4 mb-5{% endif %}" id="sponsor-{{ sponsor.slug }}">
