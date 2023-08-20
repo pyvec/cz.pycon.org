@@ -32,6 +32,7 @@
 // Layout & components and their customizations
 @import "node_modules/bootstrap/scss/root";
 @import "node_modules/bootstrap/scss/reboot";
+@import "customized-bootstrap/reboot";
 @import "node_modules/bootstrap/scss/type";
 @import "node_modules/bootstrap/scss/images";
 @import "node_modules/bootstrap/scss/containers";
@@ -39,7 +40,7 @@
 @import "node_modules/bootstrap/scss/tables";
 @import "node_modules/bootstrap/scss/forms";
 @import "node_modules/bootstrap/scss/buttons";
-//@import "customized-bootstrap/buttons";  // an example: put changes and extensions to button styles
+@import "customized-bootstrap/buttons";
 @import "node_modules/bootstrap/scss/transitions";
 @import "node_modules/bootstrap/scss/dropdown";
 @import "node_modules/bootstrap/scss/button-group";
@@ -51,7 +52,6 @@
 @import "node_modules/bootstrap/scss/pagination";
 @import "node_modules/bootstrap/scss/badge";
 @import "node_modules/bootstrap/scss/alert";
-//@import "customized-bootstrap/alert";  // another example: changes and extensions to alert styles go here
 @import "node_modules/bootstrap/scss/progress";
 @import "node_modules/bootstrap/scss/list-group";
 @import "node_modules/bootstrap/scss/close";
@@ -74,16 +74,17 @@
 * 4. Custom CSS
 */
 
-// One file is enough for simple custom CSS
-// for more complex projects use separate files as suggested here
-@import "custom-css";
-
 // Custom components
-//@import "custom-components/custom-component-a";
-//@import "custom-components/custom-component-b";
+@import "custom-components/PC-header";
+@import "custom-components/PC-image";
+@import "custom-components/PC-sessions";
+@import "custom-components/PC-speaker";
+@import "custom-components/PC-sponsors";
+@import "custom-components/PC-sponsor-detail";
+@import "custom-components/PC-og";
 
 // Custom utilities
-//@import "custom-utilities";
+@import "custom-utilities";
 
 @import "node_modules/bootstrap-icons/font/bootstrap-icons";
 

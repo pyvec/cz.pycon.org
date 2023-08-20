@@ -1,0 +1,17 @@
+.PC-og {
+    overflow: hidden;
+
+    &-container {
+        background-image: url(/static/img/noise.svg), url(/static/img/header-bg.svg);
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+    }
+
+    &-branding {
+        position: absolute;
+        bottom: map-get($spacers, 4);
+        left: map-get($spacers, 5);
+    }
+}

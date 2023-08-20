@@ -1,0 +1,114 @@
+.PC-sessions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 100%);
+
+    @include media-breakpoint-up(xs) {
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    }
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    }
+    grid-auto-rows: auto;
+    gap: map-get($spacers, 4);
+}
+
+
+.PC-sessions-session-l-1 {
+    @include media-breakpoint-up(md) {
+        grid-column: span 1;
+    }
+
+    .PC-sessions-photos {
+        aspect-ratio: 1;
+    }
+}
+
+.PC-sessions-session-l-2 {
+    @include media-breakpoint-up(md) {
+
+        grid-column: span 2;
+    }
+
+    .PC-sessions-photos {
+        aspect-ratio: 2/1;
+    }
+
+}
+
+.PC-sessions-session-l-4 {
+    @include media-breakpoint-up(xs) {
+        grid-column: span 1;
+    }
+    @include media-breakpoint-up(md) {
+        grid-column: span 2;
+    }
+    @include media-breakpoint-up(lg) {
+        grid-column: span 4;
+    }
+
+}
+
+.PC-sessions-session-l-5 {
+    @include media-breakpoint-up(xs) {
+        grid-column: span 1;
+    }
+    @include media-breakpoint-up(md) {
+        grid-column: span 3;
+    }
+    @include media-breakpoint-up(lg) {
+        grid-column: span 4;
+    }
+
+}
+
+.PC-sessions-photos {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+
+    .PC-sessions-session-l-4 & {
+        flex-wrap: wrap;
+        aspect-ratio: 1/1;
+
+        @include media-breakpoint-up(lg) {
+            aspect-ratio: 4/1;
+        }
+
+        .PC-sessions-photo {
+            flex-basis: 50%;
+            @include media-breakpoint-up(lg) {
+                flex-basis: 25%;
+            }
+        }
+    }
+
+    .PC-sessions-session-l-5 & {
+        flex-wrap: wrap;
+        aspect-ratio: 2/3;
+
+        @include media-breakpoint-up(md) {
+            aspect-ratio: 3/2;
+        }
+
+        @include media-breakpoint-up(lg) {
+            aspect-ratio: 5/1;
+        }
+
+        .PC-sessions-photo {
+            flex-basis: 50%;
+            flex-grow: 0;
+            @include media-breakpoint-up(md) {
+                flex-basis: 33.33333%;
+            }
+            @include media-breakpoint-up(lg) {
+                flex-basis: 20%;
+            }
+        }
+    }
+}
+
+.PC-sessions-photo {
+    flex: 1 1 100%;
+    aspect-ratio: 1;
+}
