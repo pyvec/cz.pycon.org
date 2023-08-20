@@ -81,26 +81,78 @@
 
         <div class="row align-items-baseline mb-4">
             <div class="col-md">
-                <h2 class="h3 mt-3">What do you need to know to enjoy this {{ session.type }}</h2>
+                <h2 class="h3 mt-3">
+                    {% if session.language == 'en' %}
+                        What do you need to know to enjoy this {{ session.type }}
+                    {% elif session.language == 'cs' %}
+                        Co je potřeba k tomu
+                        {% if session.type == 'talk' %}
+                            si tuhle přednášku
+                        {% elif session.type == 'workshop' %}
+                            si tento workshop
+                        {% elif session.type == 'sprint' %}
+                            si tento sprint
+                        {% elif session.type == 'panel' %}
+                            si tuto panelovou diskuzi
+                        {% endif %}
+                        užít?
+                    {% endif %}
+                </h2>
             </div>
             <div class="col-sm">
-                <h3 class="h4 mt-3">About Python</h3>
+                <h3 class="h4 mt-3">
+                    {% if session.language == 'en' %}
+                        Python level
+                    {% elif session.language == 'cs' %}
+                        Úroveň Pythonu
+                    {% endif %}
+                </h3>
                 {% if session.minimum_python_knowledge == 'beginner' %}
-                    You can write simple Python scripts.
+                    {% if session.language == 'en' %}
+                        You can write basic scripts.
+                    {% elif session.language == 'cs' %}
+                        Umět psát základní skripty.
+                    {% endif %}
                 {% elif  session.minimum_python_knowledge == 'intermediate' %}
-                    You use frameworks and third-party libraries.
+                    {% if session.language == 'en' %}
+                        Medium knowledge: You use frameworks and third-party libraries.
+                    {% elif session.language == 'cs' %}
+                        Střední znalost: používání frameworků a knihoven.
+                    {% endif %}
                 {% elif session.minimum_python_knowledge == 'advanced' %}
-                    You understand advanced Python concepts, such as generators and comprehensions, async/await, advanced usage of classes.
+                    {% if session.language == 'en' %}
+                        You understand advanced concepts, such as generators and comprehensions, async/await, advanced usage of classes.
+                    {% elif session.language == 'cs' %}
+                        Chápat pokročilé koncepty, jakou jsou generátory, async/await nebo pokročilé použití tříd.
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="col-sm">
-                <h3 class="h4 mt-3">About the topic</h3>
+                <h3 class="h4 mt-3">
+                    {% if session.language == 'en' %}
+                        About the topic
+                    {% elif session.language == 'cs' %}
+                        O tématu
+                    {% endif %}
+                </h3>
                 {% if session.minimum_topic_knowledge == 'no-previous-knowledge' %}
-                    No previous knowledge of the topic is required, basic concepts will be explained.
+                    {% if session.language == 'en' %}
+                        No previous knowledge of the topic is required, basic concepts will be explained.
+                    {% elif session.language == 'cs' %}
+                        Není potřeba žádná předchozí znalost, vše bude vysvětleno.
+                    {% endif %}
                 {% elif  session.minimum_topic_knowledge == 'few-times' %}
-                    You used or did it just a few times.
+                    {% if session.language == 'en' %}
+                        You used or did it just a few times.
+                    {% elif session.language == 'cs' %}
+                        Alespoň nějaká zkušenost je vhodná.
+                    {% endif %}
                 {% elif session.minimum_topic_knowledge == 'regular-basis' %}
-                    You use it or do it on a regular basis.
+                    {% if session.language == 'en' %}
+                        You use it or do it on a regular basis.
+                    {% elif session.language == 'cs' %}
+                        Vhodné především pro ty, kteří to běžně používají.
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
