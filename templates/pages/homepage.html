@@ -152,7 +152,7 @@
     </div>
 
 
-    <div class="container-xs pt-4 pb-6">
+    <div class="container-xs pt-3 pb-5">
         <h2>Sponsors and Partners</h2>
         <p class="lead">
             PyCon CZ relies on <a href="{% url 'sponsors_list' %}">sponsors</a> to keep ticket prices affordable.
@@ -179,6 +179,10 @@
                         {% endfor %}
                     </div>
                 {% endfor %}
+                <p class="lead mt-6">
+                    PyCon CZ relies on sponsors to keep ticket prices affordable.
+                    <br>If you would like to sponsor the conference please <a href="{% url 'sponsorship' %}">check sponsorship options</a>
+                </p>
             </section>
         {% endif %}
     </div>
