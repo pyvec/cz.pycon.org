@@ -1,6 +1,7 @@
 {% extends '_layout.html' %}
 
 {% load markdown %}
+{% load regex %}
 
 
 {% block meta_title %}Sponsors and partners – {{ block.super }}{% endblock %}
@@ -10,70 +11,97 @@
 
 
 {% block main %}
-    <div class="container">
-        {% if phases.sponsors != 'details_public' and not user.is_staff %}
+    <div class="container-xs pt-4 pb-3 mt-3">
+        {% comment %}{% if phases.sponsors != 'details_public' and not user.is_staff %}
             <h1>404 Not Found</h1>
             <p>Sorry, this page is not available, please <a href="/">go to homepage</a>.</p>
-        {% else %}
-            {% regroup sponsors_list by get_level_display as sponsor_levels %}
+        {% else %}{% endcomment %}
+        {% regroup sponsors_list by get_level_display as sponsor_levels %}
 
 
-            <h1>Sponsors and partners</h1>
+        <h1>Sponsors and partners</h1>
 
-            {% if phases.sponsors != 'details_public' %}
+        {% comment %}{% if phases.sponsors != 'details_public' %}
                 <div class="alert alert-warning h2 my-5">
                     ⚠️ You see sponsors on this page because you’re logged in.
                     <br>Publicly they’re hidden.
                 </div>
-            {% endif %}
+            {% endif %}{% endcomment %}
 
-            <div class="row">
-                <div class="col-sm col-md-4">
-                    <p class="lead">We’re grateful to companies that help us organize PyCon CZ and allow keeping ticket prices as low as&nbsp;possible.</p>
-                </div>
-                <div class="col-sm col-md-8">
-                    <p>
-                        Do you want to sponsor us too?
-                        Check out
-                        <a href="{% url 'sponsors_offer' %}">our offer</a>
-                        or <a href="mailto:info@pycon.cz">contact&nbsp;us</a>.
-                    </p>
-                </div>
+        <div class="row">
+            <div class="col-sm col-md-6">
+                <p class="lead">We’re grateful to companies that help us organize PyCon CZ and allow keeping ticket prices as low as&nbsp;possible.</p>
             </div>
+            <div class="col-sm col-md">
+                <p>
+                    Do you want to sponsor us too?
+                    <br>Check out <a href="{% url 'sponsorship' %}">sponsorship options</a>.
+                </p>
+            </div>
+        </div>
 
-            {% for level in sponsor_levels %}
-                <h2 class="mt-md-6">{{ level.grouper }}</h2>
-                {% for sponsor in level.list %}
-                    <div class="row {% if not sponsor.description %}align-items-center mt-4 mb-5{% endif %}" id="sponsor-{{ sponsor.slug }}">
+        {% for level in sponsor_levels %}
+            <h2 class="mt-md-6">{{ level.grouper }}</h2>
+            {% for sponsor in level.list %}
+                <div class="row {% if not sponsor.description %}align-items-center mt-4 mb-5{% endif %}" id="sponsor-{{ sponsor.slug }}">
 
-                        <div class="col-12 col-sm-8 col-md-4 col-lg-3 mt-5 mt-sm-4 {% if not sponsor.description %}mb-3 mb-sm-4{% endif %}">
-                            {% if sponsor.logo %}
-                                <a href="{{ sponsor.link_url }}" class="d-block">
-                                    <img
+                    <div class="col-12 col-sm-8 col-md-4 col-lg-3 mt-5 mt-sm-4 {% if not sponsor.description %}mb-3 mb-sm-4{% endif %}">
+                        {% if sponsor.logo %}
+                            <a href="{{ sponsor.link_url }}" class="d-block">
+                                <img
                                         class="pc-sponsor-detail-logo img-fluid pc-img-fluid-svg"
                                         src="{{ sponsor.logo.url }}"
                                         alt="{{ sponsor.name }}"
-                                    >
-                                </a>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-12 col-md mt-sm-2 mb-sm-4">
-                            <h3 class="sponsor-detail-heading {% if not sponsor.description %}d-none d-md-block{% endif %}">
-                                {{ sponsor.name }}
-                            </h3>
-                            {{ sponsor.description|markdown }}
-
-                            {% if user.is_staff and sponsor.description %}
-                                <div class="alert alert-info">
-                                    ℹ️ {{ sponsor.description|markdown|striptags|wordcount }} words
-                                </div>
-                            {% endif %}
-                        </div>
-
+                                >
+                            </a>
+                        {% endif %}
                     </div>
-                {% endfor %}
+
+                    <div class="col-12 col-md mt-sm-2 mb-sm-4">
+                        <h3 class="sponsor-detail-heading {% if not sponsor.description %}d-none d-md-block{% endif %}">
+                            <a href="{{ sponsor.link_url }}">{{ sponsor.name }}</a>
+                        </h3>
+
+                        {% if sponsor.twitter or sponsor.linkedin or sponsor.facebook %}
+                            <ul class="list-inline font-monospace">
+                                {% if sponsor.twitter %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ sponsor.twitter }}">
+                                            <i class="bi-twitter link-primary me-2"></i>{{ sponsor.twitter|regexextract:'.+/(.+?)/?$' }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if sponsor.linkedin %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ sponsor.linkedin }}">
+                                            <i class="bi-linkedin link-primary me-2"></i>LinkedIn
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if sponsor.facebook %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ sponsor.facebook }}">
+                                            <i class="bi-facebook link-primary me-2"></i>{{ sponsor.facebook|regexextract:'.+/(.+?)/?$' }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+
+                        {{ sponsor.description|markdown }}
+
+
+
+                        {% if user.is_staff and sponsor.description %}
+                            <div class="alert alert-info">
+                                ℹ️ {{ sponsor.description|markdown|striptags|wordcount }} words
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
             {% endfor %}
-        {% endif %}
+        {% endfor %}
+        {% comment %}{% endif %}{% endcomment %}
     </div>
 {% endblock %}

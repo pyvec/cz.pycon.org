@@ -152,8 +152,12 @@
     </div>
 
 
-    <div class="container-xs">
+    <div class="container-xs pt-4 pb-6">
         <h2>Sponsors and Partners</h2>
+        <p class="lead">
+            PyCon CZ relies on <a href="{% url 'sponsors_list' %}">sponsors</a> to keep ticket prices affordable.
+        </p>
+
 
         {% get_sponsors as sponsors %}
 
@@ -162,12 +166,12 @@
         {% if sponsors %}
             <section class="PC-sponsors">
                 {% for level in sponsors_list %}
-                    <h3>{{ level.grouper }}</h3>
+                    <h3 class="mt-6 mb-5">{{ level.grouper }}</h3>
                     <div class="PC-sponsors-list">
                         {% for sponsor in level.list %}
                             <a href="{{ sponsor.link_url }}" class="PC-sponsors-item PC-sponsors-item-{{ level.grouper|lower }}">
                                 {% if sponsor.logo %}
-                                    <img class="img-fluid PC-img-fluid-svg" src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
+                                    <img class="PC-sponsors-image PC-img-fluid-svg img-fluid" src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
                                 {% else %}
                                     {{ sponsor.name }}
                                 {% endif %}
