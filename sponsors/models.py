@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils.text import slugify
-from wagtail.admin.panels import FieldPanel
-from wagtail.fields import RichTextField
 from wagtail.models import Page
 
 
@@ -28,6 +26,7 @@ class Sponsor(models.Model):
     link_url = models.URLField()
     twitter = models.URLField(null=True, blank=True, help_text="full URL")
     facebook = models.URLField(null=True, blank=True, help_text="full URL")
+    linkedin = models.URLField(null=True, blank=True, help_text="full URL")
 
     published = models.BooleanField(default=False)
 
@@ -40,19 +39,3 @@ class Sponsor(models.Model):
     @property
     def slug(self):
         return slugify(self.name)
-
-
-class SponsorsOffer(Page):
-    about = RichTextField(blank=True)
-    benefits = RichTextField(blank=True)
-    event_summary = RichTextField(blank=True)
-    custom_sponsorship = RichTextField(blank=True)
-    contacts = RichTextField(blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel("about"),
-        FieldPanel("benefits"),
-        FieldPanel("event_summary"),
-        FieldPanel("custom_sponsorship"),
-        FieldPanel("contacts"),
-    ]

@@ -1,6 +1,7 @@
 {% extends "_layout.html" %}
 
 {% load static %}
+{% load sponsors_tags %}
 
 
 {% block header_action %}
@@ -148,5 +149,33 @@
                 <iframe width="960" height="407" src="https://www.youtube.com/embed/kL2gmhs0irI" allowfullscreen></iframe>
             </div>
         </div>
+    </div>
+
+
+    <div class="container-xs">
+        <h2>Sponsors and Partners</h2>
+
+        {% get_sponsors as sponsors %}
+
+        {% regroup sponsors by get_level_display as sponsors_list %}
+
+        {% if sponsors %}
+            <section class="PC-sponsors">
+                {% for level in sponsors_list %}
+                    <h3>{{ level.grouper }}</h3>
+                    <div class="PC-sponsors-list">
+                        {% for sponsor in level.list %}
+                            <a href="{{ sponsor.link_url }}" class="PC-sponsors-item PC-sponsors-item-{{ level.grouper|lower }}">
+                                {% if sponsor.logo %}
+                                    <img class="img-fluid PC-img-fluid-svg" src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
+                                {% else %}
+                                    {{ sponsor.name }}
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
     </div>
 {% endblock %}
