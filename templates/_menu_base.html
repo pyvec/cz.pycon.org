@@ -66,11 +66,10 @@ If you want to remove a menu item globally, comment it out here.
                 {% include '__nav_link.html' with url='team_list' link_text='Team' %}
             {% endblock %}{% endcomment %}
 
-            {% comment %}{% block link_sponsors %}
-                {% if phases.sponsors == 'details_public' %}
+            {% block link_sponsors %}
                     {% include '__nav_link.html' with url='sponsors_list' link_text='Sponsors' %}
-                {% endif %}
-            {% endblock %}{% endcomment %}
+                {% if phases.sponsors == 'details_public' %}{% endif %}
+            {% endblock %}
 
             {% block link_sponsorship %}
                 {% comment %}{% if phases.sponsorship == 'prospectus_available' %}
