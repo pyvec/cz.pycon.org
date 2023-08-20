@@ -19,7 +19,7 @@
                 <img src="{% static 'img/icons/bubble.min.svg' %}" width="80" height="80" alt="">
             </div>
             <div>
-                <h2 class="h4 mt-1">2 days of talks in 3 tracks</h2>
+                <h2 class="h4 mt-1">2 days of <a class="link-light" href="{% url 'program:talks_list' %}">talks</a> in 3 tracks</h2>
                 <p>Choose from 50+ talks in 3 parallel tracks during Friday and Saturday</p>
             </div>
         </article>
@@ -29,7 +29,7 @@
                 <img src="{% static 'img/icons/computer.min.svg' %}" width="80" height="80" alt="">
             </div>
             <div>
-                <h2 class="h4 mt-1">A day of workshops</h2>
+                <h2 class="h4 mt-1">A day of <a class="link-light" href="{% url 'program:workshops_list' %}">workshops</a></h2>
                 <p>Dive deeper at workshops and sprints on Sunday</p>
             </div>
         </article>
@@ -40,7 +40,7 @@
             </div>
             <div>
                 <h2 class="h4 mt-1">Beginner’s track</h2>
-                <p>Beginner-friendly talks and workshops for everyone who knows the basics of Python</p>
+                <p>Beginner-friendly <a class="link-light" href="{% url 'program:talks_list' %}#beginners">talks</a> and <a class="link-light" href="{% url 'program:workshops_list' %}#beginners">workshops</a> for everyone who knows the basics of Python</p>
             </div>
         </article>
 
@@ -50,7 +50,7 @@
             </div>
             <div>
                 <h2 class="h4 mt-1">PyData track</h2>
-                <p>Aimed at developers and users of data tools in cooperation with PyData community</p>
+                <p><a class="link-light" href="{% url 'program:talks_list' %}#pydata">Talks</a> and <a class="link-light" href="{% url 'program:workshops_list' %}#pydata">workshops</a> aimed at developers and users of data tools in cooperation with PyData community</p>
             </div>
         </article>
 
