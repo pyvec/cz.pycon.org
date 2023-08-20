@@ -19,6 +19,7 @@ class SponsorAdmin(admin.ModelAdmin):
     ]
     list_filter = [
         "published",
+        "level",
     ]
 
     def get_link(self, instance):
