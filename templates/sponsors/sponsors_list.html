@@ -61,41 +61,42 @@
                         <h3 class="sponsor-detail-heading {% if not sponsor.description %}d-none d-md-block{% endif %}">
                             <a href="{{ sponsor.link_url }}">{{ sponsor.name }}</a>
                         </h3>
+                        {% if sponsor.description %}
 
-                        {% if sponsor.twitter or sponsor.linkedin or sponsor.facebook %}
-                            <ul class="list-inline font-monospace">
-                                {% if sponsor.twitter %}
-                                    <li class="list-inline-item">
-                                        <a href="{{ sponsor.twitter }}">
-                                            <i class="bi-twitter link-primary me-2"></i>{{ sponsor.twitter|regexextract:'.+/(.+?)/?$' }}
-                                        </a>
-                                    </li>
-                                {% endif %}
-                                {% if sponsor.linkedin %}
-                                    <li class="list-inline-item">
-                                        <a href="{{ sponsor.linkedin }}">
-                                            <i class="bi-linkedin link-primary me-2"></i>LinkedIn
-                                        </a>
-                                    </li>
-                                {% endif %}
-                                {% if sponsor.facebook %}
-                                    <li class="list-inline-item">
-                                        <a href="{{ sponsor.facebook }}">
-                                            <i class="bi-facebook link-primary me-2"></i>{{ sponsor.facebook|regexextract:'.+/(.+?)/?$' }}
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        {% endif %}
+                            {% if sponsor.twitter or sponsor.linkedin or sponsor.facebook %}
+                                <ul class="list-inline font-monospace">
+                                    {% if sponsor.twitter %}
+                                        <li class="list-inline-item">
+                                            <a href="{{ sponsor.twitter }}">
+                                                <i class="bi-twitter link-primary me-2"></i>{{ sponsor.twitter|regexextract:'.+/(.+?)/?$' }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if sponsor.linkedin %}
+                                        <li class="list-inline-item">
+                                            <a href="{{ sponsor.linkedin }}">
+                                                <i class="bi-linkedin link-primary me-2"></i>LinkedIn
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if sponsor.facebook %}
+                                        <li class="list-inline-item">
+                                            <a href="{{ sponsor.facebook }}">
+                                                <i class="bi-facebook link-primary me-2"></i>{{ sponsor.facebook|regexextract:'.+/(.+?)/?$' }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
 
-                        {{ sponsor.description|markdown }}
+                            {{ sponsor.description|markdown }}
 
+                            {% if user.is_staff and sponsor.description %}
+                                <div class="alert alert-info">
+                                    ℹ️ {{ sponsor.description|markdown|striptags|wordcount }} words
+                                </div>
+                            {% endif %}
 
-
-                        {% if user.is_staff and sponsor.description %}
-                            <div class="alert alert-info">
-                                ℹ️ {{ sponsor.description|markdown|striptags|wordcount }} words
-                            </div>
                         {% endif %}
                     </div>
 
