@@ -164,7 +164,7 @@
         {% regroup sponsors by get_level_display as sponsors_list %}
 
         {% if sponsors %}
-            <section class="PC-sponsors">
+            <section class="PC-sponsors" id="sponsors">
                 {% for level in sponsors_list %}
                     <h3 class="mt-6 mb-5">{{ level.grouper }}</h3>
                     <div class="PC-sponsors-list">
