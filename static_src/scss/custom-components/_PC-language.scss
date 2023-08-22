@@ -1,0 +1,26 @@
+.PC-language-sessions {
+    position: absolute;
+    top: map-get($spacers, 2);
+    right: map-get($spacers, 2);
+}
+
+.PC-language-label {
+    display: inline-block;
+    margin-left: map-get($spacers, 2);
+
+    .PC-language-sessions & {
+        display: block;
+        width: max-content;
+        position: absolute;
+        top: map-get($spacers, 2) * 3;
+        right: map-get($spacers, 2);
+        line-height: 1.2;
+        transform-origin: 100% 100%;
+        transform: rotate(-90deg);
+    }
+
+}
+
+.PC-sessions-language-inline {
+    position: static;
+}

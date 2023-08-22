@@ -31,8 +31,18 @@
                 <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
             {% endfor %}
         </p>
+        {% if session.language == 'cs' %}
+            <div class="PC-language PC-language-sessions">
+                <img
+                        src="{% static 'img/flag-cz.svg' %}"
+                        width="32" height="32"
+                        alt=""
+                        class=""
+                >
+                <span class="fs-6 PC-language-label">in Czech only</span>
+            </div>
+        {% endif %}
         {% comment %}{{ session.title|length }}{% endcomment %}
-        {% comment %}{% if session.language == 'cs' %} :flag_cz: {% endif %}{% endcomment %}
         {% comment %}order:                    {{ session.order|pprint }}{% endcomment %}
         {% comment %}minimum_python_knowledge: {{ session.minimum_python_knowledge|pprint }}{% endcomment %}
         {% comment %}minimum_topic_knowledge:  {{ session.minimum_topic_knowledge|pprint }}{% endcomment %}
