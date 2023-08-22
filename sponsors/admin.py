@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from sponsors.models import Sponsor
+from sponsors.models import Sponsor, Level
 
 
 class SponsorAdmin(admin.ModelAdmin):
@@ -29,3 +29,4 @@ class SponsorAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Sponsor, SponsorAdmin)
+admin.site.register(Level)
