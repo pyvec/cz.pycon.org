@@ -3,19 +3,25 @@ from django.utils.text import slugify
 from wagtail.models import Page
 
 
-class Sponsor(models.Model):
-    LEVELS = (
-        (1, "Platinum"),
-        (2, "Gold"),
-        (3, "Silver"),
-        (4, "Bronze"),
-        (5, "Diversity"),
-        (6, "Media"),
-        (7, "Partners"),
-        (9, "Connectivity"),
-    )
+class Level(models.Model):
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, null=False, blank=True)
+    order = models.PositiveIntegerField()
+    size = models.PositiveIntegerField(default=0)
 
-    level = models.IntegerField(choices=LEVELS, default=3)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Level, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['order']
+
+class Sponsor(models.Model):
+    level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True)
 
     name = models.CharField(max_length=200, unique=True)
     logo = models.FileField(null=True, blank=True, help_text="SVG only")

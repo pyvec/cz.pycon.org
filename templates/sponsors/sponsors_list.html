@@ -16,7 +16,7 @@
             <h1>404 Not Found</h1>
             <p>Sorry, this page is not available, please <a href="/">go to homepage</a>.</p>
         {% else %}{% endcomment %}
-        {% regroup sponsors_list by get_level_display as sponsor_levels %}
+        {% regroup sponsors_list by level as sponsor_levels %}
 
 
         <h1>Sponsors and partners</h1>
