@@ -16,6 +16,7 @@
             <h1>404 Not Found</h1>
             <p>Sorry, this page is not available, please <a href="/">go to homepage</a>.</p>
         {% else %}{% endcomment %}
+
         {% regroup sponsors_list by level as sponsor_levels %}
 
 
@@ -41,11 +42,13 @@
         </div>
 
         {% for level in sponsor_levels %}
-            <section class="PC-sponsor-detail" id="level-{{ level.grouper|slugify }}">
+            <section class="PC-sponsor-detail" id="{{ level.list.0.level.slug }}">
                 <h2 class="mt-md-6">{{ level.grouper }}</h2>
                 {% for sponsor in level.list %}
-                    <div class="row {% if not sponsor.description %}align-items-center mt-4 mb-5{% endif %}" id="sponsor-{{ sponsor.slug }}">
-
+                    <div
+                            class="row {% if not sponsor.description %}align-items-center mt-4 mb-5{% endif %}"
+                            id="sponsor-{{ sponsor.slug }}"
+                    >
                         <div class="col-12 col-sm-8 col-md-4 col-lg-3 mt-5 mt-sm-4 {% if not sponsor.description %}mb-3 mb-sm-4{% endif %}">
                             {% if sponsor.logo %}
                                 <a href="{{ sponsor.link_url }}" class="d-block">

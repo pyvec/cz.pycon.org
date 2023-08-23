@@ -28,7 +28,7 @@
     font-weight: $font-weight-bold;
 }
 
-.PC-sponsors-item-platinum {
+.PC-sponsors-item-size-0 {
     flex-basis: 100%;
     max-width: 36rem;
 
@@ -41,8 +41,7 @@
     }
 }
 
-//.PC-sponsors-item-gold {
-.PC-sponsors-item-silver {
+.PC-sponsors-item-size-1 {
     flex-basis: 80%;
     max-width: 22rem;
 
@@ -55,10 +54,7 @@
     }
 }
 
-//.PC-sponsors-item-silver {
-.PC-sponsors-item-bronze,
-.PC-sponsors-item-media,
-.PC-sponsors-item-partners {
+.PC-sponsors-item-size-2 {
     flex-basis: 70%;
     max-height: 7rem;
 
@@ -77,9 +73,7 @@
 
 }
 
-/*.PC-sponsors-item-bronze,
-.PC-sponsors-item-media,
-.PC-sponsors-item-partners,{
+.PC-sponsors-item-size-3 {
     flex-basis: 60%;
 
     @include media-breakpoint-up(xs) {
@@ -89,8 +83,9 @@
     .PC-sponsors-frame & {
         max-width: 18rem;
     }
+
     .PC-sponsors-image {
         max-height: 4rem;
     }
 
-}*/
+}

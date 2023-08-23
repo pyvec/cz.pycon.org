@@ -161,15 +161,17 @@
 
         {% get_sponsors as sponsors %}
 
-        {% regroup sponsors by get_level_display as sponsors_list %}
+        {% regroup sponsors by level as sponsors_list %}
 
         {% if sponsors %}
             <section class="PC-sponsors" id="sponsors">
                 {% for level in sponsors_list %}
-                    <h3 class="mt-6 mb-5">{{ level.grouper }}</h3>
+                    <h3 class="mt-6 mb-5" id="{{ level.list.0.level.slug }}">
+                        {{ level.grouper }}
+                    </h3>
                     <div class="PC-sponsors-list">
                         {% for sponsor in level.list %}
-                            <a href="{{ sponsor.link_url }}" class="PC-sponsors-item PC-sponsors-item-{{ level.grouper|lower }}">
+                            <a href="{{ sponsor.link_url }}" class="PC-sponsors-item PC-sponsors-item-size-{{ sponsor.level.size }}">
                                 {% if sponsor.logo %}
                                     <img class="PC-sponsors-image PC-img-fluid-svg img-fluid" src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
                                 {% else %}
