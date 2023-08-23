@@ -6,8 +6,8 @@ from wagtail.models import Page
 class Level(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, null=False, blank=True)
-    order = models.PositiveIntegerField()
-    size = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(help_text="display order on front end (lower the number, the higher it is)")
+    size = models.PositiveIntegerField(default=0, help_text="visual size (lower the number, the bigger it is)")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -18,7 +18,8 @@ class Level(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['order']
+        ordering = ['order', 'title']
+
 
 class Sponsor(models.Model):
     level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True)

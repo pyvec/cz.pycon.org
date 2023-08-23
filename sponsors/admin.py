@@ -15,6 +15,7 @@ class SponsorAdmin(admin.ModelAdmin):
         "name",
     ]
     list_editable = [
+        "level",
         "published",
     ]
     list_filter = [
@@ -28,5 +29,22 @@ class SponsorAdmin(admin.ModelAdmin):
     get_link.short_description = "link"
 
 
+class LevelAdmin(admin.ModelAdmin):
+    list_display = [
+        "slug",
+        "title",
+        "order",
+        "size",
+    ]
+    list_editable = [
+        "title",
+        "order",
+        "size",
+    ]
+    list_filter = [
+        "size",
+    ]
+
+
 admin.site.register(Sponsor, SponsorAdmin)
-admin.site.register(Level)
+admin.site.register(Level, LevelAdmin)
