@@ -25,7 +25,7 @@ class Sponsor(models.Model):
     level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True)
 
     name = models.CharField(max_length=200, unique=True)
-    logo = models.FileField(null=True, blank=True, help_text="SVG only")
+    logo = models.FileField(null=True, blank=True, help_text="SVG only", upload_to="sponsors/")
 
     description = models.TextField(
         null=True, blank=True, help_text="markdown formatted"

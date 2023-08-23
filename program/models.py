@@ -21,10 +21,10 @@ class Speaker(models.Model):
     full_name = models.CharField(max_length=200)
     bio = models.TextField()
     short_bio = models.TextField(blank=True, help_text="for keynote speakers")
-    twitter = models.CharField(max_length=255, blank=True)
-    github = models.CharField(max_length=255, blank=True)
-    linkedin = models.CharField(max_length=255, blank=True)
-    personal_website = models.CharField(max_length=255, blank=True)
+    twitter = models.URLField(max_length=255, blank=True)
+    github = models.URLField(max_length=255, blank=True)
+    linkedin = models.URLField(max_length=255, blank=True)
+    personal_website = models.URLField(max_length=255, blank=True)
     email = models.EmailField()
     photo = models.ImageField(null=True, blank=True)
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
@@ -154,6 +154,7 @@ class Session(models.Model):
         null=True,
         blank=True,
         help_text="og:image (social media image) 1200×630 pixels",
+        upload_to="og-images/program/"
     )
     pretalx_code = models.CharField(
         max_length=16, null=True, blank=True, unique=True

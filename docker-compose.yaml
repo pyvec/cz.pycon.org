@@ -32,7 +32,7 @@ services:
   # Should be run as one-off tool, does not start automatically because of the profile entry.
   og_generator:
     profiles: ["tools"]
-    command: bash -c "rm -rf data/mediafiles/og-images && cp static/generated/index.css templates && python3 manage.py program_generate_og_images && rm templates/index.css"
+    command: bash -c "rm -rf data/mediafiles/og-images/talks data/mediafiles/og-images/workshops && cp static/generated/index.css templates && python3 manage.py program_generate_og_images && rm templates/index.css"
     build:
       context: .
       dockerfile: og-generator.dockerfile
