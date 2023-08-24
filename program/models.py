@@ -26,7 +26,7 @@ class Speaker(models.Model):
     linkedin = models.URLField(max_length=255, blank=True)
     personal_website = models.URLField(max_length=255, blank=True)
     email = models.EmailField()
-    photo = models.ImageField(null=True, blank=True)
+    photo = models.ImageField(null=True, blank=True, upload_to="speakers/")
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
     workshops = models.ManyToManyField("Workshop", blank=True, related_name="workshop_speakers")
     order = models.PositiveSmallIntegerField(default=500, help_text="display order on front end (lower the number, higher it is)")
