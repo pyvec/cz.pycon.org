@@ -64,9 +64,12 @@
                 active = false;
                 prev();
             }
-            if ([" "].includes(event.key)){
-                active = true;
+            if (event.key === ' '){
+                active = !active;
                 show_current();
+            }
+            if (event.key === 'f'){
+                document.documentElement.requestFullscreen();
             }
         };
         document.addEventListener("keydown", handle_keydown, false);
