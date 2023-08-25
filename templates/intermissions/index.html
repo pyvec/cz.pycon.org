@@ -21,15 +21,15 @@
         const urls = [
             '{% url 'announcements' %}',
             '{% url 'slido' %}',
-            '{% url 'sponsors' level='platinum' %}',
+            {% if 'platinum' in levels %}'{% url 'sponsors' level='platinum' %}',{% endif %}
             '{% url 'announcements' %}',
             '{% url 'slido' %}',
-            '{% url 'sponsors' level='gold' %}',
-            '{% url 'sponsors' level='silver' %}',
+            {% if 'gold' in levels %}'{% url 'sponsors' level='gold' %}',{% endif %}
+            {% if 'silver' in levels %}'{% url 'sponsors' level='silver' %}',{% endif %}
             '{% url 'announcements' %}',
             '{% url 'slido' %}',
-            '{% url 'sponsors' level='bronze' %}',
-            '{% url 'sponsors' level='partners' %}'
+            {% if 'bronze' in levels %}'{% url 'sponsors' level='bronze' %}',{% endif %}
+            {% if 'partners' in levels %}'{% url 'sponsors' level='partners' %}',{% endif %}
         ];
 
         let now = -1;

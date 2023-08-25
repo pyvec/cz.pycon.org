@@ -1,19 +1,25 @@
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
+from django.db.models import Count
 
 from announcements.models import Announcement
 from sponsors.models import Sponsor, Level
 
 
 def index(request):
+    levels  = {
+        l.slug for l in
+        Level.objects.annotate(sponsor_count=Count('sponsor')).filter(sponsor_count__gt=0)
+    }
+    
     return TemplateResponse(
         request,
         template="intermissions/index.html",
         context={
             # if 'interval' is not passed in GET request,
             # then it's called every 10 seconds
-            "interval": int(request.GET.get("interval", 10))
-            * 1000,
+            "interval": int(request.GET.get("interval", 10)) * 1000,
+            "levels": levels,
         },
     )
 
