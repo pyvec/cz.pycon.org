@@ -21,9 +21,11 @@
         const urls = [
             '{% url 'announcements' %}',
             '{% url 'slido' %}',
-            {% if 'platinum' in levels %}'{% url 'sponsors' level='platinum' %}',{% endif %}
-            '{% url 'announcements' %}',
-            '{% url 'slido' %}',
+            {% if 'platinum' in levels %}
+                '{% url 'sponsors' level='platinum' %}',
+                '{% url 'announcements' %}',
+                '{% url 'slido' %}',
+            {% endif %}
             {% if 'gold' in levels %}'{% url 'sponsors' level='gold' %}',{% endif %}
             {% if 'silver' in levels %}'{% url 'sponsors' level='silver' %}',{% endif %}
             '{% url 'announcements' %}',
