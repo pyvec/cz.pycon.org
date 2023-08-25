@@ -38,6 +38,8 @@ urlpatterns = [
                 path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
                 path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
                 path("pyconcz-discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
+                path("discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
+
                 path("program/schedule/", TemplateView.as_view(template_name='pages/schedule.html'), name='schedule'),
 
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
