@@ -1,7 +1,8 @@
 from django.template.response import TemplateResponse
+from django.shortcuts import get_object_or_404
 
 from announcements.models import Announcement
-from sponsors.models import Sponsor
+from sponsors.models import Sponsor, Level
 
 
 def index(request):
@@ -18,20 +19,18 @@ def index(request):
 
 
 def sponsors(request, level):
+    level = get_object_or_404(Level, slug=level)
     sponsors = Sponsor.objects.filter(published=True, level=level)
 
     first_sponsor = sponsors.first()
     # get readable display name for the passed level (integer)
-    level_name = first_sponsor.get_level_display() if first_sponsor else None
-    level_slug = level if first_sponsor else None
-
+    
     return TemplateResponse(
         request,
         template="intermissions/sponsors.html",
         context={
             "sponsors": sponsors,
-            "level_name": level_name,
-            "level_slug": level_slug,
+            "level": level
         },
     )
 
