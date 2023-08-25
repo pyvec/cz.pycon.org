@@ -5,7 +5,7 @@
     {% if announcements %}
         <div class="mt-6">
             {% for announcement in announcements %}
-                <div class="pc-intermission-announcement display-{{ announcement.font_size }} py-5">
+                <div class="pc-intermission-announcement display-{{ announcement.size }} py-5">
                     {{ announcement.message|markdown }}
                 </div>
             {% endfor %}

@@ -6,14 +6,15 @@ from announcements.models import Announcement
 class AnnouncementAdmin(admin.ModelAdmin):
     list_display = (
         "message",
-        "position",
+        "order",
+        "size",
         "is_public",
-        "font_size",
     )
     list_filter = ("is_public",)
     list_editable = (
-        "position",
+        "order",
         "is_public",
+        "size",
     )
 
 
