@@ -49,6 +49,16 @@ test:
 dependencies/compile:
 	pip-compile
 
+ci/build:
+	docker build . -t ${TAG}
+
+
+ci/lint:
+	isort . && black . && ruff . --fix
+
+ci/test:
+	pytest
+
 # linting & formatting
 lint:
 	$(DC_RUN) web bash -c "isort . && black . && ruff . --fix"

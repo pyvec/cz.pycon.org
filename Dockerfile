@@ -13,6 +13,7 @@ RUN set -ex; \
     # Install nginx from Debian repository.
     apt-get update; \
     apt-get install -y --no-install-recommends \
+        make \
         nginx \
         wget \
     ; \

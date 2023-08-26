@@ -1,13 +1,40 @@
-name: Buid
-on:
-  workflow_dispatch: {}
+on: [push]
 
 jobs:
-  deploy:
-    name: Build test image
+  hello_world_job:
     runs-on: ubuntu-latest
+    name: A job to say hello
     steps:
       - uses: actions/checkout@v3
       - id: vars
-        name: Compute short SHA for SENTRY_RELEASE
+        name: Compute short SHA for docker image
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Build docker image
+        id: build
+        uses: docker/build-push-action@v2
+        with:
+          tags: pycon:latest
+          push: false
+
+      #- name: Lint
+      #  uses: addnab/docker-run-action@v3
+      #  id: lint
+      #  with:
+      #    image: pycon:latest
+      #    run: make ci/lint
+
+      - name: Run tests
+        uses: addnab/docker-run-action@v3
+        id: test
+        with:
+          image: pycon:latest
+          run: make ci/test
+          options: -e "DATABASE_URL=postgres://localhost/fake_db"
+        env:
+          DATABASE_URL: postgres://localhost/fakeer_db111
+
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
+
