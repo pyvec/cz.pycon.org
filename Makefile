@@ -38,6 +38,17 @@ makemigrations:
 shell:
 	$(DC_RUN) web python manage.py shell
 
+# Run tests
+test:
+	$(DC_RUN) web pytest
+
+# Compile dependencies using `pip-tools`
+# Takes requiremenents.in file and outputs new requirements.txt with specific
+# versions of all dependencies, including dependencies of dependencies.
+# `pip-sync` step is not needed because of `make build`
+dependencies/compile:
+	pip-compile
+
 # linting & formatting
 lint:
 	$(DC_RUN) web bash -c "isort . && black . && ruff . --fix"

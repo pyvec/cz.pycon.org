@@ -1,0 +1,9 @@
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+addopts = "--cov=./ --cov-report term --disable-socket"
+
+[tool.coverage.run]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+]
