@@ -3,12 +3,9 @@ on: [push]
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Build docker image, lint and run tests
     steps:
       - uses: actions/checkout@v3
-      - id: vars
-        name: Compute short SHA for docker image
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Build docker image
         id: build
@@ -17,6 +14,8 @@ jobs:
           tags: pycon:latest
           push: false
 
+      # TODO: this will fail because the code doesnt pass the lint checks yet.
+      # Fix the errors and re-enable linters
       #- name: Lint
       #  uses: addnab/docker-run-action@v3
       #  id: lint
@@ -30,9 +29,6 @@ jobs:
         with:
           image: pycon:latest
           run: make ci/test
-          options: -e "DATABASE_URL=postgres://localhost/fake_db"
-        env:
-          DATABASE_URL: postgres://localhost/fakeer_db111
 
       # Use the output from the `hello` step
       - name: Get the output time
