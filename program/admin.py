@@ -364,12 +364,39 @@ class SlotAdmin(admin.ModelAdmin):
     ]
     list_filter = [
         'room',
-        'start',
-        'end',
     ]
     list_editable = [
         'room',
         'start',
         'end',
+    ]
+    fieldsets = [
+        (
+            'Event',
+            {
+                'description': 'Select only one of the following.',
+                'fields': [
+                    'talk',
+                    'workshop',
+                    'utility',
+                ],
+            },
+        ),
+        (
+            'Times',
+            {
+                'fields': [
+                    ('start', 'end'),
+                ],
+            },
+        ),
+        (
+            None,
+            {
+                'fields': [
+                    'room',
+                ],
+            },
+        ),
     ]
     date_hierarchy = 'start'
