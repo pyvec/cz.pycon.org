@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import transaction
 
 from program import pretalx, pretalx_sync
+from program.models import Slot
 from program.models import Speaker, Talk, Utility, Workshop
 
 

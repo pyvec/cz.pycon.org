@@ -303,3 +303,20 @@ class Utility(models.Model):
         verbose_name = 'Utility'
         verbose_name_plural = 'Utilities'
         ordering = ('title', 'id',)
+        
+
+class Slot(models.Model):
+
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    event = models.ForeignKey(ProgramItem, on_delete=models.SET_NULL, blank=True, null=True)
+    room = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        start = self.start.strftime('%d/%m/%y %H:%M')
+        end = self.end.strftime('%d/%m/%y %H:%M')
+        return f'{self.event.title}: FROM {start} TO {end} IN {self.room}'
+
+    class Meta:
+        ordering = ('start', 'room',)
