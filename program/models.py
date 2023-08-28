@@ -288,3 +288,18 @@ class Workshop(Session):
                 self.attendee_limit = int(participants_str) if participants_str else 0
             except ValueError:
                 self.attendee_limit = 0
+
+
+class Utility(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Title')
+    description = models.TextField(blank=True, null=True)
+    url = models.CharField(max_length=255, blank=True, null=True)
+    is_streamed = models.BooleanField('Is streamed to other rooms', default=False, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Utility'
+        verbose_name_plural = 'Utilities'
+        ordering = ('title', 'id',)
