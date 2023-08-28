@@ -48,7 +48,6 @@ COPY . /code
 # Prepare the application
 RUN set -ex; \
     # Use fake values for required environment variables - manage.py would fail to start without these variables. \
-    export DATABASE_URL=postgres://localhost/fake_db; \
     export SECRET_KEY=notasecret; \
     # Collect static files
     python manage.py collectstatic --noinput; \
