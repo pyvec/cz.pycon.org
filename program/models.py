@@ -1,5 +1,7 @@
 from typing import Any
 
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from program import pretalx
 
@@ -305,18 +307,29 @@ class Utility(models.Model):
         ordering = ('title', 'id',)
         
 
+class Room(models.Model):
+    label = models.CharField(max_length=50)
+    floor = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return self.label
+
+
 class Slot(models.Model):
 
     start = models.DateTimeField()
     end = models.DateTimeField()
 
-    event = models.ForeignKey(ProgramItem, on_delete=models.SET_NULL, blank=True, null=True)
-    room = models.PositiveSmallIntegerField()
+    content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         start = self.start.strftime('%d/%m/%y %H:%M')
         end = self.end.strftime('%d/%m/%y %H:%M')
-        return f'{self.event.title}: FROM {start} TO {end} IN {self.room}'
+        return f'{self.content_type}: {self.content_object} FROM {start} TO {end} IN {self.room}'
 
     class Meta:
         ordering = ('start', 'room',)

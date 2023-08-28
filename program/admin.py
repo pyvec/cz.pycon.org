@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.db import transaction
 
 from program import pretalx, pretalx_sync
-from program.models import Slot
-from program.models import Speaker, Talk, Utility, Workshop
+from program.models import Room, Slot, Speaker, Talk, Utility, Workshop
 
 
 def create_pretalx_sync() -> pretalx_sync.PretalxSync:
@@ -338,3 +337,46 @@ class UtilityAdmin(admin.ModelAdmin):
         If there is no description, return None, so the "empty_value" fires.
         """
         return obj.description[:180] + '...' if obj.description else None
+
+
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    list_display = [
+        'label',
+        'floor',
+    ]
+    list_editable = [
+        'floor',
+    ]
+    fields = [
+        'label',
+        'floor',
+    ]
+
+
+@admin.register(Slot)
+class SlotAdmin(admin.ModelAdmin):
+    list_display = [
+        'get_description',
+        'start',
+        'end',
+        'room',
+    ]
+    list_filter = [
+        'room',
+        'start',
+        'end',
+    ]
+    list_editable = [
+        'room',
+        'start',
+        'end',
+    ]
+    date_hierarchy = 'start'
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('content_object')
+
+    @admin.display(description="Description")
+    def get_description(self, obj: Slot):
+        return obj.content_object
