@@ -40,7 +40,7 @@ shell:
 
 # Run tests
 test:
-	$(DC_RUN) web pytest
+	$(DC_RUN) web pytest -s
 
 # Compile dependencies using `pip-tools`
 # Takes requiremenents.in file and outputs new requirements.txt with specific

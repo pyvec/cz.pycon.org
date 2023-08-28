@@ -1,7 +1,8 @@
 import requests
+from pytest import mark
 
 from program.models import Speaker
-from pytest import mark
+
 
 @mark.django_db
 def test_sanity_check():
