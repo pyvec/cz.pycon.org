@@ -357,7 +357,7 @@ class RoomAdmin(admin.ModelAdmin):
 @admin.register(Slot)
 class SlotAdmin(admin.ModelAdmin):
     list_display = [
-        'get_description',
+        'event',
         'start',
         'end',
         'room',
@@ -373,10 +373,3 @@ class SlotAdmin(admin.ModelAdmin):
         'end',
     ]
     date_hierarchy = 'start'
-
-    def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('content_object')
-
-    @admin.display(description="Description")
-    def get_description(self, obj: Slot):
-        return obj.content_object

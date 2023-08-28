@@ -1,7 +1,6 @@
 from typing import Any
 
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.db import models
 from program import pretalx
 
@@ -320,16 +319,27 @@ class Slot(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
 
-    content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
-    content_object = GenericForeignKey('content_type', 'object_id')
+    talk = models.ForeignKey(Talk, on_delete=models.SET_NULL, blank=True, null=True)
+    workshop = models.ForeignKey(Workshop, on_delete=models.SET_NULL, blank=True, null=True)
+    utility = models.ForeignKey(Utility, on_delete=models.SET_NULL, blank=True, null=True)
 
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def clean(self):
+        # check that only one of the options is set
+        msg = 'Only one of "talk", "workshop" or "utility" per slot.'
+        fields = 'talk', 'workshop', 'utility'
+        if tuple(getattr(self, field) for field in fields).count(None) < 2:
+            raise ValidationError({f: msg for f in fields})
+
+    @property
+    def event(self):
+        return self.talk or self.workshop or self.utility
 
     def __str__(self):
         start = self.start.strftime('%d/%m/%y %H:%M')
         end = self.end.strftime('%d/%m/%y %H:%M')
-        return f'{self.content_type}: {self.content_object} FROM {start} TO {end} IN {self.room}'
+        return f'{self.event} FROM {start} TO {end} IN {self.room}'
 
     class Meta:
         ordering = ('start', 'room',)
