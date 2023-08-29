@@ -329,6 +329,10 @@ class UtilityAdmin(admin.ModelAdmin):
     list_editable = [
         'is_streamed',
     ]
+    prepopulated_fields = {
+        'slug': ['title'],
+    }
+
 
     @admin.display(description="Description", empty_value="not set")
     def short_description(self, obj: Utility) -> str | None:
@@ -343,15 +347,15 @@ class UtilityAdmin(admin.ModelAdmin):
 class RoomAdmin(admin.ModelAdmin):
     list_display = [
         'label',
-        'floor',
+        'order',
         'slug',
     ]
     list_editable = [
-        'floor',
+        'order',
     ]
     fields = [
         'label',
-        'floor',
+        'order',
         'slug',
     ]
     prepopulated_fields = {

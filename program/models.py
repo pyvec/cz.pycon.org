@@ -17,6 +17,7 @@ class Speaker(models.Model):
         "linkedin",
     ]
     """List of fields synced from pretalx."""
+
     class Meta:
         ordering = ("order",)
 
@@ -308,8 +309,9 @@ class Workshop(Session):
 
 class Utility(models.Model):
     title = models.CharField(max_length=255, verbose_name='Title')
-    description = models.TextField(blank=True, null=True)
-    url = models.CharField(max_length=255, blank=True, null=True)
+    slug = models.SlugField(max_length=50, default="")
+    description = models.TextField(blank=True, null=True, help_text="markdown formatted")
+    url = models.CharField(max_length=255, blank=True, null=True, verbose_name="URL", help_text="whole item will be a link to this URL")
     is_streamed = models.BooleanField('Is streamed to other rooms', default=False, blank=True)
 
     def __str__(self):
@@ -319,19 +321,21 @@ class Utility(models.Model):
         verbose_name = 'Utility'
         verbose_name_plural = 'Utilities'
         ordering = ('title', 'id',)
-        
+
 
 class Room(models.Model):
     label = models.CharField(max_length=50)
-    floor = models.PositiveSmallIntegerField()
     slug = models.SlugField(max_length=50)
+    order = models.PositiveSmallIntegerField(default=50, help_text="display order on front end (lower the number, higher it is)")
 
     def __str__(self):
         return self.label
 
+    class Meta:
+        ordering = ('order', 'id',)
+
 
 class Slot(models.Model):
-
     start = models.DateTimeField()
     end = models.DateTimeField()
 
