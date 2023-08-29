@@ -344,6 +344,7 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = [
         'label',
         'floor',
+        'slug',
     ]
     list_editable = [
         'floor',
@@ -351,7 +352,11 @@ class RoomAdmin(admin.ModelAdmin):
     fields = [
         'label',
         'floor',
+        'slug',
     ]
+    prepopulated_fields = {
+        'slug': ['label'],
+    }
 
 
 @admin.register(Slot)
