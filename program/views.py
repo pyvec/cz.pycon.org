@@ -1,13 +1,14 @@
 import datetime
 import re
 
+from django.db.models import Prefetch
 from django.http import HttpRequest, Http404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 
-from program.models import Talk, Workshop, Slot
+from program.models import Talk, Workshop, Slot, Speaker
 
 
 # Note: conference days are currently hardcoded.
@@ -137,7 +138,23 @@ def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
     except KeyError:
         raise Http404()
 
-    slots = Slot.objects.filter(start__date=schedule_date)
+    slots = Slot.objects.filter(start__date=schedule_date).select_related(
+        "room"
+    ).prefetch_related(
+        "talk",
+        Prefetch(
+            "talk__talk_speakers",
+            queryset=Speaker.objects.filter(is_public=True),
+            to_attr="public_speakers",
+        ),
+        "workshop",
+        Prefetch(
+            "workshop__workshop_speakers",
+            queryset=Speaker.objects.filter(is_public=True),
+            to_attr="public_speakers",
+        ),
+        "utility",
+    )
     return TemplateResponse(
         request,
         template="program/schedule_day.html",

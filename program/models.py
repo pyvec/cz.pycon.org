@@ -217,6 +217,10 @@ class Talk(Session):
 
     @property
     def speakers(self):
+        # To improve query performance when rendering schedule, speakers will be
+        # prefetched to `public_speakers` attr as a list. Use this list when possible.
+        if hasattr(self, "public_speakers"):
+            return self.public_speakers
         return self.talk_speakers.all().filter(is_public=True)
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
@@ -272,6 +276,10 @@ class Workshop(Session):
 
     @property
     def speakers(self):
+        # To improve query performance when rendering schedule, speakers will be
+        # prefetched to `public_speakers` attr as a list. Use this list when possible.
+        if hasattr(self, "public_speakers"):
+            return self.public_speakers
         return self.workshop_speakers.all().filter(is_public=True)
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
