@@ -82,7 +82,7 @@ copy-db-prod-to-local:
 	flyctl ssh console -a pycon-cz-db -q -u postgres -C "rm /data/tmp-prod-local-dump.backup"
 
 	# Run pg_restore in a local container
-	cat ./tmp-prod-local-dump.backup | docker compose exec --user postgres --no-TTY db pg_restore --clean --dbname=pycon --no-owner
+	cat ./tmp-prod-local-dump.backup | docker compose exec --user postgres --no-TTY db bash -c "dropdb --if-exists pycon && createdb pycon && pg_restore --dbname=pycon --no-owner"
 
 	# Cleanup local files
 	rm ./tmp-prod-local-dump.backup
