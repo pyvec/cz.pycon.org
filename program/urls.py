@@ -6,6 +6,8 @@ from .views import (
     talks_list,
     workshops_list,
     session_detail,
+    schedule_redirect,
+    schedule_day,
     debug_og_image_for_talk,
     debug_og_image_for_workshop,
 )
@@ -18,6 +20,9 @@ urlpatterns = [
     re_path("^workshops/$", workshops_list, name="workshops_list"),
     re_path("^(?P<type>(talk|workshop|sprint|panel))s/(?P<session_id>\\d+)/$", session_detail, name="session_detail"),
 
+    # Schedule
+    path("schedule/", schedule_redirect, name="schedule_redirect"),
+    path("schedule/<str:conference_day>", schedule_day, name="schedule_day"),
 ]
 
 # Routes for previewing OG images template.

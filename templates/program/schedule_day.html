@@ -1,0 +1,45 @@
+{% extends '_layout.html' %}
+
+
+{% load markdown %}
+{% load static %}
+
+
+{% block meta_title %}Schedule: {{ schedule_date|date:"l j F" }} – {{ block.super }}{% endblock %}
+
+{% block main %}
+    <div class="container-xs pt-4 pb-3 mt-3">
+        <h1>
+            Schedule:
+            {{ schedule_date|date:"l j F" }}
+        </h1>
+
+        <div class="PC-schedule">
+            {% for slot in slots %}
+                <div class="PC-slot">
+                    <strong class="PC-slot-time">
+                        {{ slot.start|date:"H:i" }} - {{ slot.end|date:"H:i" }}
+                    </strong>
+
+                    <h2 class="PC-slot-name">
+                        {% if slot.event.get_absolute_url %}
+                            <a href="{{ slot.event.get_absolute_url }}">
+                                {{ slot.event }}
+                            </a>
+                        {% else %}
+                            {{ slot.event }}
+                        {% endif %}
+                    </h2>
+
+                    {% if slot.event.speakers %}
+                        <p class="PC-slot-speakers">
+                            {% for speaker in slot.event.speakers %}
+                                <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
