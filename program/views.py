@@ -159,6 +159,8 @@ def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
         context={
             "schedule_date": schedule_date,
             "slots": slots,
+            "all_days": CONFERENCE_DAYS,
+            "current_day": conference_day,
         },
     )
 
