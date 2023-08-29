@@ -2,6 +2,7 @@ from typing import Any
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from program import pretalx
 
 
@@ -168,6 +169,12 @@ class Session(models.Model):
     @classmethod
     def get_pretalx_submission_type(cls, submission_type: dict[str, str]) -> str:
         return cls.PRETALX_TYPE_MAP.get(submission_type["en"].casefold(), "talk")
+
+    def get_absolute_url(self) -> str:
+        return reverse("program:session_detail", kwargs={
+            "type": self.type,
+            "session_id": self.id,
+        })
 
     def __str__(self) -> str:
         return self.title
