@@ -25,11 +25,9 @@ def session_detail(request, type, session_id: int):
     model_map = dict(talk=Talk, panel=Talk, workshop=Workshop, sprint=Workshop)
     session = get_object_or_404(model_map.get(type), id=session_id, is_public=True, is_backup=False)
 
-    # session_slot = Slot.objects.filter(
-    #     content_type__app_label='program',
-    #     content_type__model=dict(talk='talk', workshop='workshop', sprint='workshop').get(type),
-    #     object_id=session_id,
-    # ).first()
+    # Database allows adding a session to multiple slots.
+    # It will probably never happen, therefore, it should be safe to use the first one.
+    session_slot = session.slot_set.first()
 
     session_previous = model_map.get(type).objects.filter(
         is_public=True, is_backup=False, order__lt=session.order).order_by('order').last()
@@ -80,7 +78,7 @@ def session_detail(request, type, session_id: int):
                 'previous': session_previous,
                 'next': session_next,
             },
-            # 'session_slot': session_slot,
+            'session_slot': session_slot,
             # 'slots': slots,
         }
     )
