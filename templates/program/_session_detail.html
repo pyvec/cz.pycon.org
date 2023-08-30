@@ -162,9 +162,12 @@
         </div>
 
         {% if user.is_staff %}
-            <a class="btn btn-lg btn-danger my-5" href="https://pretalx.com/orga/event/pycon-cz-23/submissions/{{ session.pretalx_code }}">
-                Edit session in preTALX
-            </a>
+            <p>
+                <a class="btn btn-danger my-5" href="https://pretalx.com/orga/event/pycon-cz-23/submissions/{{ session.pretalx_code }}">
+                    Edit session in preTALX
+                </a>
+                <i>you see this because you’re logged in as administrator</i>
+            </p>
         {% endif %}
         {% comment %}{% if session.length and 'h' in session.length %}
                 <p>
