@@ -110,7 +110,7 @@ WSGI_APPLICATION = "wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    "default": dj_database_url.config(default="postgres://localhost/fake_db"),
 }
 
 
