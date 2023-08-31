@@ -26,9 +26,9 @@
 
 {% block link_sponsorship %}{% endblock %}
 
-{% comment %}
 {% block link_board_game_night %}{% endblock %}
 
+{% comment %}
 {% block link_financial_aid %}
     {# show finaid only if ticket sale isn't on and only if finaid is opened #}
     {% if phases.ticket_sale != 'launched' and phases.finaid == 'launched' %}
