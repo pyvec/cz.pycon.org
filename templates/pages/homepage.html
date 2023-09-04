@@ -5,9 +5,10 @@
 
 
 {% block header_action %}
-    <p class="fw-semibold fs-4">We have postponed late bird pricing for a week!</p>
+    {% comment %}<p class="fw-semibold fs-4">We have postponed late bird pricing for a week!</p>{% endcomment %}
     <a href="{% url 'tickets' %}" class="btn btn-primary btn-lg">
-        Buy tickets before 4 September!
+        {% comment %}Buy tickets before 4 September!{% endcomment %}
+        Tickets still available
     </a>
 {% endblock %}
 
