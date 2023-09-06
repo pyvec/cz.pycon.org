@@ -75,6 +75,17 @@ link-og-images:
 program-import-schedule:
 	$(DC_RUN) web python manage.py program_import_schedule --xlsx data/schedule.xlsx --output data/slots.json
 
+
+.PHONY: loaddata-slots-beta
+loaddata-slots-beta:
+	echo "cd /code/data \n put data/slots.json" | flyctl ssh sftp shell -a pycon-cz-beta
+	flyctl ssh console -a pycon-cz-beta -q -C "bash -c 'python manage.py loaddata /code/data/slots.json'"
+
+.PHONY: loaddata-slots-prod
+loaddata-slots-prod:
+	echo "cd /code/data \n put data/slots.json" | flyctl ssh sftp shell -a pycon-cz-prod
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'python manage.py loaddata /code/data/slots.json'"
+
 # Data sync
 .PHONY: copy-db-prod-to-local
 # Copy database from production to local database (starts the database when necessary).
