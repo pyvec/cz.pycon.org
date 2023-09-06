@@ -1,0 +1,59 @@
+/* Schedule of the grid. Use flex column on small screens, grid on desktops. */
+.PC-schedule {
+    display: flex;
+    flex-direction: column;
+    gap: map-get($spacers, 4);
+
+    @include media-breakpoint-up(lg) {
+        display: grid;
+        grid-template-columns: 70px;
+        grid-auto-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+}
+
+/* Room shown at the top of the grid. Visible on lg and larger. */
+.PC-schedule-grid-room {
+    display: none;
+
+    @include media-breakpoint-up(lg) {
+        display: block;
+    }
+}
+
+/* Room shown in the slot bubble. Maybe we can hide it on LG+? */
+.PC-schedule-item-room {
+    color: var(--bs-dark-text-emphasis);
+}
+
+/* Title of an item in schedule. */
+.PC-schedule-item-title {
+
+}
+
+/* List of speakers for talks and workshops. */
+.PC-schedule-item-speakers {
+
+}
+
+/* Style items by their type. */
+
+.PC-schedule-item-type-keynote {
+    background-color: var(--bs-secondary-bg-subtle);
+}
+
+.PC-schedule-item-type-talk {
+    background-color: var(--bs-info-bg-subtle);
+}
+
+.PC-schedule-item-type-panel {
+    background-color: var(--bs-info-bg-subtle);
+}
+
+.PC-schedule-item-type-workshop {
+    background-color: var(--bs-info-bg-subtle);
+}
+
+.PC-schedule-item-type-utility {
+    background-color: var(--bs-tertiary-bg);
+}

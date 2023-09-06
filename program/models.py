@@ -317,6 +317,11 @@ class Utility(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self) -> str | None:
+        if not self.url:
+            return None
+        return self.url
+
     class Meta:
         verbose_name = 'Utility'
         verbose_name_plural = 'Utilities'
@@ -355,6 +360,18 @@ class Slot(models.Model):
     @property
     def event(self):
         return self.talk or self.workshop or self.utility
+
+    def is_same_for_different_room(self, other_slot: 'Slot') -> bool:
+        """
+        Check if this is a slot for the same event, but in a different room.
+        """
+        return (
+            self.start == other_slot.start
+            and self.end == other_slot.end
+            and self.talk_id == other_slot.talk_id
+            and self.workshop_id == other_slot.workshop_id
+            and self.utility_id == other_slot.utility_id
+        )
 
     def __str__(self):
         start = self.start.strftime('%d/%m/%y %H:%M')

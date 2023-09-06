@@ -14,43 +14,58 @@
             {{ schedule_date|date:"l j F" }}
         </h1>
 
-        <ul>
+        <ul class="nav nav-pills mb-5">
             {% for day, date in all_days.items %}
-                <li>
-                    {% if day == current_day %}
-                        <strong>{{ date|date:"l j F" }}</strong>
-                    {% else %}
-                        <a href="{% url "program:schedule_day" day %}">{{ date|date:"l j F" }}</a>
-                    {% endif %}
-                </li>
+                <a class="nav-link{% if day == current_day %} active{% endif %}" {% if day != current_day %}href="{% url "program:schedule_day" day %}"{% endif %}>
+                    {{ date|date:"l j F" }}
+                </a>
             {% endfor %}
         </ul>
 
         <div class="PC-schedule">
-            {% for slot in slots %}
-                <div class="PC-slot">
-                    <strong class="PC-slot-time">
-                        {{ slot.start|date:"H:i" }} - {{ slot.end|date:"H:i" }}
-                    </strong>
-
-                    <h2 class="PC-slot-name">
-                        {% if slot.event.get_absolute_url %}
-                            <a href="{{ slot.event.get_absolute_url }}">
-                                {{ slot.event }}
-                            </a>
-                        {% else %}
-                            {{ slot.event }}
-                        {% endif %}
-                    </h2>
-
-                    {% if slot.event.speakers %}
-                        <p class="PC-slot-speakers">
-                            {% for speaker in slot.event.speakers %}
-                                <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
-                            {% endfor %}
-                        </p>
-                    {% endif %}
+            {% for col in grid.columns %}
+                <div class="PC-schedule-grid-room text-center p-2 fw-bold" style="grid-area: {{ col.grid_area }}">
+                    {{ col.room.label }}
                 </div>
+            {% endfor %}
+
+            {% for row in grid.rows %}
+                <div class="PC-schedule-time text-start text-lg-end pt-3 border-top fw-semibold" style="grid-area: {{ row.time_grid_area }}">
+                    {{ row.time|date:"H:i" }}
+                </div>
+
+                {% for item in row.items %}
+                    <div class="PC-schedule-item PC-schedule-item-type-{{ item.type }} rounded-2 border border-black p-3"
+                         style="grid-area: {{ item.grid_area }}">
+
+                        {% if item.is_streamed or not item.is_multi_room %}
+                        <div class="PC-schedule-item-room">
+                            <strong>{{ item.slot.room.label }}</strong>
+                            {% if item.is_streamed %}
+                                and streamed to other rooms
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <div class="PC-schedule-item-title">
+                            {% if item.slot.event.get_absolute_url %}
+                                <a href="{{ item.slot.event.get_absolute_url }}">
+                                    {{ item.slot.event }}
+                                </a>
+                            {% else %}
+                                {{ item.slot.event }}
+                            {% endif %}
+                        </div>
+
+                        {% if item.slot.event.speakers %}
+                            <p class="PC-schedule-item-speakers">
+                                {% for speaker in item.slot.event.speakers %}
+                                    <span class="d-inline-block">{{ speaker.full_name }}</span>{% if forloop.revcounter0 %},{% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             {% endfor %}
         </div>
     </div>

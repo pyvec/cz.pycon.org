@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 
 from program.models import Talk, Workshop, Slot, Speaker
+from program.schedule_grid import ScheduleGrid
 
 
 # Note: conference days are currently hardcoded.
@@ -152,7 +153,13 @@ def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
             to_attr="public_speakers",
         ),
         "utility",
+    ).order_by(
+        "start",
+        "room__order",
     )
+
+    schedule_grid = ScheduleGrid.create_from_slots(slots)
+
     return TemplateResponse(
         request,
         template="program/schedule_day.html",
@@ -161,6 +168,7 @@ def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
             "slots": slots,
             "all_days": CONFERENCE_DAYS,
             "current_day": conference_day,
+            "grid": schedule_grid,
         },
     )
 
