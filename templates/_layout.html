@@ -16,10 +16,10 @@
                         <div class="d-flex flex-column flex-md-row column-gap-6 row-gap-3 justify-content-md-center align-items-md-center mt-4 mb-3">
                             <a href="{% url 'homepage' %}">
                                 <img
-                                    class="img-fluid"
-                                    src="{% static 'img/logo-pycon-23.min.svg' %}"
-                                    alt="PyCon CZ"
-                                    width="500"
+                                        class="img-fluid"
+                                        src="{% static 'img/logo-pycon-23.min.svg' %}"
+                                        alt="PyCon CZ"
+                                        width="500"
                                 >
                             </a>
                             <div>
@@ -69,7 +69,16 @@
                         <a class="nav-link link-light" rel="me" href=" https://www.youtube.com/@PyConCZ">YouTube</a>
                         <a class="nav-link link-light" rel="me" href="https://github.com/pyvec/cz.pycon.org">GitHub</a>
                         {# <a class="nav-link link-light" rel="me" href="https://www.instagram.com/pyconcz/">Instagram</a>#}
+
+                        {% block link_coc %}
+                            {% include '__nav_link.html' with url='coc' link_text='Code of Conduct' %}
+                        {% endblock %}
+
+                        {% block link_privacy_policy %}
+                            {% include '__nav_link.html' with url='privacy_policy' link_text='Privacy Policy' %}
+                        {% endblock %}
                     </div>
+
                     <p class="mx-3">
                         Do you have any questions?
                         <a class="link-light" href="mailto:info@pycon.cz">Contact&nbsp;us!</a>
