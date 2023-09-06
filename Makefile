@@ -69,6 +69,12 @@ generate-og-images:
 link-og-images:
 	$(DC_RUN) web python manage.py program_link_og_images
 
+.PHONY: program-import-schedule
+# Import schedule from XLSX file
+# The schedule should be placed to data/schedule.xlsx
+program-import-schedule:
+	$(DC_RUN) web python manage.py program_import_schedule --xlsx data/schedule.xlsx --output data/slots.json
+
 # Data sync
 .PHONY: copy-db-prod-to-local
 # Copy database from production to local database (starts the database when necessary).
