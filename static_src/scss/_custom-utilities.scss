@@ -10,6 +10,7 @@
 
 .PC-multicol {
     column-gap: $grid-gutter-width;
+    //column-width: 25ch;
 
     @include media-breakpoint-up(md) {
         column-count: 2;
@@ -17,6 +18,10 @@
 
     @include media-breakpoint-up(xl) {
         column-count: 3;
+    }
+
+    > * {
+        break-inside: avoid-column;
     }
 
 }
