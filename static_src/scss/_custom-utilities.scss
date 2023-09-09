@@ -22,6 +22,7 @@
 
     > * {
         break-inside: avoid-column;
+        display: -webkit-box; // make Safari behave
     }
 
 }
