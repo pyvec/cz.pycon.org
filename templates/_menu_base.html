@@ -41,8 +41,12 @@ If you want to remove a menu item globally, comment it out here.
             {% endblock %}
 
             {% block link_schedule %}
-                {% if phases.schedule != 'not_public' %}
+                {% comment %}{% if phases.schedule != 'not_public' %} {% endif %}{% endcomment %}
+                {% url 'schedule' as temporary_schedule %}
+                {% if temporary_schedule %}
                     {% include '__nav_link.html' with url='schedule' link_text='Schedule' %}
+                {% else %}
+                    {% include '__nav_link.html' with url='program:schedule_redirect' link_text='Schedule' %}
                 {% endif %}
                 {% comment %}{% if phases.schedule != 'not_public' %}
                     {% include '__nav_link.html' with url='program:schedule' link_text='Schedule' %}

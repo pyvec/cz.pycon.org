@@ -36,13 +36,13 @@ urlpatterns = [
                 path("financial-aid/", TemplateView.as_view(template_name='pages/financial-aid.html'), name='financial_aid'),
                 path("financial-aid-grantees/", TemplateView.as_view(template_name='pages/financial-aid-grantees.html'), name='financial_aid_grantees'),
                 path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
-                path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
                 path("pyconcz-discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
                 path("discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
                 path("board-game-night/", TemplateView.as_view(template_name='pages/board-game-night.html'), name='board_game_night'),
 
                 # Note: should we keep the temporary schedule?
-                # path("program/schedule/", TemplateView.as_view(template_name='pages/schedule.html'), name='schedule'),
+                path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
+                path("program/schedule/", TemplateView.as_view(template_name='pages/schedule.html'), name='schedule'),
 
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
 
