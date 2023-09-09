@@ -34,7 +34,15 @@
         {% if session.language == 'cs' %}
             <p class="PC-language">
                 <img src="{% static 'img/flag-cz.svg' %}" width="32" height="32" alt="">
-                <span class="PC-language-label">this {{ session.type }} will be in Czech only</span>
+                <span class="PC-language-label">
+                    this
+                    {% if session.type == 'panel' and session.speakers|length == 1 %}
+                        discussion
+                    {% else %}
+                        {{ session.type }}
+                    {% endif %}
+                    will be in Czech only
+                </span>
             </p>
         {% endif %}
         <h1>
@@ -47,10 +55,18 @@
                         přednáší
                     {% endif %}
                 {% elif session.type == 'panel' %}
-                    {% if session.language == 'en' %}
-                        a&nbsp;{{ session.type }} with
-                    {% elif session.language == 'cs' %}
-                        disktující:
+                    {% if session.speakers|length == 1 %}
+                        {% if session.language == 'en' %}
+                            a&nbsp;discussion moderated by
+                        {% elif session.language == 'cs' %}
+                            diskuzi moderuje
+                        {% endif %}
+                    {% else %}
+                        {% if session.language == 'en' %}
+                            a&nbsp;{{ session.type }} with
+                        {% elif session.language == 'cs' %}
+                            diskutující:
+                        {% endif %}
                     {% endif %}
                 {% elif session.type == 'workshop' %}
                     {% if session.language == 'en' %}
@@ -162,9 +178,12 @@
         </div>
 
         {% if user.is_staff %}
-            <a class="btn btn-lg btn-danger my-5" href="https://pretalx.com/orga/event/pycon-cz-23/submissions/{{ session.pretalx_code }}">
-                Edit session in preTALX
-            </a>
+            <p>
+                <a class="btn btn-danger my-5" href="https://pretalx.com/orga/event/pycon-cz-23/submissions/{{ session.pretalx_code }}">
+                    Edit session in preTALX
+                </a>
+                <i>you see this because you’re logged in as administrator</i>
+            </p>
         {% endif %}
         {% comment %}{% if session.length and 'h' in session.length %}
                 <p>
@@ -204,10 +223,7 @@
 
 {% endblock %}
 
-
 {% comment %}
-
-
 {% block main %}
     <div class="container">
 

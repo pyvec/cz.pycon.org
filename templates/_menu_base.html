@@ -24,7 +24,8 @@ If you want to remove a menu item globally, comment it out here.
         {% endblock %}
 
         {% block link_tickets %}
-            {% include '__nav_link.html' with url='tickets' link_text='Tickets' highlighted='1' %}
+            {% comment %}{% include '__nav_link.html' with url='tickets' link_text='Tickets' highlighted='1' %}{% endcomment %}
+            {% include '__nav_link.html' with url='tickets' link_text='Tickets' %}
             {% if phases.ticket_sale == 'launched' %}{% endif %}
         {% endblock %}
 
@@ -47,6 +48,11 @@ If you want to remove a menu item globally, comment it out here.
                     {% include '__nav_link.html' with url='program:schedule' link_text='Schedule' %}
                 {% endif %}{% endcomment %}
             {% endblock %}
+
+            {% block link_board_game_night %}
+                {% include '__nav_link.html' with url='board_game_night' link_text='Board Game Night' %}
+            {% endblock %}
+
         {% endblock %}
 
     {% endblock %}
@@ -56,18 +62,12 @@ If you want to remove a menu item globally, comment it out here.
 
         {% block other %}
 
-            {% comment %}{% block link_board_game_night %}
-                {% if phases.board_game_night == 'details_public' %}
-                    {% include '__nav_link.html' with url='board_game_night' link_text='Board Game Night' %}
-                {% endif %}
-            {% endblock %}{% endcomment %}
-
             {% comment %}{% block link_team %}
                 {% include '__nav_link.html' with url='team_list' link_text='Team' %}
             {% endblock %}{% endcomment %}
 
             {% block link_sponsors %}
-                    {% include '__nav_link.html' with url='sponsors_list' link_text='Sponsors' %}
+                {% include '__nav_link.html' with url='sponsors_list' link_text='Sponsors' %}
                 {% if phases.sponsors == 'details_public' %}{% endif %}
             {% endblock %}
 
@@ -102,13 +102,6 @@ If you want to remove a menu item globally, comment it out here.
                 {% include '__nav_link.html' with url='cfp_pruvodce' link_text='Průvodce CfP' %}
             {% endblock %}
 
-            {% block link_coc %}
-                {% include '__nav_link.html' with url='coc' link_text='Code of Conduct' %}
-            {% endblock %}
-
-            {% block link_privacy_policy %}
-                {% include '__nav_link.html' with url='privacy_policy' link_text='Privacy Policy' %}
-            {% endblock %}
 
         {% endblock %}
 

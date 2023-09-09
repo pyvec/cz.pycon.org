@@ -45,9 +45,12 @@
             {% endif %}
             {{ speaker.bio|markdown }}
             {% if user.is_staff %}
-                <a class="btn btn-lg btn-danger" href="https://pretalx.com/orga/event/pycon-cz-23/speakers/{{ speaker.pretalx_code }}">
-                    Edit speaker in preTALX
-                </a>
+                <p>
+                    <a class="btn btn-danger" href="https://pretalx.com/orga/event/pycon-cz-23/speakers/{{ speaker.pretalx_code }}">
+                        Edit speaker in preTALX
+                    </a>
+                    <i>you see this because you’re logged in as administrator</i>
+                </p>
             {% endif %}
         </div>
     </div>

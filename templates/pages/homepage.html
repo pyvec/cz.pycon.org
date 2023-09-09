@@ -5,9 +5,10 @@
 
 
 {% block header_action %}
-    <p class="fw-semibold fs-4">We have postponed late bird pricing for a week!</p>
+    {% comment %}<p class="fw-semibold fs-4">We have postponed late bird pricing for a week!</p>{% endcomment %}
     <a href="{% url 'tickets' %}" class="btn btn-primary btn-lg">
-        Buy tickets before 4 September!
+        {% comment %}Buy tickets before 4 September!{% endcomment %}
+        Tickets still available
     </a>
 {% endblock %}
 
@@ -70,7 +71,9 @@
                 <img src="{% static 'img/icons/person.min.svg' %}" width="80" height="80" alt="">
             </div>
             <div>
-                <h2 class="h4 mt-1">Board Game Night</h2>
+                <h2 class="h4 mt-1">
+                    <a class="link-light" href="{% url 'board_game_night' %}">Board Game Night</a>
+                </h2>
                 <p>Have fun with other attendees on Friday</p>
             </div>
         </article>
@@ -153,7 +156,7 @@
     </div>
 
 
-    <div class="container-xs pt-3 pb-5">
+    <div class="container-xs pt-3 pb-5" id="sponsors">
         <h2>Sponsors and Partners</h2>
         <p class="lead">
             PyCon CZ relies on <a href="{% url 'sponsors_list' %}">sponsors</a> to keep ticket prices affordable.
@@ -165,7 +168,7 @@
         {% regroup sponsors by level as sponsors_list %}
 
         {% if sponsors %}
-            <section class="PC-sponsors" id="sponsors">
+            <section class="PC-sponsors">
                 {% for level in sponsors_list %}
                     <h3 class="mt-6 mb-5" id="{{ level.list.0.level.slug }}">
                         {{ level.grouper }}
