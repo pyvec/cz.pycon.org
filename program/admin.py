@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.db import transaction
 
-from program.models import Speaker, Talk, Workshop
-from program import pretalx
-from program import pretalx_sync
+from program import pretalx, pretalx_sync
+from program.models import Room, Slot, Speaker, Talk, Utility, Workshop
 
 
 def create_pretalx_sync() -> pretalx_sync.PretalxSync:
@@ -316,3 +315,97 @@ class WorkshopAdmin(admin.ModelAdmin):
         if not change and obj.pretalx_code:
             sync = create_pretalx_sync()
             sync.update_workshops([obj])
+
+
+@admin.register(Utility)
+class UtilityAdmin(admin.ModelAdmin):
+    empty_value_display = 'not set'
+    list_display = [
+        'title',
+        'short_description',
+        'url',
+        'is_streamed',
+    ]
+    list_editable = [
+        'is_streamed',
+    ]
+    prepopulated_fields = {
+        'slug': ['title'],
+    }
+
+
+    @admin.display(description="Description", empty_value="not set")
+    def short_description(self, obj: Utility) -> str | None:
+        """Shorten the description for admin inline.
+
+        If there is no description, return None, so the "empty_value" fires.
+        """
+        return obj.description[:180] + '...' if obj.description else None
+
+
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    list_display = [
+        'label',
+        'order',
+        'slug',
+    ]
+    list_editable = [
+        'order',
+    ]
+    fields = [
+        'label',
+        'order',
+        'slug',
+    ]
+    prepopulated_fields = {
+        'slug': ['label'],
+    }
+
+
+@admin.register(Slot)
+class SlotAdmin(admin.ModelAdmin):
+    list_display = [
+        'event',
+        'start',
+        'end',
+        'room',
+    ]
+    list_filter = [
+        'room',
+    ]
+    list_editable = [
+        'room',
+        'start',
+        'end',
+    ]
+    fieldsets = [
+        (
+            'Event',
+            {
+                'description': 'Select only one of the following.',
+                'fields': [
+                    'talk',
+                    'workshop',
+                    'utility',
+                ],
+            },
+        ),
+        (
+            'Times',
+            {
+                'fields': [
+                    ('start', 'end'),
+                ],
+            },
+        ),
+        (
+            None,
+            {
+                'fields': [
+                    'room',
+                ],
+            },
+        ),
+    ]
+    date_hierarchy = 'start'

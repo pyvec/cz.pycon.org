@@ -1,21 +1,34 @@
+import datetime
 import re
 
+from django.db.models import Prefetch
+from django.http import HttpRequest, Http404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse, HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.utils import timezone
 
-from program.models import Talk, Workshop
+from program.models import Talk, Workshop, Slot, Speaker
+from program.schedule_grid import ScheduleGrid
+
+
+# Note: conference days are currently hardcoded.
+# We could build the list directly from the database to make the code more
+# re-usable for the next year, but right now it seems like an overkill.
+CONFERENCE_DAYS = {
+    "friday": datetime.date(2023, 9, 15),
+    "saturday": datetime.date(2023, 9, 16),
+    "sunday": datetime.date(2023, 9, 17),
+}
 
 
 def session_detail(request, type, session_id: int):
     model_map = dict(talk=Talk, panel=Talk, workshop=Workshop, sprint=Workshop)
     session = get_object_or_404(model_map.get(type), id=session_id, is_public=True, is_backup=False)
 
-    # session_slot = Slot.objects.filter(
-    #     content_type__app_label='program',
-    #     content_type__model=dict(talk='talk', workshop='workshop', sprint='workshop').get(type),
-    #     object_id=session_id,
-    # ).first()
+    # Database allows adding a session to multiple slots.
+    # It will probably never happen, therefore, it should be safe to use the first one.
+    session_slot = session.slot_set.first()
 
     session_previous = model_map.get(type).objects.filter(
         is_public=True, is_backup=False, order__lt=session.order).order_by('order').last()
@@ -66,7 +79,7 @@ def session_detail(request, type, session_id: int):
                 'previous': session_previous,
                 'next': session_next,
             },
-            # 'session_slot': session_slot,
+            'session_slot': session_slot,
             # 'slots': slots,
         }
     )
@@ -93,6 +106,70 @@ def workshops_list(request):
         request,
         template="program/workshops_list.html",
         context={"sessions": public_workshops, "more_to_come": more_to_come},
+    )
+
+
+def schedule_redirect(request) -> HttpResponse:
+    # Gets time in the local timezone (Europe/Prague, as set in settings.py).
+    today = timezone.localdate()
+    selected_day = None
+    for conference_day, date_value in CONFERENCE_DAYS.items():
+        # Redirect to first day by default
+        if selected_day is None:
+            selected_day = conference_day
+        if date_value == today:
+            selected_day = conference_day
+            break
+
+    response = redirect(
+        to="program:schedule_day",
+        conference_day=selected_day,
+        permanent=False,
+    )
+    # Add a caching header to make sure it is not stored in any cache.
+    response.headers['Cache-Control'] = 'no-store'
+    return response
+
+
+def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
+    try:
+        schedule_date = CONFERENCE_DAYS[conference_day]
+    except KeyError:
+        raise Http404()
+
+    slots = Slot.objects.filter(start__date=schedule_date).select_related(
+        "room"
+    ).prefetch_related(
+        "talk",
+        Prefetch(
+            "talk__talk_speakers",
+            queryset=Speaker.objects.filter(is_public=True),
+            to_attr="public_speakers",
+        ),
+        "workshop",
+        Prefetch(
+            "workshop__workshop_speakers",
+            queryset=Speaker.objects.filter(is_public=True),
+            to_attr="public_speakers",
+        ),
+        "utility",
+    ).order_by(
+        "start",
+        "room__order",
+    )
+
+    schedule_grid = ScheduleGrid.create_from_slots(slots)
+
+    return TemplateResponse(
+        request,
+        template="program/schedule_day.html",
+        context={
+            "schedule_date": schedule_date,
+            "slots": slots,
+            "all_days": CONFERENCE_DAYS,
+            "current_day": conference_day,
+            "grid": schedule_grid,
+        },
     )
 
 

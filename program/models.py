@@ -1,6 +1,8 @@
 from typing import Any
 
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from program import pretalx
 
 
@@ -15,6 +17,7 @@ class Speaker(models.Model):
         "linkedin",
     ]
     """List of fields synced from pretalx."""
+
     class Meta:
         ordering = ("order",)
 
@@ -168,6 +171,12 @@ class Session(models.Model):
     def get_pretalx_submission_type(cls, submission_type: dict[str, str]) -> str:
         return cls.PRETALX_TYPE_MAP.get(submission_type["en"].casefold(), "talk")
 
+    def get_absolute_url(self) -> str:
+        return reverse("program:session_detail", kwargs={
+            "type": self.type,
+            "session_id": self.id,
+        })
+
     def __str__(self) -> str:
         return self.title
 
@@ -209,6 +218,10 @@ class Talk(Session):
 
     @property
     def speakers(self):
+        # To improve query performance when rendering schedule, speakers will be
+        # prefetched to `public_speakers` attr as a list. Use this list when possible.
+        if hasattr(self, "public_speakers"):
+            return self.public_speakers
         return self.talk_speakers.all().filter(is_public=True)
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
@@ -264,6 +277,10 @@ class Workshop(Session):
 
     @property
     def speakers(self):
+        # To improve query performance when rendering schedule, speakers will be
+        # prefetched to `public_speakers` attr as a list. Use this list when possible.
+        if hasattr(self, "public_speakers"):
+            return self.public_speakers
         return self.workshop_speakers.all().filter(is_public=True)
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
@@ -288,3 +305,78 @@ class Workshop(Session):
                 self.attendee_limit = int(participants_str) if participants_str else 0
             except ValueError:
                 self.attendee_limit = 0
+
+
+class Utility(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Title')
+    slug = models.SlugField(max_length=50, default="")
+    description = models.TextField(blank=True, null=True, help_text="markdown formatted")
+    url = models.CharField(max_length=255, blank=True, null=True, verbose_name="URL", help_text="whole item will be a link to this URL")
+    is_streamed = models.BooleanField('Is streamed to other rooms', default=False, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self) -> str | None:
+        if not self.url:
+            return None
+        return self.url
+
+    class Meta:
+        verbose_name = 'Utility'
+        verbose_name_plural = 'Utilities'
+        ordering = ('title', 'id',)
+
+
+class Room(models.Model):
+    label = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50)
+    order = models.PositiveSmallIntegerField(default=50, help_text="display order on front end (lower the number, higher it is)")
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        ordering = ('order', 'id',)
+
+
+class Slot(models.Model):
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    talk = models.ForeignKey(Talk, on_delete=models.SET_NULL, blank=True, null=True)
+    workshop = models.ForeignKey(Workshop, on_delete=models.SET_NULL, blank=True, null=True)
+    utility = models.ForeignKey(Utility, on_delete=models.SET_NULL, blank=True, null=True)
+
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def clean(self):
+        # check that only one of the options is set
+        msg = 'Only one of "talk", "workshop" or "utility" per slot.'
+        fields = 'talk', 'workshop', 'utility'
+        if tuple(getattr(self, field) for field in fields).count(None) < 2:
+            raise ValidationError({f: msg for f in fields})
+
+    @property
+    def event(self):
+        return self.talk or self.workshop or self.utility
+
+    def is_same_for_different_room(self, other_slot: 'Slot') -> bool:
+        """
+        Check if this is a slot for the same event, but in a different room.
+        """
+        return (
+            self.start == other_slot.start
+            and self.end == other_slot.end
+            and self.talk_id == other_slot.talk_id
+            and self.workshop_id == other_slot.workshop_id
+            and self.utility_id == other_slot.utility_id
+        )
+
+    def __str__(self):
+        start = self.start.strftime('%d/%m/%y %H:%M')
+        end = self.end.strftime('%d/%m/%y %H:%M')
+        return f'{self.event} FROM {start} TO {end} IN {self.room}'
+
+    class Meta:
+        ordering = ('start', 'room',)
