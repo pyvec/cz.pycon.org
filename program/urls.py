@@ -22,7 +22,7 @@ urlpatterns = [
 
     # Schedule
     path("schedule/", schedule_redirect, name="schedule_redirect"),
-    path("schedule/<str:conference_day>", schedule_day, name="schedule_day"),
+    path("schedule/<str:conference_day>/", schedule_day, name="schedule_day"),
 ]
 
 # Routes for previewing OG images template.
