@@ -1,11 +1,10 @@
-.PC-header {
+.PC-bg-header {
     background-color: #0007ad;
     background-image: url(/static/img/noise.svg), url(/static/img/header-bg.svg);
     background-size: 96px, 100%;
     background-position: 50% 0;
     background-repeat: repeat, no-repeat;
     background-blend-mode: soft-light, normal;
-    position: relative;
 
     @include media-breakpoint-up(md) {
         background-image: url(/static/img/noise.svg), url(/static/img/header-bg-animated.svg);
@@ -13,7 +12,11 @@
 }
 
 @-moz-document url-prefix() {
-    .PC-header {
+    .PC-bg-header {
         background-image: url(/static/img/noise.svg), url(/static/img/header-bg-ff.svg);
     }
+}
+
+.PC-bg-header-extra {
+    background-image: url(/static/img/noise.svg), url(/static/img/header-bg-extra.svg);
 }

@@ -6,7 +6,7 @@
 {% block body %}
 
     {% block top %}
-        <div class="PC-header text-white pt-3 pb-4">
+        <div class="{% block header-bg-class %}PC-bg-header{% endblock %} position-relative text-white pt-3 pb-4">
             <div class="container-xs">
 
                 {% include '_menu_top.html' %}

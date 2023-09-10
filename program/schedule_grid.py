@@ -6,9 +6,9 @@ from program import models
 
 
 # Number of header rows: 1st row contains names of the rooms.
-HEADER_ROWS = 1
+HEADER_ROWS = 0
 # Number of header columns: 1st colum contains the timeline.
-HEADER_COLS = 1
+HEADER_COLS = 0
 
 
 @dataclasses.dataclass()
@@ -101,11 +101,6 @@ class ScheduleRow:
     offset: int
     time: datetime.datetime
     items: list["ScheduleItem"] = dataclasses.field(default_factory=list)
-
-    @property
-    def time_grid_area(self):
-        return f"{self.offset} / 1 / {self.offset + 1} / 2"
-
 
 @dataclasses.dataclass()
 class ScheduleItem:
