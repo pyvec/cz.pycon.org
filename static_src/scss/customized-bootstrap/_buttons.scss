@@ -1,6 +1,10 @@
 .btn {
     border-color: $black;
     box-shadow: $box-shadow;
+    .btn-group-vertical &:not(:last-child),
+    .btn-group-vertical &:not(:last-child):hover {
+        box-shadow: none;
+    }
 }
 
 .btn:hover {
