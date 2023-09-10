@@ -1,0 +1,8 @@
+{% for day, date in all_days.items %}
+    <a
+            href="{% url "program:schedule_day" day %}"
+            class="btn {% if day == current_day %}btn-secondary{% else %}btn-light{% endif %}"
+    >
+        {{ date|date:"l j F" }}
+    </a>
+{% endfor %}

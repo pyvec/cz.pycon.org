@@ -10,17 +10,20 @@
 {% block main %}
     <div class="container-xs pt-4 pb-3 mt-3">
         <h1>
-            Schedule:
-            {{ schedule_date|date:"l j F" }}
+            Schedule{% comment %}: {{ schedule_date|date:"l j F" }}{% endcomment %}
         </h1>
 
-        <ul class="nav nav-pills mb-5">
-            {% for day, date in all_days.items %}
-                <a class="nav-link{% if day == current_day %} active{% endif %}" {% if day != current_day %}href="{% url "program:schedule_day" day %}"{% endif %}>
-                    {{ date|date:"l j F" }}
-                </a>
-            {% endfor %}
-        </ul>
+        <div class="d-sm-none pt-2 mb-2">
+            <div class="btn-group-vertical">
+                {% include 'program/__day_menu.html' %}
+            </div>
+        </div>
+
+        <div class="d-none d-sm-block sticky-md-top pt-2 mb-4">
+            <div class="btn-group">
+                {% include 'program/__day_menu.html' %}
+            </div>
+        </div>
 
         <div class="PC-schedule">
             {% for col in grid.columns %}
@@ -39,12 +42,12 @@
                          style="grid-area: {{ item.grid_area }}">
 
                         {% if item.is_streamed or not item.is_multi_room %}
-                        <div class="PC-schedule-item-room">
-                            <strong>{{ item.slot.room.label }}</strong>
-                            {% if item.is_streamed %}
-                                and streamed to other rooms
-                            {% endif %}
-                        </div>
+                            <div class="PC-schedule-item-room">
+                                <strong>{{ item.slot.room.label }}</strong>
+                                {% if item.is_streamed %}
+                                    and streamed to other rooms
+                                {% endif %}
+                            </div>
                         {% endif %}
 
                         <div class="PC-schedule-item-title">
