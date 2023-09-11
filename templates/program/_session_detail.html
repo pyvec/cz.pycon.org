@@ -3,6 +3,7 @@
 
 {% load markdown %}
 {% load static %}
+{% load program %}
 
 
 {% block meta_title %}{{ session.title|markdown|striptags }} – {% for speaker in session.speakers %}{% if forloop.last and not forloop.first %} &amp; {% elif not forloop.first %}, {% endif %} {{ speaker }}{% endfor %} – {{ block.super }}{% endblock %}
@@ -93,6 +94,23 @@
                 This {{ session.type }} will be in Czech or Slovak.
             </p>
         {% endif %}{% endcomment %}
+
+        {% if session_slot %}
+        <div class="PC-session-detail-slot my-4">
+            <span class="PC-session-detail-slot-item">
+                {{ session_slot.start|date:"l" }}
+                <span class="d-none d-sm-inline">
+                    {{ session_slot.start|date:"j F" }}
+                </span>
+            </span>
+            <span class="PC-session-detail-slot-item">
+                {{ session_slot.start|date:"G:i" }}&nbsp;({{ session_slot.length|session_length }})
+            </span>
+            <div class="PC-session-detail-slot-item">
+                {{ session_slot.room }}
+            </div>
+        </div>
+        {% endif %}
 
         <div class="PC-multicol my-4">
             {{ session.abstract|markdown }}

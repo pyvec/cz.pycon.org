@@ -1,0 +1,29 @@
+.PC-session-detail-slot {
+    display: block;
+    font-size: $h4-font-size;
+
+    @include media-breakpoint-up(md) {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.PC-session-detail-slot-item {
+    font-weight: $font-weight-semibold;
+
+    @include media-breakpoint-up(md) {
+        &::after {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            height: calc(var(--bs-body-line-height) * 1em);
+            width: 2px;
+            background-color: $secondary;
+            margin: 0 map-get($spacers, 3);
+        }
+
+        &:last-child::after {
+            display: none;
+        }
+    }
+}

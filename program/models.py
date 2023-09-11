@@ -1,3 +1,4 @@
+import datetime
 from typing import Any
 
 from django.core.exceptions import ValidationError
@@ -360,6 +361,10 @@ class Slot(models.Model):
     @property
     def event(self):
         return self.talk or self.workshop or self.utility
+
+    @property
+    def length(self) -> datetime.timedelta:
+        return self.end - self.start
 
     def is_same_for_different_room(self, other_slot: 'Slot') -> bool:
         """
