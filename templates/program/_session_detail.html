@@ -96,20 +96,20 @@
         {% endif %}{% endcomment %}
 
         {% if session_slot %}
-        <div class="PC-session-detail-slot my-4">
+            <div class="PC-session-detail-slot my-4">
             <span class="PC-session-detail-slot-item">
                 {{ session_slot.start|date:"l" }}
                 <span class="d-none d-sm-inline">
                     {{ session_slot.start|date:"j F" }}
                 </span>
             </span>
-            <span class="PC-session-detail-slot-item">
+                <span class="PC-session-detail-slot-item">
                 {{ session_slot.start|date:"G:i" }}&nbsp;({{ session_slot.length|session_length }})
             </span>
-            <div class="PC-session-detail-slot-item">
-                {{ session_slot.room }}
+                <div class="PC-session-detail-slot-item">
+                    {{ session_slot.room }}
+                </div>
             </div>
-        </div>
         {% endif %}
 
         <div class="PC-multicol my-4">
@@ -227,16 +227,16 @@
         {% endfor %}
 
         {% if not schedule_grid %}
-        <div class="sticky-bottom mx-auto">
-            <div class="pb-2 mb-2 d-flex justify-content-between">
-                <a class="btn btn-secondary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.previous.type session_id=other_sessions.previous.id %}">
-                    previous {{ other_sessions.previous.type }}
-                </a>
-                <a class="btn btn-primary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.next.type session_id=other_sessions.next.id %}">
-                    next {{ other_sessions.next.type }}
-                </a>
+            <div class="sticky-bottom mx-auto">
+                <div class="pb-2 mb-2 d-flex justify-content-between">
+                    <a class="btn btn-secondary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.previous.type session_id=other_sessions.previous.id %}">
+                        previous {{ other_sessions.previous.type }}
+                    </a>
+                    <a class="btn btn-primary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.next.type session_id=other_sessions.next.id %}">
+                        next {{ other_sessions.next.type }}
+                    </a>
+                </div>
             </div>
-        </div>
         {% endif %}
 
     </div>
