@@ -9,7 +9,12 @@
 
 {% block speakers_title %}Talks{% endblock %}
 
+{% block top_info %}
+    <p class="lead">Talks will happen on Friday and Saturday at <a href="{% url 'venue' %}#gabriel-loci">Gabriel Loci</a>.</p>
 
+    {{ block.super }}
+
+{% endblock %}
 {% comment %}
 {% block top_info %}
     {% if sessions and phases.talks != 'not_public' %}

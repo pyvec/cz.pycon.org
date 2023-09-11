@@ -9,7 +9,12 @@
 
 {% block speakers_title %}Work&shy;shops{% endblock %}
 
+{% block top_info %}
+    <p class="lead">Workshops will happen on Sunday at <a href="{% url 'venue' %}#fit">Faculty of Information Technology CTU</a>.</p>
 
+    {{ block.super }}
+
+{% endblock %}
 {% comment %}
 {% block top_info %}
     {% if sessions and phases.workshops != 'not_public' %}
