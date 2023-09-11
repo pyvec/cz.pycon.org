@@ -1,7 +1,6 @@
 {% extends '_layout.html' %}
 
 
-{% load markdown %}
 {% load static %}
 
 
@@ -44,99 +43,7 @@
                 <p class="lead mb-4">Talk day at Gabriel Loci</p>
             {% endif %}
 
-            <div class="PC-schedule PC-schedule-{{ current_day }}">
-                {% for row in grid.rows %}
-                    {% for item in row.items %}
-                        <div class="PC-schedule-item PC-schedule-item-type-{{ item.type }}"
-                             style="grid-area: {{ item.grid_area }}">
-
-                            <div class="PC-schedule-timeplace">
-                                {{ row.time|date:"G:i" }}
-                                {% if not item.is_multi_room or item.is_streamed %}
-                                    <b>{{ item.slot.room.label }}</b>
-                                {% endif %}
-                            </div>
-
-                            <div class="PC-schedule-session">
-
-                                <h3 class="PC-schedule-item-title pe-4">
-                                    {% if item.slot.event.get_absolute_url %}
-                                        <a class="stretched-link {% if item.type == 'utility' %}link-light{% endif %}"
-                                           href="{{ item.slot.event.get_absolute_url }}">
-                                            {{ item.slot.event }}
-                                        </a>
-                                    {% else %}
-                                        {{ item.slot.event }}
-                                    {% endif %}
-                                </h3>
-
-                                {% if item.slot.event.description %}
-                                    <div class="PC-schedule-description">
-                                        {{ item.slot.event.description|markdown }}
-                                    </div>
-                                {% endif %}
-
-
-                                {% if item.slot.event.speakers %}
-                                    <div class="PC-schedule-item-speakers">
-                                        <div class="mb-1
-                                            {% if item.slot.event.speakers|length > 1 %}
-                                                d-flex
-                                            {% else %}
-                                                d-inline-flex me-2
-                                            {% endif %}
-                                            ">
-                                            {% for speaker in item.slot.event.speakers %}
-                                                <div class="PC-schedule-photo">
-                                                    <div class="position-relative">
-                                                        <div class="PC-image-primary">
-                                                            <img class="img-fluid" src="{{ speaker.photo.url }}" width="48" height="48" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                        {% for speaker in item.slot.event.speakers %}{% if forloop.last and not forloop.first %} <span class="d-inline-block">&amp; {% elif not forloop.first %},</span> <span class="d-inline-block">{% endif %}{% spaceless %}{{ speaker.full_name }}{% if forloop.last %}</span>{% endif %}{% endspaceless %}{% endfor %}
-                                    </div>
-                                {% endif %}
-                                {% if item.is_streamed %}
-                                    <div class="{% if not item.slot.event.speakers %}mt-3{% endif %}">
-                                        streamed to other rooms
-                                    </div>
-                                {% endif %}
-
-
-                                <div class="PC-language PC-language-sessions d-flex flex-column gap-2">
-                                    {% if item.slot.event.track == 'beginners' %}
-                                        <img
-                                                src="{% static 'img/icons/beginner.min.svg' %}"
-                                                width="24" height="24"
-                                                alt="Beginner’s track"
-                                                class=""
-                                        >
-                                    {% endif %}
-                                    {% if item.slot.event.track == 'pydata' %}
-                                        <img
-                                                src="{% static 'img/icons/pydata.min.svg' %}"
-                                                width="24" height="24"
-                                                alt="PyData track"
-                                                class=""
-                                        >
-                                    {% endif %}
-                                    {% if item.slot.event.language == 'cs' %}
-                                        <img
-                                                src="{% static 'img/flag-cz.svg' %}"
-                                                width="24" height="24"
-                                                alt="only in Czech"
-                                                class=""
-                                        >
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            </div>
+            {% include 'program/__schedule-grid.html' %}
         </div>
     </div>
 {% endblock %}

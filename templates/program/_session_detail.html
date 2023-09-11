@@ -3,6 +3,7 @@
 
 {% load markdown %}
 {% load static %}
+{% load program %}
 
 
 {% block meta_title %}{{ session.title|markdown|striptags }} – {% for speaker in session.speakers %}{% if forloop.last and not forloop.first %} &amp; {% elif not forloop.first %}, {% endif %} {{ speaker }}{% endfor %} – {{ block.super }}{% endblock %}
@@ -93,6 +94,23 @@
                 This {{ session.type }} will be in Czech or Slovak.
             </p>
         {% endif %}{% endcomment %}
+
+        {% if session_slot %}
+            <div class="PC-session-detail-slot my-4">
+            <span class="PC-session-detail-slot-item">
+                {{ session_slot.start|date:"l" }}
+                <span class="d-none d-sm-inline">
+                    {{ session_slot.start|date:"j F" }}
+                </span>
+            </span>
+                <span class="PC-session-detail-slot-item">
+                {{ session_slot.start|date:"G:i" }}&nbsp;({{ session_slot.length|session_length }})
+            </span>
+                <div class="PC-session-detail-slot-item">
+                    {{ session_slot.room }}
+                </div>
+            </div>
+        {% endif %}
 
         <div class="PC-multicol my-4">
             {{ session.abstract|markdown }}
@@ -208,18 +226,34 @@
             {% include 'program/__speaker_detail.html' with type='session_detail' %}
         {% endfor %}
 
-        <div class="sticky-bottom mx-auto">
-            <div class="pb-2 mb-2 d-flex justify-content-between">
-                <a class="btn btn-secondary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.previous.type session_id=other_sessions.previous.id %}">
-                    previous {{ other_sessions.previous.type }}
-                </a>
-                <a class="btn btn-primary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.next.type session_id=other_sessions.next.id %}">
-                    next {{ other_sessions.next.type }}
-                </a>
+        {% if not schedule_grid %}
+            <div class="sticky-bottom mx-auto">
+                <div class="pb-2 mb-2 d-flex justify-content-between">
+                    <a class="btn btn-secondary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.previous.type session_id=other_sessions.previous.id %}">
+                        previous {{ other_sessions.previous.type }}
+                    </a>
+                    <a class="btn btn-primary px-2 px-sm-3" href="{% url 'program:session_detail' type=other_sessions.next.type session_id=other_sessions.next.id %}">
+                        next {{ other_sessions.next.type }}
+                    </a>
+                </div>
             </div>
-        </div>
+        {% endif %}
 
     </div>
+
+    {% if schedule_grid %}
+        <section class="PC-bg-header PC-bg-header-extra text-white">
+            <div class="container-xs py-5 py-md-6">
+                <h2 class="mt-0 mb-4">{{ session_slot.start|date:"l j F" }}</h2>
+
+                {% include "program/__schedule-grid.html" with grid=schedule_grid current_slot=session_slot %}
+
+                <div class="mt-5">
+                    <a href="{% url "program:schedule_day" current_day %}" class="btn btn-primary">View full schedule</a>
+                </div>
+            </div>
+        </section>
+    {% endif %}
 
 {% endblock %}
 

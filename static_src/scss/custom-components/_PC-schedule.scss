@@ -76,6 +76,11 @@
         box-shadow: $box-shadow;
     }
 
+    .PC-schedule-session-active {
+        background-image: url(/static/img/noise.svg), linear-gradient(to right, mix($primary, $white, 25%) 0%, mix($primary, $white, 20%) 50%, $white 100%);
+        background-size: 96px, 100%;
+    }
+
     .PC-schedule-item-title {
         font-size: map-get($font-sizes, 5);
     }
