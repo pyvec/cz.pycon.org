@@ -1,0 +1,17 @@
+.PC-sponsor-detail-description {
+    max-width: 70ch;
+}
+
+.PC-sponsor-detail-logo {
+    max-height: 6rem;
+    max-width: 16rem;
+}
+
+.PC-sponsor-detail-heading {
+    margin-top: map-get($spacers, 4);
+
+    &:only-child {
+        margin-top: map-get($spacers, 5);
+        margin-bottom: map-get($spacers, 5);
+    }
+}

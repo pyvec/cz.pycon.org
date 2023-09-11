@@ -1,0 +1,135 @@
+{% load markdown %}
+{% load static %}
+{% load regex %}
+
+<article class="PC-speaker border border-black shadow mb-5 border-2 rounded">
+    <div class="row g-0">
+        <div class="col-12 col-md-6 col-lg-5 px-0 position-relative">
+            <div class="PC-image-primary PC-image-cover">
+                <img class="img-fluid" src="{{ speaker.photo.url }}" width="400" height="400" alt="">
+            </div>
+        </div>
+        <div class="col px-3 px-xxs-4 px-sm-5 pb-xs-4 pt-2 pt-xl-3">
+            <h3 class="h1 mt-3 mt-sm-4">{{ speaker.full_name }}</h3>
+            {% if speaker.github or speaker.twitter or speaker.linkedin or speaker.personal_website %}
+                <ul class="list-inline font-monospace">
+                    {% if speaker.github %}
+                        <li class="list-inline-item">
+                            <a href="{{ speaker.github }}">
+                                <i class="bi-github link-primary me-2"></i>{{ speaker.github|regexextract:'.+/(.+?)/?$' }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if speaker.twitter %}
+                        <li class="list-inline-item">
+                            <a href="{{ speaker.twitter }}">
+                                <i class="bi-twitter link-primary me-2"></i>{{ speaker.twitter|regexextract:'.+/(.+?)/?$' }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if speaker.linkedin %}
+                        <li class="list-inline-item">
+                            <a href="{{ speaker.linkedin }}">
+                                <i class="bi-linkedin link-primary me-2"></i>LinkedIn
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if speaker.personal_website %}
+                        <li class="list-inline-item">
+                            <a href="{{ speaker.personal_website }}">
+                                <i class="bi-globe link-primary me-2"></i>{{ speaker.personal_website|regexextract:'^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)' }}
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+            {{ speaker.bio|markdown }}
+            {% if user.is_staff %}
+                <p>
+                    <a class="btn btn-danger" href="https://pretalx.com/orga/event/pycon-cz-23/speakers/{{ speaker.pretalx_code }}">
+                        Edit speaker in preTALX
+                    </a>
+                    <i>you see this because you’re logged in as administrator</i>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</article>
+
+{% comment %}
+
+<div class="bg-secondary-subtle">
+
+    {% if type == 'keynoter' or type == 'intermission' %}
+        {% with talk=speaker.talks.all|first %}
+            <p>
+                <a
+                        {% if type == 'keynoter' %} {% elif type == 'intermission' %} {% endif %}
+                        href="{% url 'program:session_detail' type='talk' session_id=talk.id %}"
+                >
+                    {{ talk.title }}
+                </a>
+            </p>
+        {% endwith %}
+    {% endif %}
+
+    {% if session %}{# checks if this is included in session detail #}
+        {# todo: refactor: this should get cleaner data from Python, too much logic here #}
+        {# todo: with it we could also do a nicer listing of more than one other session #}
+
+        {% with talks=speaker.talks.all workshops=speaker.workshops.all %}
+            {% if session.type == 'talk' %}
+                {% with extra_talks=talks|length|add:-1 extra_workshops=workshops|length %}
+                    {% if extra_talks %}
+                        <p>
+                            Check my other {{ extra_talks|pluralize:'talk,talks' }}
+                            {% for talk in talks %}
+                                {% if talk.id != session.id %}
+                                    <a class="{{ extra_talks|pluralize:',d-block' }}" href="{% url 'program:session_detail' type=talk.type session_id=talk.id %}">{{ talk.title }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if extra_workshops %}
+                        <p>
+                            I also lead
+                            {% for workshop in workshops %}
+                                <span>
+                                            a&nbsp;{{ workshop.type }}
+                                            <a href="{% url 'program:session_detail' type=workshop.type session_id=workshop.id %}">{{ workshop.title }}</a>
+                                        </span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                {% endwith %}
+            {% elif session.type == 'workshop' or session.type == 'sprint' %}
+                {% with extra_talks=talks|length extra_workshops=workshops|length|add:-1 %}
+                    {% if extra_workshops %}
+                        <p>
+                            I also lead
+                            {% for workshop in workshops %}
+                                {% if workshop.id != session.id %}
+                                    <span>
+                                            a&nbsp;{{ workshop.type }}
+                                            <a href="{% url 'program:session_detail' type=workshop.type session_id=workshop.id %}">{{ workshop.title }}</a>
+                                        </span>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if extra_talks %}
+                        <p>
+                            Check my {{ extra_talks|pluralize:'talk,talks' }}
+                            {% for talk in talks %}
+                                <a href="{% url 'program:session_detail' type=talk.type session_id=talk.id %}">
+                                    {{ talk.title }}
+                                </a>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                {% endwith %}
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+</div>
+{% endcomment %}

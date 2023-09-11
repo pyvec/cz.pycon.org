@@ -9,9 +9,10 @@ from wagtail.models import Page
 class Organizer(models.Model):
     full_name = models.CharField(max_length=200)
     email = models.EmailField(default="", blank=True, help_text="private field")
-    twitter = models.CharField(max_length=255, blank=True, help_text="handle without @")
-    github = models.CharField(max_length=255, blank=True, help_text="handle only")
-    photo = models.ImageField()
+    twitter = models.URLField(null=True, blank=True, help_text="full URL")
+    github = models.URLField(null=True, blank=True, help_text="full URL")
+    linkedin = models.URLField(null=True, blank=True, help_text="full URL")
+    photo = models.ImageField(upload_to="organizers/")
     published = models.BooleanField(default=False)
 
 

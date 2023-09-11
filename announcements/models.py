@@ -3,19 +3,20 @@ from django.db import models
 
 class Announcement(models.Model):
     SIZES = [
-        (1, "Large"),
-        (2, "Medium"),
-        (3, "Small"),
-        (4, "Extra Small"),
+        (1, "Extra Large"),
+        (2, "Large"),
+        (3, "Medium"),
+        (4, "Small"),
+        (5, "Extra Small"),
     ]
 
-    message = models.TextField(help_text="markdown formatted")
-    position = models.PositiveSmallIntegerField(default=0)
     is_public = models.BooleanField(default=False)
-    font_size = models.PositiveSmallIntegerField(choices=SIZES, default=1)
+    message = models.TextField(help_text="Markdown flavoured")
+    order = models.PositiveSmallIntegerField(default=50)
+    size = models.PositiveSmallIntegerField(choices=SIZES, default=3)
 
     class Meta:
-        ordering = ["position"]
+        ordering = ["order"]
 
     def __str__(self):
         return self.message[:30] + "…" if len(self.message) > 30 else self.message

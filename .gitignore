@@ -135,3 +135,5 @@ node_modules/
 data/mediafiles/
 static/generated/
 staticfiles/
+data/slots.json
+data/schedule.xlsx

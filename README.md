@@ -20,11 +20,6 @@ make build
 make migrate
 ```
 
-[OPTIONAL] 2.2 Import content into Wagtail tables, so not to have empty pages
-```bash
-make default-content
-```
-
 3. Run dev stack
 ```bash
 make up

@@ -1,0 +1,40 @@
+.PC-image-primary {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    &::before {
+        background-color: $primary;
+        mix-blend-mode: screen;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &::after {
+        background-image: url(/static/img/noise.svg);
+        background-size: 96px;
+        mix-blend-mode: overlay;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-height: 60vh;
+
+        @include media-breakpoint-up(md) {
+            max-height: 100%;
+        }
+    }
+
+}

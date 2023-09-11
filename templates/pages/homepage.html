@@ -1,11 +1,14 @@
 {% extends "_layout.html" %}
 
 {% load static %}
+{% load sponsors_tags %}
 
 
 {% block header_action %}
+    {% comment %}<p class="fw-semibold fs-4">We have postponed late bird pricing for a week!</p>{% endcomment %}
     <a href="{% url 'tickets' %}" class="btn btn-primary btn-lg">
-        Buy tickets now!
+        {% comment %}Buy tickets before 4 September!{% endcomment %}
+        Tickets still available
     </a>
 {% endblock %}
 
@@ -18,7 +21,7 @@
                 <img src="{% static 'img/icons/bubble.min.svg' %}" width="80" height="80" alt="">
             </div>
             <div>
-                <h2 class="h4 mt-1">2 days of talks in 3 tracks</h2>
+                <h2 class="h4 mt-1">2 days of <a class="link-light" href="{% url 'program:talks_list' %}">talks</a> in 3 tracks</h2>
                 <p>Choose from 50+ talks in 3 parallel tracks during Friday and Saturday</p>
             </div>
         </article>
@@ -28,7 +31,7 @@
                 <img src="{% static 'img/icons/computer.min.svg' %}" width="80" height="80" alt="">
             </div>
             <div>
-                <h2 class="h4 mt-1">A day of workshops</h2>
+                <h2 class="h4 mt-1">A day of <a class="link-light" href="{% url 'program:workshops_list' %}">workshops</a></h2>
                 <p>Dive deeper at workshops and sprints on Sunday</p>
             </div>
         </article>
@@ -39,7 +42,7 @@
             </div>
             <div>
                 <h2 class="h4 mt-1">Beginner’s track</h2>
-                <p>Beginner-friendly talks and workshops for everyone who knows the basics of Python</p>
+                <p>Beginner-friendly <a class="link-light" href="{% url 'program:talks_list' %}#beginners">talks</a> and <a class="link-light" href="{% url 'program:workshops_list' %}#beginners">workshops</a> for everyone who knows the basics of Python</p>
             </div>
         </article>
 
@@ -49,7 +52,7 @@
             </div>
             <div>
                 <h2 class="h4 mt-1">PyData track</h2>
-                <p>Aimed at developers and users of data tools in cooperation with PyData community</p>
+                <p><a class="link-light" href="{% url 'program:talks_list' %}#pydata">Talks</a> and <a class="link-light" href="{% url 'program:workshops_list' %}#pydata">workshops</a> aimed at developers and users of data tools in cooperation with PyData community</p>
             </div>
         </article>
 
@@ -68,7 +71,9 @@
                 <img src="{% static 'img/icons/person.min.svg' %}" width="80" height="80" alt="">
             </div>
             <div>
-                <h2 class="h4 mt-1">Board Game Night</h2>
+                <h2 class="h4 mt-1">
+                    <a class="link-light" href="{% url 'board_game_night' %}">Board Game Night</a>
+                </h2>
                 <p>Have fun with other attendees on Friday</p>
             </div>
         </article>
@@ -107,7 +112,7 @@
                 ">
                     <div>
                         <h2 class="mt-0">Don’t miss anything</h2>
-                        <p class="">Do you want to be notified when more information (tickets go on sale, speakers are announced or talk and workshops details online) about PyCon CZ 23 will be available?</p>
+                        <p class="lead">Do you want to be notified when more information {% comment %}(tickets go on sale, speakers are announced or talk and workshops details online){% endcomment %} about PyCon CZ 23 will be available?</p>
                     </div>
 
                     <a class="btn btn-secondary ps-3" href="https://pycon.us4.list-manage.com/subscribe?u=6d66d8cf3a86d34aaa8e29799&id=54c2b80aeb"><img src="{% static 'img/icons/email.min.svg' %}" width="32" height="32" alt="" class="me-2">Subscribe to our newsletter</a>
@@ -148,5 +153,43 @@
                 <iframe width="960" height="407" src="https://www.youtube.com/embed/kL2gmhs0irI" allowfullscreen></iframe>
             </div>
         </div>
+    </div>
+
+
+    <div class="container-xs pt-3 pb-5" id="sponsors">
+        <h2>Sponsors and Partners</h2>
+        <p class="lead">
+            PyCon CZ relies on <a href="{% url 'sponsors_list' %}">sponsors</a> to keep ticket prices affordable.
+        </p>
+
+
+        {% get_sponsors as sponsors %}
+
+        {% regroup sponsors by level as sponsors_list %}
+
+        {% if sponsors %}
+            <section class="PC-sponsors">
+                {% for level in sponsors_list %}
+                    <h3 class="mt-6 mb-5" id="{{ level.list.0.level.slug }}">
+                        {{ level.grouper }}
+                    </h3>
+                    <div class="PC-sponsors-list">
+                        {% for sponsor in level.list %}
+                            <a href="{{ sponsor.link_url }}" class="PC-sponsors-item PC-sponsors-item-size-{{ sponsor.level.size }}">
+                                {% if sponsor.logo %}
+                                    <img class="PC-sponsors-image PC-img-fluid-svg img-fluid" src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
+                                {% else %}
+                                    {{ sponsor.name }}
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <p class="lead mt-6">
+                    PyCon CZ relies on sponsors to keep ticket prices affordable.
+                    <br>If you would like to sponsor the conference please <a href="{% url 'sponsorship' %}">check sponsorship options</a>
+                </p>
+            </section>
+        {% endif %}
     </div>
 {% endblock %}

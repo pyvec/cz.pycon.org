@@ -1,26 +1,31 @@
 from django.db import models
 from django.utils.text import slugify
-from wagtail.admin.panels import FieldPanel
-from wagtail.fields import RichTextField
 from wagtail.models import Page
 
 
-class Sponsor(models.Model):
-    LEVELS = (
-        (1, "Platinum"),
-        (2, "Gold"),
-        (3, "Silver"),
-        (4, "Bronze"),
-        (5, "Diversity"),
-        (6, "Media"),
-        (7, "Partners"),
-        (9, "Connectivity"),
-    )
+class Level(models.Model):
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, null=False, blank=True)
+    order = models.PositiveIntegerField(help_text="display order on front end (lower the number, the higher it is)")
+    size = models.PositiveIntegerField(default=0, help_text="visual size (lower the number, the bigger it is)")
 
-    level = models.IntegerField(choices=LEVELS, default=3)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Level, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['order', 'title']
+
+
+class Sponsor(models.Model):
+    level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True)
 
     name = models.CharField(max_length=200, unique=True)
-    logo = models.FileField(null=True, blank=True, help_text="SVG only")
+    logo = models.FileField(null=True, blank=True, help_text="SVG only", upload_to="sponsors/")
 
     description = models.TextField(
         null=True, blank=True, help_text="markdown formatted"
@@ -28,6 +33,7 @@ class Sponsor(models.Model):
     link_url = models.URLField()
     twitter = models.URLField(null=True, blank=True, help_text="full URL")
     facebook = models.URLField(null=True, blank=True, help_text="full URL")
+    linkedin = models.URLField(null=True, blank=True, help_text="full URL")
 
     published = models.BooleanField(default=False)
 
@@ -40,19 +46,3 @@ class Sponsor(models.Model):
     @property
     def slug(self):
         return slugify(self.name)
-
-
-class SponsorsOffer(Page):
-    about = RichTextField(blank=True)
-    benefits = RichTextField(blank=True)
-    event_summary = RichTextField(blank=True)
-    custom_sponsorship = RichTextField(blank=True)
-    contacts = RichTextField(blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel("about"),
-        FieldPanel("benefits"),
-        FieldPanel("event_summary"),
-        FieldPanel("custom_sponsorship"),
-        FieldPanel("contacts"),
-    ]

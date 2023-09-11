@@ -1,0 +1,86 @@
+{% extends '_base.html' %}
+
+{% load static %}
+{% load regex %}
+
+{% block body_extras %}class="PC-og"{% endblock %}
+
+{% block body %}
+    <style>{% include 'index.css' %}</style>
+    <div class="PC-og-container PC-header px-5 pt-4 pb-0">
+        <div class="row h-100">
+            <div class="col-6">
+                <h1 class="text-white mt-0 mb-3 {% if session.title|length > 90 %}lh-1{% endif %}">
+                    {{ session.title }}
+                    <small class="text-white fs-2 d-inline-block">
+                        {% if session.type == 'talk' %}
+                            {% if session.language == 'en' %}
+                                a&nbsp;{{ session.type }} by
+                            {% elif session.language == 'cs' %}
+                                přednáší
+                            {% endif %}
+                        {% elif session.type == 'panel' %}
+                            {% if session.speakers|length == 1 %}
+                                {% if session.language == 'en' %}
+                                    a&nbsp;discussion moderated by
+                                {% elif session.language == 'cs' %}
+                                    diskuzi moderuje
+                                {% endif %}
+                            {% else %}
+                                {% if session.language == 'en' %}
+                                    a&nbsp;{{ session.type }} with
+                                {% elif session.language == 'cs' %}
+                                    diskutující:
+                                {% endif %}
+                            {% endif %}
+                        {% elif session.type == 'workshop' %}
+                            {% if session.language == 'en' %}
+                                a&nbsp;{{ session.type }} with
+                            {% elif session.language == 'cs' %}
+                                workshop vede
+                            {% endif %}
+                        {% elif session.type == 'sprint' %}
+                            {% if session.language == 'en' %}
+                                a&nbsp;{{ session.type }} lead by
+                            {% elif session.language == 'cs' %}
+                                sprint vede
+                            {% endif %}
+                        {% endif %}
+
+                        {% for speaker in session.speakers %}{% if forloop.last and not forloop.first %} <span class="d-inline-block">&amp; {% elif not forloop.first %},</span> <span class="d-inline-block">{% endif %}{% spaceless %}
+                            {{ speaker }}{% if forloop.last %}</span>{% endif %}
+                        {% endspaceless %}{% endfor %}
+                    </small>
+                </h1>
+            </div>
+            <div class="col-6 px-0">
+                <div class="row g-3 align-items-start align-content-start h-100">
+                    {% for speaker in session.speakers %}
+                        <div class="
+                             {% if session.speakers|length == 1 %}
+                             col
+                             {% elif session.speakers|length == 2 or session.speakers|length == 3 or session.speakers|length == 4 %}
+                             col-6
+                             {% elif session.speakers|length > 4 %}
+                             col-4
+                             {% endif %}
+                        ">
+                            <div class="PC-speaker border border-black shadow border-2 rounded position-relative mb-2">
+                                <div class="PC-image-primary PC-image-cover">
+                                    <img class="img-fluid" src="{{ speaker.photo.url }}" width="400" height="400" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% comment %}<div class="col-3 position-relative">{% endcomment %}
+
+        <div class="PC-og-branding">
+            <img src="static/img/logo-pycon-23.min.svg" width="300" class="img-fluid"/>
+        </div>
+    </div>
+
+{% endblock %}

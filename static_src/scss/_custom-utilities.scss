@@ -1,0 +1,66 @@
+.PC-img-fluid-svg {
+    width: 100% \9
+; // IE hack?
+}
+
+.PC-multi-col { // todo: join multicols together
+    column-width: 40ch;
+    column-gap: $grid-gutter-width;
+}
+
+.PC-multicol {
+    column-gap: $grid-gutter-width;
+    //column-width: 25ch;
+
+    @include media-breakpoint-up(md) {
+        column-count: 2;
+    }
+
+    @include media-breakpoint-up(xl) {
+        column-count: 3;
+    }
+
+    > * {
+        break-inside: avoid-column;
+    }
+
+    > p,
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6 {
+        display: -webkit-box; // make Safari behave
+    }
+
+}
+
+.PC-bg-blurry {
+    background-color: #030CD0;
+    background-image: url(/static/img/noise.svg), url(/static/img/blurry-bg.svg);
+    background-size: 96px, 3300px 3100px;
+    background-position: 50% -500px;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: soft-light, normal;
+    position: relative;
+}
+
+.PC-fig-space::before {
+    content: " ";
+}
+
+.PC-bg-noise {
+    background-image: url(/static/img/noise.svg);
+    background-size: 96px;
+}
+
+nav .PC-nav-link-highlight {
+    padding-left: 2.5 * $navbar-nav-link-padding-x;
+    padding-right: 2.5 * $navbar-nav-link-padding-x;
+    background-repeat: no-repeat;
+    background-position: 5px 50%, right 5px top 50%;
+    background-size: 11px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 13'><g stroke='#{rgba($navbar-dark-active-color, 0.999999)}' stroke-width='1'><path d='M0 6.5h8' transform='rotate(18, 20, 7)' /><path d='M0 6.5h8' /><path d='M0 6.5h8' transform='rotate(-18, 20, 7)' /></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 13'><g stroke='#{rgba($navbar-dark-active-color, 0.999999)}' stroke-width='1' transform='scale(-1, 1)  translate(-9,0)'><path d='M0 6.5h8' transform='rotate(18, 20, 7)' /><path d='M0 6.5h8' /><path d='M0 6.5h8' transform='rotate(-18, 20, 7)' /></g></svg>");
+}

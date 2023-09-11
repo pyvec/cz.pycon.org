@@ -1,0 +1,7 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li><a href="https://pretalx.com/orga/event/pycon-cz-23/speakers/{{ original.pretalx_code }}" class="historylink">Edit in preTALX</a></li>
+{% endblock %}

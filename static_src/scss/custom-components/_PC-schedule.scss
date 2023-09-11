@@ -1,0 +1,118 @@
+/* Schedule of the grid. Use flex column on small screens, grid on desktops. */
+.PC-schedule {
+    display: flex;
+    flex-direction: column;
+    gap: map-get($spacers, 3);
+
+    @include media-breakpoint-up(lg) {
+        column-gap: map-get($spacers, 4);
+        row-gap: map-get($spacers, 5);
+
+        display: grid;
+        grid-template-columns: auto;
+        grid-auto-columns: auto;
+        grid-auto-rows: auto;
+
+        justify-content: stretch;
+        justify-items: stretch;
+        align-content: stretch;
+        align-items: stretch;
+    }
+
+}
+
+.PC-schedule-sunday {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .PC-schedule-item {
+        flex-basis: 18rem;
+        flex-shrink: 1;
+        flex-grow: 1;
+    }
+
+    .PC-schedule-item-type-utility {
+        flex-basis: 100%;
+        flex-grow: 1;
+    }
+
+
+}
+
+.PC-schedule-item {
+    //outline: 1px dashed yellow;
+    display: flex;
+    flex-direction: column;
+}
+
+.PC-schedule-session {
+    position: relative;
+    margin-bottom: 0.375rem;
+}
+
+.PC-schedule-item-title {
+    font-size: map-get($font-sizes, 4);
+    margin-top: 0;
+
+    .PC-schedule-item-type-utility & {
+        margin-bottom: 0;
+    }
+}
+
+.PC-schedule-item-type-keynote,
+.PC-schedule-item-type-talk,
+.PC-schedule-item-type-panel,
+.PC-schedule-item-type-workshop {
+    color: var(--bs-body-color);
+
+    .PC-schedule-session {
+        height: 100%;
+        border-radius: var(--bs-border-radius);
+        border: var(--bs-border-width) var(--bs-border-style) rgba(var(--bs-black-rgb));
+        padding: map-get($spacers, 3);
+        padding-bottom: map-get($spacers, 2);
+        background-color: var(--bs-white);
+        box-shadow: $box-shadow;
+    }
+
+    .PC-schedule-session-active {
+        background-image: url(/static/img/noise.svg), linear-gradient(to right, mix($primary, $white, 25%) 0%, mix($primary, $white, 20%) 50%, $white 100%);
+        background-size: 96px, 100%;
+    }
+
+    .PC-schedule-item-title {
+        font-size: map-get($font-sizes, 5);
+    }
+}
+
+.PC-schedule-item-type-utility::after {
+    content: "";
+    height: 100%;
+    background-image: url(/static/img/zig-zag.svg);
+    background-repeat: repeat-y;
+    background-size: 0.5rem;
+}
+
+.PC-schedule-description {
+    max-width: 70ch;
+    margin-top: map-get($spacers, 3);
+}
+
+.PC-schedule-time {
+    background-color: yellow;
+}
+
+.PC-schedule-photo {
+    width: 48px;
+}
+
+.PC-schedule-timeplace {
+    @extend .fs-3;
+    @extend .text-secondary;
+    margin-bottom: map-get($spacers, 2);
+
+    .PC-schedule-item-type-utility & {
+        margin-bottom: 0;
+    }
+}

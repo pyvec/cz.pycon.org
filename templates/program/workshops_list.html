@@ -1,7 +1,7 @@
 {% extends 'program/_base_list.html' %}
 
 
-{% load formatting %}
+{% load markdown %}
 
 
 {% block meta_title %}Workshops – {{ block.super }}{% endblock %}
@@ -9,7 +9,12 @@
 
 {% block speakers_title %}Work&shy;shops{% endblock %}
 
+{% block top_info %}
+    <p class="lead">Workshops will happen on Sunday at <a href="{% url 'venue' %}#fit">Faculty of Information Technology CTU</a>.</p>
 
+    {{ block.super }}
+
+{% endblock %}
 {% comment %}
 {% block top_info %}
     {% if sessions and phases.workshops != 'not_public' %}
@@ -63,10 +68,9 @@
 {% block more_sessions_name %}workshops{% endblock %}
 
 {% block other_sessions %}
-    {% if phases.talks != 'not_published' %}
-        {% url 'talks_list' as other_session_url %}
-        {% with other_session_name='talks' %}
-            {{ block.super }}
-        {% endwith %}
-    {% endif %}
+    {% url 'program:talks_list' as other_session_url %}
+    {% with other_session_name='talks' %}
+        {{ block.super }}
+    {% endwith %}
+    {% if phases.talks != 'not_published' %} {% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'program/_base_list.html' %}
 
 
-{% load formatting %}
+{% load markdown %}
 
 
 {% block meta_title %}Talks – {{ block.super }}{% endblock %}
@@ -9,7 +9,12 @@
 
 {% block speakers_title %}Talks{% endblock %}
 
+{% block top_info %}
+    <p class="lead">Talks will happen on Friday and Saturday at <a href="{% url 'venue' %}#gabriel-loci">Gabriel Loci</a>.</p>
 
+    {{ block.super }}
+
+{% endblock %}
 {% comment %}
 {% block top_info %}
     {% if sessions and phases.talks != 'not_public' %}
@@ -31,14 +36,14 @@
 
 {% endcomment %}
 
+
 {% block more_sessions_name %}talks{% endblock %}
 
 
 {% block other_sessions %}
-    {% if phases.workshops != 'not_published' %}
-        {% url 'workshops_list' as other_session_url %}
-        {% with other_session_name='workshops' %}
-            {{ block.super }}
-        {% endwith %}
-    {% endif %}
+    {% url 'program:workshops_list' as other_session_url %}
+    {% with other_session_name='workshops' %}
+        {{ block.super }}
+    {% endwith %}
+    {% if phases.workshops != 'not_published' %}{% endif %}
 {% endblock %}

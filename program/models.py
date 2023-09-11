@@ -1,6 +1,9 @@
+import datetime
 from typing import Any
 
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from program import pretalx
 
 
@@ -16,26 +19,23 @@ class Speaker(models.Model):
     ]
     """List of fields synced from pretalx."""
 
+    class Meta:
+        ordering = ("order",)
+
     full_name = models.CharField(max_length=200)
     bio = models.TextField()
     short_bio = models.TextField(blank=True, help_text="for keynote speakers")
-    twitter = models.CharField(max_length=255, blank=True)
-    github = models.CharField(max_length=255, blank=True)
-    linkedin = models.CharField(max_length=255, blank=True)
-    personal_website = models.CharField(max_length=255, blank=True)
+    twitter = models.URLField(max_length=255, blank=True)
+    github = models.URLField(max_length=255, blank=True)
+    linkedin = models.URLField(max_length=255, blank=True)
+    personal_website = models.URLField(max_length=255, blank=True)
     email = models.EmailField()
-    photo = models.ImageField(null=True, blank=True)
+    photo = models.ImageField(null=True, blank=True, upload_to="speakers/")
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
-    workshops = models.ManyToManyField(
-        "Workshop", blank=True, related_name="workshop_speakers"
-    )
-    display_position = models.PositiveSmallIntegerField(
-        default=0, help_text="sort order on frontend displays"
-    )
+    workshops = models.ManyToManyField("Workshop", blank=True, related_name="workshop_speakers")
+    order = models.PositiveSmallIntegerField(default=500, help_text="display order on front end (lower the number, higher it is)")
     is_public = models.BooleanField(default=True)
-    pretalx_code = models.CharField(
-        max_length=16, null=True, blank=True, unique=True,
-    )
+    pretalx_code = models.CharField(max_length=16, null=True, blank=True, unique=True, )
     """
     Code of the speaker in pretalx. Will be used for synchronization.
     When not set, this speaker will not be synchronized with pretalx.
@@ -86,19 +86,21 @@ class Session(models.Model):
         ]
         ordering = ("order",)
 
-    TYPE = (("workshop", "Workshop"), ("sprint", "Sprint"), ("talk", "Talk"))
+    TYPE = (("workshop", "Workshop"), ("sprint", "Sprint"), ("talk", "Talk"), ("panel", "Panel"))
+
     PRETALX_TYPE_MAP = {
         "talk": "talk",
-        "panel": "talk",
+        "panel": "panel",
         "keynote": "talk",
         "workshop": "workshop",
-        "workshop full day": "sprint",
+        "workshop full day": "workshop",
     }
 
     LANGUAGES = (
-        ("en", "English (preferred)"),
+        ("en", "English"),
         ("cs", "Czech/Slovak"),
     )
+
     PRETALX_LANGUAGE_MAP = {
         "czech or slovak (preferred for beginners track)": "cs",
         "english (preferred for the rest of talks and workshops)": "en",
@@ -109,6 +111,7 @@ class Session(models.Model):
         ("intermediate", "Intermediate"),
         ("advanced", "Advanced"),
     )
+
     PRETALX_DIFFICULTY_MAP = {
         "beginner: can write simple scripts (typical attendee of our beginner’s track)": "beginner",
         "intermediate: uses frameworks and third-party libraries": "intermediate",
@@ -127,6 +130,7 @@ class Session(models.Model):
         ("few-times", "Attendees who used it few times"),
         ("regular-basis", "Attendees who use it on a regular basis"),
     )
+
     PRETALX_TOPIC_KNOWLEDGE_MAP = {
         "no previous knowledge is required: you will explain basic concepts and problems it solves": "no-previous-knowledge",
         "attendees who used it just a few times": "few-times",
@@ -142,10 +146,7 @@ class Session(models.Model):
         max_length=256, choices=TOPIC_KNOWLEDGE, default="no-previous-knowledge"
     )
     track = models.CharField(max_length=16, choices=TRACK)
-    order = models.SmallIntegerField(
-        default=500,
-        help_text="display order on front-end",
-    )
+    order = models.PositiveSmallIntegerField(default=500, help_text="display order on front end (lower the number, higher it is)", )
     title = models.CharField(max_length=250)
     abstract = models.TextField()
     is_backup = models.BooleanField(default=False, blank=True)
@@ -157,6 +158,7 @@ class Session(models.Model):
         null=True,
         blank=True,
         help_text="og:image (social media image) 1200×630 pixels",
+        upload_to="og-images/program/"
     )
     pretalx_code = models.CharField(
         max_length=16, null=True, blank=True, unique=True
@@ -169,6 +171,12 @@ class Session(models.Model):
     @classmethod
     def get_pretalx_submission_type(cls, submission_type: dict[str, str]) -> str:
         return cls.PRETALX_TYPE_MAP.get(submission_type["en"].casefold(), "talk")
+
+    def get_absolute_url(self) -> str:
+        return reverse("program:session_detail", kwargs={
+            "type": self.type,
+            "session_id": self.id,
+        })
 
     def __str__(self) -> str:
         return self.title
@@ -205,16 +213,24 @@ class Talk(Session):
     PRETALX_FIELDS = Session.PRETALX_FIELDS + ["is_keynote"]
 
     video_id = models.CharField(
-        max_length=100, default="", blank=True, help_text="YouTube URL"
+        max_length=100, default="", blank=True, help_text="YouTube ID (from URL)"
     )
     is_keynote = models.BooleanField(default=False, blank=True)
+
+    @property
+    def speakers(self):
+        # To improve query performance when rendering schedule, speakers will be
+        # prefetched to `public_speakers` attr as a list. Use this list when possible.
+        if hasattr(self, "public_speakers"):
+            return self.public_speakers
+        return self.talk_speakers.all().filter(is_public=True)
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
         # when adding/removing fields synced with pretalx.
         super().update_from_pretalx(pretalx_submission)
         self.is_keynote = (
-            pretalx_submission["submission_type"]["en"].casefold() == "keynote"
+                pretalx_submission["submission_type"]["en"].casefold() == "keynote"
         )
 
 
@@ -260,6 +276,14 @@ class Workshop(Session):
         help_text="maximum number of attendees allowed",
     )
 
+    @property
+    def speakers(self):
+        # To improve query performance when rendering schedule, speakers will be
+        # prefetched to `public_speakers` attr as a list. Use this list when possible.
+        if hasattr(self, "public_speakers"):
+            return self.public_speakers
+        return self.workshop_speakers.all().filter(is_public=True)
+
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
         # when adding/removing fields synced with pretalx.
@@ -282,3 +306,82 @@ class Workshop(Session):
                 self.attendee_limit = int(participants_str) if participants_str else 0
             except ValueError:
                 self.attendee_limit = 0
+
+
+class Utility(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Title')
+    slug = models.SlugField(max_length=50, default="")
+    description = models.TextField(blank=True, null=True, help_text="markdown formatted")
+    url = models.CharField(max_length=255, blank=True, null=True, verbose_name="URL", help_text="whole item will be a link to this URL")
+    is_streamed = models.BooleanField('Is streamed to other rooms', default=False, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self) -> str | None:
+        if not self.url:
+            return None
+        return self.url
+
+    class Meta:
+        verbose_name = 'Utility'
+        verbose_name_plural = 'Utilities'
+        ordering = ('title', 'id',)
+
+
+class Room(models.Model):
+    label = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50)
+    order = models.PositiveSmallIntegerField(default=50, help_text="display order on front end (lower the number, higher it is)")
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        ordering = ('order', 'id',)
+
+
+class Slot(models.Model):
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    talk = models.ForeignKey(Talk, on_delete=models.SET_NULL, blank=True, null=True)
+    workshop = models.ForeignKey(Workshop, on_delete=models.SET_NULL, blank=True, null=True)
+    utility = models.ForeignKey(Utility, on_delete=models.SET_NULL, blank=True, null=True)
+
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def clean(self):
+        # check that only one of the options is set
+        msg = 'Only one of "talk", "workshop" or "utility" per slot.'
+        fields = 'talk', 'workshop', 'utility'
+        if tuple(getattr(self, field) for field in fields).count(None) < 2:
+            raise ValidationError({f: msg for f in fields})
+
+    @property
+    def event(self):
+        return self.talk or self.workshop or self.utility
+
+    @property
+    def length(self) -> datetime.timedelta:
+        return self.end - self.start
+
+    def is_same_for_different_room(self, other_slot: 'Slot') -> bool:
+        """
+        Check if this is a slot for the same event, but in a different room.
+        """
+        return (
+            self.start == other_slot.start
+            and self.end == other_slot.end
+            and self.talk_id == other_slot.talk_id
+            and self.workshop_id == other_slot.workshop_id
+            and self.utility_id == other_slot.utility_id
+        )
+
+    def __str__(self):
+        start = self.start.strftime('%d/%m/%y %H:%M')
+        end = self.end.strftime('%d/%m/%y %H:%M')
+        return f'{self.event} FROM {start} TO {end} IN {self.room}'
+
+    class Meta:
+        ordering = ('start', 'room',)

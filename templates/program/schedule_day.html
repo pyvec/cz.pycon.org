@@ -1,0 +1,49 @@
+{% extends '_layout.html' %}
+
+
+{% load static %}
+
+
+{% block meta_title %}Schedule: {{ schedule_date|date:"l j F" }} – {{ block.super }}{% endblock %}
+
+
+{% block header-bg-class %}{% endblock %}
+
+
+{% block body_extras %}class="PC-bg-header PC-bg-header-extra"{% endblock %}
+
+
+{% block main %}
+    <div class="text-white">
+        <div class="container-xs pb-6">
+            <h1>Schedule</h1>
+
+            <div class="d-sm-none pt-2 mb-2">
+                <div class="btn-group-vertical">
+                    {% include 'program/__day_menu.html' %}
+                </div>
+            </div>
+
+            <div class="d-none d-sm-block sticky-md-top pt-2 mb-4">
+                <div class="btn-group">
+                    {% include 'program/__day_menu.html' %}
+                </div>
+            </div>
+
+            {% if current_day == 'sunday' %}
+                <p class="lead mb-2">
+                    Workshop day at FIT ČVUT
+                </p>
+                <ul class="mb-5">
+                    <li>Workshop’s capacity is limited</li>
+                    <li>Registration will open on Tuesday 12 September at 15:00</li>
+                    <li>Workshops might be shorter than 3-hour slot they have available</li>
+                </ul>
+            {% else %}
+                <p class="lead mb-4">Talk day at Gabriel Loci</p>
+            {% endif %}
+
+            {% include 'program/__schedule-grid.html' %}
+        </div>
+    </div>
+{% endblock %}

@@ -26,6 +26,8 @@ jobs:
           repository: pyvec/cz.pycon.org-archive
           path: _previous-years
       - uses: superfly/flyctl-actions/setup-flyctl@master
+        with:
+          version: 0.1.84
       - run: flyctl deploy -c fly.prod.toml --remote-only --build-arg SENTRY_RELEASE=${{ steps.vars.outputs.sha_short }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

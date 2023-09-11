@@ -38,6 +38,27 @@ makemigrations:
 shell:
 	$(DC_RUN) web python manage.py shell
 
+# Run tests
+test:
+	$(DC_RUN) web pytest -s
+
+# Compile dependencies using `pip-tools`
+# Takes requiremenents.in file and outputs new requirements.txt with specific
+# versions of all dependencies, including dependencies of dependencies.
+# `pip-sync` step is not needed because of `make build`
+dependencies/compile:
+	pip-compile
+
+ci/build:
+	docker build . -t ${TAG}
+
+
+ci/lint:
+	isort . && black . && ruff . --fix
+
+ci/test:
+	pytest
+
 # linting & formatting
 lint:
 	$(DC_RUN) web bash -c "isort . && black . && ruff . --fix"
@@ -55,6 +76,37 @@ default-content:
 pretalx-sync-submissions:
 	$(DC_RUN) web python manage.py pretalx_sync_submissions
 
+# Sync from pretalx to production
+.PHONY: pretalx-sync-submissions-prod
+pretalx-sync-submissions-prod:
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'python manage.py pretalx_sync_submissions'"
+
+.PHONY: generate-og-images
+generate-og-images:
+	$(DC_RUN) og_generator
+
+
+.PHONY: link-og-images
+link-og-images:
+	$(DC_RUN) web python manage.py program_link_og_images
+
+.PHONY: program-import-schedule
+# Import schedule from XLSX file
+# The schedule should be placed to data/schedule.xlsx
+program-import-schedule:
+	$(DC_RUN) web python manage.py program_import_schedule --xlsx data/schedule.xlsx --output data/slots.json
+
+
+.PHONY: loaddata-slots-beta
+loaddata-slots-beta:
+	echo "cd /code/data \n put data/slots.json" | flyctl ssh sftp shell -a pycon-cz-beta
+	flyctl ssh console -a pycon-cz-beta -q -C "bash -c 'python manage.py loaddata /code/data/slots.json'"
+
+.PHONY: loaddata-slots-prod
+loaddata-slots-prod:
+	echo "cd /code/data \n put data/slots.json" | flyctl ssh sftp shell -a pycon-cz-prod
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'python manage.py loaddata /code/data/slots.json'"
+
 # Data sync
 .PHONY: copy-db-prod-to-local
 # Copy database from production to local database (starts the database when necessary).
@@ -68,7 +120,7 @@ copy-db-prod-to-local:
 	flyctl ssh console -a pycon-cz-db -q -u postgres -C "rm /data/tmp-prod-local-dump.backup"
 
 	# Run pg_restore in a local container
-	cat ./tmp-prod-local-dump.backup | docker compose exec --user postgres --no-TTY db pg_restore --clean --dbname=pycon --no-owner
+	cat ./tmp-prod-local-dump.backup | docker compose exec --user postgres --no-TTY db bash -c "dropdb --if-exists pycon && createdb pycon && pg_restore --dbname=pycon --no-owner"
 
 	# Cleanup local files
 	rm ./tmp-prod-local-dump.backup
@@ -109,3 +161,18 @@ copy-media-prod-to-beta:
 	echo "cd /code/data \n put tmp-mediafiles.tar" | flyctl ssh sftp shell -a pycon-cz-beta
 	rm tmp-mediafiles.tar
 	flyctl ssh console -a pycon-cz-beta -q -C "bash -c 'tar -x -f /code/data/tmp-mediafiles.tar -C /code/data; rm /code/data/tmp-mediafiles.tar'"
+
+.PHONY: upload-og-images
+upload-og-images:
+	# Create TAR archive with OG images locally and upload it to production.
+	tar -c -f tmp-og-images.tar -C data/ mediafiles/og-images
+	echo "cd /code/data \n put tmp-og-images.tar" | flyctl ssh sftp shell -a pycon-cz-prod
+	rm tmp-og-images.tar
+
+	# Extract the TAR file with OG images.
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'tar -x -f /code/data/tmp-og-images.tar -C /code/data; rm /code/data/tmp-og-images.tar'"
+
+.PHONY: publish-og-images
+# Uploads OG images to production and links it to sessions in the database.
+publish-og-images: upload-og-images
+	flyctl ssh console -a pycon-cz-prod -q -C "bash -c 'python manage.py program_link_og_images'"

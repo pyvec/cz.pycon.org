@@ -1,7 +1,7 @@
 {% extends '_layout.html' %}
 
 
-{% load formatting %}
+{% load markdown %}
 {% load static %}
 
 
@@ -12,7 +12,7 @@
         <h1>{% block speakers_title %}{% endblock %}</h1>
 
         {% block top_info %}
-            <p class="lead"><b>More details will be announced soon.</b></p>
+            {% comment %}<p class="lead"><b>More details will be announced soon.</b></p>{% endcomment %}
 
             <div class="d-sm-none pt-2">
                 <div class="btn-group-vertical">
@@ -35,54 +35,83 @@
 
         {% regroup sessions|dictsort:'track' by track as session_list %}
 
-        <div class="pt-6 mt-n4" id="general">
-            <h2 class="mt-0">General</h2>
-            <div class="row g-4 align-items-stretch align-content-stretch row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                {% for session in session_list.1.list|dictsortreversed:'order' %}
-                    {% include 'program/__session.html' %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="pt-6 mt-n4" id="pydata">
-            <h2 class="mt-0">PyData</h2>
-            <div class="row g-4 align-items-stretch align-content-stretch row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                {% for session in session_list.2.list|dictsortreversed:'order' %}
-                    {% include 'program/__session.html' %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="pt-6 mt-n4" id="beginners">
-            <h2 class="mt-0">Beginners</h2>
-            <div class="row g-4 align-items-stretch align-content-stretch row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                {% for session in session_list.0.list|dictsortreversed:'order' %}
-                    {% include 'program/__session.html' %}
-                {% endfor %}
-            </div>
-        </div>
-
-        {% comment %}{% if more_to_come %}
-                <div class="card pc-session-list bg-primary pc-box-shadow-dark">
-                    <a>
-                        <div class="pc-session-list-speaker d-flex flex-column justify-content-between">
-                            <h2 class="card-title pc-session-list-list-heading">
-                                That’s not all!
-                            </h2>
-                            <p class="card-text font-weight-bold">
-                                We have more {% block more_sessions_name %}sessions{% endblock %} to&nbsp;be&nbsp;announced
-                            </p>
-                        </div>
-                    </a>
-                    <div class="embed-responsive embed-responsive-1by1"></div>
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'keynote' %}
+                <div class="pt-6 mt-n4">
+                    <h2 class="mt-0">Keynotes</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
                 </div>
-            {% endif %}{% endcomment %}
+            {% endif %}
+        {% endfor %}
 
-        <!-- {% block other_sessions %}
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'general' %}
+                <div class="pt-6 mt-n4" id="general">
+                    <h2 class="mt-0">General</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'pydata' %}
+                <div class="pt-6 mt-n4" id="pydata">
+                    <h2 class="mt-0">PyData</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for session_type in session_list %}
+            {% if session_type.grouper == 'beginners' %}
+                <div class="pt-6 mt-n4" id="beginners">
+                    <h2 class="mt-0">Beginners</h2>
+                    <div class="PC-sessions">
+                        {% for session in session_type.list|dictsort:'order' %}
+                            {% include 'program/__session.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% comment %}
+        {% if more_to_come %}
+            <div class="card pc-session-list bg-primary pc-box-shadow-dark">
+                <a>
+                    <div class="pc-session-list-speaker d-flex flex-column justify-content-between">
+                        <h2 class="card-title pc-session-list-list-heading">
+                            That’s not all!
+                        </h2>
+                        <p class="card-text font-weight-bold">
+                            We have more {% block more_sessions_name %}sessions{% endblock %} to&nbsp;be&nbsp;announced
+                        </p>
+                    </div>
+                </a>
+                <div class="embed-responsive embed-responsive-1by1"></div>
+            </div>
+        {% endif %}
+        {% endcomment %}
+
+        {% block other_sessions %}
             <div class="my-5">
                 <a href="{{ other_session_url }}" class="btn btn-lg btn-primary">
                     See our {{ other_session_name }}
                 </a>
             </div>
-        {% endblock %} -->
+        {% endblock %}
     </div>
 
 {% endblock %}

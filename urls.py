@@ -36,9 +36,12 @@ urlpatterns = [
                 path("financial-aid/", TemplateView.as_view(template_name='pages/financial-aid.html'), name='financial_aid'),
                 path("financial-aid-grantees/", TemplateView.as_view(template_name='pages/financial-aid-grantees.html'), name='financial_aid_grantees'),
                 path("venue/", TemplateView.as_view(template_name='pages/venue.html'), name='venue'),
-                path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
-                path("program/schedule/", TemplateView.as_view(template_name='pages/schedule.html'), name='schedule'),
+                path("board-game-night/", TemplateView.as_view(template_name='pages/board-game-night.html'), name='board_game_night'),
                 path("prague/", TemplateView.as_view(template_name='pages/prague.html'), name='prague'),
+
+                path("pyconcz-discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
+                path("discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
+                path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
 
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
 
@@ -56,5 +59,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    urlpatterns += [path("", RedirectView.as_view(url="/2023/"))]
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

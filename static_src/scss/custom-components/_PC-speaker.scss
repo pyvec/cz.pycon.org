@@ -1,0 +1,32 @@
+.PC-speaker {
+    overflow: hidden;
+
+    flex-direction: column;
+
+    @include media-breakpoint-up(md) {
+        flex-direction: row;
+        &:nth-child(odd) .row {
+            flex-direction: row-reverse;
+        }
+    }
+
+    background-color: transparent;
+    background-position: 0 0;
+    background-size: 96px, 100%;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: soft-light, normal;
+
+    background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 100% 0%, $primary, $white 80%);
+
+    @include media-breakpoint-up(md) {
+        background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 0% 100%, $primary, $white 60%);
+        &:nth-child(odd) {
+            background-image: url(/static/img/noise.svg), radial-gradient(farthest-corner at 100% 100%, $primary, $white 60%);
+        }
+    }
+
+    p {
+        max-width: 60ch;
+    }
+
+}
