@@ -27,8 +27,8 @@ def session_detail(request, type, session_id: int):
     session = get_object_or_404(model_map.get(type), id=session_id, is_public=True, is_backup=False)
 
     # Database allows adding a session to multiple slots.
-    # It will probably never happen, therefore, it should be safe to use the first one.
-    session_slot = session.slot_set.first()
+    # First slot is the talk itself, other slots are for streaming to other rooms.
+    session_slot = session.slot_set.order_by("start", "room__order").first()
 
     session_previous = model_map.get(type).objects.filter(
         is_public=True, is_backup=False, order__lt=session.order).order_by('order').last()
@@ -44,31 +44,44 @@ def session_detail(request, type, session_id: int):
         session_next = model_map.get(type).objects.filter(
             is_public=True, is_backup=False).order_by('order').first()
 
-    # slots_remaining_in_day = Slot.objects.filter(
-    #     content_type__app_label='program',
-    #     content_type__model__in=['talk', 'workshop', 'utility'],
-    #     start__gte=session_slot.start,
-    #     start__day=session_slot.start.day,
-    # ).prefetch_related(
-    #     'content_object',
-    # ).order_by('start', 'room')
+    schedule_grid = None
+    current_day = None
 
-    # remove redundant slots
-    # note: this expects that sessions and utilities do not mix at the same time
-    # previous_slot = None
-    # rows_having_session = 0
-    # slots = []
+    if session_slot:
+        for day, day_date in CONFERENCE_DAYS.items():
+            if day_date == session_slot.start.date():
+                current_day = day
+                break
 
-    # for slot in slots_remaining_in_day:
-    #     if previous_slot and previous_slot.start != slot.start:  # when new row starts
-    #         # did previous row have a session?
-    #         if str(previous_slot.content_type) in ['talk', 'workshop']:
-    #             rows_having_session += 1
-    #             # only current and one future row with sessions is needed
-    #             if rows_having_session >= 2:
-    #                 break
-    #     slots.append(slot)
-    #     previous_slot = slot
+        schedule_slots = Slot.objects.filter(
+            start__gte=session_slot.start - datetime.timedelta(hours=1),
+            start__lte=session_slot.start + datetime.timedelta(hours=1),
+        ).select_related(
+            "room",
+        ).prefetch_related(
+            "talk",
+            Prefetch(
+                "talk__talk_speakers",
+                queryset=Speaker.objects.filter(is_public=True),
+                to_attr="public_speakers",
+            ),
+            "workshop",
+            Prefetch(
+                "workshop__workshop_speakers",
+                queryset=Speaker.objects.filter(is_public=True),
+                to_attr="public_speakers",
+            ),
+            "utility",
+        ).order_by(
+            "start",
+            "room__order",
+        )
+
+        schedule_grid = ScheduleGrid.create_from_slots(schedule_slots)
+        # Remove leading grid rows that contains only breaks and other
+        # non-streamed utilities
+        while schedule_grid.rows[0].contains_only_non_streamed_utilities():
+            schedule_grid.pop_row(0)
 
     return TemplateResponse(
         request,
@@ -80,7 +93,8 @@ def session_detail(request, type, session_id: int):
                 'next': session_next,
             },
             'session_slot': session_slot,
-            # 'slots': slots,
+            'schedule_grid': schedule_grid,
+            'current_day': current_day,
         }
     )
 

@@ -54,6 +54,7 @@ class ScheduleGrid:
 
         # Populate the rows with items.
         last_item: ScheduleItem | None = None
+        last_row_time = max(rows.keys())
         for slot in slots:
             # If the last item was the same event, but in a different room,
             # expand the previous slot to the current room.
@@ -66,10 +67,17 @@ class ScheduleGrid:
                 continue
 
             item_row = rows[slot.start]
-            end_row = rows.get(slot.end)
+
+            if slot.end > last_row_time:
+                end_row = rows.get(last_row_time)
+                grid_row_end = end_row.offset + 1
+            else:
+                end_row = rows.get(slot.end)
+                grid_row_end = end_row.offset if end_row is not None else item_row.offset + 1
+
             item = ScheduleItem(
                 row_start=item_row.offset,
-                row_end=end_row.offset if end_row is not None else item_row.offset + 1,
+                row_end=grid_row_end,
                 column_start=room_offsets[slot.room],
                 column_end=room_offsets[slot.room] + 1,
                 slot=slot,
@@ -84,6 +92,17 @@ class ScheduleGrid:
         grid.rows = list(rows.values())
 
         return grid
+
+    def pop_row(self, index: int = 0) -> 'ScheduleRow':
+        result = self.rows.pop(index)
+        # Shift offset of all following rows
+        for row in self.rows[index:]:
+            row.offset -= 1
+            for item in row.items:
+                item.row_start -= 1
+                item.row_end -= 1
+
+        return result
 
 
 @dataclasses.dataclass()
@@ -101,6 +120,10 @@ class ScheduleRow:
     offset: int
     time: datetime.datetime
     items: list["ScheduleItem"] = dataclasses.field(default_factory=list)
+
+    def contains_only_non_streamed_utilities(self):
+        return all(item.is_utility and not item.is_streamed for item in self.items)
+
 
 @dataclasses.dataclass()
 class ScheduleItem:
