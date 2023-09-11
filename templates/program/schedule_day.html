@@ -52,7 +52,9 @@
 
                             <div class="PC-schedule-timeplace">
                                 {{ row.time|date:"G:i" }}
-                                {% if not item.is_multi_room %}<b>{{ item.slot.room.label }}</b>{% endif %}
+                                {% if not item.is_multi_room or item.is_streamed %}
+                                    <b>{{ item.slot.room.label }}</b>
+                                {% endif %}
                             </div>
 
                             <div class="PC-schedule-session">
