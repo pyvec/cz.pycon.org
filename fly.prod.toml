@@ -19,10 +19,6 @@ primary_region = "ams"
   auto_stop_machines = false
   auto_start_machines = false
 
-[[statics]]
-  guest_path = "/code/staticfiles"
-  url_prefix = "/static/"
-
 [mounts]
   source="django_images_data"
   destination="/code/data"
