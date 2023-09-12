@@ -54,7 +54,7 @@ class ScheduleGrid:
 
         # Populate the rows with items.
         last_item: ScheduleItem | None = None
-        last_row_time = max(rows.keys())
+        last_row_time = max(rows.keys()) if rows else None
         for slot in slots:
             # If the last item was the same event, but in a different room,
             # expand the previous slot to the current room.
@@ -68,7 +68,7 @@ class ScheduleGrid:
 
             item_row = rows[slot.start]
 
-            if slot.end > last_row_time:
+            if last_row_time and slot.end > last_row_time:
                 end_row = rows.get(last_row_time)
                 grid_row_end = end_row.offset + 1
             else:
