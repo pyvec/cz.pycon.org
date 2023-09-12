@@ -33,6 +33,19 @@
     > h6 {
         display: -webkit-box; // make Safari behave
     }
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6 {
+        break-after: avoid-column;
+    }
+
+    > ul,
+    > ol {
+        break-before: avoid-column;
+    }
 
 }
 

@@ -27,3 +27,31 @@
         }
     }
 }
+
+.PC-session-detail-prerequisites {
+    @extend .border;
+    @extend .border-black;
+    @extend .shadow ;
+    @extend .border-2;
+    @extend .rounded ;
+    @extend .p-4;
+
+    //break-before: column;
+
+    h2 {
+        margin-top: map-get($spacers, 2);
+    }
+
+    :first-child {
+        margin-top: 0;
+    }
+
+    :last-child {
+        margin-bottom: 0;
+    }
+
+    * {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}
