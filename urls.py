@@ -41,6 +41,7 @@ urlpatterns = [
 
                 path("pyconcz-discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
                 path("discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
+                path("tshirt/", RedirectView.as_view(url='https://pretix.eu/pyconcz/pyconcz23/redeem?voucher=TSHIRT', permanent=False)),
                 path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
 
                 path("pattern-lib/", TemplateView.as_view(template_name='pages/pattern_lib.html'), name='pattern_lib'),
