@@ -35,6 +35,7 @@
                 '{% url 'slido' %}',
             {% endif %}
             {% if 'gold' in levels %}'{% url 'sponsors' level='gold' %}',{% endif %}
+            {% if 'coffee' in levels or 'afterparty' in levels %}'{% url 'sponsors' level="coffee,afterparty" %}',{% endif %}
             {% if 'silver' in levels %}'{% url 'sponsors' level='silver[:6]' %}',{% endif %}
             {% if 'silver' in levels %}'{% url 'sponsors' level='silver[6:]' %}',{% endif %}
             '{% url 'announcements' %}',

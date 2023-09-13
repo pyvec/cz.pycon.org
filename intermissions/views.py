@@ -1,5 +1,6 @@
 import datetime
 import re
+from typing import Iterable, NamedTuple
 from urllib.parse import quote
 
 from django.http import HttpRequest, HttpResponse, Http404
@@ -42,7 +43,7 @@ def index(request):
     )
 
 
-def sponsors(request, level):
+def sponsors(request, level: str):
     """
     This view renders a list of sponsors for the given level.
 
@@ -51,23 +52,37 @@ def sponsors(request, level):
     * A level slug, e.g., ``silver``.
     * A level slug followed by a slice, e.g., ``silver[:6]`` - you can use the
       Python slicing syntax, however, the step parameter is not supported.
+    * List with any of the above separated by comma, e.g. ``afterparty[:1],coffee``.
     """
-    level_slug, sponsor_slice = _parse_level_slice(level)
+    level_list = level.split(',')
+    sponsor_lists: list['SponsorList'] = []
 
-    level = get_object_or_404(Level, slug=level_slug)
-    sponsors = Sponsor.objects.filter(published=True, level=level)
+    for level in level_list:
+        level_slug, sponsor_slice = _parse_level_slice(level.strip())
 
-    if sponsor_slice is not None:
-        sponsors = sponsors[sponsor_slice]
+        level = get_object_or_404(Level, slug=level_slug)
+        sponsors = Sponsor.objects.filter(published=True, level=level)
+
+        if sponsor_slice is not None:
+            sponsors = sponsors[sponsor_slice]
+
+        # Skip empty levels
+        if len(sponsors) == 0:
+            continue
+        sponsor_lists.append(SponsorList(level, sponsors))
 
     return TemplateResponse(
         request,
         template="intermissions/sponsors.html",
         context={
-            "sponsors": sponsors,
-            "level": level,
+            "sponsor_lists": sponsor_lists,
         },
     )
+
+
+class SponsorList(NamedTuple):
+    level: Level
+    sponsors: Iterable[Sponsor]
 
 
 def _parse_level_slice(level_spec: str) -> tuple[str, slice | None]:
