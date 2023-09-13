@@ -38,9 +38,16 @@
             {% if 'partners' in levels %}'{% url 'sponsors' level='partners' %}',{% endif %}
         ];
 
+        console.groupCollapsed(
+            'Intermissions: ' + urls.length + ' slides available, full cycle takes ' + (urls.length * {{ interval }} / 1000) + ' s'
+        );
+        console.table(urls);
+        console.groupEnd();
+
         let now = -1;
         let active = true;
         const show_current = () => {
+            console.debug("[%d] %s", now, urls[now]);
             fetch(urls[now]).then((response) => response.text()).then((data) => {
                 document.getElementById('intermission-content').innerHTML = data;
             });
