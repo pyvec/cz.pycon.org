@@ -1,0 +1,10 @@
+.PC-intermission-slots {
+    display: grid;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    flex-grow: 1;
+}
+
+.PC-intermission-slots-item {
+    padding: map-get($spacers, 4);
+}

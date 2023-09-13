@@ -24,15 +24,21 @@
         "use strict";
         const urls = [
             '{% url 'announcements' %}',
+            '{% url 'next_talk' page=1 %}{{ time_param }}',
+            '{% url 'next_talk' page=2 %}{{ time_param }}',
             '{% url 'slido' %}',
             {% if 'platinum' in levels %}
                 '{% url 'sponsors' level='platinum' %}',
                 '{% url 'announcements' %}',
+                '{% url 'next_talk' page=1 %}{{ time_param }}',
+                '{% url 'next_talk' page=2 %}{{ time_param }}',
                 '{% url 'slido' %}',
             {% endif %}
             {% if 'gold' in levels %}'{% url 'sponsors' level='gold' %}',{% endif %}
             {% if 'silver' in levels %}'{% url 'sponsors' level='silver' %}',{% endif %}
             '{% url 'announcements' %}',
+            '{% url 'next_talk' page=1 %}{{ time_param }}',
+            '{% url 'next_talk' page=2 %}{{ time_param }}',
             '{% url 'slido' %}',
             {% if 'bronze' in levels %}'{% url 'sponsors' level='bronze' %}',{% endif %}
             {% if 'partners' in levels %}'{% url 'sponsors' level='partners' %}',{% endif %}
