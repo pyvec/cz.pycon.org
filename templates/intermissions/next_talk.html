@@ -1,42 +1,107 @@
 {% load static %}
-<div class="pc-intermission-content">
-    <div class="d-flex flex-wrap h-100 align-content-around pb-7">
-        <div class="PC-intermission-slots">
+<div class="PC-intermission-content">
+    <div class="d-flex flex-column h-100">
+        <h1 class="fw-normal display-5 m-0 mb-3">Next up</h1>
+
+        <div class="PC-intermission-slots flex-grow-1">
             {% for slot in slots %}
-            <div class="PC-intermission-slots-item" style="grid-column: {{ forloop.counter }}">
-                <h1 class="fw-normal{% if slots|length == 1 %} dis{% endif %}">
-                    Next up in
-                    <strong>{{ slot.room }}</strong>
-                    from
-                    <strong>{{ slot.start|date:"H:i" }}</strong>
-                    {% if streamed %}
-                        <span class="text-muted">
-                            (streamed to other rooms)
-                        </span>
-                    {% endif %}
-                </h1>
+                <div class="PC-intermission-slots-item" style="grid-column: {{ forloop.counter }}; grid-row: 1">
+                    <div class="fs-1 mb-3">
+                        <strong>{{ slot.start|date:"H:i" }}</strong>
+                        <strong class="text-secondary">{{ slot.room }}</strong>
+                        {% if streamed %}
+                            <span class="fw-lighter">
+                                and streamed to other rooms
+                            </span>
+                        {% endif %}
+                    </div>
 
-                <h2>{{ slot.event.title }}</h2>
-
-                {% if slot.event.language == 'cs' %}
-                    <p class="PC-language">
-                        <img src="{% static 'img/flag-cz.svg' %}" width="32" height="32" alt="">
-                        <span class="PC-language-label">
-                            this
-                            {% if slot.event.type == 'panel' and slot.event.speakers|length == 1 %}
-                                discussion
-                            {% else %}
-                                {{ slot.event.type }}
+                    {% if slot.talk %}
+                        <h1{% if single_slot %} class="display-3 mt-5"{% endif %}>
+                            {{ slot.event.title }}
+                        </h1>
+                        <h2 class="mt-4 fw-semibold">
+                            {% if slot.event.type == 'talk' %}
+                                {% if slot.event.language == 'en' %}
+                                    a&nbsp;{{ slot.event.type }} by
+                                {% elif slot.event.language == 'cs' %}
+                                    přednáší
+                                {% endif %}
+                            {% elif slot.event.type == 'panel' %}
+                                {% if slot.event.speakers|length == 1 %}
+                                    {% if slot.event.language == 'en' %}
+                                        a&nbsp;discussion moderated by
+                                    {% elif slot.event.language == 'cs' %}
+                                        diskuzi moderuje
+                                    {% endif %}
+                                {% else %}
+                                    {% if slot.event.language == 'en' %}
+                                        a&nbsp;{{ slot.event.type }} with
+                                    {% elif slot.event.language == 'cs' %}
+                                        diskutující:
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
-                            will be in Czech only
-                        </span>
-                    </p>
+                            {% for speaker in slot.event.speakers %}{% if forloop.last and not forloop.first %}
+                                <span class="d-inline-block">&amp; {% elif not forloop.first %},</span>
+                                <span class="d-inline-block">{% endif %}{% spaceless %}{{ speaker.full_name }}
+                                {% if forloop.last %}</span>{% endif %}{% endspaceless %}{% endfor %}
+                        </h2>
+
+                        {% if slot.event.language == 'cs' %}
+                            <p class="PC-language mt-3 d-inline-flex align-items-center border border-black shadow border-2 rounded p-2 pe-4 bg-white text-black">
+                                <img src="{% static 'img/flag-cz.svg' %}" width="32" height="32" alt="">
+                                <span class="PC-language-label fs-4 fw-semibold">
+                                this
+                                    {% if slot.event.type == 'panel' and slot.event.speakers|length == 1 %}
+                                        discussion
+                                    {% else %}
+                                        {{ slot.event.type }}
+                                    {% endif %}
+                                    will be in Czech only
+                            </span>
+                            </p>
+                        {% endif %}
+
+                        {% if single_slot %}
+                            <div class="PC-intermission-session-speakers mt-5"
+                                 style="grid-column: {{ forloop.counter }}; grid-row: 2">
+                                {% for speaker in slot.event.speakers %}
+                                    <div class="PC-intermission-session-speakers-item-large">
+                                        <div class="PC-speaker border border-black shadow border-2 rounded position-relative">
+                                            <div class="PC-image-primary PC-image-cover">
+                                                <img class="img-fluid" src="{{ speaker.photo.url }}" width="400"
+                                                     height="400" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    {% else %}
+                        <h1{% if single_slot %} class="display-1 mt-6 text-center"{% endif %}>
+                            {{ slot.event.title }}
+                        </h1>
+                    {% endif %}
+                </div>
+
+                {% if slot.talk and not single_slot %}
+                    <div class="PC-intermission-session-speakers"
+                         style="grid-column: {{ forloop.counter }}; grid-row: 2">
+                        {% for speaker in slot.event.speakers %}
+                            <div class="PC-intermission-session-speakers-item">
+                                <div class="PC-speaker border border-black shadow border-2 rounded position-relative">
+                                    <div class="PC-image-primary PC-image-cover">
+                                        <img class="img-fluid" src="{{ speaker.photo.url }}" width="400" height="400"
+                                             alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% endif %}
 
-                <p class="PC-intermission-speakers">
-                    {% for speaker in slot.event.speakers %}{% if forloop.last and not forloop.first %} <span class="d-inline-block">&amp; {% elif not forloop.first %},</span> <span class="d-inline-block">{% endif %}{% spaceless %}{{ speaker.full_name }}{% if forloop.last %}</span>{% endif %}{% endspaceless %}{% endfor %}
-                </p>
-            </div>
             {% endfor %}
         </div>
     </div>

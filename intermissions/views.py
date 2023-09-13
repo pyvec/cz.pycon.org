@@ -6,12 +6,12 @@ from urllib.parse import quote
 from django.http import HttpRequest, HttpResponse, Http404
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Prefetch
 from django.utils import timezone
 
 from announcements.models import Announcement
 from sponsors.models import Sponsor, Level
-from program.models import Slot
+from program.models import Slot, Speaker
 from program.views import CONFERENCE_DAYS
 
 
@@ -160,6 +160,7 @@ def next_talk(request: HttpRequest, page: int) -> HttpResponse:
         context={
             "slots": slide_slots,
             "streamed": streamed,
+            "single_slot": len(slide_slots) == 1,
         },
     )
 
@@ -191,6 +192,13 @@ def _get_upcoming_slots(current_time: datetime.datetime) -> list[Slot]:
             "room",
             "talk",
             "utility",
+        )
+        .prefetch_related(
+            Prefetch(
+                "talk__talk_speakers",
+                queryset=Speaker.objects.filter(is_public=True),
+                to_attr="public_speakers",
+            ),
         )
         .order_by(
             # Column used in DISTINCT ON must be the first column in ORDER BY

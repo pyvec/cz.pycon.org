@@ -1,15 +1,15 @@
-<div class="pc-intermission-content bg-white text-dark">
+<div class="PC-intermission-content bg-white text-dark">
     <div class="PC-intermission-sponsors-levels-grid">
         {% for level, sponsors in sponsor_lists %}
             <div class="PC-intermission-sponsors-levels-item" style="grid-column: {{ forloop.counter }}">
-                <h1 class="pc-intermission-heading display-1 mt-6">
+                <h1 class="pc-intermission-heading {% if sponsor_list|length == 1 %}display-1{% else %}display-4{% endif %} mt-4">
                     Our <strong>{{ level.title }}</strong>
                 </h1>
 
-                <div class="PC-intermission-sponsors">
+                <div class="PC-intermission-sponsors mt-5">
                     {% for sponsor in sponsors %}
-                        <div class="PC-intermission-sponsors-item PC-intermission-sponsors-item-{{ level.title|lower }}">
-                            <img class="PC-sponsor-detail-logo img-fluid PC-img-fluid-svg"
+                        <div class="PC-intermission-sponsors-item PC-intermission-sponsors-item-{{ level.slug }}">
+                            <img class="PC-intermission-sponsor-logo PC-intermission-sponsor-logo-{{ level.slug }} img-fluid PC-img-fluid-svg"
                                  src="{{ sponsor.logo.url }}"
                                  alt="{{ sponsor.name }}"/>
                         </div>

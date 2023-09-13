@@ -15,7 +15,7 @@
 
 
 {% block body %}
-    <main role="main" class="pc-intermission" id="intermission-content"></main>
+    <main role="main" class="PC-intermission text-white PC-bg-header" id="intermission-content"></main>
 {% endblock %}
 
 
@@ -52,12 +52,27 @@
         console.table(urls);
         console.groupEnd();
 
-        let now = -1;
         let active = true;
+        let now = -1;
+        let currentUrl = new URL(document.location);
+        if (currentUrl.searchParams.has("slide")) {
+            try {
+                now = parseInt(currentUrl.searchParams.get("slide"), 10) - 1;
+            } catch(e) {
+                console.error(e);
+            }
+        }
+        if (currentUrl.searchParams.get("stop") === "1") {
+            active = false;
+        }
+
         const show_current = () => {
             console.debug("[%d] %s", now, urls[now]);
             fetch(urls[now]).then((response) => response.text()).then((data) => {
                 document.getElementById('intermission-content').innerHTML = data;
+                // Push slide index to URL
+                currentUrl.searchParams.set("slide", now.toString());
+                history.replaceState(null, "", currentUrl);
             });
         };
         const next = () => {
@@ -70,11 +85,18 @@
             if (now < 0) now = urls.length - 1;
             show_current();
         };
-        const run = () => {
-            if (active) next();
-            setTimeout(run, {{interval}});
-        };
-        run();
+        // Periodically load the next slide if active
+        setInterval(
+            () => {
+                if (active) {
+                    next();
+                }
+            },
+            {{ interval }}
+        );
+
+        // Load the first slide
+        next();
 
         const handle_keydown = (event) => {
             if (["ArrowDown", "ArrowLeft", "PageDown"].includes(event.key)){
