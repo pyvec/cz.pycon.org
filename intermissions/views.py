@@ -1,4 +1,5 @@
 import datetime
+import re
 from urllib.parse import quote
 
 from django.http import HttpRequest, HttpResponse, Http404
@@ -42,11 +43,22 @@ def index(request):
 
 
 def sponsors(request, level):
-    level = get_object_or_404(Level, slug=level)
+    """
+    This view renders a list of sponsors for the given level.
+
+    The level argument can be given as:
+
+    * A level slug, e.g., ``silver``.
+    * A level slug followed by a slice, e.g., ``silver[:6]`` - you can use the
+      Python slicing syntax, however, the step parameter is not supported.
+    """
+    level_slug, sponsor_slice = _parse_level_slice(level)
+
+    level = get_object_or_404(Level, slug=level_slug)
     sponsors = Sponsor.objects.filter(published=True, level=level)
 
-    first_sponsor = sponsors.first()
-    # get readable display name for the passed level (integer)
+    if sponsor_slice is not None:
+        sponsors = sponsors[sponsor_slice]
 
     return TemplateResponse(
         request,
@@ -56,6 +68,28 @@ def sponsors(request, level):
             "level": level,
         },
     )
+
+
+def _parse_level_slice(level_spec: str) -> tuple[str, slice | None]:
+    def parse_slice_index(idx: str) -> int | None:
+        if idx == '':
+            return None
+        return int(idx)
+
+    slice_match = re.fullmatch(
+        r"(?P<level>\w+)\[(?P<start>\d*)(:(?P<end>\d*))?]",
+        level_spec,
+    )
+    if not slice_match:
+        return level_spec, None
+
+    level = slice_match["level"]
+    start_index = parse_slice_index(slice_match["start"])
+    if slice_match["end"] is not None:
+        result_slice = slice(start_index, parse_slice_index(slice_match["end"]))
+    else:
+        result_slice = slice(start_index)
+    return level, result_slice
 
 
 def announcements(request):
