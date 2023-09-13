@@ -12,6 +12,13 @@
 {% block top_info %}
     <p class="lead">Workshops will happen on Sunday at <a href="{% url 'venue' %}#fit">Faculty of Information Technology CTU</a>.</p>
 
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            <p>We’re sorry but all workshops are fully booked. You can still try to come without registration 10 minutes before the workshop starts and take a&nbsp;free spot if somebody doesn’t come. There are always some no-shows.</p>
+            <p>You can also check later. People cancel their registrations sometimes so an option to book might become available again.</p>
+        </div>
+    </div>
+
     {{ block.super }}
 
 {% endblock %}
