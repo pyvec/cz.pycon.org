@@ -1,11 +1,11 @@
 {% load markdown %}
 {% load static %}
 
-<div class="pc-intermission-content">
+<div class="PC-intermission-content">
     {% if announcements %}
-        <div class="mt-6">
+        <div class="mt-4">
             {% for announcement in announcements %}
-                <div class="pc-intermission-announcement display-{{ announcement.size }} py-5">
+                <div class="PC-intermission-announcement display-{{ announcement.size }} px-2 py-5">
                     {{ announcement.message|markdown }}
                 </div>
             {% endfor %}
