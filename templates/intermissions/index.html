@@ -9,6 +9,10 @@
 
 {% block body_extras %}style="overflow:hidden;"{% endblock %}
 
+{# Disable Simple Analytics #}
+{% block analytics %}
+{% endblock %}
+
 
 {% block body %}
     <main role="main" class="pc-intermission" id="intermission-content"></main>
@@ -20,23 +24,38 @@
         "use strict";
         const urls = [
             '{% url 'announcements' %}',
+            '{% url 'next_talk' page=1 %}{{ time_param }}',
+            '{% url 'next_talk' page=2 %}{{ time_param }}',
             '{% url 'slido' %}',
             {% if 'platinum' in levels %}
                 '{% url 'sponsors' level='platinum' %}',
                 '{% url 'announcements' %}',
+                '{% url 'next_talk' page=1 %}{{ time_param }}',
+                '{% url 'next_talk' page=2 %}{{ time_param }}',
                 '{% url 'slido' %}',
             {% endif %}
             {% if 'gold' in levels %}'{% url 'sponsors' level='gold' %}',{% endif %}
-            {% if 'silver' in levels %}'{% url 'sponsors' level='silver' %}',{% endif %}
+            {% if 'coffee' in levels or 'afterparty' in levels %}'{% url 'sponsors' level="coffee,afterparty" %}',{% endif %}
+            {% if 'silver' in levels %}'{% url 'sponsors' level='silver[:6]' %}',{% endif %}
+            {% if 'silver' in levels %}'{% url 'sponsors' level='silver[6:]' %}',{% endif %}
             '{% url 'announcements' %}',
+            '{% url 'next_talk' page=1 %}{{ time_param }}',
+            '{% url 'next_talk' page=2 %}{{ time_param }}',
             '{% url 'slido' %}',
             {% if 'bronze' in levels %}'{% url 'sponsors' level='bronze' %}',{% endif %}
             {% if 'partners' in levels %}'{% url 'sponsors' level='partners' %}',{% endif %}
         ];
 
+        console.groupCollapsed(
+            'Intermissions: ' + urls.length + ' slides available, full cycle takes ' + (urls.length * {{ interval }} / 1000) + ' s'
+        );
+        console.table(urls);
+        console.groupEnd();
+
         let now = -1;
         let active = true;
         const show_current = () => {
+            console.debug("[%d] %s", now, urls[now]);
             fetch(urls[now]).then((response) => response.text()).then((data) => {
                 document.getElementById('intermission-content').innerHTML = data;
             });
@@ -60,11 +79,11 @@
         const handle_keydown = (event) => {
             if (["ArrowDown", "ArrowLeft", "PageDown"].includes(event.key)){
                 active = false;
-                next();
+                prev();
             }
             if (["ArrowUp", "ArrowRight", "PageUp"].includes(event.key)){
                 active = false;
-                prev();
+                next();
             }
             if (event.key === ' '){
                 active = !active;

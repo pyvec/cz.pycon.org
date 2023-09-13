@@ -1,0 +1,35 @@
+.PC-intermission-slots {
+    display: grid;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    flex-grow: 1;
+}
+
+.PC-intermission-slots-item {
+    padding: map-get($spacers, 4);
+}
+
+.PC-intermission-sponsors-levels-grid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    flex-grow: 1;
+}
+
+.PC-intermission-sponsors-levels-item {
+    padding: map-get($spacers, 4);
+}
+
+.PC-intermission-sponsors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: map-get($spacers, 6);
+}
+
+.PC-intermission-sponsors-item {
+    height: 200px;
+    width: 400px;
+    display: grid;
+    place-items: center;
+}
