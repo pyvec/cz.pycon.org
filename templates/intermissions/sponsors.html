@@ -1,8 +1,8 @@
-<div class="PC-intermission-content bg-white text-dark">
+<div class="PC-intermission-content PC-intermission-no-shadow bg-white text-dark">
     <div class="PC-intermission-sponsors-levels-grid">
         {% for level, sponsors in sponsor_lists %}
             <div class="PC-intermission-sponsors-levels-item" style="grid-column: {{ forloop.counter }}">
-                <h1 class="pc-intermission-heading {% if sponsor_list|length == 1 %}display-1{% else %}display-4{% endif %} mt-4">
+                <h1 class="{% if sponsor_list|length == 1 %}display-1{% else %}display-4{% endif %} mt-4">
                     Our <strong>{{ level.title }}</strong>
                 </h1>
 
