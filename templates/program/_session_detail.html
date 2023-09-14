@@ -108,9 +108,11 @@
         <div class="PC-multicol my-4">
             {{ session.abstract|markdown }}
 
+            {% if session.requirements %}
             <div class="PC-session-detail-prerequisites">
                 {{ session.requirements|markdown }}
             </div>
+            {% endif %}
         </div>
 
         <div class="row align-items-baseline my-4 my-md-6">
