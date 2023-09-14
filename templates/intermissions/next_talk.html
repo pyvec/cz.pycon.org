@@ -1,12 +1,12 @@
-{% load static %}
+{% load static program %}
 <div class="PC-intermission-content">
     <div class="d-flex flex-column h-100">
-        <h1 class="fw-normal display-5 m-0 mb-3">Next up</h1>
+        <h1 class="fw-normal display-5 m-0 mb-3" style="margin-top: -3rem !important;">Next up</h1>
 
         <div class="PC-intermission-slots flex-grow-1">
             {% for slot in slots %}
                 <div class="PC-intermission-slots-item" style="grid-column: {{ forloop.counter }}; grid-row: 1">
-                    <div class="fs-1 mb-3">
+                    <div class="PC-intermission-session-spacetime mb-4">
                         <strong>{{ slot.start|date:"H:i" }}</strong>
                         <strong class="text-secondary">{{ slot.room }}</strong>
                         {% if streamed %}
@@ -17,8 +17,8 @@
                     </div>
 
                     {% if slot.talk %}
-                        <h1{% if single_slot %} class="display-3 mt-5"{% endif %}>
-                            {{ slot.event.title }}
+                        <h1 class="{% if single_slot %}PC-intermission-heading-2 mt-5{% else %}PC-intermission-heading-3{% endif %}">
+                            {{ slot.event.title|auto_nbsp }}
                         </h1>
                         <h2 class="mt-4 fw-semibold">
                             {% if slot.event.type == 'talk' %}
@@ -49,7 +49,7 @@
                         </h2>
 
                         {% if slot.event.language == 'cs' %}
-                            <p class="PC-language mt-3 d-inline-flex align-items-center border border-black shadow border-2 rounded p-2 pe-4 bg-white text-black">
+                            <p class="PC-language PC-intermission-no-shadow mt-3 d-inline-flex align-items-center border border-black shadow border-2 rounded p-2 pe-4 bg-white text-black">
                                 <img src="{% static 'img/flag-cz.svg' %}" width="32" height="32" alt="">
                                 <span class="PC-language-label fs-4 fw-semibold">
                                 this
@@ -80,8 +80,8 @@
                         {% endif %}
 
                     {% else %}
-                        <h1{% if single_slot %} class="display-1 mt-6 text-center"{% endif %}>
-                            {{ slot.event.title }}
+                        <h1{% if single_slot %} class="PC-intermission-heading-1 mt-6 text-center"{% endif %}>
+                            {{ slot.event.title|auto_nbsp }}
                         </h1>
                     {% endif %}
                 </div>

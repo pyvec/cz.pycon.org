@@ -7,11 +7,35 @@
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: map-get($spacers, 6);
+    padding: 5.5rem;
     /* Do not use lower 20% of the projection */
     padding-bottom: 25vh;
+    /* Add light glow that helps with contrast */
+    text-shadow: 0 0 12px rgba(12, 16, 112, 0.8);
 }
 
+.PC-intermission-no-shadow {
+    text-shadow: none;
+}
+
+.PC-intermission-heading-1,
+.PC-intermission-heading-2,
+.PC-intermission-heading-3 {
+    font-family: $font-family-base !important;
+    font-weight: 800;
+}
+
+.PC-intermission-heading-1 {
+    font-size: 8rem;
+}
+
+.PC-intermission-heading-2 {
+    font-size: 4.5rem;
+}
+
+.PC-intermission-heading-3 {
+    font-size: 3.9rem;
+}
 
 .PC-intermission-slots {
     display: grid;
@@ -24,6 +48,10 @@
 }
 
 .PC-intermission-slots-item {
+}
+
+.PC-intermission-session-spacetime {
+    font-size: 3.4rem;
 }
 
 .PC-intermission-session-speakers {

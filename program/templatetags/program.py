@@ -1,5 +1,6 @@
 import datetime
 import math
+import re
 
 from django import template
 from django.utils.translation import ngettext
@@ -24,3 +25,13 @@ def session_length(value: datetime.timedelta) -> str:
         )
 
     return " ".join(parts)
+
+
+@register.filter(name="auto_nbsp")
+def auto_nbsp(value: str) -> str:
+    return re.sub(
+        r"\b(?P<word>the|a|of|to|on|\w) ",
+        "\g<word> ",
+        value,
+        flags=re.RegexFlag.IGNORECASE
+    )
