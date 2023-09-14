@@ -99,11 +99,11 @@
         next();
 
         const handle_keydown = (event) => {
-            if (["ArrowDown", "ArrowLeft", "PageDown"].includes(event.key)){
+            if (["ArrowUp", "ArrowLeft", "PageUp"].includes(event.key)){
                 active = false;
                 prev();
             }
-            if (["ArrowUp", "ArrowRight", "PageUp"].includes(event.key)){
+            if (["ArrowDown", "ArrowRight", "PageDown"].includes(event.key)){
                 active = false;
                 next();
             }
