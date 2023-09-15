@@ -41,7 +41,7 @@ urlpatterns = [
 
                 path("pyconcz-discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
                 path("discord/", RedirectView.as_view(url='https://discord.gg/UtPkpPB7te', permanent=True)),
-                path("3D/", RedirectView.as_view(url='https://docs.google.com/forms/d/e/1FAIpQLSeyr13vobeJVqBgucq27j0yLzbH6tTmSYP4dZEDLEkCYHI6Hg/', permanent=True)),
+                path("3D/", RedirectView.as_view(url='https://docs.google.com/forms/d/e/1FAIpQLSeyr13vobeJVqBgucq27j0yLzbH6tTmSYP4dZEDLEkCYHI6Hg/viewform', permanent=True)),
                 path("tshirt/", RedirectView.as_view(url='https://pretix.eu/pyconcz/pyconcz23/redeem?voucher=TSHIRT', permanent=False)),
                 path("schedule/", RedirectView.as_view(url='/2023/program/schedule/', permanent=True)),
 
