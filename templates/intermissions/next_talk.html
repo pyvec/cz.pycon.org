@@ -20,7 +20,7 @@
                         <h1 class="{% if single_slot %}PC-intermission-heading-2 mt-5{% else %}PC-intermission-heading-3{% endif %}">
                             {{ slot.event.title|auto_nbsp }}
                         </h1>
-                        <h2 class="mt-4 fw-semibold">
+                        <h2 class="mt-4 fw-semibold {% if single_slot %}fs-1{% else %}PC-intermission-heading-4{% endif %}">
                             {% if slot.event.type == 'talk' %}
                                 {% if slot.event.language == 'en' %}
                                     a&nbsp;{{ slot.event.type }} by
