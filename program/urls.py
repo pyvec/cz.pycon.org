@@ -8,6 +8,7 @@ from .views import (
     session_detail,
     schedule_redirect,
     schedule_day,
+    schedule_json,
     debug_og_image_for_talk,
     debug_og_image_for_workshop,
 )
@@ -23,6 +24,7 @@ urlpatterns = [
     # Schedule
     path("schedule/", schedule_redirect, name="schedule_redirect"),
     path("schedule/<str:conference_day>/", schedule_day, name="schedule_day"),
+    path("schedule.json", schedule_json, name="schedule_json"),
 ]
 
 # Routes for previewing OG images template.
