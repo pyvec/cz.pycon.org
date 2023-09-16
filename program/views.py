@@ -2,7 +2,7 @@ import datetime
 import re
 
 from django.db.models import Prefetch
-from django.http import HttpRequest, Http404
+from django.http import HttpRequest, Http404, JsonResponse
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -185,6 +185,72 @@ def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
             "grid": schedule_grid,
         },
     )
+
+
+def schedule_json(request):
+    all_slots = Slot.objects.select_related(
+        "room"
+    ).prefetch_related(
+        "talk",
+        Prefetch(
+            "talk__talk_speakers",
+            queryset=Speaker.objects.filter(is_public=True),
+            to_attr="public_speakers",
+        ),
+        "workshop",
+        Prefetch(
+            "workshop__workshop_speakers",
+            queryset=Speaker.objects.filter(is_public=True),
+            to_attr="public_speakers",
+        ),
+        "utility",
+    ).order_by(
+        "start",
+        "room__order",
+    )
+
+    schedule_grid = ScheduleGrid.create_from_slots(all_slots)
+    result = []
+    for row in schedule_grid.rows:
+        for item in row.items:
+            session = item.slot.event
+            session_json = {
+                'title': session.title,
+            }
+            if isinstance(session, (Talk, Workshop)):
+                session_json.update({
+                    'type': session.type,
+                    'abstract': session.abstract,
+                    'track': session.track,
+                    'language': session.language,
+                    'minimum_python_knowledge': session.minimum_python_knowledge,
+                    'minimum_topic_knowledge': session.minimum_topic_knowledge,
+                    'speakers': [
+                        {
+                            'name': speaker.full_name,
+                            'twitter': speaker.twitter if speaker.twitter else None,
+                            'github': speaker.github if speaker.github else None,
+                            'linkedin': speaker.linkedin if speaker.linkedin else None,
+                            'personal_website': speaker.personal_website if speaker.personal_website else None,
+                        }
+                        for speaker in session.speakers
+                    ],
+                })
+            else:
+                session_json['type'] = 'other'
+
+            slot_json = {
+                'start': item.slot.start.isoformat(),
+                'end': item.slot.end.isoformat(),
+                'room': item.slot.room.label,
+                'is_streamed': item.is_streamed,
+                'session': session_json,
+            }
+            result.append(slot_json)
+
+    return JsonResponse({
+        'schedule': result,
+    })
 
 
 def debug_og_image_for_talk(request, session_id: int) -> HttpResponse:
