@@ -4,6 +4,7 @@ from typing import Any
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+
 from program import pretalx
 
 
@@ -32,10 +33,20 @@ class Speaker(models.Model):
     email = models.EmailField()
     photo = models.ImageField(null=True, blank=True, upload_to="speakers/")
     talks = models.ManyToManyField("Talk", blank=True, related_name="talk_speakers")
-    workshops = models.ManyToManyField("Workshop", blank=True, related_name="workshop_speakers")
-    order = models.PositiveSmallIntegerField(default=500, help_text="display order on front end (lower the number, higher it is)")
+    workshops = models.ManyToManyField(
+        "Workshop", blank=True, related_name="workshop_speakers"
+    )
+    order = models.PositiveSmallIntegerField(
+        default=500,
+        help_text="display order on front end (lower the number, higher it is)",
+    )
     is_public = models.BooleanField(default=True)
-    pretalx_code = models.CharField(max_length=16, null=True, blank=True, unique=True, )
+    pretalx_code = models.CharField(
+        max_length=16,
+        null=True,
+        blank=True,
+        unique=True,
+    )
     """
     Code of the speaker in pretalx. Will be used for synchronization.
     When not set, this speaker will not be synchronized with pretalx.
@@ -86,7 +97,12 @@ class Session(models.Model):
         ]
         ordering = ("order",)
 
-    TYPE = (("workshop", "Workshop"), ("sprint", "Sprint"), ("talk", "Talk"), ("panel", "Panel"))
+    TYPE = (
+        ("workshop", "Workshop"),
+        ("sprint", "Sprint"),
+        ("talk", "Talk"),
+        ("panel", "Panel"),
+    )
 
     PRETALX_TYPE_MAP = {
         "talk": "talk",
@@ -113,9 +129,15 @@ class Session(models.Model):
     )
 
     PRETALX_DIFFICULTY_MAP = {
-        "beginner: can write simple scripts (typical attendee of our beginner’s track)": "beginner",
+        (
+            "beginner: can write simple scripts "
+            "(typical attendee of our beginner’s track)"
+        ): "beginner",
         "intermediate: uses frameworks and third-party libraries": "intermediate",
-        "advanced: understands advanced python concepts, such as generators and comprehensions, async/await, advanced usage of classes": "advanced",
+        (
+            "advanced: understands advanced python concepts, such as generators "
+            "and comprehensions, async/await, advanced usage of classes"
+        ): "advanced",
     }
 
     TRACK = (
@@ -132,7 +154,10 @@ class Session(models.Model):
     )
 
     PRETALX_TOPIC_KNOWLEDGE_MAP = {
-        "no previous knowledge is required: you will explain basic concepts and problems it solves": "no-previous-knowledge",
+        (
+            "no previous knowledge is required: you will explain "
+            "basic concepts and problems it solves"
+        ): "no-previous-knowledge",
         "attendees who used it just a few times": "few-times",
         "attendees who use it on a regular basis": "regular-basis",
     }
@@ -146,7 +171,10 @@ class Session(models.Model):
         max_length=256, choices=TOPIC_KNOWLEDGE, default="no-previous-knowledge"
     )
     track = models.CharField(max_length=16, choices=TRACK)
-    order = models.PositiveSmallIntegerField(default=500, help_text="display order on front end (lower the number, higher it is)", )
+    order = models.PositiveSmallIntegerField(
+        default=500,
+        help_text="display order on front end (lower the number, higher it is)",
+    )
     title = models.CharField(max_length=250)
     abstract = models.TextField()
     is_backup = models.BooleanField(default=False, blank=True)
@@ -158,14 +186,13 @@ class Session(models.Model):
         null=True,
         blank=True,
         help_text="og:image (social media image) 1200×630 pixels",
-        upload_to="og-images/program/"
+        upload_to="og-images/program/",
     )
-    pretalx_code = models.CharField(
-        max_length=16, null=True, blank=True, unique=True
-    )
+    pretalx_code = models.CharField(max_length=16, null=True, blank=True, unique=True)
     """
     Code of the submission in pretalx. Will be used for synchronization.
-    When not set, this submission (workshop or talk) will not be synchronized with pretalx.
+    When not set, this submission (workshop or talk) will not be synchronized
+    with pretalx.
     """
 
     @classmethod
@@ -173,10 +200,13 @@ class Session(models.Model):
         return cls.PRETALX_TYPE_MAP.get(submission_type["en"].casefold(), "talk")
 
     def get_absolute_url(self) -> str:
-        return reverse("program:session_detail", kwargs={
-            "type": self.type,
-            "session_id": self.id,
-        })
+        return reverse(
+            "program:session_detail",
+            kwargs={
+                "type": self.type,
+                "session_id": self.id,
+            },
+        )
 
     def __str__(self) -> str:
         return self.title
@@ -230,7 +260,7 @@ class Talk(Session):
         # when adding/removing fields synced with pretalx.
         super().update_from_pretalx(pretalx_submission)
         self.is_keynote = (
-                pretalx_submission["submission_type"]["en"].casefold() == "keynote"
+            pretalx_submission["submission_type"]["en"].casefold() == "keynote"
         )
 
 
@@ -309,11 +339,21 @@ class Workshop(Session):
 
 
 class Utility(models.Model):
-    title = models.CharField(max_length=255, verbose_name='Title')
+    title = models.CharField(max_length=255, verbose_name="Title")
     slug = models.SlugField(max_length=50, default="")
-    description = models.TextField(blank=True, null=True, help_text="markdown formatted")
-    url = models.CharField(max_length=255, blank=True, null=True, verbose_name="URL", help_text="whole item will be a link to this URL")
-    is_streamed = models.BooleanField('Is streamed to other rooms', default=False, blank=True)
+    description = models.TextField(
+        blank=True, null=True, help_text="markdown formatted"
+    )
+    url = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name="URL",
+        help_text="whole item will be a link to this URL",
+    )
+    is_streamed = models.BooleanField(
+        "Is streamed to other rooms", default=False, blank=True
+    )
 
     def __str__(self):
         return self.title
@@ -324,21 +364,30 @@ class Utility(models.Model):
         return self.url
 
     class Meta:
-        verbose_name = 'Utility'
-        verbose_name_plural = 'Utilities'
-        ordering = ('title', 'id',)
+        verbose_name = "Utility"
+        verbose_name_plural = "Utilities"
+        ordering = (
+            "title",
+            "id",
+        )
 
 
 class Room(models.Model):
     label = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50)
-    order = models.PositiveSmallIntegerField(default=50, help_text="display order on front end (lower the number, higher it is)")
+    order = models.PositiveSmallIntegerField(
+        default=50,
+        help_text="display order on front end (lower the number, higher it is)",
+    )
 
     def __str__(self):
         return self.label
 
     class Meta:
-        ordering = ('order', 'id',)
+        ordering = (
+            "order",
+            "id",
+        )
 
 
 class Slot(models.Model):
@@ -346,15 +395,19 @@ class Slot(models.Model):
     end = models.DateTimeField()
 
     talk = models.ForeignKey(Talk, on_delete=models.SET_NULL, blank=True, null=True)
-    workshop = models.ForeignKey(Workshop, on_delete=models.SET_NULL, blank=True, null=True)
-    utility = models.ForeignKey(Utility, on_delete=models.SET_NULL, blank=True, null=True)
+    workshop = models.ForeignKey(
+        Workshop, on_delete=models.SET_NULL, blank=True, null=True
+    )
+    utility = models.ForeignKey(
+        Utility, on_delete=models.SET_NULL, blank=True, null=True
+    )
 
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
 
     def clean(self):
         # check that only one of the options is set
         msg = 'Only one of "talk", "workshop" or "utility" per slot.'
-        fields = 'talk', 'workshop', 'utility'
+        fields = "talk", "workshop", "utility"
         if tuple(getattr(self, field) for field in fields).count(None) < 2:
             raise ValidationError({f: msg for f in fields})
 
@@ -366,7 +419,7 @@ class Slot(models.Model):
     def length(self) -> datetime.timedelta:
         return self.end - self.start
 
-    def is_same_for_different_room(self, other_slot: 'Slot') -> bool:
+    def is_same_for_different_room(self, other_slot: "Slot") -> bool:
         """
         Check if this is a slot for the same event, but in a different room.
         """
@@ -379,9 +432,12 @@ class Slot(models.Model):
         )
 
     def __str__(self):
-        start = self.start.strftime('%d/%m/%y %H:%M')
-        end = self.end.strftime('%d/%m/%y %H:%M')
-        return f'{self.event} FROM {start} TO {end} IN {self.room}'
+        start = self.start.strftime("%d/%m/%y %H:%M")
+        end = self.end.strftime("%d/%m/%y %H:%M")
+        return f"{self.event} FROM {start} TO {end} IN {self.room}"
 
     class Meta:
-        ordering = ('start', 'room',)
+        ordering = (
+            "start",
+            "room",
+        )

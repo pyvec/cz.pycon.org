@@ -319,20 +319,19 @@ class WorkshopAdmin(admin.ModelAdmin):
 
 @admin.register(Utility)
 class UtilityAdmin(admin.ModelAdmin):
-    empty_value_display = 'not set'
+    empty_value_display = "not set"
     list_display = [
-        'title',
-        'short_description',
-        'url',
-        'is_streamed',
+        "title",
+        "short_description",
+        "url",
+        "is_streamed",
     ]
     list_editable = [
-        'is_streamed',
+        "is_streamed",
     ]
     prepopulated_fields = {
-        'slug': ['title'],
+        "slug": ["title"],
     }
-
 
     @admin.display(description="Description", empty_value="not set")
     def short_description(self, obj: Utility) -> str | None:
@@ -340,72 +339,72 @@ class UtilityAdmin(admin.ModelAdmin):
 
         If there is no description, return None, so the "empty_value" fires.
         """
-        return obj.description[:180] + '...' if obj.description else None
+        return obj.description[:180] + "..." if obj.description else None
 
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
     list_display = [
-        'label',
-        'order',
-        'slug',
+        "label",
+        "order",
+        "slug",
     ]
     list_editable = [
-        'order',
+        "order",
     ]
     fields = [
-        'label',
-        'order',
-        'slug',
+        "label",
+        "order",
+        "slug",
     ]
     prepopulated_fields = {
-        'slug': ['label'],
+        "slug": ["label"],
     }
 
 
 @admin.register(Slot)
 class SlotAdmin(admin.ModelAdmin):
     list_display = [
-        'event',
-        'start',
-        'end',
-        'room',
+        "event",
+        "start",
+        "end",
+        "room",
     ]
     list_filter = [
-        'room',
+        "room",
     ]
     list_editable = [
-        'room',
-        'start',
-        'end',
+        "room",
+        "start",
+        "end",
     ]
     fieldsets = [
         (
-            'Event',
+            "Event",
             {
-                'description': 'Select only one of the following.',
-                'fields': [
-                    'talk',
-                    'workshop',
-                    'utility',
+                "description": "Select only one of the following.",
+                "fields": [
+                    "talk",
+                    "workshop",
+                    "utility",
                 ],
             },
         ),
         (
-            'Times',
+            "Times",
             {
-                'fields': [
-                    ('start', 'end'),
+                "fields": [
+                    ("start", "end"),
                 ],
             },
         ),
         (
             None,
             {
-                'fields': [
-                    'room',
+                "fields": [
+                    "room",
                 ],
             },
         ),
     ]
-    date_hierarchy = 'start'
+    date_hierarchy = "start"

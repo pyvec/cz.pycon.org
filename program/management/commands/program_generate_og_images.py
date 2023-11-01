@@ -51,7 +51,8 @@ class Command(BaseCommand):
         """
         objects = model_type.objects.filter(is_public=True)
         self.stdout.write(
-            f"Generating OG images for {len(objects)} {model_type._meta.verbose_name_plural}"
+            f"Generating OG images for {len(objects)} "
+            f"{model_type._meta.verbose_name_plural}",
         )
         for obj in objects:
             result = generator.generate_image(

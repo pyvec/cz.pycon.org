@@ -31,5 +31,5 @@ class Migration(migrations.Migration):
         migrations.RunPython(
             code=populate_room_slugs,
             reverse_code=migrations.RunPython.noop,
-        )
+        ),
     ]

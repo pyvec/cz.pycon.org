@@ -2,15 +2,14 @@ import datetime
 import re
 
 from django.db.models import Prefetch
-from django.http import HttpRequest, Http404, JsonResponse
-from django.template.loader import render_to_string
-from django.template.response import TemplateResponse, HttpResponse
+from django.http import Http404, HttpRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.template.loader import render_to_string
+from django.template.response import HttpResponse, TemplateResponse
 from django.utils import timezone
 
-from program.models import Talk, Workshop, Slot, Speaker
+from program.models import Slot, Speaker, Talk, Workshop
 from program.schedule_grid import ScheduleGrid
-
 
 # Note: conference days are currently hardcoded.
 # We could build the list directly from the database to make the code more
@@ -24,25 +23,43 @@ CONFERENCE_DAYS = {
 
 def session_detail(request, type, session_id: int):
     model_map = dict(talk=Talk, panel=Talk, workshop=Workshop, sprint=Workshop)
-    session = get_object_or_404(model_map.get(type), id=session_id, is_public=True, is_backup=False)
+    session = get_object_or_404(
+        model_map.get(type), id=session_id, is_public=True, is_backup=False
+    )
 
     # Database allows adding a session to multiple slots.
     # First slot is the talk itself, other slots are for streaming to other rooms.
     session_slot = session.slot_set.order_by("start", "room__order").first()
 
-    session_previous = model_map.get(type).objects.filter(
-        is_public=True, is_backup=False, order__lt=session.order).order_by('order').last()
+    session_previous = (
+        model_map.get(type)
+        .objects.filter(is_public=True, is_backup=False, order__lt=session.order)
+        .order_by("order")
+        .last()
+    )
 
     if not session_previous:  # at the first session provide the last one as previous
-        session_previous = model_map.get(type).objects.filter(
-            is_public=True, is_backup=False).order_by('order').last()
+        session_previous = (
+            model_map.get(type)
+            .objects.filter(is_public=True, is_backup=False)
+            .order_by("order")
+            .last()
+        )
 
-    session_next = model_map.get(type).objects.filter(
-        is_public=True, is_backup=False, order__gt=session.order).order_by('order').first()
+    session_next = (
+        model_map.get(type)
+        .objects.filter(is_public=True, is_backup=False, order__gt=session.order)
+        .order_by("order")
+        .first()
+    )
 
     if not session_next:  # at the last session provide the first one as next
-        session_next = model_map.get(type).objects.filter(
-            is_public=True, is_backup=False).order_by('order').first()
+        session_next = (
+            model_map.get(type)
+            .objects.filter(is_public=True, is_backup=False)
+            .order_by("order")
+            .first()
+        )
 
     schedule_grid = None
     current_day = None
@@ -53,28 +70,33 @@ def session_detail(request, type, session_id: int):
                 current_day = day
                 break
 
-        schedule_slots = Slot.objects.filter(
-            start__gte=session_slot.start - datetime.timedelta(hours=1),
-            start__lte=session_slot.start + datetime.timedelta(hours=1),
-        ).select_related(
-            "room",
-        ).prefetch_related(
-            "talk",
-            Prefetch(
-                "talk__talk_speakers",
-                queryset=Speaker.objects.filter(is_public=True),
-                to_attr="public_speakers",
-            ),
-            "workshop",
-            Prefetch(
-                "workshop__workshop_speakers",
-                queryset=Speaker.objects.filter(is_public=True),
-                to_attr="public_speakers",
-            ),
-            "utility",
-        ).order_by(
-            "start",
-            "room__order",
+        schedule_slots = (
+            Slot.objects.filter(
+                start__gte=session_slot.start - datetime.timedelta(hours=1),
+                start__lte=session_slot.start + datetime.timedelta(hours=1),
+            )
+            .select_related(
+                "room",
+            )
+            .prefetch_related(
+                "talk",
+                Prefetch(
+                    "talk__talk_speakers",
+                    queryset=Speaker.objects.filter(is_public=True),
+                    to_attr="public_speakers",
+                ),
+                "workshop",
+                Prefetch(
+                    "workshop__workshop_speakers",
+                    queryset=Speaker.objects.filter(is_public=True),
+                    to_attr="public_speakers",
+                ),
+                "utility",
+            )
+            .order_by(
+                "start",
+                "room__order",
+            )
         )
 
         schedule_grid = ScheduleGrid.create_from_slots(schedule_slots)
@@ -85,17 +107,17 @@ def session_detail(request, type, session_id: int):
 
     return TemplateResponse(
         request,
-        template='program/{}_detail.html'.format(type),
+        template="program/{}_detail.html".format(type),
         context={
-            'session': session,
-            'other_sessions': {
-                'previous': session_previous,
-                'next': session_next,
+            "session": session,
+            "other_sessions": {
+                "previous": session_previous,
+                "next": session_next,
             },
-            'session_slot': session_slot,
-            'schedule_grid': schedule_grid,
-            'current_day': current_day,
-        }
+            "session_slot": session_slot,
+            "schedule_grid": schedule_grid,
+            "current_day": current_day,
+        },
     )
 
 
@@ -141,7 +163,7 @@ def schedule_redirect(request) -> HttpResponse:
         permanent=False,
     )
     # Add a caching header to make sure it is not stored in any cache.
-    response.headers['Cache-Control'] = 'no-store'
+    response.headers["Cache-Control"] = "no-store"
     return response
 
 
@@ -151,25 +173,28 @@ def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
     except KeyError:
         raise Http404()
 
-    slots = Slot.objects.filter(start__date=schedule_date).select_related(
-        "room"
-    ).prefetch_related(
-        "talk",
-        Prefetch(
-            "talk__talk_speakers",
-            queryset=Speaker.objects.filter(is_public=True),
-            to_attr="public_speakers",
-        ),
-        "workshop",
-        Prefetch(
-            "workshop__workshop_speakers",
-            queryset=Speaker.objects.filter(is_public=True),
-            to_attr="public_speakers",
-        ),
-        "utility",
-    ).order_by(
-        "start",
-        "room__order",
+    slots = (
+        Slot.objects.filter(start__date=schedule_date)
+        .select_related("room")
+        .prefetch_related(
+            "talk",
+            Prefetch(
+                "talk__talk_speakers",
+                queryset=Speaker.objects.filter(is_public=True),
+                to_attr="public_speakers",
+            ),
+            "workshop",
+            Prefetch(
+                "workshop__workshop_speakers",
+                queryset=Speaker.objects.filter(is_public=True),
+                to_attr="public_speakers",
+            ),
+            "utility",
+        )
+        .order_by(
+            "start",
+            "room__order",
+        )
     )
 
     schedule_grid = ScheduleGrid.create_from_slots(slots)
@@ -188,25 +213,27 @@ def schedule_day(request: HttpRequest, conference_day: str) -> HttpResponse:
 
 
 def schedule_json(request):
-    all_slots = Slot.objects.select_related(
-        "room"
-    ).prefetch_related(
-        "talk",
-        Prefetch(
-            "talk__talk_speakers",
-            queryset=Speaker.objects.filter(is_public=True),
-            to_attr="public_speakers",
-        ),
-        "workshop",
-        Prefetch(
-            "workshop__workshop_speakers",
-            queryset=Speaker.objects.filter(is_public=True),
-            to_attr="public_speakers",
-        ),
-        "utility",
-    ).order_by(
-        "start",
-        "room__order",
+    all_slots = (
+        Slot.objects.select_related("room")
+        .prefetch_related(
+            "talk",
+            Prefetch(
+                "talk__talk_speakers",
+                queryset=Speaker.objects.filter(is_public=True),
+                to_attr="public_speakers",
+            ),
+            "workshop",
+            Prefetch(
+                "workshop__workshop_speakers",
+                queryset=Speaker.objects.filter(is_public=True),
+                to_attr="public_speakers",
+            ),
+            "utility",
+        )
+        .order_by(
+            "start",
+            "room__order",
+        )
     )
 
     schedule_grid = ScheduleGrid.create_from_slots(all_slots)
@@ -215,42 +242,50 @@ def schedule_json(request):
         for item in row.items:
             session = item.slot.event
             session_json = {
-                'title': session.title,
+                "title": session.title,
             }
             if isinstance(session, (Talk, Workshop)):
-                session_json.update({
-                    'type': session.type,
-                    'abstract': session.abstract,
-                    'track': session.track,
-                    'language': session.language,
-                    'minimum_python_knowledge': session.minimum_python_knowledge,
-                    'minimum_topic_knowledge': session.minimum_topic_knowledge,
-                    'speakers': [
-                        {
-                            'name': speaker.full_name,
-                            'twitter': speaker.twitter if speaker.twitter else None,
-                            'github': speaker.github if speaker.github else None,
-                            'linkedin': speaker.linkedin if speaker.linkedin else None,
-                            'personal_website': speaker.personal_website if speaker.personal_website else None,
-                        }
-                        for speaker in session.speakers
-                    ],
-                })
+                session_json.update(
+                    {
+                        "type": session.type,
+                        "abstract": session.abstract,
+                        "track": session.track,
+                        "language": session.language,
+                        "minimum_python_knowledge": session.minimum_python_knowledge,
+                        "minimum_topic_knowledge": session.minimum_topic_knowledge,
+                        "speakers": [
+                            {
+                                "name": speaker.full_name,
+                                "twitter": speaker.twitter if speaker.twitter else None,
+                                "github": speaker.github if speaker.github else None,
+                                "linkedin": speaker.linkedin
+                                if speaker.linkedin
+                                else None,
+                                "personal_website": speaker.personal_website
+                                if speaker.personal_website
+                                else None,
+                            }
+                            for speaker in session.speakers
+                        ],
+                    }
+                )
             else:
-                session_json['type'] = 'other'
+                session_json["type"] = "other"
 
             slot_json = {
-                'start': item.slot.start.isoformat(),
-                'end': item.slot.end.isoformat(),
-                'room': item.slot.room.label,
-                'is_streamed': item.is_streamed,
-                'session': session_json,
+                "start": item.slot.start.isoformat(),
+                "end": item.slot.end.isoformat(),
+                "room": item.slot.room.label,
+                "is_streamed": item.is_streamed,
+                "session": session_json,
             }
             result.append(slot_json)
 
-    return JsonResponse({
-        'schedule': result,
-    })
+    return JsonResponse(
+        {
+            "schedule": result,
+        }
+    )
 
 
 def debug_og_image_for_talk(request, session_id: int) -> HttpResponse:

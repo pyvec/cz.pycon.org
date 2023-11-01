@@ -1,15 +1,12 @@
 import pathlib
+import re
 from functools import cached_property
 from typing import Type
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from program import models
-
-import re
-
-
-from django.conf import settings
 
 
 class Command(BaseCommand):
