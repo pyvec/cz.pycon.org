@@ -1,6 +1,6 @@
 import urllib.parse
 from enum import Enum
-from typing import Iterable, Any
+from typing import Any, Iterable
 
 import requests
 from django.conf import settings
@@ -148,7 +148,8 @@ class PretalxClient:
                 yield from response_data["results"]
 
                 next_page_url = response_data["next"]
-                # The URL of the next page already includes query parameters, do not send them.
+                # The URL of the next page already includes query parameters,
+                # do not send them.
                 next_query_params = None
 
     def _call_endpoint(
@@ -163,7 +164,10 @@ class PretalxClient:
             return response.json()
 
     def _format_endpoint_url(self, endpoint: str) -> str:
-        return f"{self.api_base_url}/events/{urllib.parse.quote(self.event_slug)}/{endpoint}"
+        return (
+            f"{self.api_base_url}/events/"
+            f"{urllib.parse.quote(self.event_slug)}/{endpoint}"
+        )
 
     def _do_request(
         self,

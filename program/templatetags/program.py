@@ -33,5 +33,5 @@ def auto_nbsp(value: str) -> str:
         r"\b(?P<word>the|a|of|to|on|\w) ",
         "\g<word> ",
         value,
-        flags=re.RegexFlag.IGNORECASE
+        flags=re.RegexFlag.IGNORECASE,
     )

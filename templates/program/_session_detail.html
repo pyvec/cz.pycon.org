@@ -105,6 +105,41 @@
             </div>
         {% endif %}
 
+        {% if session.video_url and session.video_image %}
+            <div class="mt-3 mb-4">
+                <a href="{{ session.video_url }}" class="PC-session-detail-video rounded-2">
+                    <img src="{{ session.video_image.url }}"
+                         alt="{{ session.title }} - talk video"
+                         class="img-fluid rounded-2"/>
+                    <div class="PC-session-detail-video-overlay rounded-2">
+                        <div class="PC-session-detail-video-play text-center">
+                            <img src="{% static "img/icons/youtube.min.svg" %}"
+                                 width="52" height="36" alt=""
+                                 class="img-fluid" /><br/>
+
+                            Play video on YouTube
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+
+        {% if session.slides_file or session.slides_description %}
+            <div class="PC-session-detail-slides">
+                {% if session.slides_file %}
+                    <a href="{{ session.slides_file.url }}"
+                       class="btn btn-secondary btn-sm mb-3"
+                       target="_blank">
+                        {{ session.title }} – download slides
+                        ({{ session.slides_file_extension|upper }}, {{ session.slides_file.size|filesizeformat }})
+                    </a>
+                {% endif %}
+                {% if session.slides_description %}
+                    {{ session.slides_description|markdown }}
+                {% endif %}
+            </div>
+        {% endif %}
+
         <div class="PC-multicol my-4">
             {{ session.abstract|markdown }}
 

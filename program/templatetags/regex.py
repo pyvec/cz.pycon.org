@@ -1,10 +1,11 @@
 import re
+
 from django import template
 
 register = template.Library()
 
 
-@register.filter(name='regexextract')
+@register.filter(name="regexextract")
 def regexextract(value, regex_pattern):
     try:
         match = re.search(regex_pattern, value)

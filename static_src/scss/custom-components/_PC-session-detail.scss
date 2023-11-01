@@ -55,3 +55,57 @@
         overflow-wrap: break-word;
     }
 }
+
+.PC-session-detail-video {
+    display: block;
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.PC-session-detail-video-overlay {
+    @extend .text-white;
+    @extend .fw-semibold;
+    @extend .fs-4;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-image: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+
+    display: grid;
+    place-items: center;
+
+    &:hover, &:focus, &:active {
+        background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    }
+}
+
+.PC-session-detail-video-play {
+    @extend .px-4;
+    @extend .py-3;
+    @extend .rounded-3;
+
+    background-color: rgba(0, 0, 0, 0.75);
+
+    img {
+        @extend .mb-3;
+        width: 52px;
+        height: 36px;
+
+        @include media-breakpoint-up(md) {
+            width: 130px;
+            height: 90px;
+        }
+    }
+}
+
+/* Session video has max-width of 1280px. Apply the same width to slides block to keep them aligned. */
+.PC-session-detail-slides {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -17,8 +17,9 @@ class Command(BaseCommand):
 
     def handle(self, xlsx: str, output: str, *args, **options) -> None:
         # Lazy imports to save a bit of memory.
-        from program.schedule_import import ScheduleImporter
         from django.core import serializers
+
+        from program.schedule_import import ScheduleImporter
 
         importer = ScheduleImporter()
         new_objects = importer.import_xlsx(xlsx)

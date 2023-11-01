@@ -2,15 +2,14 @@ import collections
 import datetime
 import re
 from dataclasses import dataclass
-from typing import Iterable, Any
+from typing import Any, Iterable
 
 import openpyxl
 from django.utils import timezone
 from django.utils.text import slugify
 from openpyxl.worksheet.merge import MergedCellRange
 
-from program import models
-from program import views
+from program import models, views
 
 ROOM_CAPACITY_SUFFIX = r"\s+\d+$"
 PRETALX_CODE_PATTERN = r"^[A-Z0-9]{6}$"

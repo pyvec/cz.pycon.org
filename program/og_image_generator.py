@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import pathlib
 import tempfile
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from django.conf import settings
 from django.template.loader import render_to_string

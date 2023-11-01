@@ -1,9 +1,8 @@
 from collections import ChainMap
 from collections.abc import Collection
-from typing import MutableMapping, Any
+from typing import Any, MutableMapping
 
-from program import models
-from program import pretalx
+from program import models, pretalx
 
 
 class PretalxSync:
@@ -107,8 +106,8 @@ class PretalxSync:
 
     def _fetch_submissions(self) -> list[dict[str, Any]]:
         # `list_submissions` returns an iterable that can be iterated only once.
-        # We want to use the list of confirmed submissions to filter speakers to update/create,
-        # therefore we need to convert it to a list
+        # We want to use the list of confirmed submissions to filter speakers
+        # to update/create, therefore we need to convert it to a list
         submissions = self.client.list_submissions(
             questions=["all"], states=[pretalx.SubmissionState.CONFIRMED]
         )

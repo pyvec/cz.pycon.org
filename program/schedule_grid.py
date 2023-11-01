@@ -1,9 +1,8 @@
-from typing import Iterable
 import dataclasses
 import datetime
+from typing import Iterable
 
 from program import models
-
 
 # Number of header rows: 1st row contains names of the rooms.
 HEADER_ROWS = 0
@@ -73,7 +72,9 @@ class ScheduleGrid:
                 grid_row_end = end_row.offset + 1
             else:
                 end_row = rows.get(slot.end)
-                grid_row_end = end_row.offset if end_row is not None else item_row.offset + 1
+                grid_row_end = (
+                    end_row.offset if end_row is not None else item_row.offset + 1
+                )
 
             item = ScheduleItem(
                 row_start=item_row.offset,
@@ -93,7 +94,7 @@ class ScheduleGrid:
 
         return grid
 
-    def pop_row(self, index: int = 0) -> 'ScheduleRow':
+    def pop_row(self, index: int = 0) -> "ScheduleRow":
         result = self.rows.pop(index)
         # Shift offset of all following rows
         for row in self.rows[index:]:
@@ -136,7 +137,10 @@ class ScheduleItem:
 
     @property
     def grid_area(self):
-        return f"{self.row_start} / {self.column_start} / {self.row_end} / {self.column_end}"
+        return (
+            f"{self.row_start} / {self.column_start} / "
+            f"{self.row_end} / {self.column_end}"
+        )
 
     @property
     def is_talk(self):
