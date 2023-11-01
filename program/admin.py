@@ -164,6 +164,8 @@ class TalkAdmin(admin.ModelAdmin):
                 "fields": [
                     "video_url",
                     "video_image_html",
+                    "slides_file",
+                    "slides_description",
                 ],
             },
         ),

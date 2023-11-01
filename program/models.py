@@ -283,6 +283,23 @@ class Talk(Session):
     """
     Image that will be used as a placeholder for the video.
     """
+    slides_file = models.FileField(
+        null=True,
+        blank=True,
+        upload_to="slides/session",
+        verbose_name="Slides",
+        help_text="File for download, please use a PDF file.",
+    )
+    slides_description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Slides Description",
+        help_text=(
+            "Additional text that will be displayed under the file to download. "
+            "Use it to link GitHub repo with examples, additional materials etc. "
+            "You can use Markdown syntax."
+        ),
+    )
 
     @property
     def speakers(self):
