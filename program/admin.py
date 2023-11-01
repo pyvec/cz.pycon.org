@@ -1,5 +1,11 @@
+from pathlib import PurePath
+from urllib.parse import quote
+
+import requests
 from django.contrib import admin
+from django.core.files.base import ContentFile
 from django.db import transaction
+from django.utils.html import format_html
 
 from program import pretalx, pretalx_sync
 from program.models import Room, Slot, Speaker, Talk, Utility, Workshop
@@ -140,7 +146,6 @@ class TalkAdmin(admin.ModelAdmin):
                 "fields": [
                     "pretalx_code",
                     "og_image",
-                    "video_id",
                 ],
             },
         ),
@@ -150,6 +155,15 @@ class TalkAdmin(admin.ModelAdmin):
                 "fields": [
                     ("is_public", "is_backup"),
                     "order",
+                ],
+            },
+        ),
+        (
+            "Slides and Video",
+            {
+                "fields": [
+                    "video_url",
+                    "video_image_html",
                 ],
             },
         ),
@@ -181,9 +195,28 @@ class TalkAdmin(admin.ModelAdmin):
         "minimum_python_knowledge",
         "minimum_topic_knowledge",
         "type",
+        "video_image_html",
     ]
     actions = [make_public, make_not_public, talk_update_from_pretalx]
     change_form_template = "program/admin/change_form_session.html"
+
+    @admin.display(description="Video Image")
+    def video_image_html(self, obj: Talk):
+        if not obj.video_image:
+            return "(no image)"
+
+        html = (
+            '<a href="{image_url}" style="display: inline-block">'
+            '<img src="{image_url}" height="180"/><br>'
+            '<span style="display: inline-block; margin-top: 1ex;">{image_name}</span>'
+            "</a>"
+        )
+
+        return format_html(
+            html,
+            image_url=obj.video_image.url,
+            image_name=obj.video_image.name,
+        )
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -201,11 +234,51 @@ class TalkAdmin(admin.ModelAdmin):
         return ro_fields
 
     def save_model(self, request, obj: Talk, form, change: bool) -> None:
+        if change:
+            self._update_video_image(obj)
+
         obj.save()
 
         if not change and obj.pretalx_code:
             sync = create_pretalx_sync()
             sync.update_talks([obj])
+
+    def _update_video_image(self, talk: Talk):
+        video_id = talk.video_id
+        if not video_id:
+            # Delete the existing image, if any.
+            if talk.video_image:
+                talk.video_image.delete(save=False)
+            return
+
+        # Get the video ID of the current image:
+        # the image is always named <video_id>.jpg
+        image_video_id: str | None = None
+        if talk.video_image:
+            image_path = PurePath(talk.video_image.name)
+            image_video_id = image_path.stem
+
+        # Check if the video ID has changed and download a new image when necessary.
+        if video_id != image_video_id:
+            image_data = self._download_youtube_video_image(video_id)
+            talk.video_image.save(
+                name=image_data.name,
+                content=image_data,
+                save=False,
+            )
+
+    def _download_youtube_video_image(self, video_id: str) -> ContentFile:
+        image_url = self._format_youtube_video_image_url(video_id)
+
+        with requests.get(image_url, timeout=30) as image_response:
+            image_response.raise_for_status()
+            return ContentFile(
+                content=image_response.content,
+                name=f"{video_id}.jpg",
+            )
+
+    def _format_youtube_video_image_url(self, video_id):
+        return f"https://img.youtube.com/vi/{quote(video_id)}/maxresdefault.jpg"
 
 
 @admin.action(description="Update from pretalx")

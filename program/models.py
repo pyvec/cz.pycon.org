@@ -1,11 +1,18 @@
 import datetime
+import re
 from typing import Any
 
+from django.core import validators
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 from program import pretalx
+
+YOUTUBE_VIDEO_PATTERN = re.compile(
+    pattern=r"^https://www\.youtube\.com/watch\?v=(?P<video_id>[0-9A-Za-z_-]{11,})$",
+)
 
 
 class Speaker(models.Model):
@@ -242,10 +249,40 @@ class Session(models.Model):
 class Talk(Session):
     PRETALX_FIELDS = Session.PRETALX_FIELDS + ["is_keynote"]
 
-    video_id = models.CharField(
-        max_length=100, default="", blank=True, help_text="YouTube ID (from URL)"
-    )
     is_keynote = models.BooleanField(default=False, blank=True)
+    video_url = models.CharField(
+        max_length=1024,
+        null=True,
+        blank=True,
+        validators=[
+            validators.RegexValidator(
+                regex=YOUTUBE_VIDEO_PATTERN,
+                message="Invalid YouTube URL format.",
+                code="invalid_youtube_url",
+            ),
+        ],
+        verbose_name="Video URL",
+        help_text=mark_safe(
+            "YouTube video URL: "
+            "<code>https://www.youtube.com/watch?v=&lt;VIDEO_ID&gt;</code>. "
+            "Do not include any additional parameters, "
+            "such as start time or tracking (UTM) parameters."
+        ),
+    )
+    """
+    URL of the video with session recording. The URL should not contain any additional
+    parameters, such as start time or tracking (UTM) parameters.
+
+    Currently only YouTube videos are supported.
+    """
+    video_image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="video-images/session/",
+    )
+    """
+    Image that will be used as a placeholder for the video.
+    """
 
     @property
     def speakers(self):
@@ -254,6 +291,15 @@ class Talk(Session):
         if hasattr(self, "public_speakers"):
             return self.public_speakers
         return self.talk_speakers.all().filter(is_public=True)
+
+    @property
+    def video_id(self) -> str | None:
+        if not self.video_url:
+            return None
+        match = YOUTUBE_VIDEO_PATTERN.match(self.video_url)
+        if not match:
+            return None
+        return match.group("video_id")
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
