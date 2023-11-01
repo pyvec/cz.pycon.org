@@ -1,5 +1,6 @@
 import datetime
 import re
+from pathlib import PurePath
 from typing import Any
 
 from django.core import validators
@@ -317,6 +318,16 @@ class Talk(Session):
         if not match:
             return None
         return match.group("video_id")
+
+    @property
+    def slides_file_extension(self) -> str | None:
+        if not self.slides_file:
+            return None
+        path = PurePath(self.slides_file.name)
+        ext = path.suffix
+        if ext.startswith("."):
+            ext = ext[1:]
+        return ext
 
     def update_from_pretalx(self, pretalx_submission: dict[str, Any]) -> None:
         # Note: remember to update the PRETALX_FIELDS class variable
