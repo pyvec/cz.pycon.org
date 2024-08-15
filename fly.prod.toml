@@ -20,7 +20,7 @@ primary_region = "ams"
   auto_start_machines = false
 
 [mounts]
-  source="django_images_data"
+  source="django_images_data_0"
   destination="/code/data"
 
 [regions]
