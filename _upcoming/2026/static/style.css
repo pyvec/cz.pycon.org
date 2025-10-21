@@ -16,11 +16,13 @@ a:hover, a:focus, a:active {
 }
 
 h1, h2, h3 {
-    font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
     font-weight: bold;
+    line-height: 1.35;
 }
 
 h1 {
+    font-size: 1.75rem;
     margin: 0 0 0.5rem;
 }
 
@@ -82,7 +84,7 @@ p {
 .top-header {
     padding: 32px 24px;
     text-align: center;
-    background: linear-gradient(to bottom, #223816, #2E451C);
+    background: linear-gradient(to bottom, #212D19, #2E451C);
 }
 
 .logo-container {
@@ -94,18 +96,62 @@ p {
     height: auto;
 }
 
+.header-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(2, auto);
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    .header-container {
+        grid-template-columns: 3fr minmax(max-content, 2fr);
+        grid-template-rows: auto;
+        gap: 48px;
+        align-items: center;
+    }
+
+    h1.title {
+        text-align: left;
+        font-size: 3rem;
+    }
+}
+
 
 /* Main content */
 
 .main-content {
     flex-grow: 1;
     padding-bottom: 64px;
+    line-height: 1.75;
 }
 
 @media (min-width: 768px) {
     .main-content {
         padding-bottom: 96px;
     }
+}
+
+.text-cols {
+    display: block;
+}
+
+.text-cols-item {
+    text-align: justify;
+}
+
+@media (min-width: 768px) {
+    .text-cols {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 112px;
+    }
+}
+
+h2.socials-header {
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 
 .social-icons {
