@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.11-slim-buster
+ARG PYTHON_VERSION=3.11-slim-trixie
 
 FROM python:${PYTHON_VERSION}
 
