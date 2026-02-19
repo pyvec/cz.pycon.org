@@ -1,0 +1,30 @@
+.pc-bg-header {
+  background: linear-gradient(to bottom, #212d19, #2e451c);
+  color: #fff;
+}
+
+.pc-header {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(2, auto);
+  gap: 32px;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 3fr minmax(max-content, 2fr);
+    grid-template-rows: auto;
+    gap: 48px;
+    align-items: center;
+  }
+}
+
+.pc-header__logo {
+  max-width: 60vw;
+  height: auto;
+}
+
+.pc-header__title {
+  @include media-breakpoint-up(md) {
+    text-align: left;
+    font-size: 3rem;
+  }
+}

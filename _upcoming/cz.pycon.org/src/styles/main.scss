@@ -1,0 +1,44 @@
+// Bootstrap — required
+@import "bootstrap/scss/functions";
+
+// Custom variable overrides
+@import "boostrap-variables";
+
+// Boostrap - rest of the required stylesheets
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Bootstrap — reboot (normalize / base element styles)
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+
+// Bootstrap — content (typography, images)
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+
+// Bootstrap — layout (containers, grid)
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+// Boostrap - navigation
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+
+// Bootstrap — helpers & utilities API (generates utility classes)
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+// =============================================================================
+// Custom styles
+// =============================================================================
+@import "layout";
+@import "elements";
+@import "utilities";
+@import "components/header";
+@import "components/footer";
+@import "components/social-icon";
+@import "components/sponsor-tier";

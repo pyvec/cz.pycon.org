@@ -1,0 +1,22 @@
+---
+import logoImage from "../assets/logo-pyconcz-26.svg";
+import Navigation from "./Navigation.astro";
+---
+
+<header class="pc-bg-header py-3 mb-3">
+  <Navigation />
+  <div class="container-md">
+    <div class="pc-header">
+      <div class="text-center">
+        <a href="/">
+          <img src={logoImage.src} alt="PyCon CZ 26" class="pc-header__logo" width="500" height="250" />
+        </a>
+      </div>
+      <h1 class="pc-header__title text-center text-md-start">
+        PyCon&nbsp;CZ&nbsp;26<br />
+        September&nbsp;2026<br />
+        Pilsen
+      </h1>
+    </div>
+  </div>
+</header>

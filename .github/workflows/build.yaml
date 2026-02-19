@@ -17,14 +17,14 @@ jobs:
       # TODO: this will fail because the code doesnt pass the lint checks yet.
       # Fix the errors and re-enable linters
       #- name: Lint
-      #  uses: addnab/docker-run-action@v3
+      #  uses: maus007/docker-run-action-fork@v1
       #  id: lint
       #  with:
       #    image: pycon:latest
       #    run: make ci/lint
 
       - name: Run tests
-        uses: addnab/docker-run-action@v3
+        uses: maus007/docker-run-action-fork@v1
         id: test
         with:
           image: pycon:latest
