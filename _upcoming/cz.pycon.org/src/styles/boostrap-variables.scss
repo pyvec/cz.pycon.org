@@ -1,0 +1,16 @@
+// Features
+$enable-grid-classes: true;
+$enable-cssgrid: true;
+
+// Custom font size
+$font-family-sans-serif: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+$font-family-monospace:
+  ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+// Heading styles
+$headings-font-family: $font-family-monospace;
+$headings-font-weight: bold;
+
+// Colors
+$primary: #44662a;
+$secondary: #a20b07;

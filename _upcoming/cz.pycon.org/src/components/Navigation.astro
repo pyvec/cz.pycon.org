@@ -1,0 +1,23 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const menuItems = [
+  { label: "Home", href: baseUrl },
+  { label: "Sponsorship", href: `${baseUrl}sponsorship/` },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav role="navigation" class="nav mb-3 justify-content-center flex-wrap">
+  {
+    menuItems.map((item) => (
+      <a
+        href={item.href}
+        class:list={["text-uppercase", "link-light", "nav-link", { "fw-semibold": currentPath === item.href }]}
+        aria-current={currentPath === item.href ? "page" : undefined}
+      >
+        {item.label}
+      </a>
+    ))
+  }
+</nav>

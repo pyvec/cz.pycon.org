@@ -1,0 +1,24 @@
+{
+  "name": "cz-pycon-org",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write ."
+  },
+  "dependencies": {
+    "astro": "^5.17.1",
+    "astro-purgecss": "^5.5.0",
+    "bootstrap": "^5.3.8",
+    "purgecss": "^7.0.2",
+    "sass": "^1.97.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1"
+  }
+}

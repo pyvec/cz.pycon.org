@@ -1,0 +1,34 @@
+.pc-sponsor-tier {
+  border: 2px solid transparent;
+}
+
+.pc-sponsor-tier--bronze {
+  background: rgba($orange-100, 0.25);
+  border-color: $orange-200;
+}
+
+.pc-sponsor-tier--silver {
+  background: $gray-100;
+  border-color: $gray-500;
+}
+
+.pc-sponsor-tier--gold {
+  background: $yellow-100;
+  border-color: $yellow-500;
+}
+
+.pc-sponsor-tier--platinum {
+  background: $indigo-700;
+  border-color: $indigo-800;
+  box-shadow: 0 0.5rem 1rem rgba($indigo-400, 0.25);
+  color: mix($indigo-100, $white, 20%);
+}
+
+.pc-sponsor-tier--addon {
+  background: rgba($blue-200, 0.05);
+  border-color: $blue-200;
+}
+
+.pc-sponsor-tier__exclusive {
+  color: $blue-600;
+}

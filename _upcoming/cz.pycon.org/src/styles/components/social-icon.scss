@@ -1,0 +1,14 @@
+.social-icon {
+  min-width: 96px;
+}
+
+.social-icon__icon {
+  height: 64px;
+  fill: rgba(255, 255, 255, 0.7);
+}
+
+.social-icon:hover .social-icon__icon,
+.social-icon:focus .social-icon__icon,
+.social-icon:active .social-icon__icon {
+  fill: #fff;
+}
