@@ -1,5 +1,5 @@
 ---
-
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <footer class="pc-footer bg-black text-light">
@@ -24,6 +24,7 @@
           <a class="nav-link" rel="me" href="https://www.facebook.com/events/1363197064240927">Facebook</a>
           <a class="nav-link" rel="me" href="https://www.youtube.com/@PyConCZ">YouTube</a>
           <a class="nav-link" rel="me" href="https://github.com/pyvec/cz.pycon.org">GitHub</a>
+          <a class="nav-link" href={`${baseUrl}coc/`}>Code of Conduct</a>
         </nav>
 
         <p class="mx-3">
