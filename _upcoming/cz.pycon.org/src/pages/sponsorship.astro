@@ -1,295 +1,332 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Paper from "../components/Paper.astro";
+import FollowUs from "../components/FollowUs.astro";
+import Sticker from "../components/Sticker.astro";
+import SponsorContacts from "../components/SponsorContacts.astro";
+import heroImage from "../assets/hero/sponsorship.png";
+import floppy from "../assets/stickers/floppy.png";
+import mp3Player from "../assets/stickers/mp3-player.png";
+import globe from "../assets/stickers/globe.png";
+import flashDrive from "../assets/stickers/flash-drive.png";
+
 const baseUrl = import.meta.env.BASE_URL;
+const prospectus = {
+  href: `${baseUrl}files/pycon-cz-sponsorship-prospectus-2027-v2.pdf`,
+  download: "pycon-cz-sponsorship-prospectus-2027.pdf",
+};
 ---
 
 <Layout title="Sponsorship">
-  <h1>Sponsorship</h1>
+  <Hero
+    image={heroImage}
+    imageAlt="Two people shaking hands"
+    button={{ label: "Become our sponsor", href: "#contacts" }}
+  >
+    <Fragment slot="title">Let your company be&nbsp;seen!</Fragment>
+  </Hero>
 
-  <div class="row gx-5 align-items-end">
-    <div class="col-md-8 col-lg-7">
-      <div
-        class="rounded-3 border border-2 border-primary p-3 p-sm-4 pb-1 pb-sm-2 bg-primary bg-opacity-10 lead shadow"
-      >
-        <h2 class="mt-0">Value for your company</h2>
-        <p class="mb-2 fw-bold">Sponsoring PyCon CZ is a great way to</p>
-        <ul>
-          <li>
-            <b>Support Python</b> and the open source ecosystem your company relies on.
-          </li>
-          <li>
-            <b>Recruit developers, data analysts and testers</b>: talk to attendees looking for their next job.
-          </li>
+  <div class="pc-container">
+    <section class="pc-section pc-value">
+      <h2 class="pc-heading">Value for your company</h2>
+      <p class="pc-lead">Sponsoring PyCon CZ is a great way to</p>
+
+      <div class="pc-card pc-card--lavender pc-card--cut pc-value__card">
+        <ol class="pc-numbered">
+          <li><b>Support Python</b> and the open source ecosystem your company relies on.</li>
+          <li><b>Recruit developers, data analysts and testers</b>: talk to attendees looking for their next job.</li>
           <li>
             <b>Show your current employees you care</b> about their favourite language and even make the event into an informal
             team-building experience for them.
           </li>
-          <li>
-            Help your employees widen their <b>skills and knowledge</b>.
-          </li>
-          <li>
-            <b>Promote your product</b>: attendees are curious people looking for new tools and ideas.
-          </li>
+          <li>Help your employees widen their <b>skills and knowledge</b>.</li>
+          <li><b>Promote your product</b>: attendees are curious people looking for new tools and ideas.</li>
           <li><b>Find collaborators and partners</b> for future development.</li>
+        </ol>
+        <a class="pc-btn pc-btn--sm" href={prospectus.href} download={prospectus.download}>
+          Download sponsorship information (PDF)
+        </a>
+      </div>
+
+      <div class="pc-card pc-card--lime pc-card--cut-tl pc-value__contacts" id="contacts">
+        <h3>Contacts</h3>
+        <SponsorContacts />
+      </div>
+
+      <Sticker image={floppy} class="pc-value__floppy" />
+    </section>
+
+    <section class="pc-section pc-summary">
+      <h2 class="pc-heading">Event summary</h2>
+      <div class="pc-card pc-card--cut pc-summary__card">
+        <ul class="pc-text-columns">
+          <li>16–18 April 2027 <strong>in Pilsen</strong></li>
+          <li><strong>400 attendees:</strong> professionals, students and hobbyist Pythonistas</li>
+          <li>
+            <strong>2 conference days</strong> with 2 tracks primarily in English covering topics like data processing, AI/ML,
+            web-dev, cybersecurity
+          </li>
+          <li><strong>1 day</strong> of workshops and sprints</li>
+          <li><strong>40+ diverse,</strong> local and international speakers</li>
+          <li><strong>Recorded talks</strong> available to watch later for everyone</li>
+          <li>Broad range of both <strong>technical and community topics</strong></li>
+          <li><strong>Sponsor booths</strong> (Saturday &amp; Sunday)</li>
+          <li><strong>Social events and an after party</strong></li>
+          <li>Organised by a <strong>community of volunteers</strong></li>
+          <li>Friendly and <strong>inclusive</strong> environment</li>
+          <li><strong>Food, coffee and tea</strong> provided on all 3 conference days</li>
         </ul>
       </div>
-    </div>
-    <div class="col-md">
-      <h2>Contacts</h2>
-      <p>
-        <b>Marie Baluch</b>, Partnerships Lead – PyCon CZ 27 <br />
-        <a href="mailto:sponsorship@pycon.cz">sponsorship@pycon.cz</a>
-        <br /><a href="tel:+420737057839">+420&nbsp;737&nbsp;057&nbsp;839</a>
+      <Sticker image={mp3Player} class="pc-summary__mp3" />
+    </section>
+
+    <section class="pc-section pc-packages">
+      <h2 class="pc-heading">Sponsorship packages</h2>
+      <p class="pc-lead">
+        We are not VAT payers.
+        <br />Prices in EUR are for indicative purposes only.
       </p>
-      <p>
-        <b>Eva Bohňová</b>, Partnerships – PyCon CZ 27 <br />
-        <a href="mailto:sponsorship@pycon.cz">sponsorship@pycon.cz</a>
-      </p>
-      <p>
-        <b>Mária Melišková</b>, Partnerships – PyCon CZ 27 <br />
-        <a href="mailto:sponsorship@pycon.cz">sponsorship@pycon.cz</a>
-      </p>
-      <a
-        class="btn btn-primary"
-        href={`${baseUrl}files/pycon-cz-sponsorship-prospectus-2027-v2.pdf`}
-        download="pycon-cz-sponsorship-prospectus-2027.pdf"
-      >
-        Download sponsorship information (PDF)
+
+      <div class="pc-cols pc-cols--cards">
+        <div class="pc-card pc-card--lavender pc-tier">
+          <h3>Bronze</h3>
+          <p class="pc-tier__price">25,000 CZK / 1,024 EUR</p>
+          <p class="pc-tier__intro">This package includes:</p>
+          <ul>
+            <li><b>2 tickets</b> for the conference</li>
+            <li>Logo on the conference website</li>
+            <li>Logo on the intermission slide deck shown during breaks</li>
+            <li>Partner announced on the PyCon CZ official social media channels</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Silver</h3>
+          <p class="pc-tier__price">50,000 CZK / 2,048 EUR</p>
+          <p class="pc-tier__intro">Everything in Bronze plus:</p>
+          <ul>
+            <li>1 more ticket to the <b>total of 3</b></li>
+            <li>Roll-up at the venue</li>
+            <li>Welcome package insert / promotions for attendees</li>
+            <li>One promotional post retweet / reshare on PyCon CZ official social media channels</li>
+            <li>Standard booth at the venue available as an option (see options below)</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-card--lime pc-tier">
+          <h3>Gold</h3>
+          <p class="pc-tier__price">100,000 CZK / 4,096 EUR</p>
+          <p class="pc-tier__intro">Everything in Silver plus:</p>
+          <ul>
+            <li>1 more ticket to the <b>total of 4</b></li>
+            <li>One more welcome package insert to the total of 2</li>
+            <li>One more promotional post retweet / reshare social media to the total of 2</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-card--pink pc-tier">
+          <h3>Platinum</h3>
+          <p class="pc-tier__price">200,000 CZK / 8,192 EUR</p>
+          <p class="pc-tier__intro">Everything in Gold plus:</p>
+          <ul>
+            <li><b>A large booth at the venue included in the price of the package</b></li>
+            <li>6 more tickets to the <b>total of 10</b></li>
+            <li>One more welcome package insert to the total of 3</li>
+            <li>One more promotional post retweet / reshare social media to the total of 3</li>
+          </ul>
+        </div>
+      </div>
+      <Sticker image={globe} class="pc-packages__globe" />
+    </section>
+
+    <section class="pc-section pc-addons">
+      <h2 class="pc-heading">Custom options (add‑ons)</h2>
+
+      <div class="pc-cols pc-cols--cards">
+        <div class="pc-card pc-tier">
+          <h3>Sponsored workshop</h3>
+          <p class="pc-tier__price">50,000 CZK / 2,048 EUR</p>
+          <p class="pc-tier__intro">Exclusive:<br />only two available</p>
+          <ul>
+            <li>Unique opportunity to showcase your technology to the audience hands on</li>
+            <li>60 - 90 minute slot during the main conference, marked as sponsored</li>
+            <li>Includes a ticket and optional coaching for the speaker</li>
+            <li>Attendance at the sponsored workshop is not guaranteed</li>
+            <li class="pc-tier__note">Available with Platinum / Gold only</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Venue Booth</h3>
+          <p class="pc-tier__price">20,000 CZK / 840 EUR</p>
+          <p class="pc-tier__intro">Booth at the venue<br />(max. 1.5 m × 2 m)</p>
+          <ul>
+            <li><b>Includes 3 full tickets</b> to the conference (for booth staff or for use at your discretion)</li>
+            <li class="pc-tier__note">Available with Gold / Silver only (Platinum has a larger booth included)</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Lanyard</h3>
+          <p class="pc-tier__price">50,000 CZK / 2,048 EUR</p>
+          <p class="pc-tier__intro">Exclusive:<br />only one available</p>
+          <ul>
+            <li>Partner logo on the lanyard that everybody will be wearing</li>
+            <li>Lanyards will have only one Partner logo printed + logo of PyCon CZ</li>
+            <li class="pc-tier__note">Available with Platinum / Gold only</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Childcare</h3>
+          <p class="pc-tier__price">10,000 CZK / 420 EUR</p>
+          <p class="pc-tier__intro">Exclusive:<br />only one available</p>
+          <ul>
+            <li>You will help us to acquire professional childcare providers</li>
+            <li>Every information (website, newsletter, on-site) about Childcare will include partner’s name</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Coffee</h3>
+          <p class="pc-tier__price">75,000 CZK / 3,000 EUR</p>
+          <p class="pc-tier__intro">Exclusive:<br />only one available</p>
+          <ul>
+            <li>Helping to cover the cost of the coffee at PyCon CZ</li>
+            <li>Coffee booth branded with partner’s logo (e.g. roll-up or banner that the partner provides)</li>
+            <li>Option to brand cups (at partner’s cost)</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Speakers Diner</h3>
+          <p class="pc-tier__price">60,000 CZK / 2,500 EUR</p>
+          <p class="pc-tier__intro">Exclusive:<br />only one available</p>
+          <ul>
+            <li>Sponsoring the cost of meal and drinks at the dinner</li>
+            <li>Partner’s logo on information posters during the dinner</li>
+            <li>Attendance for 2 people</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Afterparty Drinks</h3>
+          <p class="pc-tier__price">60,000 CZK / 2,500 EUR</p>
+          <p class="pc-tier__intro">Exclusive:<br />only one available</p>
+          <ul>
+            <li>Sponsoring the cost of drinks (soft drinks, beer and wine) at the afterparty</li>
+            <li>Partner’s logo on information posters during the party</li>
+            <li>Option to brand cups (at partner’s cost)</li>
+            <li>Host will mention the partner when inviting attendees to the party</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier">
+          <h3>Custom sponsorship</h3>
+          <p class="pc-tier__price">from 10,000 CZK / 420 EUR</p>
+          <p class="pc-tier__intro">A few ideas:</p>
+          <ul>
+            <li>Ice cream cart sponsor</li>
+            <li>Host a quiz or competition or donate prizes</li>
+            <li>Diversity sponsor – pay for free tickets for a target demographic</li>
+            <li>Event sponsor (board game night, workshop that requires specialised hardware, etc.)</li>
+            <li>Your idea! We’re open to anything interesting and fun…</li>
+          </ul>
+        </div>
+        <div class="pc-card pc-tier pc-card--cut pc-addons__extra">
+          <h3>Non-financial sponsorship</h3>
+          <p>
+            Your sponsorship doesn’t have to be financial: you can provide a service or goods directly to PyCon CZ
+            attendees and get extra visibility.
+          </p>
+        </div>
+      </div>
+      <Sticker image={flashDrive} class="pc-addons__flash" />
+    </section>
+
+    <p class="pc-section pc-section--tight text-center pc-download">
+      <a class="pc-btn pc-btn--lg" href={prospectus.href} download={prospectus.download}>
+        Download all sponsorship information (PDF)
       </a>
-    </div>
+    </p>
+
+    <Paper class="pc-sponsor-paper">
+      <div class="pc-cols pc-cols--5-7 pc-cols--text">
+        <div class="pc-paper__block">
+          <FollowUs />
+        </div>
+        <div class="pc-paper__block">
+          <h2>Contacts</h2>
+          <SponsorContacts class="pc-paper__contact" />
+        </div>
+      </div>
+    </Paper>
   </div>
-
-  <h2>Event summary</h2>
-  <ul class="pc-text-columns">
-    <li>16–18 April 2027 in Pilsen</li>
-    <li><strong>400 attendees:</strong> professionals, students and hobbyist Pythonistas</li>
-    <li>
-      2 conference days with 2 tracks primarily in English covering topics like data processing, AI/ML, web-dev,
-      cybersecurity
-    </li>
-    <li>1 day of workshops and sprints</li>
-    <li>40+ diverse, local and international speakers</li>
-    <li>Recorded talks available to watch later for everyone</li>
-    <li>Broad range of both technical and community topics</li>
-    <li>Sponsor booths (Saturday &amp; Sunday)</li>
-    <li>Social events and an after party</li>
-    <li>Organised by a community of volunteers</li>
-    <li>Friendly and inclusive environment</li>
-    <li>Food, coffee and tea provided on all 3 conference days</li>
-  </ul>
-
-  <h2>Sponsorship packages</h2>
-  <p>
-    We are not VAT payers.
-    <br />Prices in EUR are for indicative purposes only.
-  </p>
-
-  <div class="row row-gap-5">
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--bronze">
-        <h3 class="mt-0">Bronze</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">25,000 CZK</span> or
-          <span class="d-inline-block">1,024 EUR</span>
-        </p>
-        <p class="lead">This package includes:</p>
-        <p><b>2 tickets</b> for the conference</p>
-        <p>Logo on the conference website</p>
-        <p>Logo on the intermission slide deck shown during breaks</p>
-        <p>Partner announced on the PyCon CZ official social media channels</p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--silver">
-        <h3 class="mt-0">Silver</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">50,000 CZK</span> or
-          <span class="d-inline-block">2,048 EUR</span>
-        </p>
-        <p class="lead">Everything in Bronze plus:</p>
-        <p>1 more ticket to the <b>total of 3</b></p>
-        <p>Roll-up at the venue</p>
-        <p>Welcome package insert / promotions for attendees</p>
-        <p>One promotional post retweet / reshare on PyCon CZ official social media channels</p>
-        <p>Standard booth at the venue available as an option (see options below)</p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--gold">
-        <h3 class="mt-0">Gold</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">100,000 CZK</span> or
-          <span class="d-inline-block">4,096 EUR</span>
-        </p>
-        <p class="lead">Everything in Silver plus:</p>
-        <p>1 more ticket to the <b>total of 4</b></p>
-        <p>One more welcome package insert to the total of 2</p>
-        <p>One more promotional post retweet / reshare social media to the total of 2</p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--platinum">
-        <h3 class="mt-0">Platinum</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">200,000 CZK</span> or
-          <span class="d-inline-block">8,192 EUR</span>
-        </p>
-        <p class="lead">Everything in Gold plus:</p>
-        <p><b>A large booth at the venue included in the price of the package</b></p>
-        <p>6 more tickets to the <b>total of 10</b></p>
-        <p>One more welcome package insert to the total of 3</p>
-        <p>One more promotional post retweet / reshare social media to the total of 3</p>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="mb-4">Custom options (add‑ons)</h2>
-
-  <div class="row row-gap-5">
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Sponsored workshop</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">50,000 CZK</span> or
-          <span class="d-inline-block">2,048 EUR</span>
-        </p>
-        <p class="h5 mt-0 pc-sponsor-tier__exclusive">exclusive:<br />only two available</p>
-        <p class="lead">Unique opportunity to showcase your technology to the audience hands on</p>
-        <p>60 - 90 minute slot during the main conference, marked as sponsored</p>
-        <p>Includes a ticket and optional coaching for the speaker</p>
-        <p>Attendance at the sponsored workshop is not guaranteed</p>
-        <p><i>Available with Platinum / Gold only</i></p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Venue Booth</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">20,000 CZK</span> or
-          <span class="d-inline-block">840 EUR</span>
-        </p>
-        <p class="lead">Booth at the venue (max. 1.5 m × 2 m)</p>
-        <p><b>Includes 3 full tickets</b> to the conference (for booth staff or for use at your discretion)</p>
-        <p><i>Available with Gold / Silver only (Platinum has a larger booth included)</i></p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Lanyard</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">50,000 CZK</span> or
-          <span class="d-inline-block">2,048 EUR</span>
-        </p>
-        <p class="h5 mt-0 pc-sponsor-tier__exclusive">exclusive:<br />only one available</p>
-        <p class="lead">Partner logo on the lanyard that everybody will be wearing</p>
-        <p>Lanyards will have only one Partner logo printed + logo of PyCon CZ</p>
-        <p><i>Available with Platinum / Gold only</i></p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Childcare</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">10,000 CZK</span> or
-          <span class="d-inline-block">420 EUR</span>
-        </p>
-        <p class="h5 mt-0 pc-sponsor-tier__exclusive">exclusive:<br />only one available</p>
-        <p class="lead">You will help us to acquire professional childcare providers</p>
-        <p>Every information (website, newsletter, on-site) about Childcare will include partner’s name</p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Coffee</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">75,000 CZK</span> or
-          <span class="d-inline-block">3,000 EUR</span>
-        </p>
-        <p class="h5 mt-0 pc-sponsor-tier__exclusive">exclusive:<br />only one available</p>
-        <p class="lead">Helping to cover the cost of the coffee at PyCon CZ</p>
-        <p>Coffee booth branded with partner’s logo (e.g. roll-up or banner that the partner provides)</p>
-        <p>Option to brand cups (at partner’s cost)</p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Speakers Diner</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">60,000 CZK</span> or
-          <span class="d-inline-block">2,500 EUR</span>
-        </p>
-        <p class="h5 mt-0 pc-sponsor-tier__exclusive">exclusive:<br />only one available</p>
-        <p class="lead">Sponsoring the cost of meal and drinks at the dinner</p>
-        <p>Partner’s logo on information posters during the dinner</p>
-        <p>Attendance for 2 people</p>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Afterparty Drinks</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">60,000 CZK</span> or
-          <span class="d-inline-block">2,500 EUR</span>
-        </p>
-        <p class="h5 mt-0 pc-sponsor-tier__exclusive">exclusive:<br />only one available</p>
-        <p class="lead">Sponsoring the cost of drinks (soft drinks, beer and wine) at the afterparty</p>
-        <p>Partner’s logo on information posters during the party</p>
-        <p>Option to brand cups (at partner’s cost)</p>
-        <p>Host will mention the partner when inviting attendees to the party</p>
-      </div>
-    </div>
-
-    <div class="col-md-6 col-lg-3">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Custom sponsorship</h3>
-        <p class="h4 mt-0">
-          <span class="d-inline-block">starting from 10,000 CZK</span> or
-          <span class="d-inline-block">420 EUR</span>
-        </p>
-        <p class="lead mb-2">A few ideas:</p>
-        <ul>
-          <li>Ice cream cart sponsor</li>
-          <li>Host a quiz or competition or donate prizes</li>
-          <li>Diversity sponsor – pay for free tickets for a target demographic</li>
-          <li>Event sponsor (board game night, workshop that requires specialised hardware, etc.)</li>
-          <li>Your idea! We’re open to anything interesting and fun…</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="col-md-6 col-lg-12">
-      <div class="h-100 rounded-3 p-3 p-sm-4 pb-1 pb-sm-2 pc-sponsor-tier pc-sponsor-tier--addon">
-        <h3 class="mt-0">Non-financial sponsorship</h3>
-        <p class="lead">
-          Your sponsorship doesn’t have to be financial: you can provide a service or goods directly to PyCon CZ
-          attendees and get extra visibility.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <p class="my-5">
-    <a
-      class="btn btn-lg btn-primary"
-      href={`${baseUrl}files/pycon-cz-sponsorship-prospectus-2027-v2.pdf`}
-      download="pycon-cz-sponsorship-prospectus-2027.pdf"
-    >
-      Download all sponsorship information (PDF)
-    </a>
-  </p>
-
-  <h2>Contacts</h2>
-  <p>
-    <b>Marie Baluch</b>, Partnerships Lead – PyCon CZ 27 <br />
-    <a href="mailto:sponsorship@pycon.cz">sponsorship@pycon.cz</a>
-    <br /><a href="tel:+420737057839">+420&nbsp;737&nbsp;057&nbsp;839</a>
-  </p>
-  <p>
-    <b>Eva Bohňová</b>, Partnerships – PyCon CZ 27 <br />
-    <a href="mailto:sponsorship@pycon.cz">sponsorship@pycon.cz</a>
-  </p>
-  <p>
-    <b>Mária Melišková</b>, Partnerships – PyCon CZ 27 <br />
-    <a href="mailto:sponsorship@pycon.cz">sponsorship@pycon.cz</a>
-  </p>
 </Layout>
+
+<style>
+  @import "../styles/media.css";
+
+  /* Straddles the card's bottom edge, clear of the text above. Smaller and
+     further right below xxl so it misses the "Sponsorship packages" heading. */
+  .pc-summary__mp3 {
+    right: 2%;
+    bottom: -10rem;
+    width: 13rem;
+    transform: rotate(-12deg);
+
+    @media (--xxl) {
+      right: 14%;
+      bottom: -13.75rem;
+      width: 18rem;
+    }
+  }
+
+  .pc-summary {
+    z-index: 1;
+  }
+
+  .pc-packages__globe {
+    right: 1rem;
+    bottom: -5rem;
+    width: 11rem;
+    transform: rotate(-4deg);
+  }
+
+  /* Overlaps the last card's empty bottom space and stays ~52px clear of the
+     download button below */
+  .pc-addons__flash {
+    left: 1rem;
+    bottom: -8rem;
+    width: 13rem;
+    transform: rotate(-30deg);
+  }
+
+  .pc-addons {
+    z-index: 1;
+  }
+
+  /* Full row under the add-on cards, with room under the text for the
+     flash-drive sticker */
+  .pc-addons__extra {
+    grid-column: 1 / -1;
+
+    @media (--lg) {
+      padding-bottom: calc(3.5rem + var(--cut) * 0.5);
+    }
+  }
+
+  /* Fixed on lg+ so the flash-drive sticker above always clears the button */
+  .pc-download {
+    margin-top: var(--pc-space-section);
+
+    @media (--lg) {
+      margin-top: 11rem;
+    }
+  }
+
+  /* The section is rendered by Paper.astro, so it doesn't carry this page's
+     scope; .pc-paper doubles the class to beat its margin-inline in any CSS order.
+     Inset ~52px from the container like in the design. */
+  @media (--lg) {
+    :global(.pc-paper.pc-sponsor-paper) {
+      margin-inline: 2.75rem;
+    }
+  }
+
+  /* The grid's row gap spaces the stacked columns, not the paper block margin */
+  .pc-paper__block + .pc-paper__block {
+    margin-top: 0;
+  }
+</style>

@@ -1,0 +1,138 @@
+/* Base element styles: the part of Bootstrap 5.3's reboot and type the site relies on, in the
+   same order, with sizes and spacing from the tokens. Elements the site doesn't use (forms, code, tables, …) are left out. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--pc-font-sans);
+  font-size: var(--pc-text-s);
+  font-weight: 400;
+  line-height: var(--pc-leading-body);
+  color: var(--pc-text-light);
+  background-color: var(--pc-bg);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Headings */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  margin-bottom: var(--pc-space-s);
+  font-family: var(--pc-font-mono);
+  font-weight: 600;
+  line-height: var(--pc-leading-tight);
+  color: inherit;
+}
+
+/* Defaults for headings without a component class */
+h1 {
+  font-size: var(--pc-text-heading);
+}
+
+h2 {
+  font-size: var(--pc-text-subheading);
+}
+
+h3 {
+  font-size: var(--pc-text-xl);
+}
+
+/* Text */
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--pc-space-s);
+}
+
+/* elements.css narrows the padding later */
+ol,
+ul {
+  padding-left: 2rem;
+  margin-top: 0;
+  margin-bottom: var(--pc-space-s);
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-bottom: 0;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/* Links (elements.css adds the hover highlight) */
+a {
+  color: var(--pc-text-light);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--pc-text-dark);
+}
+
+a:not([href]):not([class]),
+a:not([href]):not([class]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Media */
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+/* Astro's <Picture> wraps the <img> for AVIF/WebP sources. Taking the wrapper out of the box
+   tree lets the <img> stay the grid item / positioned element the component styles target. */
+picture {
+  display: contents;
+}
+
+/* Buttons */
+
+button {
+  border-radius: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-transform: none;
+  -webkit-appearance: button;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+/* Keep the outline for keyboard focus only */
+button:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+[hidden] {
+  display: none !important;
+}

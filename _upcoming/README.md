@@ -1,6 +1,6 @@
-# Provisional PyCon CZ 2026 website
+# Provisional PyCon CZ 2027 website
 
-The provisional website for PyCon CZ 2026 uses [Astro](https://astro.build) to build a static site for the event.
+The provisional website for PyCon CZ 2027 uses [Astro](https://astro.build) to build a static site for the event.
 The Astro project is located in the `cz.pycon.org` subdirectory, the static site is in the `public` subdirectory.
 
 The build is currently not automated - to update the site, you have to build a new version locally and the commit
@@ -28,7 +28,7 @@ cd cz.pycon.org
 npm run dev
 ```
 
-Open http://localhost:4321/2026/ in your browser. The dev server uses hot reload for all changes, so you can edit
+Open http://localhost:4321/2027/ in your browser. The dev server uses hot reload for all changes, so you can edit
 the files and see the changes instantly.
 
 

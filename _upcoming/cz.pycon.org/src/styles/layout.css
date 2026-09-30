@@ -1,0 +1,113 @@
+/* Page background: dark with a 32px grid (24px on phones), see design/assets/kosticka_*.png
+   The offset centres a grid line on the page centre, so containers sized in
+   whole squares (and the two-column layouts inside them) sit on the lines. */
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--pc-bg);
+  background-image:
+    linear-gradient(to right, var(--pc-grid) var(--pc-grid-line), transparent var(--pc-grid-line)),
+    linear-gradient(to bottom, var(--pc-grid) var(--pc-grid-line), transparent var(--pc-grid-line));
+  background-size: var(--pc-grid-size) var(--pc-grid-size);
+  background-position: calc(50% + (var(--pc-grid-size) - var(--pc-grid-line)) / 2) top;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  flex-grow: 1;
+  padding-bottom: var(--pc-space-section);
+}
+
+/* Fixed content width per breakpoint, an even number of grid squares so both
+   edges and the centre land on grid lines. Each width leaves at least ~16px
+   either side at the breakpoint's minimum viewport, scrollbar included.
+   xxl is the closest fit to the design's 1300px. */
+.pc-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--pc-gutter);
+
+  /* 528px, and 704px from md where the grid squares grow */
+  @media (--sm) {
+    max-width: calc(22 * var(--pc-grid-size));
+    padding-inline: 0;
+  }
+
+  /* 896px */
+  @media (--lg) {
+    max-width: calc(28 * var(--pc-grid-size));
+  }
+
+  /* 1088px */
+  @media (--xl) {
+    max-width: calc(34 * var(--pc-grid-size));
+  }
+
+  /* 1280px */
+  @media (--xxl) {
+    max-width: calc(40 * var(--pc-grid-size));
+  }
+}
+
+.pc-section {
+  position: relative;
+  margin-top: var(--pc-space-section);
+}
+
+.pc-section--tight {
+  margin-top: var(--pc-space-block);
+}
+
+/* One grid square below the previous block (homepage cards under the hero) */
+.pc-section--snug {
+  margin-top: var(--pc-grid-size);
+}
+
+/* Column layouts: items stack full-width with the row gap and sit side by side
+   from the modifier's breakpoint. minmax(0, …) keeps a long word or wide image
+   from stretching its column, like the fixed-width columns of a float grid. */
+.pc-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--pc-space-m);
+}
+
+/* Card grid: 1 → 2 → 4 columns */
+.pc-cols--cards {
+  @media (--md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (--xl) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.pc-cols--halves {
+  @media (--lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.pc-cols--5-7 {
+  @media (--lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+/* Text blocks: more air between them than between cards, and each only as
+   tall as its content */
+.pc-cols--text {
+  gap: var(--pc-space-xl) var(--pc-space-l);
+  align-items: start;
+}
+
+/* Readable measure for long text on the dark background */
+.pc-measure {
+  max-width: 62rem;
+}
+
+.pc-body-locked {
+  overflow: hidden;
+}

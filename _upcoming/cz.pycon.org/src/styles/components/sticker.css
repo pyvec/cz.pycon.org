@@ -1,0 +1,14 @@
+/* Decorative photo stickers overlapping cards. Only shown on large screens –
+   the phone designs don't use them and tablets have no room either. */
+.pc-sticker {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  height: auto;
+
+  @media (--lg) {
+    display: block;
+  }
+}

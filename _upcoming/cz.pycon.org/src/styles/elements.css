@@ -1,0 +1,64 @@
+/* Section headings on the dark background: lime Spline Sans Mono */
+.pc-heading {
+  font-family: var(--pc-font-mono);
+  font-weight: 600;
+  color: var(--pc-lime);
+  font-size: var(--pc-text-heading);
+  line-height: var(--pc-leading-tight);
+  margin-bottom: var(--pc-space-heading);
+  text-wrap: balance;
+}
+
+/* Intro paragraphs on dark background (Inter Medium, 28px on desktop) */
+.pc-lead {
+  font-weight: 500;
+  font-size: var(--pc-text-lead);
+  line-height: var(--pc-leading-body);
+}
+
+.pc-lead p:last-child {
+  margin-bottom: 0;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* Links: underlined, lime highlight on hover (see design library "Hover/Action") */
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  border-radius: 2px;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--pc-lime);
+    color: var(--pc-text-dark);
+    box-shadow: 0 0 0 2px var(--pc-lime);
+  }
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+li + li {
+  margin-top: var(--pc-space-2xs);
+}
+
+.pc-text-columns {
+  @media (--lg) {
+    column-count: 2;
+    column-gap: var(--pc-space-xl);
+  }
+
+  > li {
+    break-inside: avoid;
+  }
+}
+
+::selection {
+  background: var(--pc-lime);
+  color: var(--pc-text-dark);
+}

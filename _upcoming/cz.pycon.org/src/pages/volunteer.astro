@@ -1,58 +1,302 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Paper from "../components/Paper.astro";
+import FollowUs from "../components/FollowUs.astro";
+import Sticker from "../components/Sticker.astro";
+import heroImage from "../assets/hero/volunteer.png";
+import cd from "../assets/stickers/cd.png";
+import flipPhone from "../assets/stickers/flip-phone.png";
+import heart from "../assets/stickers/heart.png";
+
+const formUrl = "https://forms.gle/5Lnw5mzs7Rv6hoBbA";
 ---
 
 <Layout title="Volunteer">
-  <h1>🐍 Join the Crew: Volunteers wanted for PyCon CZ!</h1>
+  <Hero
+    class="pc-volunteer-hero"
+    image={heroImage}
+    imageAlt="Hand holding a megaphone"
+    button={{ label: "Join the crew", href: formUrl }}
+  >
+    <Fragment slot="title">Volunteers wanted for PyCon&nbsp;CZ!</Fragment>
+  </Hero>
 
-  <p>
-    The Python community is built by people like you, and we’re looking for a team of enthusiastic volunteers to help us
-    make this year’s <strong>PyCon CZ</strong> the best one yet!
-  </p>
-  <p>
-    Whether you are a seasoned Pythonista or just starting your journey, volunteering is a fantastic way to go behind
-    the scenes, meet the community, and contribute to the vibe of the conference.
-  </p>
+  <div class="pc-container">
+    <section class="pc-section pc-intro">
+      <h2 class="pc-heading">The Python community<br class="pc-intro__break" /> is built by people like you!</h2>
+      <div class="pc-lead pc-measure">
+        <p>
+          We’re looking for a team of enthusiastic volunteers to help us make this year’s <strong>PyCon CZ</strong> the best
+          one yet!
+        </p>
+        <p>
+          Whether you are a seasoned Pythonista or just starting your journey, volunteering is a fantastic way to go
+          behind the scenes, meet the community, and contribute to the vibe of the conference.
+        </p>
+      </div>
+    </section>
 
-  <h2>How you can help</h2>
+    <section class="pc-section pc-help">
+      <h2 class="pc-heading">How you can help</h2>
+      <p class="pc-lead">We have various roles available depending on your interests and skills:</p>
 
-  <p>We have various roles available depending on your interests and skills:</p>
+      <div class="pc-help__body">
+        <div class="pc-card pc-card--cut pc-help__card">
+          <ul>
+            <li>
+              <strong>Registration & Info Desk:</strong> Be the first friendly face attendees see and help them navigate the
+              event.
+            </li>
+            <li>
+              <strong>Session Hosting:</strong> Introduce speakers and moderate Q&A sessions to keep the talks running smoothly.
+            </li>
+            <li>
+              <strong>Venue Support:</strong> Help us manage the flow of the crowds and keep the lecture halls organized.
+            </li>
+            <li>
+              <strong>Technical Assistance:</strong> Provide a hand with AV equipment or general tech troubleshooting.
+            </li>
+            <li>
+              <strong>Manual & General Help:</strong> Support with the "heavy lifting"—from setting up booths to distributing
+              swag.
+            </li>
+            <li>and more…</li>
+          </ul>
+        </div>
 
-  <ul>
-    <li>
-      <strong>Registration & Info Desk:</strong> Be the first friendly face attendees see and help them navigate the event.
-    </li>
-    <li>
-      <strong>Session Hosting:</strong> Introduce speakers and moderate Q&A sessions to keep the talks running smoothly.
-    </li>
-    <li>
-      <strong>Venue Support:</strong> Help us manage the flow of the crowds and keep the lecture halls organized.
-    </li>
-    <li>
-      <strong>Technical Assistance:</strong> Provide a hand with AV equipment or general tech troubleshooting.
-    </li>
-    <li>
-      <strong>Manual & General Help:</strong> Support with the "heavy lifting"—from setting up booths to distributing swag.
-    </li>
-    <li>and more…</li>
-  </ul>
+        <Sticker image={cd} class="pc-help__cd" />
+      </div>
+    </section>
 
-  <h2>Why join us?</h2>
+    <section class="pc-section pc-why">
+      <h2 class="pc-heading">Why join us?</h2>
+      <p class="pc-lead pc-measure">
+        Besides our eternal gratitude, you’ll get to experience the conference from a unique perspective, network with
+        speakers and sponsors, and—of course—grab some exclusive volunteer perks.
+      </p>
+    </section>
 
-  <p>
-    Besides our eternal gratitude, you’ll get to experience the conference from a unique perspective, network with
-    speakers and sponsors, and—of course—grab some exclusive volunteer perks.
-  </p>
+    <Paper class="pc-ready">
+      <div class="pc-paper__block">
+        <h2>Ready to help?</h2>
+        <a class="pc-btn" href={formUrl}>Volunteer registration form</a>
+      </div>
 
-  <h3>Ready to help?</h3>
+      <div class="pc-paper__block">
+        <div class="pc-cols pc-cols--halves pc-cols--text">
+          <div class="pc-ready__questions">
+            <h3>Do you have some questions?</h3>
+            <div class="pc-paper__contact pc-ready__contact">
+              <p>
+                <strong>Contact us by email:</strong><br />
+                Barbora Hůlová<br />
+                <a href="mailto:hulovaba@seznam.cz">hulovaba@seznam.cz</a>
+              </p>
+              <p><strong>Let’s build something great together!</strong></p>
+            </div>
+          </div>
+          <div>
+            <FollowUs headingLevel="h3" />
+          </div>
+        </div>
+      </div>
 
-  <a class="btn btn-lg btn-primary" href="https://forms.gle/5Lnw5mzs7Rv6hoBbA">Volunteer registration form</a>
-
-  <h3>Do you have some questions?</h3>
-
-  <p>
-    Contact us by email: <strong>Barbora Hůlová</strong>, <a href="mailto:hulovaba@seznam.cz">hulovaba@seznam.cz</a>
-  </p>
-
-  <p>Let’s build something great together!</p>
+      <Fragment slot="stickers">
+        <Sticker image={flipPhone} class="pc-ready__phone" />
+        <Sticker image={heart} class="pc-ready__heart" />
+      </Fragment>
+    </Paper>
+  </div>
 </Layout>
+
+<style>
+  @import "../styles/media.css";
+
+  /* Hero and Paper render their own markup, so rules for their elements are
+     :global(), prefixed with the class this page passes in. Doubled classes
+     beat the shared rules in any CSS order. */
+
+  /* Hero: text pinned near the top, illustration larger and vertically centred
+     (the shared rule bleeds it into the bottom padding) */
+  @media (--xl) {
+    :global(.pc-volunteer-hero .pc-hero__card.pc-hero__card) {
+      grid-template-rows: 2.625rem auto auto auto 1fr;
+    }
+
+    /* Negative block margins keep the taller image from stretching the card */
+    :global(.pc-volunteer-hero .pc-hero__image.pc-hero__image) {
+      align-self: center;
+      width: calc(100% + 9.25rem);
+      margin: -2rem -3.75rem -2rem 0;
+    }
+  }
+
+  /* Line break as in the design; phones balance the heading on their own */
+  .pc-intro__break {
+    display: none;
+
+    @media (--lg) {
+      display: inline;
+    }
+  }
+
+  .pc-help .pc-lead {
+    margin-bottom: var(--pc-space-l);
+
+    /* Text stops short of the CD */
+    @media (--lg) {
+      max-width: calc(100% - 19.5rem);
+    }
+  }
+
+  @media (--lg) {
+    .pc-intro .pc-heading {
+      margin-bottom: var(--pc-space-xl);
+    }
+
+    /* Deeper corner cut than the shared card, more air below the last item */
+    .pc-help__card {
+      --cut: 6.5rem;
+      padding-bottom: 6.5rem;
+      line-height: var(--pc-leading-loose);
+
+      li + li {
+        margin-top: var(--pc-space-s);
+      }
+    }
+  }
+
+  /* Overlaps the card's top edge by ~45px, right edge just inside the card */
+  .pc-help__body {
+    position: relative;
+  }
+
+  .pc-help__cd {
+    right: 0.5rem;
+    top: -15.9375rem;
+    width: 18.75rem;
+  }
+
+  /* Text stops short of the CD (and of the phone below xxl) */
+  @media (--lg) {
+    .pc-help__card ul {
+      max-width: calc(100% - 16rem);
+    }
+
+    .pc-why .pc-lead {
+      max-width: min(62rem, 100% - 13rem);
+    }
+  }
+
+  /* Full width, edges in line with the hero and the cards (the shared paper is
+     inset 0.5rem for the narrow homepage paper) */
+  :global(.pc-paper.pc-ready) {
+    padding-inline: 0;
+
+    @media (--lg) {
+      margin-top: calc(9.875rem + 1.75rem);
+    }
+
+    &::before,
+    &::after {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  @media (--lg) {
+    :global(.pc-ready .pc-paper__body.pc-paper__body) {
+      padding-top: var(--pc-space-xl);
+    }
+
+    /* Section-sized heading (still dark), apart from the shared h2/h3 size */
+    :global(.pc-ready) h2 {
+      font-size: var(--pc-text-heading);
+      margin-bottom: var(--pc-space-xl);
+    }
+
+    :global(.pc-ready .pc-paper__body h3) {
+      margin-bottom: var(--pc-space-l);
+    }
+
+    /* Larger text, same height as the shared button */
+    :global(.pc-ready) .pc-btn {
+      padding: 0.5rem 3rem;
+      font-size: var(--pc-text-2xl);
+      font-weight: 400;
+      line-height: var(--pc-leading-snug);
+    }
+
+    :global(.pc-ready) .pc-paper__block + .pc-paper__block {
+      margin-top: var(--pc-space-section);
+    }
+  }
+
+  /* Bold label, then name and email on their own lines */
+  .pc-ready__contact {
+    font-weight: 400;
+
+    strong {
+      font-weight: 700;
+    }
+
+    @media (--lg) {
+      p {
+        margin-bottom: var(--pc-space-l);
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .pc-ready__questions {
+    @media (--lg) {
+      text-align: left;
+    }
+
+    /* Inset like in the design. The negative right margin gives the h3 its
+       width back: the live "some questions" is longer than the design's copy. */
+    @media (--xxl) {
+      margin-left: 3.5rem;
+      margin-right: -3.5rem;
+    }
+  }
+
+  /* Icon spacing grows with the column: four icons stay in one row on lg,
+     the design's ~75px gap fits only on xxl */
+  @media (--lg-only) {
+    :global(.pc-ready .pc-social.pc-social) {
+      gap: var(--pc-space-m);
+    }
+  }
+
+  @media (--xxl) {
+    :global(.pc-ready .pc-social.pc-social) {
+      gap: 4.6875rem;
+    }
+  }
+
+  /* Straddles the paper's top torn edge, overhanging the container by ~25px.
+     The image is already tilted the way the design shows it. The box is
+     cropped to the phone (object-fit), so its transparent right margin
+     doesn't make the page scroll sideways. */
+  .pc-ready__phone {
+    right: -1.5625rem;
+    top: -15.75rem;
+    width: 18.625rem;
+    height: 22.5rem;
+    object-fit: cover;
+    object-position: left top;
+  }
+
+  /* Hangs off the bottom torn edge */
+  .pc-ready__heart {
+    left: -1rem;
+    bottom: -7rem;
+    width: 9rem;
+    transform: rotate(-20deg);
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import SocialIcon from "./SocialIcon.astro";
+import { followLinks } from "../data/site";
+
+interface Props {
+  headingLevel?: "h2" | "h3";
+}
+const { headingLevel: Heading = "h2" } = Astro.props;
+---
+
+<div class="pc-paper__block">
+  <Heading>Follow us on</Heading>
+  <ul class="pc-social">
+    {
+      followLinks.map((item) => (
+        <li>
+          <a class="pc-social__link" rel="me" href={item.href} title={item.shortLabel}>
+            <SocialIcon icon={item.icon} />
+            <span class="visually-hidden">{item.shortLabel}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

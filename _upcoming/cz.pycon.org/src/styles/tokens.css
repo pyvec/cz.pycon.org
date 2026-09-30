@@ -1,0 +1,70 @@
+/* Design tokens taken from the 2027 design library (design/knihovna.png) */
+:root {
+  --pc-black: #161618; /* footer, top bar, icon boxes */
+  --pc-bg: #1c1c1c; /* page background behind the grid */
+  --pc-grid: #262e49; /* grid lines */
+  --pc-cream: #f7f3e2;
+  --pc-lime: #d3da47;
+  --pc-lavender: #a1a9f6;
+  --pc-pink: #dc94d6;
+  --pc-paper: #e7e7e7;
+  --pc-text-dark: #212121;
+  --pc-text-light: #fafafa; /* translucent variants are written as rgb(250 250 250 / x) */
+
+  --pc-radius: 0.5rem;
+  --pc-font-mono:
+    "Spline Sans Mono Variable", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+  --pc-font-sans: "Inter Variable", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale. Fixed sizes for body text and UI, fluid ones for headings and intros. */
+  --pc-text-xs: 0.875rem; /* 14px */
+  --pc-text-s: 1rem; /* 16px */
+  --pc-text-m: 1.125rem; /* 18px */
+  --pc-text-l: 1.25rem; /* 20px */
+  --pc-text-xl: 1.375rem; /* 22px */
+  --pc-text-2xl: 1.75rem; /* 28px */
+  --pc-text-3xl: 2rem; /* 32px */
+  /* Fluid sizes grow over the same range as the fluid spacing, 576px (sm) to 1200px (xl).
+     The middle term is (max − min)/39rem × (100vw − 36rem) + min, written out for each. */
+  --pc-text-display: clamp(2.25rem, 0.1731rem + 5.7692vw, 4.5rem); /* 36 → 72px, hero titles */
+  --pc-text-heading: clamp(2rem, 0.6154rem + 3.8462vw, 3.5rem); /* 32 → 56px, section headings */
+  --pc-text-subheading: clamp(1.5rem, 1.0385rem + 1.2821vw, 2rem); /* 24 → 32px, card and paper headings */
+  --pc-text-lead: clamp(1.125rem, 0.5481rem + 1.6026vw, 1.75rem); /* 18 → 28px, intro paragraphs */
+
+  /* Line heights. A line-height of 1 stays literal where it sets a box's size (tabs, badges). */
+  --pc-leading-tight: 1.1; /* display and headings */
+  --pc-leading-snug: 1.25; /* subheadings, buttons, labels */
+  --pc-leading-body: 1.5; /* running text */
+  --pc-leading-loose: 1.6; /* long lists in large type */
+
+  /* Spacing scale on a 4px base; m and l are one grid square (phones / md up). Use these for gaps,
+     margins and paddings. Values derived from a component's geometry (corner cuts, tab heights,
+     image bleeds, sticker offsets, button heights) stay literal. */
+  --pc-space-3xs: 0.25rem; /* 4px */
+  --pc-space-2xs: 0.5rem; /* 8px */
+  --pc-space-xs: 0.75rem; /* 12px */
+  --pc-space-s: 1rem; /* 16px */
+  --pc-space-m: 1.5rem; /* 24px */
+  --pc-space-l: 2rem; /* 32px */
+  --pc-space-xl: 3rem; /* 48px */
+  --pc-space-2xl: 4rem; /* 64px */
+  --pc-space-3xl: 6rem; /* 96px */
+
+  /* Fluid spacing: each doubles from its minimum at 576px (sm) to its maximum at 1200px (xl).
+     The middle term is min/39rem × (100vw − 36rem) + min, written out for each. */
+  --pc-space-section: clamp(3rem, 0.2308rem + 7.6923vw, 6rem); /* xl → 3xl, between page sections */
+  --pc-space-block: clamp(2rem, 0.1538rem + 5.1282vw, 4rem); /* l → 2xl, between blocks of a section */
+  --pc-space-heading: clamp(1rem, 0.0769rem + 2.5641vw, 2rem); /* s → l, below section headings */
+
+  /* Side gutter of the full-width phone layout (container, top bar, menu) */
+  --pc-gutter: var(--pc-space-s);
+
+  /* Background grid: square size and line width, larger from md up */
+  --pc-grid-size: 24px;
+  --pc-grid-line: 1px;
+
+  @media (--md) {
+    --pc-grid-size: 32px;
+    --pc-grid-line: 2px;
+  }
+}

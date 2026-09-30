@@ -1,45 +1,77 @@
 ---
-const baseUrl = import.meta.env.BASE_URL;
+import SocialIcon from "./SocialIcon.astro";
+import { socialLinks, pastEditions, footerGroups } from "../data/site";
+
+const groups = footerGroups.filter((group) => group.links.length > 0);
+const editions = [...pastEditions].reverse();
 ---
 
-<footer class="pc-footer bg-black text-light">
-  <div class="container-md pt-5 pb-3">
-    <div class="row no-gutters align-items-baseline">
-      <div class="col-md-6 text-uppercase mb-3">
-        <nav class="nav pc-footer__nav flex-md-column">
-          <a class="nav-link" href="/2015/">PyCon&nbsp;CZ 2015</a>
-          <a class="nav-link" href="/2016/">PyCon&nbsp;CZ 2016</a>
-          <a class="nav-link" href="/2017/">PyCon&nbsp;CZ 2017</a>
-          <a class="nav-link" href="/2018/">PyCon&nbsp;CZ 2018</a>
-          <a class="nav-link" href="/2019/">PyCon&nbsp;CZ 2019</a>
-          <a class="nav-link" href="/2020/">PyCon&nbsp;CZ 2020</a>
-          <a class="nav-link" href="/2023/">PyCon&nbsp;CZ 2023</a>
-        </nav>
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <nav class="nav pc-footer__nav flex-md-column mb-3">
-          <a class="nav-link" rel="me" href="https://x.com/pyconcz">X (formerly Twitter)</a>
-          <a class="nav-link" rel="me" href="https://floss.social/@pyconcz">Mastodon</a>
-          <a class="nav-link" rel="me" href="https://www.facebook.com/events/1363197064240927">Facebook</a>
-          <a class="nav-link" rel="me" href="https://www.youtube.com/@PyConCZ">YouTube</a>
-          <a class="nav-link" rel="me" href="https://github.com/pyvec/cz.pycon.org">GitHub</a>
-          <a class="nav-link" href={`${baseUrl}coc/`}>Code of Conduct</a>
-        </nav>
-
-        <p class="mx-3">
-          Do you have any questions?
+<footer class="pc-footer">
+  <div class="pc-container">
+    <div class="pc-footer__main">
+      <div class="pc-footer__brand">
+        <p class="pc-footer__logo">PyCon CZ 27</p>
+        <p class="pc-footer__meta">16–18 April 2027<br />Pilsen</p>
+        <p class="pc-footer__contact">
+          Do you have any questions?<br />
           <a href="mailto:info@pycon.cz">Contact&nbsp;us!</a>
         </p>
+        <ul class="pc-social pc-social--compact">
+          {
+            socialLinks.map((item) => (
+              <li>
+                <a class="pc-social__link" rel="me" href={item.href} title={item.shortLabel}>
+                  <SocialIcon icon={item.icon} />
+                  <span class="visually-hidden">{item.shortLabel}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="pc-footer__groups">
+        {
+          groups.map((group) => (
+            <nav class="pc-footer__group" aria-label={group.label}>
+              <p class="pc-footer__label" aria-hidden="true">
+                {group.label}
+              </p>
+              <ul class="pc-footer__links">
+                {group.links.map((link) => (
+                  <li>
+                    <a class="pc-footer__link" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))
+        }
       </div>
     </div>
 
-    <p class="text-md-center mt-4">
+    <nav class="pc-footer__editions" aria-label="Past editions">
+      <p class="pc-footer__label" aria-hidden="true">Past editions</p>
+      <ul class="pc-footer__chips">
+        {
+          editions.map((year) => (
+            <li>
+              <a class="pc-footer__chip" href={`/${year}/`} aria-label={`PyCon CZ ${year}`}>
+                {year}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p class="pc-footer__legal">
       <a href="https://www.python.org/psf/trademarks/pycon/">PyCon</a>™ is a&nbsp;trademark for worldwide conference
       activities claimed by the
       <a href="https://www.python.org/psf-landing/">Python Software Foundation</a> and used with permission.
-      <br />
-      <a href="https://pydata.org/">PyData</a> is an educational program of <a href="https://numfocus.org/">NumFOCUS</a>
+      <a href="https://pydata.org/">PyData</a> is an educational program of <a href="https://numfocus.org/">NumFOCUS</a>
     </p>
   </div>
 </footer>

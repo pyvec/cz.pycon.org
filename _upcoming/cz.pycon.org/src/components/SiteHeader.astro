@@ -1,0 +1,83 @@
+---
+// Mobile top bar + full-screen menu. On md+ navigation lives in the hero tabs.
+import { menuItems, socialLinks, isCurrentPage } from "../data/site";
+
+const currentPath = Astro.url.pathname;
+const current = menuItems.find((item) => isCurrentPage(item.href, currentPath));
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<header class="pc-topbar">
+  <a class="pc-topbar__brand" href={baseUrl}>PyCon CZ</a>
+  {current && <span class="pc-topbar__current">{current.label}</span>}
+  <button class="pc-topbar__toggle" type="button" aria-expanded="false" aria-controls="pc-menu" data-menu-open>
+    <span class="visually-hidden">Open menu</span>
+    <svg viewBox="0 0 28 28" aria-hidden="true">
+      <path d="M4 7h20M4 14h20M4 21h20"></path>
+    </svg>
+  </button>
+</header>
+
+<div id="pc-menu" class="pc-menu" hidden>
+  <div class="pc-topbar">
+    <a class="pc-topbar__brand" href={baseUrl}>PyCon CZ</a>
+    {current && <span class="pc-topbar__current">{current.label}</span>}
+    <button class="pc-topbar__toggle" type="button" data-menu-close>
+      <span class="visually-hidden">Close menu</span>
+      <svg viewBox="0 0 28 28" aria-hidden="true">
+        <path d="M6 6l16 16M22 6L6 22"></path>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="pc-menu__nav" aria-label="Main">
+    {
+      menuItems.map((item) => (
+        <a
+          class="pc-menu__link"
+          href={item.href}
+          aria-current={isCurrentPage(item.href, currentPath) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <p class="pc-menu__label" id="pc-menu-social">Social</p>
+  <ul class="pc-menu__social" aria-labelledby="pc-menu-social">
+    {
+      socialLinks.map((item) => (
+        <li>
+          <a rel="me" href={item.href}>
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  const menu = document.getElementById("pc-menu");
+  const openButton = document.querySelector<HTMLButtonElement>("[data-menu-open]");
+  const closeButton = document.querySelector<HTMLButtonElement>("[data-menu-close]");
+
+  function setOpen(open: boolean) {
+    if (!menu || !openButton) return;
+    menu.hidden = !open;
+    openButton.setAttribute("aria-expanded", String(open));
+    document.body.classList.toggle("pc-body-locked", open);
+    (open ? closeButton : openButton)?.focus();
+  }
+
+  openButton?.addEventListener("click", () => setOpen(true));
+  closeButton?.addEventListener("click", () => setOpen(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menu && !menu.hidden) setOpen(false);
+  });
+  // The menu is only for small screens; close it when the viewport grows.
+  window.matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
+    if (event.matches) setOpen(false);
+  });
+</script>

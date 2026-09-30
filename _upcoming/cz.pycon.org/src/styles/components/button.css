@@ -1,0 +1,44 @@
+/* Lime pill buttons. Hover: dark outline (design library "Hover/Action"). */
+.pc-btn {
+  display: inline-block;
+  padding: 0.625rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 100vmax;
+  background: var(--pc-lime);
+  color: var(--pc-text-dark);
+  font-weight: 500;
+  font-size: var(--pc-text-s);
+  line-height: var(--pc-leading-snug);
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+
+  @media (--md) {
+    padding: 0.875rem 1.5rem;
+    font-size: var(--pc-text-l);
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--pc-text-dark);
+    background: var(--pc-lime);
+    color: var(--pc-text-dark);
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+/* Keeps the phone size on all screens (button inside a card) */
+.pc-btn--sm {
+  padding: 0.625rem 1.375rem;
+  font-size: var(--pc-text-s);
+}
+
+.pc-btn--lg {
+  @media (--md) {
+    padding: 0.5rem 2rem;
+    font-size: var(--pc-text-3xl);
+    line-height: var(--pc-leading-snug);
+  }
+}

@@ -1,0 +1,32 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+
+const contacts = [
+  { name: "Marie Baluch", role: "Partnerships Lead", phone: "+420 737 057 839" },
+  { name: "Eva Bohňová", role: "Partnerships" },
+  { name: "Mária Melišková", role: "Partnerships" },
+];
+const email = "sponsorship@pycon.cz";
+---
+
+<div class:list={["pc-contacts", className]}>
+  {
+    contacts.map((contact) => (
+      <p>
+        <b class="pc-contacts__name">{contact.name}</b>
+        {contact.role}
+        <br />
+        <a href={`mailto:${email}`}>{email}</a>
+        {contact.phone && (
+          <>
+            <br />
+            <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone.replace(/ /g, " ")}</a>
+          </>
+        )}
+      </p>
+    ))
+  }
+</div>
