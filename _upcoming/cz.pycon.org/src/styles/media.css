@@ -1,0 +1,9 @@
+/* Breakpoints, Bootstrap 5.3's defaults. Lightning CSS replaces these with the real queries
+   (drafts.customMedia in astro.config.mjs) and fails the build on an unknown name. Each stylesheet
+   that uses them has to @import this file, including Astro <style> blocks. */
+@custom-media --sm (width >= 576px);
+@custom-media --md (width >= 768px);
+@custom-media --lg (width >= 992px);
+@custom-media --xl (width >= 1200px);
+@custom-media --xxl (width >= 1400px);
+@custom-media --lg-only (992px <= width < 1200px);

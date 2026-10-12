@@ -1,0 +1,60 @@
+---
+// Cream "folder" hero card. Desktop navigation tabs sit on top of it.
+import type { ImageMetadata } from "astro";
+import { Picture } from "astro:assets";
+import { menuItems, isCurrentPage } from "../data/site";
+
+interface Props {
+  image: ImageMetadata;
+  imageAlt?: string;
+  subtitle?: boolean;
+  button?: { label: string; href: string };
+  class?: string;
+}
+const { image, imageAlt = "", subtitle = false, button, class: className } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<section class:list={["pc-hero pc-container", className]}>
+  <nav class="pc-tabs" aria-label="Main">
+    {
+      menuItems.map((item, index) => (
+        <a
+          href={item.href}
+          class:list={["pc-tabs__link", { "pc-tabs__link--home": index === 0 }]}
+          aria-current={isCurrentPage(item.href, currentPath) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class:list={["pc-hero__card", { "pc-hero__card--no-subtitle": !subtitle }]}>
+    <h1 class="pc-hero__title"><slot name="title" /></h1>
+    {
+      subtitle && (
+        <p class="pc-hero__subtitle">
+          <slot name="subtitle" />
+        </p>
+      )
+    }
+    {
+      button && (
+        <a class="pc-btn pc-hero__button" href={button.href}>
+          {button.label}
+        </a>
+      )
+    }
+    {/* An explicit fallbackFormat keeps Astro from also emitting the unused original PNG */}
+    <Picture
+      src={image}
+      formats={["avif", "webp"]}
+      fallbackFormat="png"
+      class="pc-hero__image"
+      alt={imageAlt}
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+</section>

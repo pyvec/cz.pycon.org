@@ -1,0 +1,255 @@
+/* Hero: a cream "folder" card with a tab in the top-left corner. On md+ the main
+   navigation sits on top of the card, the HOME link inside the tab. */
+.pc-hero {
+  /* Folder tab height and its gap from the top. On md+ the tab is as tall as
+     the nav links: 6px padding above and below the text. */
+  --tab-height: 0.75rem;
+  --tab-top: var(--pc-space-2xs);
+  position: relative;
+  padding-top: calc(var(--tab-top) + var(--tab-height));
+
+  @media (--md) {
+    --tab-height: 1.75rem; /* 28px */
+    --tab-top: var(--pc-space-m);
+  }
+
+  @media (--lg) {
+    --tab-height: 2rem; /* 32px */
+    --tab-top: 4.125rem;
+  }
+
+  @media (--xl) {
+    --tab-height: 2.125rem; /* 34px */
+  }
+}
+
+.pc-tabs {
+  display: none;
+
+  @media (--md) {
+    position: absolute;
+    top: var(--tab-top);
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    /* Links stand on the card's top edge, the active one like a small tab */
+    align-items: flex-end;
+    height: var(--tab-height);
+    padding: 0 var(--pc-space-m);
+  }
+
+  @media (--lg) {
+    padding: 0 var(--pc-space-l);
+  }
+
+  @media (--xl) {
+    padding-right: 5.25rem;
+  }
+}
+
+.pc-tabs__link {
+  /* line-height 1 makes the link exactly as tall as the tab */
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--pc-radius) var(--pc-radius) 0 0;
+  font-size: var(--pc-text-s);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--pc-text-light);
+  text-decoration: none;
+  white-space: nowrap;
+
+  @media (--lg) {
+    font-size: var(--pc-text-l);
+    padding-inline: 1rem;
+  }
+
+  @media (--xl) {
+    font-size: var(--pc-text-xl);
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--pc-lime);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  &[aria-current="page"] {
+    color: var(--pc-text-dark);
+    background: var(--pc-lime);
+  }
+}
+
+/* The first link sits on the cream tab of the card */
+.pc-tabs__link--home {
+  color: var(--pc-text-dark);
+  padding-left: 0;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--pc-text-dark);
+    text-decoration: underline;
+  }
+
+  &[aria-current="page"] {
+    background: transparent;
+  }
+}
+
+.pc-hero__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 42%);
+  grid-template-areas:
+    "title title"
+    "subtitle image"
+    "button image";
+  align-items: center;
+  column-gap: var(--pc-space-s);
+  padding: var(--pc-space-m);
+  background: var(--pc-cream);
+  color: var(--pc-text-dark);
+  border-radius: var(--pc-radius);
+  /* The tab continues the left edge straight up, so no rounding here */
+  border-top-left-radius: 0;
+
+  /* Folder tab */
+  &::before {
+    --tab-tile: calc(var(--tab-height) * 1.75);
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: calc(100% - 1px);
+    width: calc(3rem + var(--tab-height) * 0.1);
+    height: var(--tab-height);
+    background: var(--pc-cream);
+    border-top-left-radius: 0.75rem;
+    /* Right end of the folder tab: rounded top of the slope and a concave fillet
+       where it meets the card, joined by a straight run of 1.3 × tab height. The
+       tile is 1.75 × tab height; the slope's foot sits 0.1 × tab height from its
+       right edge, the fillet fills the rest. */
+    mask-image:
+      linear-gradient(#000 0 0),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 40'%3E%3Cpath d='M0 0H10A11.76 11.76 0 0 1 17.171 2.439L62.829 37.561A11.76 11.76 0 0 0 70 40H0Z'/%3E%3C/svg%3E");
+    mask-position: left, right;
+    /* The rectangle runs under the tile's solid left column (the first
+       0.2 × tab height, before the rounding starts), so no seam at any size */
+    mask-size:
+      calc(100% - var(--tab-tile) + var(--tab-height) * 0.2) 100%,
+      var(--tab-tile) 100%;
+    mask-repeat: no-repeat;
+  }
+
+  @media (--sm) {
+    padding: var(--pc-space-l) var(--pc-space-m);
+  }
+
+  /* On md+ the text block is vertically centred next to the image; the empty
+     1fr rows absorb the extra height so title, subtitle and button stay tight. */
+  @media (--md) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+    grid-template-rows: 1fr auto auto auto 1fr;
+    grid-template-areas:
+      ". image"
+      "title image"
+      "subtitle image"
+      "button image"
+      ". image";
+    column-gap: var(--pc-space-l);
+    padding: var(--pc-space-xl);
+    min-height: 26rem;
+
+    &::before {
+      width: calc(10.25rem + var(--tab-height) * 0.1);
+      border-top-left-radius: var(--pc-radius);
+    }
+  }
+
+  @media (--lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 50%);
+    padding: var(--pc-space-2xl);
+    min-height: 34rem;
+  }
+
+  @media (--xl) {
+    min-height: 46rem;
+  }
+}
+
+.pc-hero__title {
+  grid-area: title;
+  margin: 0 0 var(--pc-space-2xs);
+  font-family: var(--pc-font-mono);
+  font-weight: 600;
+  font-size: var(--pc-text-display);
+  line-height: var(--pc-leading-tight);
+  text-wrap: balance;
+
+  @media (--lg) {
+    margin-bottom: var(--pc-space-m);
+  }
+}
+
+.pc-hero__subtitle {
+  grid-area: subtitle;
+  align-self: start;
+  margin: 0;
+  font-family: var(--pc-font-mono);
+  font-weight: 400;
+  font-size: clamp(1.125rem, -0.375rem + 4.1667vw, 2.75rem); /* 18 → 44px, on the fluid type range */
+  line-height: var(--pc-leading-snug);
+}
+
+.pc-hero__button {
+  grid-area: button;
+  align-self: end;
+  justify-self: start;
+  margin-top: var(--pc-space-m);
+
+  @media (--md) {
+    align-self: start;
+    margin-top: var(--pc-space-xl);
+  }
+
+  /* Lighter and a bit larger than the shared button, ~50px tall
+     (homepage, sponsorship and volunteer designs). Nested to beat .pc-btn,
+     which loads later. */
+  @media (--lg) {
+    .pc-hero & {
+      padding: 0.5625rem 1.5rem;
+      font-size: var(--pc-text-xl);
+      font-weight: 400;
+      line-height: var(--pc-leading-snug);
+    }
+  }
+}
+
+/* When there is no subtitle, the button still needs a row to sit in */
+.pc-hero__card--no-subtitle .pc-hero__button {
+  grid-area: subtitle / subtitle / button / button;
+  align-self: start;
+}
+
+.pc-hero__image {
+  grid-area: image;
+  justify-self: end;
+  width: 100%;
+  max-width: 42rem;
+  height: auto;
+
+  @media (--md) {
+    justify-self: center;
+  }
+
+  /* Bleeds into the card's right and bottom padding; the negative top margin
+     keeps it from stretching the card */
+  @media (--xl) {
+    justify-self: end;
+    align-self: end;
+    width: calc(100% + 5rem);
+    max-width: none;
+    margin: -1rem -3rem -3.5rem 0;
+  }
+}

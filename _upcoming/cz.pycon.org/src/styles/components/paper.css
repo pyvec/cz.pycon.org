@@ -1,0 +1,146 @@
+/* Torn-paper section (light grey), edges from design/assets/papir_okraj_*.png.
+   The outer element paints the darker shadow layer, the inner one the paper.
+   Both use the same torn edge; the shadow is the paper's edge shifted outwards
+   by --shadow-offset, so it shows as an even band around the paper. */
+.pc-paper {
+  /* --pc-paper-edge is set inline by Paper.astro (mobile/desktop variants) */
+  --edge-height: 2.75rem;
+  --shadow-offset: 1.75rem;
+  --shadow-color: #dbdbdb;
+  position: relative;
+  /* Own stacking context, so the shadow layers can sit below the paper */
+  isolation: isolate;
+  /* Extra room for the shadow band that sticks out past the paper edges */
+  margin-block: calc(var(--pc-space-section) + var(--shadow-offset));
+  padding-inline: 0.5rem;
+
+  /* Last on the page: only room for the torn edge and the shadow band, as main's
+     bottom padding already gives the section space above the footer */
+  &:last-child {
+    margin-bottom: calc(var(--edge-height) + var(--shadow-offset));
+  }
+
+  &::before,
+  &::after {
+    z-index: -1;
+    left: 0.5rem;
+    right: 0.5rem;
+    height: calc(var(--edge-height) + var(--shadow-offset));
+    background: var(--shadow-color);
+    pointer-events: none;
+  }
+}
+
+.pc-paper__body {
+  position: relative;
+  padding: var(--pc-space-block) var(--pc-space-m);
+  background: var(--pc-paper);
+  color: var(--pc-text-dark);
+
+  @media (--md) {
+    padding-inline: var(--pc-space-block);
+  }
+
+  &::before,
+  &::after {
+    left: 0;
+    right: 0;
+    height: var(--edge-height);
+    background: var(--pc-paper);
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  h2,
+  h3 {
+    font-size: var(--pc-text-subheading);
+    margin: 0 0 var(--pc-space-m);
+  }
+
+  /* :where() keeps this at class specificity, so component links
+     (e.g. .pc-social__link) can still set their own colour */
+  :where(a) {
+    color: inherit;
+  }
+}
+
+/* The edge image is a torn strip: ragged on both sides, solid across its
+   middle. Filling one half solid turns it into a single ragged edge (on the
+   outer side) that runs seamlessly into the paper, or into the taller shadow
+   layer. */
+.pc-paper::before,
+.pc-paper::after,
+.pc-paper__body::before,
+.pc-paper__body::after {
+  content: "";
+  position: absolute;
+  mask-image: var(--pc-paper-edge), linear-gradient(#000 0 0);
+  mask-size:
+    100% var(--edge-height),
+    100% calc(100% - var(--edge-height) / 2);
+  mask-repeat: no-repeat;
+}
+
+.pc-paper::before,
+.pc-paper__body::before {
+  bottom: calc(100% - 1px);
+  mask-position: top, bottom;
+}
+
+.pc-paper::after,
+.pc-paper__body::after {
+  top: calc(100% - 1px);
+  mask-position: bottom, top;
+}
+
+/* Narrower centred paper (homepage "Follow us on"): 589px paper + 0.5rem inset
+   on each side. On desktop the heading is plain Inter and the paper is snug
+   (side padding leaves room for four icons in one row). */
+.pc-paper--narrow {
+  max-width: 37.8125rem;
+  margin-inline: auto;
+
+  @media (--lg) {
+    /* Content sits right on the torn edges, like in the design */
+    .pc-paper__body {
+      padding: 0 2.5rem 0.875rem;
+    }
+
+    .pc-paper__body h2 {
+      font-family: var(--pc-font-sans);
+      font-weight: 400;
+      font-size: var(--pc-text-2xl);
+      line-height: 1;
+      margin-bottom: var(--pc-space-l);
+    }
+  }
+}
+
+.pc-paper__block {
+  text-align: center;
+}
+
+.pc-paper__block + .pc-paper__block {
+  margin-top: var(--pc-space-block);
+}
+
+.pc-paper__contact {
+  text-align: left;
+  font-size: var(--pc-text-s);
+  font-weight: 500;
+
+  p {
+    margin: 0 0 var(--pc-space-xs);
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+}

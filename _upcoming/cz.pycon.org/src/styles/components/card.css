@@ -1,0 +1,164 @@
+/* Coloured content cards. `--cut` slices off a corner like a folded page. */
+.pc-card {
+  --cut: 2.5rem;
+  position: relative;
+  padding: var(--pc-space-m);
+  border-radius: var(--pc-radius);
+  background: var(--pc-cream);
+  color: var(--pc-text-dark);
+  font-size: var(--pc-text-s);
+
+  @media (--md) {
+    padding: var(--pc-space-l);
+    font-size: var(--pc-text-m);
+  }
+
+  @media (--lg) {
+    --cut: 4rem;
+    font-size: var(--pc-text-l);
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  h2,
+  h3 {
+    font-size: var(--pc-text-subheading);
+    margin: 0 0 var(--pc-space-s);
+  }
+}
+
+.pc-card--lavender {
+  background: var(--pc-lavender);
+}
+
+.pc-card--lime {
+  background: var(--pc-lime);
+}
+
+.pc-card--pink {
+  background: var(--pc-pink);
+}
+
+/* Corner cut bottom-right (default) or top-left. The mask is two rectangles
+   plus an SVG corner tile (1.5 × cut) with rounded bevel edges; the rectangles
+   overlap the tile by 1px so no hairline seam shows between mask layers. */
+.pc-card--cut,
+.pc-card--cut-tl {
+  --cut-tile: calc(var(--cut) * 1.5);
+  mask-size:
+    100% calc(100% - var(--cut-tile) + 1px),
+    calc(100% - var(--cut-tile) + 1px) 100%,
+    var(--cut-tile) var(--cut-tile);
+  mask-repeat: no-repeat;
+}
+
+.pc-card--cut {
+  mask-image:
+    linear-gradient(#000 0 0), linear-gradient(#000 0 0),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M0 0H60V16.686A8 8 0 0 1 57.657 22.343L22.343 57.657A8 8 0 0 1 16.686 60H0Z'/%3E%3C/svg%3E");
+  mask-position:
+    top left,
+    top left,
+    bottom right;
+  padding-bottom: calc(var(--pc-space-m) + var(--cut) * 0.5);
+}
+
+.pc-card--cut-tl {
+  mask-image:
+    linear-gradient(#000 0 0), linear-gradient(#000 0 0),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M60 60H0V43.314A8 8 0 0 1 2.343 37.657L37.657 2.343A8 8 0 0 1 43.314 0H60Z'/%3E%3C/svg%3E");
+  mask-position:
+    bottom right,
+    bottom right,
+    top left;
+  padding-top: calc(var(--pc-space-m) + var(--cut) * 0.5);
+}
+
+/* Numbered list with dark round markers (sponsorship reasons) */
+.pc-numbered {
+  list-style: none;
+  counter-reset: pc-numbered;
+  padding: 0;
+  margin: 0 0 var(--pc-space-m);
+
+  > li {
+    counter-increment: pc-numbered;
+    position: relative;
+    padding-left: 2.75rem;
+    margin-top: var(--pc-space-xs);
+
+    &::before {
+      content: counter(pc-numbered);
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: var(--pc-text-dark);
+      color: var(--pc-text-light);
+      font-family: var(--pc-font-mono);
+      font-weight: 600;
+      font-size: var(--pc-text-xs);
+      line-height: 1;
+    }
+  }
+
+  @media (--lg) {
+    margin-bottom: var(--pc-space-xl);
+    font-size: var(--pc-text-xl);
+    line-height: var(--pc-leading-loose);
+
+    > li {
+      padding-left: 3.375rem;
+      margin-top: var(--pc-space-s);
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &::before {
+        top: -0.125rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: var(--pc-text-l);
+      }
+    }
+  }
+}
+
+/* Contact blocks (sponsorship page) */
+.pc-contacts {
+  display: grid;
+  gap: var(--pc-space-s) var(--pc-space-m);
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  margin: 0;
+  font-size: var(--pc-text-s);
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+}
+
+.pc-contacts__name {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--pc-space-3xs);
+}

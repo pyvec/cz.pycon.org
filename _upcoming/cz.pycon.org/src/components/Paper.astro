@@ -1,0 +1,55 @@
+---
+// Torn-paper section. Extra sticker images can be passed through the `stickers` slot.
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+import edgeMobile from "../assets/paper-edge-mobile.png";
+import edgeDesktop from "../assets/paper-edge-desktop.png";
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+
+// WebP only: as AVIF these edges come out larger than the PNGs
+async function edgeImageSet(png: ImageMetadata) {
+  const webp = await getImage({ src: png, format: "webp" });
+  return `image-set(url(${webp.src}) type("image/webp"), url(${png.src}) type("image/png"))`;
+}
+const edgeVars = {
+  edgeMobile: `url(${edgeMobile.src})`,
+  edgeDesktop: `url(${edgeDesktop.src})`,
+  edgeMobileSet: await edgeImageSet(edgeMobile),
+  edgeDesktopSet: await edgeImageSet(edgeDesktop),
+};
+---
+
+<section class:list={["pc-paper", className]}>
+  <div class="pc-paper__body">
+    <slot />
+  </div>
+  <slot name="stickers" />
+</section>
+
+<style define:vars={edgeVars}>
+  @import "../styles/media.css";
+
+  .pc-paper {
+    --pc-paper-edge: var(--edgeMobile);
+
+    @media (--md) {
+      --pc-paper-edge: var(--edgeDesktop);
+    }
+  }
+
+  /* The edge is used through a custom property, so a browser that can't parse image-set() with
+     type() would drop the mask entirely instead of falling back. Only switch where it parses. */
+  @supports (mask-image: image-set(url("") type("image/webp"))) {
+    .pc-paper {
+      --pc-paper-edge: var(--edgeMobileSet);
+
+      @media (--md) {
+        --pc-paper-edge: var(--edgeDesktopSet);
+      }
+    }
+  }
+</style>

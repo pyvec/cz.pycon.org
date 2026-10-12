@@ -1,0 +1,153 @@
+/* Sponsorship page: value/contacts overlap, tiers and add-ons */
+.pc-value {
+  --value-card-width: 75%;
+  --value-contacts-width: 38cqw;
+  --value-overlap: 9rem;
+  --value-gutter: 2rem; /* dark gap between the lavender card and the Contacts card */
+  position: relative;
+
+  @media (--lg) {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* cqw lets the card mask place the cut-out where the Contacts card starts */
+    container-type: inline-size;
+  }
+}
+
+.pc-value__card {
+  @media (--lg) {
+    /* Cut-out edges, measured from the card's left edge and bottom edge */
+    --cut-x: calc(100cqw - var(--value-contacts-width) - var(--value-gutter));
+    --cut-y: calc(var(--value-overlap) + var(--value-gutter));
+    --round: var(--pc-radius);
+    /* The cut-out is the Contacts card outline grown by the gutter. Its
+       top-left corner follows the Contacts card's bevel (--cut 4rem at lg, see
+       card.css): leg = cut + (2 - √2) × gutter = 82.745px, rounded with the
+       bevel radius (0.2 × cut) plus the gutter = 44.8px. Units are px at
+       16px/rem; the tile also reaches 1px up and left to overlap the
+       neighbouring mask layers. */
+    --fillet-size: 6.3939rem; /* 1px + leg + 44.8 × tan(22.5°) */
+    --fillet-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 102.302 102.302'%3E%3Cpath d='M-1 -1H101.302V0A44.8 44.8 0 0 0 69.624 13.122L13.122 69.624A44.8 44.8 0 0 0 0 101.302H-1Z'/%3E%3C/svg%3E");
+    /* Quarter disc for the card's own rounded corners next to the cut-out */
+    --round-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M0 0H8A8 8 0 0 1 0 8Z'/%3E%3C/svg%3E");
+    width: var(--value-card-width);
+    padding-bottom: var(--pc-space-xl);
+    mask-repeat: no-repeat;
+    /* Opaque layers: two rects + corner for the part above the cut-out, two
+       rects + corner for the part left of it, and the bevel tile between them.
+       Rects overlap the tiles by 1px so no hairline seam shows. */
+    mask-image:
+      linear-gradient(#000 0 0), linear-gradient(#000 0 0), var(--round-tile), linear-gradient(#000 0 0),
+      linear-gradient(#000 0 0), var(--round-tile), var(--fillet-tile);
+    mask-position:
+      left top,
+      left top,
+      right 0 bottom var(--cut-y),
+      left top,
+      left top,
+      left calc(var(--cut-x) - var(--round)) bottom 0,
+      left calc(var(--cut-x) - 1px) bottom calc(var(--cut-y) - var(--fillet-size) + 1px);
+    mask-size:
+      100% calc(100% - var(--cut-y) - var(--round) + 1px),
+      calc(100% - var(--round) + 1px) calc(100% - var(--cut-y)),
+      var(--round) var(--round),
+      calc(var(--cut-x) - var(--round) + 1px) 100%,
+      var(--cut-x) calc(100% - var(--round) + 1px),
+      var(--round) var(--round),
+      var(--fillet-size) var(--fillet-size);
+  }
+}
+
+.pc-value__contacts {
+  margin-top: var(--pc-space-m);
+
+  @media (--lg) {
+    width: var(--value-contacts-width);
+    margin-top: calc(-1 * var(--value-overlap));
+    margin-left: auto;
+  }
+}
+
+/* Grid row 3 is the lavender card: anchoring there keeps the sticker on the
+   card's top-right corner whatever the heading, lead and viewport width */
+.pc-value__floppy {
+  grid-row: 3;
+  top: -12.25rem;
+  left: calc(var(--value-card-width) - 2.5rem);
+  width: 17.5rem;
+  transform: rotate(-6deg);
+}
+
+/* Small in-card button; its label lines up with the list text (list indent
+   minus the button's side padding and border) */
+.pc-value__card .pc-btn {
+  @media (--lg) {
+    margin-left: calc(3.375rem - 1.5rem);
+  }
+}
+
+/* Package / add-on cards: narrower padding than other cards so the intro
+   lines ("Everything in Bronze plus:") fit on one line in the four-up grid */
+.pc-tier {
+  height: 100%;
+  padding-inline: var(--pc-space-s);
+  font-size: var(--pc-text-xs);
+
+  h3 {
+    font-weight: 700;
+    margin-bottom: var(--pc-space-xs);
+  }
+
+  ul {
+    padding-left: 1.125rem;
+    margin-bottom: 0;
+  }
+}
+
+.pc-tier__price {
+  display: inline-block;
+  margin-bottom: var(--pc-space-m);
+  padding: 0.5rem 1rem;
+  border-radius: 100vmax;
+  background: var(--pc-cream);
+  font-family: var(--pc-font-mono);
+  font-size: var(--pc-text-xs);
+  line-height: var(--pc-leading-snug);
+  white-space: nowrap;
+
+  @media (--lg) {
+    margin-bottom: var(--pc-space-l);
+    padding: 0.625rem;
+  }
+}
+
+/* Cream cards need a lime pill to stand out */
+.pc-tier:not(.pc-card--lavender):not(.pc-card--lime):not(.pc-card--pink) .pc-tier__price {
+  background: var(--pc-lime);
+}
+
+.pc-tier__intro {
+  font-family: var(--pc-font-mono);
+  font-weight: 600;
+  font-size: var(--pc-text-s);
+  line-height: var(--pc-leading-snug);
+  margin-bottom: var(--pc-space-s);
+}
+
+.pc-tier__note {
+  font-style: italic;
+}
+
+/* Event summary: larger type and a deeper cut corner than the default card */
+.pc-summary__card {
+  @media (--lg) {
+    --cut: 6.75rem;
+    padding-bottom: 6.5rem;
+    font-size: var(--pc-text-xl);
+    line-height: var(--pc-leading-body);
+
+    li + li {
+      margin-top: var(--pc-space-s);
+    }
+  }
+}

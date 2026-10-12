@@ -1,0 +1,85 @@
+/* "Follow us on" icon row: dark rounded squares with white glyphs.
+   Always a single row: in a column too narrow for the design sizes, the
+   percentage gaps (of the row width) and then the icons shrink to fit. */
+.pc-social {
+  display: flex;
+  justify-content: center;
+  gap: min(var(--pc-space-s), 5%);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    flex: 0 1 3.25rem;
+    min-width: 0;
+  }
+
+  li + li {
+    margin-top: 0;
+  }
+
+  @media (--md) {
+    gap: min(var(--pc-space-xl), 10%);
+
+    li {
+      flex-basis: 4.5rem;
+    }
+
+    /* The homepage paper has room for the design's wider spacing */
+    .pc-paper--narrow & {
+      gap: 4.25rem;
+    }
+  }
+}
+
+.pc-social__link {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  background: var(--pc-black);
+  color: var(--pc-text-light);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  @media (--md) {
+    border-radius: 0.625rem;
+  }
+
+  svg {
+    width: 55%;
+    height: 55%;
+    fill: currentColor;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--pc-lime);
+    color: var(--pc-text-dark);
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+/* Footer variant: smaller boxes, lifted off the black footer background */
+.pc-social--compact {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: var(--pc-space-2xs);
+
+  li {
+    flex: none;
+  }
+
+  .pc-social__link {
+    width: 2.75rem;
+    border-radius: 0.5rem;
+    background: rgb(250 250 250 / 8%);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--pc-lime);
+    }
+  }
+}

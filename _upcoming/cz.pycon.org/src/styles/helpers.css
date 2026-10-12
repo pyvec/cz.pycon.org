@@ -1,0 +1,32 @@
+/* Utility classes used in the markup. The names (and the !important, so they win over component
+   rules) follow the widely known Bootstrap 5.3 utilities they replace. */
+
+/* Hide content visually while keeping it accessible to assistive technologies */
+.visually-hidden {
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+
+  /* Positioned table captions could become anonymous cells */
+  &:not(caption) {
+    position: absolute !important;
+  }
+
+  /* Keep overflowing children from becoming focusable */
+  * {
+    overflow: hidden !important;
+  }
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-nowrap {
+  white-space: nowrap !important;
+}
