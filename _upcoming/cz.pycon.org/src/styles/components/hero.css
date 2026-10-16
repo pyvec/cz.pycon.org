@@ -173,7 +173,10 @@
     min-height: 34rem;
   }
 
+  /* Text pinned near the top, so the title sits at the same height on every
+     page whatever the length of the text */
   @media (--xl) {
+    grid-template-rows: 2.625rem auto auto auto 1fr;
     min-height: 46rem;
   }
 }

@@ -117,14 +117,10 @@ const formUrl = "https://forms.gle/5Lnw5mzs7Rv6hoBbA";
      :global(), prefixed with the class this page passes in. Doubled classes
      beat the shared rules in any CSS order. */
 
-  /* Hero: text pinned near the top, illustration larger and vertically centred
-     (the shared rule bleeds it into the bottom padding) */
+  /* Hero: illustration larger and vertically centred (the shared rule bleeds
+     it into the bottom padding). Negative block margins keep the taller image
+     from stretching the card. */
   @media (--xl) {
-    :global(.pc-volunteer-hero .pc-hero__card.pc-hero__card) {
-      grid-template-rows: 2.625rem auto auto auto 1fr;
-    }
-
-    /* Negative block margins keep the taller image from stretching the card */
     :global(.pc-volunteer-hero .pc-hero__image.pc-hero__image) {
       align-self: center;
       width: calc(100% + 9.25rem);
