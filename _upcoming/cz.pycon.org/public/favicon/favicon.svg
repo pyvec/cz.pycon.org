@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- The isometric block from the previous favicon, recoloured with the 2027 palette (tokens.css).
+       The gaps between faces are strokes in the tile colour. -->
+  <rect width="32" height="32" rx="6" fill="#161618"/>
+  <g transform="translate(16 16) scale(.86) translate(-16.1 -15.9)" stroke="#161618" stroke-width="1.4" stroke-linejoin="round">
+    <path fill="#dc94d6" d="M22.8 10.8 26.9 8.4v5z"/>
+    <path fill="#d3da47" d="M1.4 8.4 14.2 1.1h8.4l4.3 2.5v4.8l-4.1 2.4 8.1 5.3-8.4 4.5z"/>
+    <path fill="#a1a9f6" d="m1.4 8.4 21.1 12.2v10L1.4 18.4z"/>
+    <path fill="#dc94d6" d="m22.5 20.6 8.4-4.5v10l-8.4 4.5z"/>
+  </g>
+</svg>
