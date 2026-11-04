@@ -1,16 +1,26 @@
 /* "Follow us on" icon row: dark rounded squares with white glyphs.
-   Always a single row: in a column too narrow for the design sizes, the
-   percentage gaps (of the row width) and then the icons shrink to fit. */
+   Always a single row. Each gap gets what is left of the row after the icons
+   at full size, clamped to --pc-social-gap-min/max, so in a narrow column the
+   gaps shrink first and the icons only once the gaps are at their minimum.
+   --pc-social-count (the number of icons) is set inline by FollowUs.astro. */
 .pc-social {
+  --pc-social-icon: 3.25rem;
+  --pc-social-gap-min: min(var(--pc-space-s), 5%);
+  --pc-social-gap-max: var(--pc-space-s);
+
   display: flex;
   justify-content: center;
-  gap: min(var(--pc-space-s), 5%);
+  gap: clamp(
+    var(--pc-social-gap-min),
+    (100% - var(--pc-social-count, 4) * var(--pc-social-icon)) / (var(--pc-social-count, 4) - 1),
+    var(--pc-social-gap-max)
+  );
   list-style: none;
   padding: 0;
   margin: 0;
 
   li {
-    flex: 0 1 3.25rem;
+    flex: 0 1 var(--pc-social-icon);
     min-width: 0;
   }
 
@@ -19,16 +29,9 @@
   }
 
   @media (--md) {
-    gap: min(var(--pc-space-xl), 10%);
-
-    li {
-      flex-basis: 4.5rem;
-    }
-
-    /* The homepage paper has room for the design's wider spacing */
-    .pc-paper--narrow & {
-      gap: 4.25rem;
-    }
+    --pc-social-icon: 4.5rem;
+    --pc-social-gap-min: var(--pc-space-2xs);
+    --pc-social-gap-max: var(--pc-space-xl);
   }
 }
 

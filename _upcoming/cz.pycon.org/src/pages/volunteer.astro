@@ -261,17 +261,10 @@ const formUrl = "https://forms.gle/5Lnw5mzs7Rv6hoBbA";
     }
   }
 
-  /* Icon spacing grows with the column: four icons stay in one row on lg,
-     the design's ~75px gap fits only on xxl */
-  @media (--lg-only) {
-    :global(.pc-ready .pc-social.pc-social) {
-      gap: var(--pc-space-m);
-    }
-  }
-
+  /* Up to the design's ~75px gap, where the column has room for it */
   @media (--xxl) {
     :global(.pc-ready .pc-social.pc-social) {
-      gap: 4.6875rem;
+      --pc-social-gap-max: 4.6875rem;
     }
   }
 

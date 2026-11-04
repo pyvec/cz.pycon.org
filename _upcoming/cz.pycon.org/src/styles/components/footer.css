@@ -22,7 +22,8 @@
   gap: var(--pc-space-xl);
 
   @media (--lg) {
-    grid-template-columns: 16rem 1fr;
+    /* Fits one row of six 2.75rem social icons with 0.5rem gaps */
+    grid-template-columns: 19rem 1fr;
   }
 }
 
