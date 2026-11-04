@@ -10,7 +10,7 @@ const { headingLevel: Heading = "h2" } = Astro.props;
 
 <div class="pc-paper__block">
   <Heading>Follow us on</Heading>
-  <ul class="pc-social">
+  <ul class="pc-social" style={`--pc-social-count: ${followLinks.length}`}>
     {
       followLinks.map((item) => (
         <li>

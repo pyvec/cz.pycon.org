@@ -16,6 +16,7 @@ export const socialLinks = [
     href: "https://www.facebook.com/events/1363197064240927",
     icon: "facebook",
   },
+  { label: "LinkedIn", shortLabel: "LinkedIn", href: "https://www.linkedin.com/company/pycon-cz/", icon: "linkedin" },
   { label: "YouTube", shortLabel: "YouTube", href: "https://www.youtube.com/@PyConCZ", icon: "youtube" },
   { label: "GitHub", shortLabel: "GitHub", href: "https://github.com/pyvec/cz.pycon.org", icon: "github" },
 ] as const;
