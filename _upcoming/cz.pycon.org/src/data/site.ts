@@ -1,8 +1,16 @@
 const baseUrl = import.meta.env.BASE_URL;
 
-export const menuItems = [
+interface MenuItem {
+  label: string;
+  href: string;
+  /** Used where the full label doesn't fit: the mobile top bar and the hero tabs below xxl */
+  shortLabel?: string;
+}
+
+export const menuItems: MenuItem[] = [
   { label: "Home", href: baseUrl },
   { label: "Sponsorship", href: `${baseUrl}sponsorship/` },
+  { label: "Call for Proposals", shortLabel: "CFP", href: `${baseUrl}cfp/` },
   { label: "Volunteer", href: `${baseUrl}volunteer/` },
   { label: "Code of Conduct", href: `${baseUrl}coc/` },
 ];
@@ -34,7 +42,13 @@ interface FooterGroup {
 /** Footer link columns; groups without links are not rendered. */
 export const footerGroups: FooterGroup[] = [
   { label: "Event", links: [{ label: "Volunteer", href: `${baseUrl}volunteer/` }] },
-  { label: "Program", links: [] },
+  {
+    label: "Program",
+    links: [
+      { label: "Call for Proposals", href: `${baseUrl}cfp/` },
+      { label: "Proposal Guide", href: `${baseUrl}cfp/guide/` },
+    ],
+  },
   {
     label: "About",
     links: [

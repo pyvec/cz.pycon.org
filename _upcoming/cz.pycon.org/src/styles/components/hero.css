@@ -50,8 +50,9 @@
 }
 
 .pc-tabs__link {
-  /* line-height 1 makes the link exactly as tall as the tab */
-  padding: 0.375rem 0.75rem;
+  /* line-height 1 makes the link exactly as tall as the tab. Narrow sides on
+     tablets, where five links share the row. */
+  padding: 0.375rem 0.5rem;
   border-radius: var(--pc-radius) var(--pc-radius) 0 0;
   font-size: var(--pc-text-s);
   line-height: 1;
@@ -82,10 +83,32 @@
   }
 }
 
-/* The first link sits on the cream tab of the card */
+/* Long labels are shortened until the tabs have room for them */
+.pc-tabs__full {
+  display: none;
+
+  @media (--xxl) {
+    display: inline;
+  }
+}
+
+.pc-tabs__short {
+  @media (--xxl) {
+    display: none;
+  }
+}
+
+/* The first link sits on the cream tab of the card and is as wide as the tab
+   (see .pc-hero__card::before, minus the nav's left padding), so the next link
+   never starts on the tab's slope */
 .pc-tabs__link--home {
   color: var(--pc-text-dark);
   padding-left: 0;
+  min-width: calc(10.25rem + var(--tab-height) * 0.1 - var(--pc-space-m));
+
+  @media (--lg) {
+    min-width: calc(10.25rem + var(--tab-height) * 0.1 - var(--pc-space-l));
+  }
 
   &:hover,
   &:focus-visible {
@@ -205,7 +228,12 @@
   line-height: var(--pc-leading-snug);
 }
 
-.pc-hero__button {
+/* Button, with an optional note under it. A flex column leaves no line-box
+   strut under the button, and the button keeps its own width. */
+.pc-hero__action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   grid-area: button;
   align-self: end;
   justify-self: start;
@@ -215,10 +243,12 @@
     align-self: start;
     margin-top: var(--pc-space-xl);
   }
+}
 
-  /* Lighter and a bit larger than the shared button, ~50px tall
-     (homepage, sponsorship and volunteer designs). Nested to beat .pc-btn,
-     which loads later. */
+/* Lighter and a bit larger than the shared button, ~50px tall
+   (homepage, sponsorship and volunteer designs). Nested to beat .pc-btn,
+   which loads later. */
+.pc-hero__button {
   @media (--lg) {
     .pc-hero & {
       padding: 0.5625rem 1.5rem;
@@ -229,8 +259,40 @@
   }
 }
 
+/* Status line above the button, like "CFP open until …": mono caps with a pink dot */
+.pc-hero__status {
+  /* Not flex: the slot's text and <time> must wrap as one line of text. The dot is
+     placed absolutely, centred on the first line. */
+  position: relative;
+  padding-left: 1.5rem;
+  margin: 0 0 var(--pc-space-xs);
+  font-family: var(--pc-font-mono);
+  font-weight: 600;
+  font-size: var(--pc-text-xs);
+  line-height: var(--pc-leading-snug);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 4px; /* room for the halo */
+    top: calc(0.625em - 0.3125rem); /* half of the 1.25 line height, minus half the dot */
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    /* --pc-pink darkened, with a translucent --pc-pink halo (no color-mix: Safari 14 target) */
+    background: #c45ebd;
+    box-shadow: 0 0 0 4px rgb(220 148 214 / 0.45);
+  }
+
+  @media (--lg) {
+    font-size: var(--pc-text-s);
+  }
+}
+
 /* When there is no subtitle, the button still needs a row to sit in */
-.pc-hero__card--no-subtitle .pc-hero__button {
+.pc-hero__card--no-subtitle .pc-hero__action {
   grid-area: subtitle / subtitle / button / button;
   align-self: start;
 }
@@ -254,5 +316,16 @@
     width: calc(100% + 5rem);
     max-width: none;
     margin: -1rem -3rem -3.5rem 0;
+  }
+}
+
+/* Megaphone illustration (volunteer and CFP pages): larger and vertically
+   centred, where the shared rule bleeds it into the bottom padding. Negative
+   block margins keep the taller image from stretching the card. */
+.pc-hero--megaphone .pc-hero__image {
+  @media (--xl) {
+    align-self: center;
+    width: calc(100% + 9.25rem);
+    margin: -2rem -3.75rem -2rem 0;
   }
 }
