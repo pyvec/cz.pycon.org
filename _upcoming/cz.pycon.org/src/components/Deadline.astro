@@ -1,0 +1,16 @@
+---
+// CFP deadline as a <time> element; the date itself is set in data/cfp.ts
+import { cfpDeadline } from "../data/cfp";
+
+interface Props {
+  lang: "en" | "cs";
+}
+const { lang } = Astro.props;
+const aoeTitle = lang === "cs" ? "Anywhere on Earth, tedy UTC−12" : "Anywhere on Earth (UTC−12)";
+---
+
+<time datetime={cfpDeadline.datetime}
+  ><span class="text-nowrap">{cfpDeadline[lang]}</span>, <span class="text-nowrap"
+    >23:59 <abbr title={aoeTitle}>AoE</abbr></span
+  ></time
+>

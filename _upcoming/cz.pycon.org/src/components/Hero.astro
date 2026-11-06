@@ -8,6 +8,7 @@ interface Props {
   image: ImageMetadata;
   imageAlt?: string;
   subtitle?: boolean;
+  /** Pass a `note` slot for a short line under the button */
   button?: { label: string; href: string };
   class?: string;
 }
@@ -23,8 +24,16 @@ const currentPath = Astro.url.pathname;
           href={item.href}
           class:list={["pc-tabs__link", { "pc-tabs__link--home": index === 0 }]}
           aria-current={isCurrentPage(item.href, currentPath) ? "page" : undefined}
+          aria-label={item.shortLabel && item.label}
         >
-          {item.label}
+          {item.shortLabel ? (
+            <>
+              <span class="pc-tabs__short">{item.shortLabel}</span>
+              <span class="pc-tabs__full">{item.label}</span>
+            </>
+          ) : (
+            item.label
+          )}
         </a>
       ))
     }
@@ -41,9 +50,16 @@ const currentPath = Astro.url.pathname;
     }
     {
       button && (
-        <a class="pc-btn pc-hero__button" href={button.href}>
-          {button.label}
-        </a>
+        <div class="pc-hero__action">
+          <a class="pc-btn pc-hero__button" href={button.href}>
+            {button.label}
+          </a>
+          {Astro.slots.has("note") && (
+            <p class="pc-hero__note">
+              <slot name="note" />
+            </p>
+          )}
+        </div>
       )
     }
     {/* An explicit fallbackFormat keeps Astro from also emitting the unused original PNG */}

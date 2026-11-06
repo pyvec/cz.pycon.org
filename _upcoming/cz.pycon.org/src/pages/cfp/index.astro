@@ -1,0 +1,483 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import Paper from "../../components/Paper.astro";
+import FollowUs from "../../components/FollowUs.astro";
+import Sticker from "../../components/Sticker.astro";
+import Deadline from "../../components/Deadline.astro";
+// TODO: replace with a dedicated CFP illustration once the designer delivers one
+import heroImage from "../../assets/hero/volunteer.png";
+import flashDrive from "../../assets/stickers/flash-drive.png";
+import tamagotchi from "../../assets/stickers/tamagotchi.png";
+import heart from "../../assets/stickers/heart.png";
+import { cfpUrl, cfpEmail, cfpDeadline, cfpPages, formatDays, tracks } from "../../data/cfp";
+---
+
+<Layout title="Call for Proposals">
+  <Hero
+    class="pc-hero--megaphone"
+    image={heroImage}
+    imageAlt="Hand holding a megaphone"
+    subtitle
+    button={{ label: "Submit a proposal", href: cfpUrl }}
+  >
+    <Fragment slot="title">Call for Proposals</Fragment>
+    <Fragment slot="subtitle">Open until<br /><span class="text-nowrap">{cfpDeadline.en}</span></Fragment>
+  </Hero>
+
+  <div class="pc-container">
+    <section class="pc-section pc-cfp-intro">
+      <h2 class="pc-heading">Speak at PyCon&nbsp;CZ&nbsp;27!</h2>
+      <div class="pc-lead pc-measure">
+        <p>
+          We would like to invite you to submit proposals for <strong>talks, workshops, and sprints</strong>. Let’s make
+          this a&nbsp;remarkable event together!
+        </p>
+        <p>
+          Our primary focus is on Python, software development, data science, and related topics. In addition, we
+          welcome any valuable ideas connected to the Python ecosystem, work culture, and the&nbsp;wider tech community.
+        </p>
+      </div>
+      <p class="pc-cfp-deadline">
+        <span class="pc-cfp-deadline__label">Deadline</span>
+        <Deadline lang="en" />
+      </p>
+    </section>
+
+    <section class="pc-section">
+      <h2 class="pc-heading">Format</h2>
+      <div class="pc-cols pc-cols--halves">
+        <div class="pc-card pc-card--lavender pc-card--cut pc-cfp-format">
+          <p class="pc-cfp-pill">{formatDays.talks}</p>
+          <h3>Talks</h3>
+          <p>30-minute talks in one of the four tracks below. Keynotes take 45&nbsp;minutes.</p>
+        </div>
+        <div class="pc-card pc-card--lime pc-card--cut pc-cfp-format">
+          <p class="pc-cfp-pill">{formatDays.workshops}</p>
+          <h3>Workshops &amp; Sprints</h3>
+          <p>
+            Hands-on sessions of 1–3 hours or a&nbsp;full day. Good for going deeper with a&nbsp;smaller but more
+            focused audience. Sprints are great for working together with others on an open-source project.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pc-section pc-cfp-tracks" id="tracks">
+      <h2 class="pc-heading">Tracks</h2>
+      <p class="pc-lead pc-measure">
+        This year, we have four tracks. When you submit your proposal, pick the&nbsp;one that fits your topic best.
+      </p>
+      <div class="pc-cols pc-cols--cards">
+        {
+          tracks.map((track) => (
+            <div class:list={["pc-card pc-cfp-track", track.color && `pc-card--${track.color}`]}>
+              <h3>{track.name}</h3>
+              <p>{track.topics}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="pc-section pc-cfp-audience">
+      <h2 class="pc-heading">Who will be listening?</h2>
+      <div class="pc-lead pc-measure">
+        <p>
+          At PyCon&nbsp;CZ, you’ll be presenting to a&nbsp;diverse audience: Python beginners and experts, developers,
+          data analysts, testers, researchers and scientists, employees of bigger and smaller companies, freelancers,
+          startup founders, students, and enthusiasts. One third doesn’t speak Czech or Slovak, but everybody
+          understands English.
+        </p>
+        <p>
+          Given our attendees’ varied backgrounds, many Python programming topics will be well-received, catering to all
+          skill levels. We welcome topics regarding technology in general, in addition to Python-specific ones. For
+          inspiration, see the programs from <a href="https://cz.pycon.org/2023/program/talks/">2023</a>,
+          <a href="https://cz.pycon.org/2019/programme/talks/">2019</a>, or
+          <a href="https://cz.pycon.org/2018/programme/talks/">2018</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="pc-section pc-cfp-unsure">
+      <h2 class="pc-heading">Not sure if you should apply?</h2>
+      <p class="pc-lead">Don’t worry, we’re here to help you figure it out!</p>
+      <div class="pc-cfp-unsure__body">
+        <div class="pc-card pc-card--cut pc-cfp-unsure__card">
+          <ul>
+            <li>
+              <strong>Just starting out with Python</strong> and have something interesting to share? Go ahead and apply!
+              We’d love to hear your fresh perspective.
+            </li>
+            <li>
+              <strong>Experienced Pythonista</strong> looking to share your knowledge? Apply! It’s a&nbsp;great opportunity
+              to meet and learn from other experts.
+            </li>
+            <li>
+              <strong>Using Python in a&nbsp;different field</strong> or as part of a&nbsp;hobby project? Apply! Show us the
+              versatility of Python and its many applications.
+            </li>
+            <li>
+              <strong>Have something to share but feel like an impostor?</strong> Apply anyway! Trust us, many of us have
+              felt that way too.
+            </li>
+          </ul>
+        </div>
+        <Sticker image={flashDrive} class="pc-cfp-unsure__flash" />
+      </div>
+    </section>
+
+    <section class="pc-section pc-cfp-choose">
+      <h2 class="pc-heading">How do we choose?</h2>
+      <div class="pc-card pc-card--lavender pc-card--cut">
+        <ol class="pc-numbered">
+          <li>We accept submissions up until the deadline.</li>
+          <li>
+            Our committee, consisting of around 10&nbsp;members, independently evaluates each submission based on the
+            provided descriptions. Each submission receives a&nbsp;rating that is averaged to a&nbsp;single number. Some
+            of the things we’re considering include:
+            <ul>
+              <li>Fit between the topic and the audience</li>
+              <li>Clarity of the submission</li>
+              <li>A&nbsp;coherent idea about the contents of the talk/workshop</li>
+              <li>Engagement which the talk/workshop will generate</li>
+            </ul>
+          </li>
+          <li>
+            The highest-scoring submissions will be accepted. Additionally, at this stage, we consider:
+            <ul>
+              <li>Overall fit with the program</li>
+              <li>Variety: we choose the better scoring talk about the same topic</li>
+              <li>Depth and breadth of topics</li>
+              <li>Financial requirements (our budget is not unlimited)</li>
+            </ul>
+          </li>
+          <li>We notify all applicants of the results via email.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="pc-section pc-cfp-support" id="speaker-support">
+      <h2 class="pc-heading">Speaker support</h2>
+      <div class="pc-cols pc-cfp-support__cols">
+        <div class="pc-card">
+          <h3>Public speaking mentorship</h3>
+          <p>
+            If you’re just starting your public speaking adventure, apply! Regardless of your technical experience, we
+            can pair you with a&nbsp;mentor to help you hone your skills. We offer support in two areas: preparing the
+            proposal, and preparing the talk itself.
+          </p>
+        </div>
+        <div class="pc-card pc-card--lime" id="financial-aid">
+          <h3>Can’t afford to speak?</h3>
+          <p>
+            If money is the only thing stopping you from speaking at PyCon&nbsp;CZ, we’ll try to help. We provide
+            financial aid to cover travel, accommodation, and anything else you need to contribute to
+            the&nbsp;conference.
+          </p>
+          <p>
+            Our budget is limited, but we should be able to cover the expenses of most speakers, so please don’t let
+            this stop you. Just fill out the relevant field in the <a href={cfpUrl}>submission form</a>.
+          </p>
+        </div>
+        <div class="pc-card pc-card--pink">
+          <h3>Childcare</h3>
+          <p>
+            We will offer free childcare at the venue. During the conference hours, there will be a&nbsp;dedicated area
+            with childcare professionals who will look after your children.
+          </p>
+        </div>
+      </div>
+      <p class="pc-cfp-text pc-cfp-support__contact">
+        Questions regarding speaker support? Reach out to <a href={`mailto:${cfpEmail}`}>{cfpEmail}</a>.
+      </p>
+      <Sticker image={tamagotchi} class="pc-cfp-support__tamagotchi" />
+    </section>
+
+    <section class="pc-section">
+      <h2 class="pc-heading">Good to know</h2>
+      <div class="pc-cols pc-cols--halves">
+        <div class="pc-card pc-card--cut">
+          <h3>Do you have more than one idea?</h3>
+          <p>
+            Great! Submit all of them. Each proposal will be evaluated separately. You can indicate in your proposal the
+            maximum number of talks you’re willing to do, in case multiple of your submissions would be selected. We
+            will choose those most fitting our audience.
+          </p>
+        </div>
+        <div class="pc-card pc-card--cut">
+          <h3>Want to promote your commercial project?</h3>
+          <p>
+            PyCon&nbsp;CZ is a&nbsp;community conference with open-source at heart. We’re happy to learn from each other
+            and hear from anyone who got their hands deep in Python-related projects. Be careful with blatant marketing,
+            though: those talks usually aren’t as appreciated.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pc-section pc-cfp-learn">
+      <h2 class="pc-heading">Eager to learn more?</h2>
+      <div class="pc-measure">
+        <p class="pc-lead">
+          You will find advice for writing great proposals in our <a href={cfpPages.guide}>Proposal Guide</a>, also
+          available <a href={cfpPages.guideCs} hreflang="cs" lang="cs">v&nbsp;češtině</a>.
+        </p>
+        <p class="pc-cfp-text">
+          We also recommend reading the tips at <a href="https://speaking.io/">speaking.io</a> and
+          <a href="https://switowski.com/blog/how-to-make-a-great-conference-talk/">an article by Sebastian Witowski</a
+          >. It covers many aspects of speaking at a&nbsp;tech conference, including choosing the right topic.
+        </p>
+      </div>
+      <a class="pc-btn pc-cfp-learn__button" href={cfpPages.guide}>Read the Proposal Guide</a>
+    </section>
+
+    <section class="pc-section pc-cfp-nonprofit">
+      <h2 class="pc-heading">Non-profit &amp; organized by volunteers</h2>
+      <p class="pc-lead pc-measure">
+        PyCon&nbsp;CZ is organized by volunteers. All proceeds go to <a href="https://pyvec.org/">Pyvec</a>,
+        a&nbsp;non-profit service organization supporting a&nbsp;variety of Python communities across the Czech
+        Republic. Please consider supporting Pyvec via <a href={`${import.meta.env.BASE_URL}sponsorship/`}
+          >PyCon&nbsp;CZ sponsorships</a
+        >.
+      </p>
+    </section>
+
+    <Paper class="pc-cfp-paper">
+      <div class="pc-paper__block">
+        <h2>Let us know before it’s too late!</h2>
+        <p class="pc-cfp-paper__deadline">
+          Yes, there is a&nbsp;deadline: <Deadline lang="en" />. Make sure you do not miss it. We’d miss you.
+        </p>
+        <a class="pc-btn" href={cfpUrl}>Send us your idea</a>
+      </div>
+
+      <div class="pc-paper__block">
+        <div class="pc-cols pc-cols--halves pc-cols--text">
+          <div class="pc-cfp-paper__questions">
+            <h3>Not ready or sure yet?</h3>
+            <div class="pc-paper__contact">
+              <p>
+                <strong>Feel free to ask for advice:</strong><br />
+                <a href={`mailto:${cfpEmail}`}>{cfpEmail}</a>
+              </p>
+            </div>
+          </div>
+          <div>
+            <FollowUs headingLevel="h3" />
+          </div>
+        </div>
+      </div>
+
+      <Fragment slot="stickers">
+        <Sticker image={heart} class="pc-cfp-paper__heart" />
+      </Fragment>
+    </Paper>
+  </div>
+</Layout>
+
+<style>
+  @import "../../styles/media.css";
+
+  .pc-cfp-intro .pc-heading {
+    @media (--lg) {
+      margin-bottom: var(--pc-space-xl);
+    }
+  }
+
+  /* Deadline badge: dark mono label on a lime pill, the date beside it */
+  .pc-cfp-deadline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--pc-space-xs) var(--pc-space-s);
+    margin: var(--pc-space-block) 0 0;
+    font-family: var(--pc-font-mono);
+    font-weight: 600;
+    font-size: var(--pc-text-subheading);
+    line-height: var(--pc-leading-snug);
+    color: var(--pc-lime);
+  }
+
+  .pc-cfp-deadline__label {
+    padding: 0.375rem 1rem;
+    border-radius: 100vmax;
+    background: var(--pc-lime);
+    color: var(--pc-text-dark);
+    font-size: var(--pc-text-s);
+    text-transform: uppercase;
+
+    @media (--lg) {
+      font-size: var(--pc-text-l);
+    }
+  }
+
+  /* Day pill above the format heading, like the price pills on the
+     sponsorship page */
+  .pc-cfp-pill {
+    display: inline-block;
+    margin-bottom: var(--pc-space-m);
+    padding: 0.5rem 1rem;
+    border-radius: 100vmax;
+    background: var(--pc-cream);
+    font-family: var(--pc-font-mono);
+    font-size: var(--pc-text-xs);
+    line-height: var(--pc-leading-snug);
+    white-space: nowrap;
+
+    @media (--lg) {
+      font-size: var(--pc-text-s);
+    }
+  }
+
+  .pc-cfp-format h3,
+  .pc-cfp-track h3 {
+    font-family: var(--pc-font-mono);
+    font-weight: 600;
+  }
+
+  /* Four-up cards are narrow: smaller headings than the shared card */
+  .pc-cfp-track {
+    height: 100%;
+
+    h3 {
+      font-size: var(--pc-text-xl);
+      line-height: var(--pc-leading-snug);
+      text-wrap: balance;
+    }
+
+    @media (--xl) {
+      padding-inline: var(--pc-space-m);
+      font-size: var(--pc-text-m);
+    }
+  }
+
+  .pc-cfp-tracks .pc-lead {
+    margin-bottom: var(--pc-space-l);
+  }
+
+  .pc-cfp-unsure .pc-lead {
+    margin-bottom: var(--pc-space-l);
+  }
+
+  .pc-cfp-unsure__body {
+    position: relative;
+  }
+
+  @media (--lg) {
+    .pc-cfp-unsure__card {
+      --cut: 6.5rem;
+      padding-bottom: 5rem;
+      line-height: var(--pc-leading-loose);
+
+      ul {
+        max-width: calc(100% - 15rem);
+      }
+
+      li + li {
+        margin-top: var(--pc-space-s);
+      }
+    }
+  }
+
+  /* Sits on the card's right edge, in the room the narrowed list leaves */
+  .pc-cfp-unsure__flash {
+    right: 1.5rem;
+    top: 50%;
+    width: 13rem;
+    transform: translateY(-50%) rotate(-24deg);
+  }
+
+  /* Nested criteria lists inside the numbered steps */
+  .pc-cfp-choose .pc-numbered ul {
+    margin: var(--pc-space-2xs) 0 0;
+
+    li + li {
+      margin-top: var(--pc-space-3xs);
+    }
+  }
+
+  @media (--lg) {
+    .pc-cfp-choose .pc-numbered {
+      max-width: 62rem;
+    }
+  }
+
+  .pc-cfp-support__cols {
+    @media (--lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .pc-cfp-support__contact {
+    margin: var(--pc-space-l) 0 0;
+  }
+
+  .pc-cfp-support {
+    z-index: 1;
+  }
+
+  /* Hangs off the bottom right, below the cards and clear of the contact line */
+  .pc-cfp-support__tamagotchi {
+    right: 2rem;
+    bottom: -11rem;
+    width: 13rem;
+    transform: rotate(8deg);
+  }
+
+  /* Secondary paragraphs on the dark background, between body and lead size */
+  .pc-cfp-text {
+    font-size: var(--pc-text-m);
+
+    @media (--lg) {
+      font-size: var(--pc-text-l);
+    }
+  }
+
+  .pc-cfp-learn__button {
+    margin-top: var(--pc-space-l);
+  }
+
+  /* The section is rendered by Paper.astro, so it doesn't carry this page's
+     scope; .pc-paper doubles the class to beat the shared rules in any CSS order */
+  @media (--lg) {
+    :global(.pc-paper.pc-cfp-paper) {
+      margin-inline: 2.75rem;
+    }
+
+    :global(.pc-cfp-paper) h2 {
+      text-wrap: balance;
+      font-size: var(--pc-text-heading);
+      margin-bottom: var(--pc-space-l);
+    }
+
+    :global(.pc-cfp-paper) .pc-btn {
+      padding: 0.5rem 3rem;
+      font-size: var(--pc-text-2xl);
+      font-weight: 400;
+    }
+  }
+
+  .pc-cfp-paper__deadline {
+    max-width: 40rem;
+    margin: 0 auto var(--pc-space-l);
+    font-size: var(--pc-text-m);
+
+    @media (--lg) {
+      font-size: var(--pc-text-xl);
+    }
+  }
+
+  .pc-cfp-paper__questions {
+    @media (--lg) {
+      text-align: left;
+    }
+  }
+
+  .pc-cfp-paper__heart {
+    left: -1rem;
+    bottom: -7rem;
+    width: 9rem;
+    transform: rotate(-20deg);
+  }
+</style>

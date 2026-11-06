@@ -1,0 +1,113 @@
+---
+import ProposalGuide from "../../components/ProposalGuide.astro";
+import Deadline from "../../components/Deadline.astro";
+import { cfpPages, cfpEmail } from "../../data/cfp";
+---
+
+<ProposalGuide
+  lang="cs"
+  title="Průvodce přihláškou"
+  heroTitle="Průvodce přihláškou"
+  heroSubtitle="Jak úspěšně přihlásit příspěvek"
+  imageAlt="Retro počítač s logem PyCon CZ vedle věže plzeňské katedrály"
+  switchLink={{ label: "Switch to English", href: cfpPages.guide, lang: "en" }}
+  headings={{
+    general: "Obecné rady pro přednášky a workshopy",
+    talks: "Přednášky",
+    workshops: "Workshopy",
+    feedback: "Požádejte o zpětnou vazbu",
+    cta: "Máte hotovo?",
+  }}
+  ctaButton="Přihlásit příspěvek"
+>
+  <Fragment slot="intro">
+    <p>
+      Chceme vás motivovat, abyste přihlásili svou přednášku nebo workshop na největší českou Python konferenci
+      <strong>PyCon&nbsp;CZ&nbsp;27</strong>. Ať jste zkušeným řečníkem nebo naopak nováčkem ve&nbsp;světě konferencí,
+      tento průvodce vám pomůže vytvořit atraktivní přihlášku.
+    </p>
+    <p>
+      Sekce programu, formáty a&nbsp;podporu pro řečníky najdete na stránce
+      <a href={cfpPages.cfp} hreflang="en">Call for Proposals</a> (anglicky).
+    </p>
+  </Fragment>
+
+  <ol class="pc-numbered" slot="general">
+    <li>
+      <strong>Ukažte nám svůj jedinečný pohled:</strong> vaše zkušenosti a&nbsp;názory mají svoji cenu, ať už jste kdokoli
+      a&nbsp;odkudkoli. Sdílejte své znalosti a&nbsp;myšlenky, i&nbsp;když se vám zdají obyčejné. Váš úhel pohledu bude pro
+      někoho v&nbsp;publiku určitě zajímavý.
+    </li>
+    <li>
+      <strong>Začněte atraktivním názvem:</strong> vymyslete jasný a&nbsp;poutavý název, který odráží podstatu vaší prezentace.
+      Vyhněte se příliš technickým termínům.
+    </li>
+    <li>
+      <strong>Zaměřte se na cíl:</strong> stanovte si účel vaší přednášky nebo workshopu. Co chcete, aby si účastníci z&nbsp;vaší
+      prezentace odnesli? Buďte konkrétní a&nbsp;struční a&nbsp;vyjadřujte se jasně, aby diváci pochopili podstatu sdělení
+      vašeho příspěvku.
+    </li>
+    <li>
+      <strong>Vytvořte zajímavý popis:</strong> napište stručný a&nbsp;poutavý abstrakt vaší přednášky nebo workshopu. Vymezte
+      témata, která chcete pokrýt, a&nbsp;zdůrazněte klíčové poznatky, které účastníci získají. Uveďte praktické příklady
+      a&nbsp;zkušenosti, které jim můžete předat.
+    </li>
+    <li>
+      <strong>Ukažte svoji dosavadní práci:</strong> přidejte odkazy na nahrávky vašich prezentací, články nebo jiný materiál.
+    </li>
+  </ol>
+
+  <ol class="pc-numbered" slot="talks">
+    <li>
+      <strong>Sdílejte své znalosti i&nbsp;zápal pro věc:</strong> přeneste do své přednášky svoje nadšení a&nbsp;odborné
+      znalosti. Vložte do přihlášky svou radost z&nbsp;příležitosti sdílet znalosti a&nbsp;zkušenosti s&nbsp;ostatními.
+    </li>
+    <li>
+      <strong>Struktura a&nbsp;plynulost:</strong> ujistěte se, že vaše přednáška má jasnou strukturu a&nbsp;že jednotlivé
+      části na sebe navazují. Nejdříve popište problém a&nbsp;proč je potřeba ho řešit, pak představte řešení, jeho výhody
+      i&nbsp;nevýhody. Tím usnadníte programové komisi pochopit vaši myšlenku.
+    </li>
+    <li>
+      <strong>Učte se od odborníků:</strong> prozkoumejte užitečné zdroje jako
+      <a href="https://speaking.io/" hreflang="en">speaking.io</a> a&nbsp;knihu
+      <a href="https://www.goodreads.com/book/show/6918930-confessions-of-a-public-speaker" hreflang="en" lang="en"
+        >Confessions of a&nbsp;Public Speaker</a
+      > pro další tipy, jak zlepšit své prezentační dovednosti.
+    </li>
+  </ol>
+
+  <ol class="pc-numbered" slot="workshops">
+    <li>
+      <strong>Nezapomeňte na interaktivitu:</strong> popište, jak do vašeho workshopu plánujete zapojit účastníky. Popište
+      společné aktivity, live coding, skupinové diskuse nebo praktická cvičení, která workshop oživí a&nbsp;účastníky zaujmou.
+    </li>
+    <li>
+      <strong>Sepište podrobný plán:</strong> popište svůj workshop tak, aby bylo jasné, jaké znalosti a&nbsp;dovednosti účastníci
+      získají.
+    </li>
+    <li>
+      <strong>Uveďte veškeré požadavky na účastníky:</strong> například co potřebují znát, zda si mají přinést nějaký hardware,
+      třeba notebook, nebo zda si mají předem nainstalovat nějaký software.
+    </li>
+  </ol>
+
+  <Fragment slot="feedback">
+    <p>
+      Zkuste získat zpětnou vazbu od kolegů, spolupracovníků nebo mentorů. Požádejte je, aby zhodnotili vaši přihlášku
+      a&nbsp;poskytli vám konstruktivní kritiku. Vylepšete podle ní svoji přihlášku a&nbsp;nebojte se poslat nám svoje
+      nápady.
+    </p>
+    <p>
+      V&nbsp;přihlášce uveďte pravdivé údaje, buďte autentičtí a&nbsp;využijte příležitost obohatit naši konferenci.
+      Pokud máte nějaké otázky, neváhejte se obrátit na <a href={`mailto:${cfpEmail}`}>{cfpEmail}</a>.
+    </p>
+  </Fragment>
+
+  <Fragment slot="cta">
+    <p>
+      Nyní, když víte, jak na to, pokračujte a&nbsp;odešlete svůj návrh. Těšíme se na vaše příspěvky a&nbsp;na to, že
+      vás přivítáme jako řečníky nebo vedoucí workshopů!
+    </p>
+    <p><strong>Uzávěrka: <Deadline lang="cs" /></strong></p>
+  </Fragment>
+</ProposalGuide>

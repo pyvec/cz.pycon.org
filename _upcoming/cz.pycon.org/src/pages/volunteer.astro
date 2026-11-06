@@ -14,7 +14,7 @@ const formUrl = "https://forms.gle/5Lnw5mzs7Rv6hoBbA";
 
 <Layout title="Volunteer">
   <Hero
-    class="pc-volunteer-hero"
+    class="pc-hero--megaphone"
     image={heroImage}
     imageAlt="Hand holding a megaphone"
     button={{ label: "Join the crew", href: formUrl }}
@@ -113,20 +113,9 @@ const formUrl = "https://forms.gle/5Lnw5mzs7Rv6hoBbA";
 <style>
   @import "../styles/media.css";
 
-  /* Hero and Paper render their own markup, so rules for their elements are
-     :global(), prefixed with the class this page passes in. Doubled classes
-     beat the shared rules in any CSS order. */
-
-  /* Hero: illustration larger and vertically centred (the shared rule bleeds
-     it into the bottom padding). Negative block margins keep the taller image
-     from stretching the card. */
-  @media (--xl) {
-    :global(.pc-volunteer-hero .pc-hero__image.pc-hero__image) {
-      align-self: center;
-      width: calc(100% + 9.25rem);
-      margin: -2rem -3.75rem -2rem 0;
-    }
-  }
+  /* Paper renders its own markup, so rules for its elements are :global(),
+     prefixed with the class this page passes in. Doubled classes beat the
+     shared rules in any CSS order. */
 
   /* Line break as in the design; phones balance the heading on their own */
   .pc-intro__break {

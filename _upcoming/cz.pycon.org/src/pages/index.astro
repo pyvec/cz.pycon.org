@@ -8,8 +8,10 @@ import heroImage from "../assets/hero/home.png";
 import tamagotchi from "../assets/stickers/tamagotchi.png";
 import heart from "../assets/stickers/heart.png";
 import cursor from "../assets/stickers/cursor.svg";
+import Deadline from "../components/Deadline.astro";
+import { cfpUrl, cfpPages, formatDays, tracks } from "../data/cfp";
 
-// "Buy tickets" is hidden until ticket sales open:
+// "Buy tickets" is hidden until ticket sales open; the CFP button holds its place until then:
 // button={{ label: "Buy tickets", href: "..." }}
 ---
 
@@ -18,12 +20,51 @@ import cursor from "../assets/stickers/cursor.svg";
     image={heroImage}
     imageAlt="Retro computer showing the PyCon CZ logo next to the Pilsen cathedral tower"
     subtitle
+    button={{ label: "Call for Proposals", href: cfpPages.cfp }}
   >
     <Fragment slot="title">PyCon&nbsp;CZ&nbsp;27</Fragment>
     <Fragment slot="subtitle"><span class="text-nowrap">16–18&nbsp;April&nbsp;2027</span><br />Pilsen</Fragment>
+    <Fragment slot="note">Deadline: <Deadline lang="en" /></Fragment>
   </Hero>
 
   <div class="pc-container">
+    <section class="pc-section pc-section--snug pc-home-cfp" aria-labelledby="home-cfp-heading">
+      <div class="pc-card pc-card--pink pc-card--cut pc-home-cfp__card">
+        <div class="pc-home-cfp__text">
+          <h2 id="home-cfp-heading">Call for Proposals is open!</h2>
+          <p>
+            Do you have something to share with the Python community? Send us your idea for a&nbsp;<strong>talk</strong
+            >,
+            <strong>workshop</strong>, or <strong>sprint</strong>. First-time speakers are very welcome, we can pair you
+            with a&nbsp;mentor.
+          </p>
+          <div class="pc-home-cfp__actions">
+            <a class="pc-btn pc-btn--sm" href={cfpUrl}>Submit a proposal</a>
+            <a class="pc-home-cfp__more" href={cfpPages.cfp}>All the details</a>
+          </div>
+        </div>
+
+        <dl class="pc-home-cfp__facts">
+          <div>
+            <dt>Deadline</dt>
+            <dd><Deadline lang="en" /></dd>
+          </div>
+          <div>
+            <dt>Formats</dt>
+            <dd>Talks on {formatDays.talks}, workshops and sprints on {formatDays.workshops}</dd>
+          </div>
+          <div>
+            <dt>Tracks</dt>
+            <dd>
+              <ul>
+                {tracks.map((track) => <li>{track.name}</li>)}
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
     <section class="pc-section pc-section--snug pc-home-intro">
       <div class="pc-cols pc-cols--halves">
         <div class="pc-card pc-card--lavender pc-card--cut">
@@ -63,6 +104,74 @@ import cursor from "../assets/stickers/cursor.svg";
 
 <style>
   @import "../styles/media.css";
+
+  /* CFP block: pitch and buttons, key facts beside them from lg */
+  .pc-home-cfp__card {
+    display: grid;
+    gap: var(--pc-space-l);
+
+    @media (--lg) {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: calc(2 * var(--pc-grid-size));
+      padding-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-family: var(--pc-font-mono);
+      font-weight: 600;
+    }
+  }
+
+  .pc-home-cfp__text > :last-child {
+    margin-bottom: 0;
+  }
+
+  .pc-home-cfp__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--pc-space-s) var(--pc-space-m);
+    margin-top: var(--pc-space-m);
+  }
+
+  .pc-home-cfp__more {
+    font-weight: 500;
+  }
+
+  .pc-home-cfp__facts {
+    margin: 0;
+
+    > div + div {
+      margin-top: var(--pc-space-s);
+    }
+
+    dt {
+      font-family: var(--pc-font-mono);
+      font-weight: 600;
+      font-size: var(--pc-text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    dd {
+      margin: var(--pc-space-3xs) 0 0;
+      font-size: var(--pc-text-s);
+    }
+
+    ul {
+      margin: 0;
+    }
+
+    li + li {
+      margin-top: var(--pc-space-3xs);
+    }
+
+    @media (--lg) {
+      dd {
+        font-size: var(--pc-text-m);
+      }
+    }
+  }
 
   .pc-home-intro {
     z-index: 1;

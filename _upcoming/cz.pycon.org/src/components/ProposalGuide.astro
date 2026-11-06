@@ -1,0 +1,217 @@
+---
+// Proposal guide page, shared by the English and Czech versions. The pages pass the copy in
+// through the props and named slots; this component owns the layout.
+import Layout from "../layouts/Layout.astro";
+import Hero from "./Hero.astro";
+import Paper from "./Paper.astro";
+import Sticker from "./Sticker.astro";
+import heroImage from "../assets/hero/home.png";
+import floppy from "../assets/stickers/floppy.png";
+import cd from "../assets/stickers/cd.png";
+import heart from "../assets/stickers/heart.png";
+import { cfpUrl } from "../data/cfp";
+
+interface Props {
+  lang: "en" | "cs";
+  title: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  imageAlt: string;
+  switchLink: { label: string; href: string; lang: string };
+  headings: { general: string; talks: string; workshops: string; feedback: string; cta: string };
+  ctaButton: string;
+}
+const { lang, title, heroTitle, heroSubtitle, imageAlt, switchLink, headings, ctaButton } = Astro.props;
+---
+
+<Layout title={title} lang={lang}>
+  <Hero
+    class="pc-guide-hero"
+    image={heroImage}
+    imageAlt={imageAlt}
+    subtitle
+    button={{ label: ctaButton, href: cfpUrl }}
+  >
+    <Fragment slot="title"><Fragment set:html={heroTitle} /></Fragment>
+    <Fragment slot="subtitle"><Fragment set:html={heroSubtitle} /></Fragment>
+  </Hero>
+
+  <div class="pc-container">
+    <section class="pc-section pc-guide-intro">
+      <a class="pc-guide-switch" href={switchLink.href} hreflang={switchLink.lang} lang={switchLink.lang}>
+        {switchLink.label}
+      </a>
+      <div class="pc-lead pc-measure">
+        <slot name="intro" />
+      </div>
+    </section>
+
+    <section class="pc-section pc-guide-general">
+      <h2 class="pc-heading">{headings.general}</h2>
+      <div class="pc-guide-general__body">
+        <div class="pc-card pc-card--lavender pc-card--cut pc-guide-general__card">
+          <slot name="general" />
+        </div>
+        <Sticker image={floppy} class="pc-guide-general__floppy" />
+      </div>
+    </section>
+
+    <section class="pc-section pc-guide-specific">
+      <div class="pc-cols pc-cols--halves">
+        <div>
+          <h2 class="pc-heading">{headings.talks}</h2>
+          <div class="pc-card pc-card--cut pc-guide-specific__card">
+            <slot name="talks" />
+          </div>
+        </div>
+        <div>
+          <h2 class="pc-heading">{headings.workshops}</h2>
+          <div class="pc-card pc-card--lime pc-card--cut pc-guide-specific__card">
+            <slot name="workshops" />
+          </div>
+        </div>
+      </div>
+      <Sticker image={cd} class="pc-guide-specific__cd" />
+    </section>
+
+    <section class="pc-section pc-guide-feedback">
+      <h2 class="pc-heading">{headings.feedback}</h2>
+      <div class="pc-lead pc-measure">
+        <slot name="feedback" />
+      </div>
+    </section>
+
+    <Paper class="pc-paper--narrow pc-guide-paper">
+      <div class="pc-paper__block">
+        <h2>{headings.cta}</h2>
+        <div class="pc-guide-paper__text">
+          <slot name="cta" />
+        </div>
+        <a class="pc-btn" href={cfpUrl}>{ctaButton}</a>
+      </div>
+      <Fragment slot="stickers">
+        <Sticker image={heart} class="pc-guide-paper__heart" />
+      </Fragment>
+    </Paper>
+  </div>
+</Layout>
+
+<style>
+  @import "../styles/media.css";
+
+  /* Language switch: small outlined pill above the intro */
+  .pc-guide-switch {
+    display: inline-block;
+    margin-bottom: var(--pc-space-l);
+    padding: 0.375rem 1rem;
+    border: 2px solid var(--pc-lime);
+    border-radius: 100vmax;
+    color: var(--pc-lime);
+    font-family: var(--pc-font-mono);
+    font-size: var(--pc-text-s);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      box-shadow: none;
+    }
+  }
+
+  /* The numbered tips in the cards: the lead-in in bold, then the advice */
+  .pc-guide-general__card :global(.pc-numbered),
+  .pc-guide-specific__card :global(.pc-numbered) {
+    margin-bottom: 0;
+  }
+
+  @media (--lg) {
+    .pc-guide-general__card {
+      --cut: 6.5rem;
+      padding-bottom: 5rem;
+
+      :global(.pc-numbered) {
+        max-width: calc(100% - 12rem);
+      }
+    }
+
+    /* Smaller type than the general tips: the cards are half as wide */
+    .pc-guide-specific__card :global(.pc-numbered) {
+      font-size: var(--pc-text-l);
+    }
+  }
+
+  .pc-guide-general {
+    z-index: 1;
+  }
+
+  .pc-guide-general__body {
+    position: relative;
+  }
+
+  /* In the room the narrowed list leaves, overhanging the card's right edge
+     and clear of the heading above */
+  .pc-guide-general__floppy {
+    right: -1.5rem;
+    top: 2.5rem;
+    width: 15rem;
+    transform: rotate(8deg);
+  }
+
+  /* Both cards as tall as the taller one, headings above them in line */
+  .pc-guide-specific > .pc-cols > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pc-guide-specific__card {
+    flex-grow: 1;
+  }
+
+  .pc-guide-specific .pc-cols {
+    @media (--lg) {
+      column-gap: calc(2 * var(--pc-grid-size));
+    }
+  }
+
+  .pc-guide-specific {
+    z-index: 1;
+  }
+
+  /* Over the right card's corner cut, ~2rem clear of the next heading */
+  .pc-guide-specific__cd {
+    right: -1.5rem;
+    bottom: -4rem;
+    width: 11rem;
+    transform: rotate(-10deg);
+  }
+
+  /* Up to the edges of the narrow paper: buttons and text centred */
+  .pc-guide-paper__text {
+    margin-bottom: var(--pc-space-l);
+    font-size: var(--pc-text-m);
+
+    :global(p) {
+      margin: 0 0 var(--pc-space-s);
+    }
+
+    :global(p:last-child) {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (--lg) {
+    :global(.pc-paper.pc-guide-paper) {
+      margin-top: 14rem;
+    }
+
+    :global(.pc-guide-paper .pc-paper__body.pc-paper__body) {
+      padding-block: var(--pc-space-l);
+    }
+  }
+
+  .pc-guide-paper__heart {
+    right: -9rem;
+    top: 1rem;
+    width: 9rem;
+    transform: rotate(-8deg);
+  }
+</style>

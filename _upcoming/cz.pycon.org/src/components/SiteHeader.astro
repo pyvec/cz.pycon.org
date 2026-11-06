@@ -9,7 +9,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
 <header class="pc-topbar">
   <a class="pc-topbar__brand" href={baseUrl}>PyCon CZ</a>
-  {current && <span class="pc-topbar__current">{current.label}</span>}
+  {current && <span class="pc-topbar__current">{current.shortLabel ?? current.label}</span>}
   <button class="pc-topbar__toggle" type="button" aria-expanded="false" aria-controls="pc-menu" data-menu-open>
     <span class="visually-hidden">Open menu</span>
     <svg viewBox="0 0 28 28" aria-hidden="true">
@@ -21,7 +21,7 @@ const baseUrl = import.meta.env.BASE_URL;
 <div id="pc-menu" class="pc-menu" hidden>
   <div class="pc-topbar">
     <a class="pc-topbar__brand" href={baseUrl}>PyCon CZ</a>
-    {current && <span class="pc-topbar__current">{current.label}</span>}
+    {current && <span class="pc-topbar__current">{current.shortLabel ?? current.label}</span>}
     <button class="pc-topbar__toggle" type="button" data-menu-close>
       <span class="visually-hidden">Close menu</span>
       <svg viewBox="0 0 28 28" aria-hidden="true">

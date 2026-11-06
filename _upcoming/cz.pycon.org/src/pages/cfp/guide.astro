@@ -1,0 +1,112 @@
+---
+import ProposalGuide from "../../components/ProposalGuide.astro";
+import Deadline from "../../components/Deadline.astro";
+import { cfpPages, cfpEmail } from "../../data/cfp";
+---
+
+<ProposalGuide
+  lang="en"
+  title="Proposal Guide"
+  heroTitle="Proposal Guide"
+  heroSubtitle="How to write a great submission"
+  imageAlt="Retro computer showing the PyCon CZ logo next to the Pilsen cathedral tower"
+  switchLink={{ label: "Přepnout na českou verzi", href: cfpPages.guideCs, lang: "cs" }}
+  headings={{
+    general: "General advice for talks and workshops",
+    talks: "Talks",
+    workshops: "Workshops",
+    feedback: "Seek feedback and enjoy the process",
+    cta: "Ready to submit?",
+  }}
+  ctaButton="Submit a proposal"
+>
+  <Fragment slot="intro">
+    <p>
+      Welcome to <strong>PyCon&nbsp;CZ&nbsp;27</strong>, the biggest and friendliest Python conference in the Czech
+      Republic! We are excited to invite you to submit your proposal for a&nbsp;talk or workshop.
+    </p>
+    <p>
+      Whether you are an experienced speaker or new to the conference scene, this guide will help you create
+      a&nbsp;compelling submission. For the tracks, formats, and speaker support, see the
+      <a href={cfpPages.cfp}>Call for Proposals</a>.
+    </p>
+  </Fragment>
+
+  <ol class="pc-numbered" slot="general">
+    <li>
+      <strong>Embrace your unique perspective:</strong> Your experiences and viewpoints matter, no matter where you come from.
+      Share your knowledge and insights, even if they seem ordinary. Your contributions can be valuable to someone in the
+      audience.
+    </li>
+    <li>
+      <strong>Start with an engaging title:</strong> Create a&nbsp;clear and captivating title that reflects the essence of
+      your presentation. Avoid overly technical terms and strive to grab attention.
+    </li>
+    <li>
+      <strong>Focus on your goal:</strong> Clearly define the objective of your talk or workshop. What do you want participants
+      to gain, learn, or take away? Be specific and concise to help potential attendees understand the value you will provide.
+    </li>
+    <li>
+      <strong>Craft an intriguing description:</strong> Provide a&nbsp;brief and compelling overview of your talk or workshop.
+      Outline the topics you will cover and highlight key takeaways that participants will gain. Include practical examples
+      or applications to help them relate to your content.
+    </li>
+    <li>
+      <strong>Showcase your past work:</strong> Consider adding links to any publicly recorded talks, published blog posts,
+      or relevant materials that demonstrate your expertise and speaking ability.
+    </li>
+  </ol>
+
+  <ol class="pc-numbered" slot="talks">
+    <li>
+      <strong>Share your expertise and passion:</strong> Infuse your talk with your enthusiasm and subject matter expertise.
+      Convey your excitement about the opportunity to share your knowledge and empower others. Your unique experiences give
+      you valuable insights.
+    </li>
+    <li>
+      <strong>Structure and flow:</strong> Ensure that your talk proposal has a&nbsp;logical structure and a&nbsp;smooth flow.
+      Divide it into clear sections: introduction, main points, details, and conclusion. This will help reviewers follow your
+      intended progression.
+    </li>
+    <li>
+      <strong>Learn from experts:</strong> Explore useful resources like <a href="https://speaking.io/">speaking.io</a> and
+      the book <a href="https://www.goodreads.com/book/show/6918930-confessions-of-a-public-speaker"
+        >Confessions of a&nbsp;Public Speaker</a
+      > for further guidance on improving your speaking skills.
+    </li>
+  </ol>
+
+  <ol class="pc-numbered" slot="workshops">
+    <li>
+      <strong>Incorporate interactivity:</strong> Describe how you plan to engage participants in your workshop. Explain interactive
+      exercises, live coding, group discussions, or hands-on activities that will make the workshop dynamic and engaging.
+    </li>
+    <li>
+      <strong>Provide a&nbsp;detailed plan:</strong> Create a&nbsp;comprehensive plan for your workshop, including thematic
+      areas and skills that participants will acquire.
+    </li>
+    <li>
+      <strong>Specify any requirements:</strong> What should the attendees know beforehand? Do they need to bring hardware
+      (a&nbsp;laptop) or install software in advance?
+    </li>
+  </ol>
+
+  <Fragment slot="feedback">
+    <p>
+      Don’t hesitate to seek feedback from colleagues, collaborators, or mentors. Ask them to evaluate your submission
+      and provide constructive criticism. Work on refining your proposal and present your best ideas.
+    </p>
+    <p>
+      Be authentic, true to yourself, and embrace the opportunity to contribute to PyCon&nbsp;CZ&nbsp;27! If you have
+      any questions, please reach out to us at <a href={`mailto:${cfpEmail}`}>{cfpEmail}</a>.
+    </p>
+  </Fragment>
+
+  <Fragment slot="cta">
+    <p>
+      Now that you know how, go ahead and submit your proposal. We look forward to reviewing your submissions and
+      welcoming you as a&nbsp;speaker or workshop facilitator!
+    </p>
+    <p><strong>Deadline: <Deadline lang="en" /></strong></p>
+  </Fragment>
+</ProposalGuide>
