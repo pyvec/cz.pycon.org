@@ -1,0 +1,703 @@
+/*
+ * PyCon CZ 27 theme for pretalx (cfp.pycon.cz/2027), matching cz.pycon.org/2027.
+ * Upload in Settings → Display → Custom Event CSS.
+ *
+ * pretalx checks uploaded CSS against a strict whitelist (no custom properties,
+ * gradients, text-transform, …) but skips the check for instance
+ * administrators, so upload this from an administrator account.
+ *
+ * Fonts: pretalx's Content-Security-Policy only allows fonts from cfp.pycon.cz
+ * itself, so @font-face pointing at the main site or a CDN is blocked. The
+ * stacks below use Inter and Spline Sans Mono where installed, else the system
+ * sans and mono fonts.
+ *
+ * pretalx loads this before the form stylesheets, so form rules are scoped to
+ * #main-card to win on specificity.
+ *
+ * Colours (from the main site's tokens.css):
+ *   #1c1c1c page, #262e49 grid, #f7f3e2 cream card, #d3da47 lime,
+ *   #212121 dark text, #fafafa light text, #7d7a6e field borders,
+ *   #5c5a54 muted text, #d9d5c6 dividers on cream.
+ * The event colour set in the admin (lavender #8790f0, var(--color-primary))
+ * is pretalx's own accent: focus rings, the active Markdown tab, dropdown
+ * hovers, badges.
+ */
+
+/* ==========================================================================
+   pretalx variables
+   ========================================================================== */
+
+:root {
+  --font-family: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-title: "Spline Sans Mono Variable", "Spline Sans Mono", ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+  --color-text: #212121;
+  --color-border: #7d7a6e;
+  --size-border-radius: 8px;
+  --shadow-focus: 0 0 0 3px var(--color-primary);
+
+  /* Background grid, larger from md up (main site layout.css) */
+  --pc-grid-size: 24px;
+  --pc-grid-line: 1px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --pc-grid-size: 32px;
+    --pc-grid-line: 2px;
+  }
+}
+
+/* ==========================================================================
+   Page: the main site's dark grid. The offset centres a grid line on the page
+   centre, so the container (whole squares wide) sits on the lines.
+   ========================================================================== */
+
+body {
+  background-color: #1c1c1c;
+  background-image:
+    linear-gradient(to right, #262e49 var(--pc-grid-line), transparent var(--pc-grid-line)),
+    linear-gradient(to bottom, #262e49 var(--pc-grid-line), transparent var(--pc-grid-line));
+  background-size: var(--pc-grid-size) var(--pc-grid-size);
+  background-position: calc(50% + (var(--pc-grid-size) - var(--pc-grid-line)) / 2) top;
+  color: #fafafa;
+}
+
+/* pretalx's coloured header band (and header image, if one is uploaded) */
+#top-bg {
+  display: none;
+}
+
+::selection {
+  background-color: #d3da47;
+  color: #212121;
+}
+
+#main-container h1,
+#main-container h2,
+#main-container h3,
+#main-container h4,
+#main-container legend {
+  font-family: var(--font-family-title);
+  font-weight: 600;
+}
+
+/* Organiser-only notice above the header */
+#event-nonpublic {
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   Container: the main site's widths, whole grid squares so both edges sit
+   on grid lines (528 / 704 / 896 / 1088 / 1280px)
+   ========================================================================== */
+
+#main-container {
+  max-width: 100%;
+  padding: 0 16px 48px 16px;
+}
+
+@media (min-width: 576px) {
+  #main-container {
+    max-width: 528px;
+    padding: 0 0 64px 0;
+  }
+}
+
+@media (min-width: 768px) {
+  #main-container {
+    max-width: 704px;
+  }
+}
+
+@media (min-width: 992px) {
+  #main-container {
+    max-width: 896px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #main-container {
+    max-width: 1088px;
+  }
+}
+
+@media (min-width: 1400px) {
+  #main-container {
+    max-width: 1280px;
+  }
+}
+
+/* ==========================================================================
+   Header: the event name sits in the cream folder tab of the card, like the
+   HOME tab on the main site; header links and the user menu run along the
+   card's top edge.
+   ========================================================================== */
+
+#main-container header {
+  display: flow-root;
+  height: auto;
+  padding: 24px 0 0 0;
+}
+
+@media (min-width: 768px) {
+  #main-container header {
+    padding-top: 32px;
+  }
+}
+
+@media (min-width: 992px) {
+  #main-container header {
+    padding-top: 64px;
+  }
+}
+
+#main-container header h1 {
+  float: left;
+  margin: 0;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+/* The tab: a zero-height box whose 40px bottom border is the tab body and
+   whose transparent right border cuts the sloped end */
+#main-container header h1 a {
+  display: block;
+  height: 0;
+  padding: 0 4px 0 16px;
+  border-bottom: 40px solid #f7f3e2;
+  border-right: 40px solid transparent;
+  border-top-left-radius: 12px;
+  color: #212121;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+#main-container header h1 a:hover,
+#main-container header h1 a:focus-visible {
+  color: #212121;
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  #main-container header h1 {
+    font-size: 22px;
+    line-height: 48px;
+  }
+
+  #main-container header h1 a {
+    padding: 0 8px 0 24px;
+    border-bottom-width: 48px;
+    border-right-width: 48px;
+    border-top-left-radius: 8px;
+    line-height: 48px;
+  }
+}
+
+/* Beside the floated tab. pretalx bottom-aligns the items, so header tabs stand
+   on the card; the bottom padding centres the user menu on the tab. */
+#main-container header .header-wrapper {
+  width: auto;
+  height: 40px;
+}
+
+@media (min-width: 768px) {
+  #main-container header .header-wrapper {
+    height: 48px;
+  }
+}
+
+#main-container header .header-row-right {
+  padding: 0 0 8px 16px;
+  color: #fafafa;
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  #main-container header .header-row-right {
+    padding-bottom: 12px;
+  }
+}
+
+#main-container header .header-row-right summary,
+#main-container header .header-row-right .locales a {
+  color: #fafafa;
+}
+
+#main-container header .header-row-right summary:hover,
+#main-container header .header-row-right .locales a:hover {
+  color: #d3da47;
+}
+
+#main-container header .header-row-right .locales a.active {
+  color: #d3da47;
+  border-bottom-color: #d3da47;
+}
+
+/* Header links (schedule pages): light text, the active one a lime tab */
+#main-container header #header-tabs {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  background-color: transparent;
+}
+
+#main-container header #header-tabs a.header-tab {
+  padding: 6px 16px 6px 16px;
+  border-bottom: 0 none;
+  border-radius: 8px 8px 0 0;
+  color: #fafafa;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+#main-container header #header-tabs a.header-tab:hover {
+  color: #d3da47;
+  border-bottom: 0 none;
+}
+
+#main-container header #header-tabs a.header-tab.active {
+  background-color: #d3da47;
+  color: #212121;
+  border-bottom: 0 none;
+}
+
+/* User menu */
+#main-container header details.dropdown .dropdown-content {
+  border-radius: 8px;
+}
+
+#main-container header details.dropdown .dropdown-content .dropdown-item {
+  color: #212121;
+}
+
+/* ==========================================================================
+   Card: cream paper, the tab continues its left edge
+   ========================================================================== */
+
+#main-card {
+  clear: both;
+  border: 0 none;
+  border-radius: 0 8px 8px 8px;
+  background-color: #f7f3e2;
+  color: #212121;
+}
+
+#main-card main {
+  padding: 24px;
+}
+
+@media (min-width: 768px) {
+  #main-card main {
+    padding: 32px;
+  }
+}
+
+@media (min-width: 992px) {
+  #main-card main {
+    padding: 48px;
+  }
+}
+
+#main-card h1 {
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+#main-card h2 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+#main-card h3 {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+#main-card h4 {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+@media (min-width: 768px) {
+  #main-card h1 {
+    font-size: 44px;
+  }
+
+  #main-card h2 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #main-card h1 {
+    font-size: 56px;
+  }
+
+  #main-card h2 {
+    font-size: 32px;
+  }
+
+  #main-card h3 {
+    font-size: 22px;
+  }
+}
+
+#main-card legend {
+  border-bottom: 2px solid #212121;
+  color: #212121;
+}
+
+#main-card hr {
+  border-top: 1px solid #d9d5c6;
+}
+
+/* Links: underlined, lime highlight on hover (main site "Hover/Action") */
+#main-card a:not(.btn):not(.step):not(.dropdown-item) {
+  color: #212121;
+  text-decoration: underline;
+}
+
+#main-card a:not(.btn):not(.step):not(.dropdown-item):hover,
+#main-card a:not(.btn):not(.step):not(.dropdown-item):focus-visible {
+  background-color: #d3da47;
+  color: #212121;
+}
+
+#main-card .text-muted {
+  color: #5c5a54 !important;
+}
+
+#main-card .alert {
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   Buttons: the main site's pills. Primary actions are lime with a dark
+   outline on hover, secondary ones dark outlines that fill lime on hover.
+   ========================================================================== */
+
+#main-container .btn {
+  padding: 10px 20px;
+  border-width: 2px;
+  border-radius: 99px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+/* pretalx removes every focus ring from buttons; bring one back for keyboards */
+#main-container .btn:focus-visible {
+  outline: 2px solid #212121;
+  outline-offset: 2px;
+}
+
+#main-container .btn-lg {
+  padding: 12px 28px;
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  #main-container .btn-lg {
+    padding: 14px 32px;
+    font-size: 20px;
+  }
+}
+
+#main-container .btn-sm {
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+#main-container .btn-success,
+#main-container .btn-primary {
+  background-color: #d3da47;
+  border-color: #d3da47;
+  color: #212121;
+}
+
+#main-container .btn-success:hover,
+#main-container .btn-success:focus,
+#main-container .btn-success:active,
+#main-container .btn-primary:hover,
+#main-container .btn-primary:focus,
+#main-container .btn-primary:active {
+  background-color: #d3da47;
+  border-color: #212121;
+  color: #212121;
+}
+
+#main-container .btn-info,
+#main-container .btn-secondary,
+#main-container .btn-outline-info,
+#main-container .btn-outline-primary,
+#main-container .btn-outline-success {
+  background-color: transparent;
+  border-color: #212121;
+  color: #212121;
+}
+
+#main-container .btn-info:hover,
+#main-container .btn-info:focus,
+#main-container .btn-secondary:hover,
+#main-container .btn-secondary:focus,
+#main-container .btn-outline-info:hover,
+#main-container .btn-outline-info:focus,
+#main-container .btn-outline-primary:hover,
+#main-container .btn-outline-primary:focus,
+#main-container .btn-outline-success:hover,
+#main-container .btn-outline-success:focus {
+  background-color: #d3da47;
+  border-color: #212121;
+  color: #212121;
+}
+
+#main-container .btn-link {
+  background-color: transparent;
+  border-color: transparent;
+  color: #212121;
+  text-decoration: underline;
+}
+
+#main-container .btn-link:hover,
+#main-container .btn-link:focus {
+  background-color: #d3da47;
+  border-color: #d3da47;
+  color: #212121;
+}
+
+/* Organiser-only edit pencil */
+#main-container .orga-edit-link {
+  padding: 6px 12px;
+}
+
+/* "Submit a proposal": a pill at its own width instead of a full-width bar */
+#main-card .url-links {
+  display: block;
+}
+
+#main-card .url-links a.btn {
+  display: inline-block;
+  width: auto;
+}
+
+/* ==========================================================================
+   Form fields
+   ========================================================================== */
+
+#main-card label {
+  font-weight: 600;
+}
+
+#main-card label .optional {
+  color: #5c5a54;
+}
+
+#main-card input[type="checkbox"] + label,
+#main-card input[type="radio"] + label {
+  font-weight: 400;
+}
+
+#main-card input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(.choices__input),
+#main-card select,
+#main-card textarea {
+  padding: 8px 12px;
+  border: 2px solid #7d7a6e;
+  border-radius: 8px;
+  color: #212121;
+  line-height: 1.5;
+}
+
+#main-card select {
+  padding-right: 36px;
+}
+
+#main-card input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(.choices__input):focus,
+#main-card select:focus,
+#main-card textarea:focus {
+  border-color: #212121;
+}
+
+/* Fields with a character limit are transparent so pretalx can paint the
+   over-limit highlight behind the text; the white goes on the wrapper
+   (input-wrapper for single-line inputs, highlight-wrapper for textareas). */
+#main-card .character-limit-input-wrapper,
+#main-card .character-limit-highlight-wrapper {
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+#main-card ::file-selector-button {
+  border-radius: 99px;
+  background-color: #212121;
+  color: #fafafa;
+}
+
+/* Checkboxes and radios: grey frame; checked, a dark frame around a lime fill */
+#main-card input[type="checkbox"],
+#main-card input[type="radio"] {
+  border: 2px solid #7d7a6e;
+  background-color: #fff;
+}
+
+#main-card input[type="checkbox"]:checked,
+#main-card input[type="radio"]:checked {
+  border: 6px solid #212121;
+  background-color: #d3da47;
+}
+
+/* Select boxes enhanced by Choices.js (e.g. Track) */
+#main-card .choices .choices__inner {
+  border: 2px solid #7d7a6e;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+#main-card .choices.is-focused .choices__inner,
+#main-card .choices.is-open .choices__inner {
+  border-color: #212121;
+}
+
+#main-card .choices.is-open .choices__inner {
+  border-radius: 8px 8px 0 0;
+}
+
+#main-card .choices .choices__list--dropdown {
+  border: 2px solid #212121;
+  border-radius: 0 0 8px 8px;
+}
+
+#main-card .choices .choices__list--dropdown .choices__item--selectable.is-highlighted {
+  background-color: #f0f2bf;
+}
+
+/* Markdown editor: one white field with the Text/Preview tabs and toolbar on top */
+#main-card .markdown-wrapper {
+  border: 2px solid #7d7a6e;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+#main-card .markdown-wrapper:focus-within {
+  border-color: #212121;
+}
+
+#main-card .markdown-wrapper .markdown-header {
+  border-bottom: 1px solid #d9d5c6;
+}
+
+#main-card .markdown-wrapper .markdown-nav label {
+  color: #5c5a54;
+  font-weight: 500;
+}
+
+#main-card .markdown-wrapper .markdown-nav input:checked + label {
+  color: #212121;
+  font-weight: 600;
+}
+
+#main-card .markdown-wrapper .markdown-tabpanel {
+  padding: 0;
+  border-radius: 0 0 8px 8px;
+  background-color: #fff;
+}
+
+#main-card .markdown-wrapper textarea {
+  width: 100%;
+  margin: 0;
+  border: 0 none;
+  border-radius: 0 0 8px 8px;
+}
+
+#main-card .markdown-wrapper .markdown-preview .preview-footer {
+  border-top: 1px solid #d9d5c6;
+  background-color: #fff;
+}
+
+/* Phones: pretalx's own layout overflows the screen here. The toolbar moves
+   below the Text/Preview tabs, and the resource buttons drop the 25% offset
+   that pretalx applies at every width. */
+@media (max-width: 575px) {
+  #main-card .markdown-wrapper .markdown-header {
+    display: block;
+  }
+
+  #main-card .markdown-wrapper .markdown-toolbar {
+    padding: 0 0 4px 4px;
+  }
+
+  #main-card .markdown-wrapper .markdown-toolbar md-bold,
+  #main-card .markdown-wrapper .markdown-toolbar md-italic,
+  #main-card .markdown-wrapper .markdown-toolbar md-strikethrough,
+  #main-card .markdown-wrapper .markdown-toolbar md-header,
+  #main-card .markdown-wrapper .markdown-toolbar md-link,
+  #main-card .markdown-wrapper .markdown-toolbar md-quote,
+  #main-card .markdown-wrapper .markdown-toolbar md-code,
+  #main-card .markdown-wrapper .markdown-toolbar md-unordered-list,
+  #main-card .markdown-wrapper .markdown-toolbar md-ordered-list {
+    width: 26px;
+  }
+}
+
+@media (max-width: 767px) {
+  #main-card .offset-md-3 {
+    margin-left: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   Proposal steps
+   ========================================================================== */
+
+#main-card .stages .step:before,
+#main-card .stages .step:after {
+  background-color: #d9d5c6;
+}
+
+#main-card .stages .step .step-icon {
+  border: 2px solid #7d7a6e;
+  background-color: #f7f3e2;
+  color: #5c5a54;
+}
+
+#main-card .stages .step .step-label {
+  color: #5c5a54;
+}
+
+#main-card .stages .step.step-current .step-icon,
+#main-card .stages .step.step-done .step-icon {
+  border-color: #212121;
+  background-color: #d3da47;
+  color: #212121;
+}
+
+#main-card .stages .step.step-current:before,
+#main-card .stages .step.step-done:before,
+#main-card .stages .step.step-done:after {
+  background-color: #212121;
+}
+
+#main-card .stages .step.step-current .step-label,
+#main-card .stages .step.step-done .step-label {
+  color: #212121;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+#main-container footer {
+  padding: 32px 0 0 0;
+  color: #fafafa;
+  font-size: 14px;
+}
+
+#main-container footer a {
+  color: #fafafa;
+  text-decoration: underline;
+}
+
+#main-container footer a:hover,
+#main-container footer a:focus-visible {
+  background-color: #d3da47;
+  color: #212121;
+}
