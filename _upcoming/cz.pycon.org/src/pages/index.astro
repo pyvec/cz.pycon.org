@@ -24,7 +24,7 @@ import { cfpUrl, cfpPages, formatDays, tracks } from "../data/cfp";
   >
     <Fragment slot="title">PyCon&nbsp;CZ&nbsp;27</Fragment>
     <Fragment slot="subtitle"><span class="text-nowrap">16–18&nbsp;April&nbsp;2027</span><br />Pilsen</Fragment>
-    <Fragment slot="note">Deadline: <Deadline lang="en" /></Fragment>
+    <Fragment slot="status">CFP open until <Deadline lang="en" time={false} /></Fragment>
   </Hero>
 
   <div class="pc-container">
@@ -39,7 +39,7 @@ import { cfpUrl, cfpPages, formatDays, tracks } from "../data/cfp";
             with a&nbsp;mentor.
           </p>
           <div class="pc-home-cfp__actions">
-            <a class="pc-btn pc-btn--sm" href={cfpUrl}>Submit a proposal</a>
+            <a class="pc-btn pc-btn--sm pc-btn--dark" href={cfpUrl}>Submit a proposal</a>
             <a class="pc-home-cfp__more" href={cfpPages.cfp}>All the details</a>
           </div>
         </div>
@@ -134,8 +134,16 @@ import { cfpUrl, cfpPages, formatDays, tracks } from "../data/cfp";
     margin-top: var(--pc-space-m);
   }
 
+  /* Dark highlight instead of the global lime one, which disappears on pink */
   .pc-home-cfp__more {
     font-weight: 500;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--pc-text-dark);
+      color: var(--pc-cream);
+      box-shadow: 0 0 0 2px var(--pc-text-dark);
+    }
   }
 
   .pc-home-cfp__facts {

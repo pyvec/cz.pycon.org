@@ -4,13 +4,17 @@ import { cfpDeadline } from "../data/cfp";
 
 interface Props {
   lang: "en" | "cs";
+  /** Show "23:59 AoE" after the date; off where space is tight (homepage hero) */
+  time?: boolean;
 }
-const { lang } = Astro.props;
+const { lang, time = true } = Astro.props;
 const aoeTitle = lang === "cs" ? "Anywhere on Earth, tedy UTC−12" : "Anywhere on Earth (UTC−12)";
 ---
 
 <time datetime={cfpDeadline.datetime}
-  ><span class="text-nowrap">{cfpDeadline[lang]}</span>, <span class="text-nowrap"
-    >23:59 <abbr title={aoeTitle}>AoE</abbr></span
-  ></time
+  ><span class="text-nowrap">{cfpDeadline[lang]}</span>{time && ", "}{
+    // Kept on one line: a line break in here would render as a space after "AoE"
+    // prettier-ignore
+    time && <span class="text-nowrap">23:59 <abbr title={aoeTitle}>AoE</abbr></span>
+  }</time
 >

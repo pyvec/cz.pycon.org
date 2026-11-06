@@ -29,6 +29,21 @@
   }
 }
 
+/* Dark button for coloured cards, where lime has too little contrast (pink is ~1.5:1).
+   Hover turns it into a dark outline. Doubled class to beat `.pc-card a { color: inherit }`. */
+.pc-btn.pc-btn--dark {
+  border-color: var(--pc-text-dark);
+  background: var(--pc-text-dark);
+  color: var(--pc-cream);
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--pc-text-dark);
+    background: transparent;
+    color: var(--pc-text-dark);
+  }
+}
+
 /* Keeps the phone size on all screens (button inside a card) */
 .pc-btn--sm {
   padding: 0.625rem 1.375rem;

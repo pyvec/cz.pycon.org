@@ -8,7 +8,7 @@ interface Props {
   image: ImageMetadata;
   imageAlt?: string;
   subtitle?: boolean;
-  /** Pass a `note` slot for a short line under the button */
+  /** Pass a `status` slot for a short line above the button (e.g. a deadline) */
   button?: { label: string; href: string };
   class?: string;
 }
@@ -51,14 +51,14 @@ const currentPath = Astro.url.pathname;
     {
       button && (
         <div class="pc-hero__action">
+          {Astro.slots.has("status") && (
+            <p class="pc-hero__status">
+              <slot name="status" />
+            </p>
+          )}
           <a class="pc-btn pc-hero__button" href={button.href}>
             {button.label}
           </a>
-          {Astro.slots.has("note") && (
-            <p class="pc-hero__note">
-              <slot name="note" />
-            </p>
-          )}
         </div>
       )
     }

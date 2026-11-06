@@ -259,14 +259,35 @@
   }
 }
 
-.pc-hero__note {
-  margin: var(--pc-space-xs) 0 0;
+/* Status line above the button, like "CFP open until …": mono caps with a pink dot */
+.pc-hero__status {
+  /* Not flex: the slot's text and <time> must wrap as one line of text. The dot is
+     placed absolutely, centred on the first line. */
+  position: relative;
+  padding-left: 1.5rem;
+  margin: 0 0 var(--pc-space-xs);
+  font-family: var(--pc-font-mono);
+  font-weight: 600;
   font-size: var(--pc-text-xs);
   line-height: var(--pc-leading-snug);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 
-  @media (--md) {
-    margin-top: var(--pc-space-s);
-    font-size: var(--pc-text-m);
+  &::before {
+    content: "";
+    position: absolute;
+    left: 4px; /* room for the halo */
+    top: calc(0.625em - 0.3125rem); /* half of the 1.25 line height, minus half the dot */
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    /* --pc-pink darkened, with a translucent --pc-pink halo (no color-mix: Safari 14 target) */
+    background: #c45ebd;
+    box-shadow: 0 0 0 4px rgb(220 148 214 / 0.45);
+  }
+
+  @media (--lg) {
+    font-size: var(--pc-text-s);
   }
 }
 
