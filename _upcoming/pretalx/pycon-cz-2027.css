@@ -371,24 +371,64 @@ body {
 }
 
 /* ==========================================================================
-   Buttons: the main site's pills. Primary actions are lime with a dark
-   outline on hover, secondary ones dark outlines that fill lime on hover.
+   Buttons: the main site's pills, with a dark outline and a hard offset
+   shadow so they read as pressable. Hover lifts the button toward the
+   reader, pressing flattens it onto the shadow. Primary actions are lime,
+   secondary ones cream that fill lime on hover. Buttons sit on the cream
+   card, so the shadow is always dark.
    ========================================================================== */
 
 #main-container .btn {
+  --pc-btn-shadow: 4px;
+
   padding: 10px 20px;
-  border-width: 2px;
+  border: 2px solid #212121;
   border-radius: 99px;
   font-family: var(--font-family);
   font-weight: 500;
   line-height: 1.25;
   text-transform: uppercase;
+  box-shadow: var(--pc-btn-shadow) var(--pc-btn-shadow) 0 #212121;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #main-container .btn {
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease,
+      background-color 0.1s ease;
+  }
+}
+
+/* pretalx drops the shadow of a focused button with !important (a clicked
+   button stays focused) and adds a lavender ring; keep the resting shadow */
+#main-container .btn:focus {
+  box-shadow: var(--pc-btn-shadow) var(--pc-btn-shadow) 0 #212121 !important;
+}
+
+#main-container .btn:hover,
+#main-container .btn:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: calc(var(--pc-btn-shadow) + 2px) calc(var(--pc-btn-shadow) + 2px) 0 #212121 !important;
 }
 
 /* pretalx removes every focus ring from buttons; bring one back for keyboards */
 #main-container .btn:focus-visible {
-  outline: 2px solid #212121;
-  outline-offset: 2px;
+  outline: 3px solid #212121;
+  outline-offset: 4px;
+}
+
+#main-container .btn:active {
+  transform: translate(var(--pc-btn-shadow), var(--pc-btn-shadow));
+  box-shadow: 0 0 0 #212121 !important;
+}
+
+/* Disabled buttons can't be pressed, so they lie flat */
+#main-container .btn:disabled,
+#main-container .btn.disabled {
+  box-shadow: none !important;
+  transform: none;
 }
 
 #main-container .btn-lg {
@@ -408,13 +448,13 @@ body {
   font-size: 14px;
 }
 
-#main-container .btn-success,
-#main-container .btn-primary {
-  background-color: #d3da47;
-  border-color: #d3da47;
-  color: #212121;
+#main-container .btn-sm,
+#main-container .btn-xs {
+  --pc-btn-shadow: 3px;
 }
 
+#main-container .btn-success,
+#main-container .btn-primary,
 #main-container .btn-success:hover,
 #main-container .btn-success:focus,
 #main-container .btn-success:active,
@@ -422,7 +462,6 @@ body {
 #main-container .btn-primary:focus,
 #main-container .btn-primary:active {
   background-color: #d3da47;
-  border-color: #212121;
   color: #212121;
 }
 
@@ -431,38 +470,75 @@ body {
 #main-container .btn-outline-info,
 #main-container .btn-outline-primary,
 #main-container .btn-outline-success {
-  background-color: transparent;
-  border-color: #212121;
+  background-color: #f7f3e2;
   color: #212121;
 }
 
 #main-container .btn-info:hover,
-#main-container .btn-info:focus,
+#main-container .btn-info:focus-visible,
+#main-container .btn-info:active,
 #main-container .btn-secondary:hover,
-#main-container .btn-secondary:focus,
+#main-container .btn-secondary:focus-visible,
+#main-container .btn-secondary:active,
 #main-container .btn-outline-info:hover,
-#main-container .btn-outline-info:focus,
+#main-container .btn-outline-info:focus-visible,
+#main-container .btn-outline-info:active,
 #main-container .btn-outline-primary:hover,
-#main-container .btn-outline-primary:focus,
+#main-container .btn-outline-primary:focus-visible,
+#main-container .btn-outline-primary:active,
 #main-container .btn-outline-success:hover,
-#main-container .btn-outline-success:focus {
+#main-container .btn-outline-success:focus-visible,
+#main-container .btn-outline-success:active {
   background-color: #d3da47;
-  border-color: #212121;
   color: #212121;
 }
 
+/* Text links styled as buttons ("or save as draft"): no pill, no shadow, no
+   movement. No padding or border, so the hover highlight covers only the
+   words, like a link. */
+#main-container .btn-link,
+#main-container .btn-link:focus,
+#main-container .btn-link:hover,
+#main-container .btn-link:focus-visible,
+#main-container .btn-link:active {
+  box-shadow: none !important;
+  transform: none;
+}
+
 #main-container .btn-link {
+  padding: 0;
+  border: 0 none;
+  border-radius: 0;
   background-color: transparent;
-  border-color: transparent;
   color: #212121;
   text-decoration: underline;
 }
 
 #main-container .btn-link:hover,
-#main-container .btn-link:focus {
+#main-container .btn-link:focus-visible {
   background-color: #d3da47;
-  border-color: #d3da47;
   color: #212121;
+}
+
+/* Under "Continue": pretalx stretches it across the column, shrink it to the text */
+#main-container .flex-column > .btn-link {
+  align-self: center;
+  margin: 16px 0;
+}
+
+/* From md up the wizard buttons sit in a 25% column, which wraps "Continue »"
+   onto two lines. Size the column to its buttons and keep labels on one line;
+   phones keep full-width buttons that may wrap. */
+@media (min-width: 768px) {
+  #main-container .btn {
+    white-space: nowrap;
+  }
+
+  #main-card .row > .flip {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+  }
 }
 
 /* Organiser-only edit pencil */
@@ -492,9 +568,15 @@ body {
   color: #5c5a54;
 }
 
+/* pretalx right-aligns every label; a long checkbox label then drops below the
+   box as a right-aligned block. Keep it beside the box (24px box + 4px and
+   3px margins, plus 1px for rounding), wrapping in its own column. */
 #main-card input[type="checkbox"] + label,
 #main-card input[type="radio"] + label {
+  max-width: calc(100% - 32px);
   font-weight: 400;
+  text-align: left;
+  vertical-align: top;
 }
 
 #main-card input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(.choices__input),
@@ -509,6 +591,13 @@ body {
 
 #main-card select {
   padding-right: 36px;
+}
+
+/* pretalx's chevron is invisible: its SVG strokes with var(--color-text-input),
+   and custom properties don't resolve inside a background image. Same icon,
+   fixed colour. */
+#main-card select:not([multiple]) {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23212121' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>");
 }
 
 #main-card input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(.choices__input):focus,
@@ -559,6 +648,21 @@ body {
 
 #main-card .choices.is-open .choices__inner {
   border-radius: 8px 8px 0 0;
+}
+
+/* Choices.js draws a small grey triangle; use the plain selects' chevron */
+#main-card .choices[data-type*="select-one"]::after,
+#main-card .choices[data-type*="select-one"].is-open::after {
+  right: 12px;
+  width: 16px;
+  height: 12px;
+  margin-top: -6px;
+  border: 0 none;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23212121' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") no-repeat center / 16px 12px;
+}
+
+#main-card .choices[data-type*="select-one"].is-open::after {
+  transform: rotate(180deg);
 }
 
 #main-card .choices .choices__list--dropdown {
