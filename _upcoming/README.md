@@ -1,10 +1,10 @@
 # Provisional PyCon CZ 2027 website
 
 The provisional website for PyCon CZ 2027 uses [Astro](https://astro.build) to build a static site for the event.
-The Astro project is located in the `cz.pycon.org` subdirectory, the static site is in the `public` subdirectory.
+The Astro project is located in the `cz.pycon.org` subdirectory, the static site is built into the `public` subdirectory.
 
-The build is currently not automated - to update the site, you have to build a new version locally and the commit
-the updated files in the `public` subdirectory.
+The site is built automatically by the deployment workflows (`.github/workflows/deploy_*.yaml`), so the `public`
+subdirectory is not committed to the repository. Optimized images are cached between builds.
 
 ## Development
 
@@ -34,7 +34,7 @@ the files and see the changes instantly.
 
 ### Building the site
 
-The build is not yet automated, so you have to build the site locally:
+To check the production build locally:
 
 ```shell
 cd cz.pycon.org
@@ -43,5 +43,3 @@ npm run build
 
 You can safely ignore the deprecation warnings, Boostrap 5 still uses some of the features that are deprecated
 in current versions of Sass.
-
-Remember to commit the updated files in the `public` subdirectory!
