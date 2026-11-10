@@ -1,8 +1,14 @@
-/* Lime pill buttons. Hover: dark outline (design library "Hover/Action"). */
+/* Lime pill buttons with a sticker-like outline and hard offset shadow, so they read as pressable.
+   Hover lifts the button toward the reader, pressing flattens it onto the shadow.
+   --pc-btn-ink colours the outline and shadow: dark by default (cards, paper, hero),
+   cream on the dark page via .pc-btn--on-dark. */
 .pc-btn {
+  --pc-btn-ink: var(--pc-text-dark);
+  --pc-btn-shadow: 4px;
+
   display: inline-block;
   padding: 0.625rem 1rem;
-  border: 2px solid transparent;
+  border: 2px solid var(--pc-text-dark);
   border-radius: 100vmax;
   background: var(--pc-lime);
   color: var(--pc-text-dark);
@@ -12,7 +18,13 @@
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  transition: border-color 0.15s ease;
+  box-shadow: var(--pc-btn-shadow) var(--pc-btn-shadow) 0 var(--pc-btn-ink);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease;
+  }
 
   @media (--md) {
     padding: 0.875rem 1.5rem;
@@ -21,37 +33,57 @@
 
   &:hover,
   &:focus-visible {
-    border-color: var(--pc-text-dark);
     background: var(--pc-lime);
     color: var(--pc-text-dark);
-    box-shadow: none;
-    outline: none;
+    transform: translate(-2px, -2px);
+    box-shadow: calc(var(--pc-btn-shadow) + 2px) calc(var(--pc-btn-shadow) + 2px) 0 var(--pc-btn-ink);
+  }
+
+  &:focus-visible {
+    /* The shadow colour always contrasts with the surface; lavender vanished on lavender cards */
+    outline: 3px solid var(--pc-btn-ink);
+    outline-offset: 4px;
+  }
+
+  &:active {
+    transform: translate(var(--pc-btn-shadow), var(--pc-btn-shadow));
+    box-shadow: 0 0 0 var(--pc-btn-ink);
   }
 }
 
+/* On the dark page background a dark shadow would vanish */
+.pc-btn--on-dark {
+  --pc-btn-ink: var(--pc-cream);
+}
+
 /* Dark button for coloured cards, where lime has too little contrast (pink is ~1.5:1).
-   Hover turns it into a dark outline. Doubled class to beat `.pc-card a { color: inherit }`. */
+   A dark shadow would merge with the dark fill, so the shadow is cream, as on the dark page.
+   Doubled class to beat `.pc-card a { color: inherit }`. */
 .pc-btn.pc-btn--dark {
-  border-color: var(--pc-text-dark);
+  --pc-btn-ink: var(--pc-cream);
+
   background: var(--pc-text-dark);
   color: var(--pc-cream);
 
   &:hover,
   &:focus-visible {
-    border-color: var(--pc-text-dark);
-    background: transparent;
-    color: var(--pc-text-dark);
+    background: var(--pc-text-dark);
+    color: var(--pc-cream);
   }
 }
 
 /* Keeps the phone size on all screens (button inside a card) */
 .pc-btn--sm {
+  --pc-btn-shadow: 3px;
+
   padding: 0.625rem 1.375rem;
   font-size: var(--pc-text-s);
 }
 
 .pc-btn--lg {
   @media (--md) {
+    --pc-btn-shadow: 6px;
+
     padding: 0.5rem 2rem;
     font-size: var(--pc-text-3xl);
     line-height: var(--pc-leading-snug);
