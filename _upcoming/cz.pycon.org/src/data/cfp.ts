@@ -56,4 +56,9 @@ export const tracks: Track[] = [
       "ML research and applications, NLP and computer vision, data preparation and visualization, Jupyter, scientific Python, data engineering, and MLOps.",
     color: "pink",
   },
+  {
+    name: "Beginners",
+    topics:
+      "Talks for people new to Python or programming: fundamentals, first projects, good practices, and finding your way around the ecosystem. Talks in Czech are welcome here.",
+  },
 ];
