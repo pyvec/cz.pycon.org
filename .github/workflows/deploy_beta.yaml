@@ -9,20 +9,41 @@ jobs:
     name: Deploy app
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - id: vars
         name: Compute short SHA for SENTRY_RELEASE
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '22'
+          # Caches the npm download cache (~/.npm) for both projects, keyed on their lock files.
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            _upcoming/cz.pycon.org/package-lock.json
       - name: Build static assets
         run: |
-          npm clean-install 
+          npm clean-install
           npm run build
+      - name: Install dependencies of the upcoming year website
+        working-directory: _upcoming/cz.pycon.org
+        run: npm clean-install
+      # Astro keeps optimized images (AVIF, WebP) in node_modules/.astro, so the cache must be restored
+      # after `npm clean-install`, which wipes node_modules. Entries are keyed by image and options, so
+      # restoring an older cache is safe; unused entries are just ignored.
+      - name: Restore Astro cache
+        uses: actions/cache@v6
+        with:
+          path: _upcoming/cz.pycon.org/node_modules/.astro
+          key: astro-${{ runner.os }}-${{ hashFiles('_upcoming/cz.pycon.org/package-lock.json', '_upcoming/cz.pycon.org/src/**', '_upcoming/cz.pycon.org/astro.config.mjs') }}
+          restore-keys: |
+            astro-${{ runner.os }}-
+      - name: Build the upcoming year website
+        working-directory: _upcoming/cz.pycon.org
+        run: npm run build
       - name: Checkout repository with archived sites of previous years
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           repository: pyvec/cz.pycon.org-archive
           path: _previous-years
