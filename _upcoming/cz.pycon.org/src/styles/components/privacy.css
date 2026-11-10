@@ -1,0 +1,41 @@
+@import "../media.css";
+
+/* Privacy policy: each record lists data, purpose and retention, side by side from md */
+.pc-privacy__source {
+  margin-top: calc(-1 * var(--pc-space-2xs));
+}
+
+.pc-privacy__record {
+  display: grid;
+  gap: var(--pc-space-xs);
+  margin: 0;
+  padding-top: var(--pc-space-s);
+  border-top: 1px solid rgb(33 33 33 / 0.2);
+
+  & + & {
+    margin-top: var(--pc-space-m);
+  }
+
+  @media (--md) {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr);
+    gap: var(--pc-space-m);
+  }
+
+  dt {
+    font-family: var(--pc-font-mono);
+    font-size: var(--pc-text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: var(--pc-space-3xs);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  small {
+    display: block;
+    font-size: var(--pc-text-xs);
+  }
+}

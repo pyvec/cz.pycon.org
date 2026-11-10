@@ -54,6 +54,7 @@ export const footerGroups: FooterGroup[] = [
     links: [
       { label: "Sponsorship", href: `${baseUrl}sponsorship/` },
       { label: "Code of Conduct", href: `${baseUrl}coc/` },
+      { label: "Privacy Policy", href: `${baseUrl}privacy-policy/` },
     ],
   },
 ];

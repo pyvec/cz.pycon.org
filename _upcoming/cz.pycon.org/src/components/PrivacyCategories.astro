@@ -1,0 +1,54 @@
+---
+// Data-processing categories of the privacy policy, one card each. The page renders it once per language.
+export interface PrivacyRecord {
+  data: string;
+  purpose: string;
+  retention: string;
+  /** Small print under the retention period */
+  retentionNote?: string;
+}
+
+export interface PrivacyCategory {
+  title: string;
+  /** How the data is collected, shown under the title */
+  source?: string;
+  records: PrivacyRecord[];
+}
+
+interface Props {
+  categories: PrivacyCategory[];
+  labels: { data: string; purpose: string; retention: string };
+}
+
+const { categories, labels } = Astro.props;
+---
+
+<div class="pc-cols">
+  {
+    categories.map((category) => (
+      <div class="pc-card pc-privacy">
+        <h3>{category.title}</h3>
+        {category.source && <p class="pc-privacy__source">{category.source}</p>}
+        {category.records.map((record) => (
+          <dl class="pc-privacy__record">
+            <div>
+              <dt>{labels.data}</dt>
+              <dd>{record.data}</dd>
+            </div>
+            <div>
+              <dt>{labels.purpose}</dt>
+              <dd>{record.purpose}</dd>
+            </div>
+            <div>
+              <dt>{labels.retention}</dt>
+              <dd>
+                {record.retention}
+                {record.retentionNote && <small>{record.retentionNote}</small>}
+              </dd>
+            </div>
+          </dl>
+        ))}
+      </div>
+    ))
+  }
+</div>
