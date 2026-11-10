@@ -1,0 +1,89 @@
+---
+// Linked only from the CFP system (Pretalx), deliberately left out of the menu and footer.
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import { cfpEmail } from "../../data/cfp";
+import { socialLinks } from "../../data/site";
+
+const youtubeUrl = socialLinks.find((item) => item.icon === "youtube")!.href;
+---
+
+<Layout title="Speaker Release Agreement">
+  <Hero compact>
+    <Fragment slot="title">Speaker Release Agreement</Fragment>
+  </Hero>
+
+  <div class="pc-container">
+    <section class="pc-section pc-lead pc-measure">
+      <p>
+        This speaker release agreement allows <strong>Pyvec,&nbsp;z.s.</strong>, the&nbsp;organizer of PyCon&nbsp;CZ, to
+        record the&nbsp;conference talks and workshops and to host and archive the&nbsp;videos and presentations for
+        future years. It is part of the&nbsp;proposal submission form in our call for proposals system.
+      </p>
+    </section>
+
+    <section class="pc-section">
+      <h2 id="agreement" class="pc-heading">The Agreement</h2>
+      <div class="pc-card pc-card--cut">
+        <p>
+          By submitting a&nbsp;proposal through the&nbsp;PyCon&nbsp;CZ call for proposals system, the&nbsp;submitter
+          (“the&nbsp;speaker”) grants Pyvec,&nbsp;z.s., ID&nbsp;No.&nbsp;22746668 (“the&nbsp;organizer”),
+          the&nbsp;non-exclusive right to record, reproduce, stream, transcribe and distribute the&nbsp;speaker’s
+          presentation (“the&nbsp;presentation”) in electronic format via the&nbsp;World Wide Web, as well as
+          the&nbsp;right to migrate or convert the&nbsp;presentation to any medium or format for the&nbsp;purpose of
+          preservation and/or continued distribution.
+        </p>
+
+        <p>
+          The&nbsp;organizer acknowledges that this is a&nbsp;non-exclusive license; any copyrights in
+          the&nbsp;presentation remain with the&nbsp;speaker or other copyright holder and subsequent uses of
+          the&nbsp;submitted material by that person(s) are not restricted by this license. The&nbsp;speaker also grants
+          the&nbsp;organizer any associated rights necessary to record, reproduce, transcribe and distribute audio,
+          video, images, or excerpts of the&nbsp;presentation.
+        </p>
+
+        <p>
+          The&nbsp;speaker represents that the&nbsp;presentation covered by this license is their original work and that
+          they have the&nbsp;right to grant this license to the&nbsp;organizer. The&nbsp;speaker further represents that
+          the&nbsp;presentation does not, to the&nbsp;best of their knowledge, infringe upon any third party’s
+          copyright.
+        </p>
+
+        <p>
+          If this presentation is based upon work that has been sponsored or supported by any agency or organization
+          other than the&nbsp;organizer, the&nbsp;speaker represents that they have fulfilled any right of review or
+          other obligation required by contract or agreement with the&nbsp;supporting entity.
+        </p>
+
+        <p>
+          The&nbsp;organizer will make the&nbsp;presentation available to the&nbsp;public under the
+          <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            >Attribution-NonCommercial-ShareAlike 4.0 International (CC&nbsp;BY-NC-SA&nbsp;4.0)</a
+          > license, accompanied by a&nbsp;copyright statement.
+        </p>
+
+        <p>
+          Recordings of the&nbsp;speaker’s presentation will be made available on the
+          <a href={youtubeUrl}>PyCon&nbsp;CZ YouTube channel</a> and may also be uploaded to
+          <a href="https://archive.org/">Archive.org</a> for archival purposes.
+        </p>
+
+        <p>
+          <strong
+            >By submitting a&nbsp;proposal, you acknowledge that you have read, understood and agreed to the&nbsp;above
+            terms.</strong
+          >
+        </p>
+
+        <p>If you are under the&nbsp;age of 18, you need your parent or guardian to agree to the&nbsp;above terms.</p>
+      </div>
+    </section>
+
+    <section class="pc-section pc-lead pc-measure">
+      <p>
+        Do you have any questions about the&nbsp;agreement? Write to us at
+        <a href={`mailto:${cfpEmail}`}>{cfpEmail}</a>.
+      </p>
+    </section>
+  </div>
+</Layout>

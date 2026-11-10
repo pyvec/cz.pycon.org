@@ -319,6 +319,21 @@
   }
 }
 
+/* Compact hero: the folder card with just the title. Block layout and no
+   min-height, so the card is only as tall as the title and its padding. */
+.pc-hero--compact .pc-hero__card {
+  display: block;
+  min-height: 0;
+
+  @media (--lg) {
+    padding-block: var(--pc-space-xl);
+  }
+}
+
+.pc-hero--compact .pc-hero__title {
+  margin: 0;
+}
+
 /* Megaphone illustration (volunteer and CFP pages): larger and vertically
    centred, where the shared rule bleeds it into the bottom padding. Negative
    block margins keep the taller image from stretching the card. */
