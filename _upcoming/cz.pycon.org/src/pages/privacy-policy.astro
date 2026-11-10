@@ -1,0 +1,250 @@
+---
+// The Czech section is the binding text; the English one above it is a translation for convenience.
+// Keep both in sync when changing anything.
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import PrivacyCategories, { type PrivacyCategory } from "../components/PrivacyCategories.astro";
+
+const contactEmail = "info@pycon.cz";
+
+/** Data kept only for organizing the event (CFP, Financial Aid, tickets) is deleted after this date */
+const retentionEnd = { en: "until 31 Dec 2028", cs: "do 31. 12. 2028" };
+
+const processors = [
+  "Google Ireland Ltd, Gordon House, Barrow Street, Dublin 4, D04 E5W5, Ireland",
+  "YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA",
+  "Mailchimp (The Rocket Science Group, LLC, 675 Ponce de Leon Ave NE, Suite 5000, Atlanta, GA 30308, USA)",
+];
+
+const categoriesEn: PrivacyCategory[] = [
+  {
+    title: "Newsletter",
+    source: "Subscribed via the website https://cz.pycon.org",
+    records: [
+      {
+        data: "E-mail address",
+        purpose: "Sending newsletters with information about the Event (several times a year)",
+        retention: "Unlimited",
+        retentionNote: "(one-click unsubscribe available)",
+      },
+    ],
+  },
+  {
+    title: "Talk and workshop submissions",
+    source: "Using the Call for Proposals (CFP) form",
+    records: [
+      {
+        data: "Full name, any other information you voluntarily provide in the form",
+        purpose: "Evaluation and selection of talks and workshops for the Event",
+        retention: retentionEnd.en,
+      },
+      {
+        data: "E-mail address, full name",
+        purpose:
+          "Sending information about the selection outcome and about the possibilities of applying in the following years",
+        retention: "Unlimited",
+        retentionNote: "(one-click unsubscribe available)",
+      },
+    ],
+  },
+  {
+    title: "Financial Aid grant requests",
+    records: [
+      {
+        data: "E-mail address, full name, any other information you voluntarily provide in the form",
+        purpose: "Evaluation of the eligibility for the grant",
+        retention: retentionEnd.en,
+      },
+    ],
+  },
+  {
+    title: "Event attendees (ticket holders)",
+    records: [
+      {
+        data: "E-mail address, full name, any other information you voluntarily provide when registering tickets for the Event",
+        purpose:
+          "Sending information about the Event, printing conference badges, sending requests for feedback after the Event and anything else necessary for the organization of the Event",
+        retention: retentionEnd.en,
+      },
+      {
+        data: "Photographs, video and audio recordings",
+        purpose:
+          "Promotion of the Event on the website https://cz.pycon.org and in other media such as, but not limited to, https://youtube.com",
+        retention: "Unlimited",
+      },
+    ],
+  },
+];
+
+const categoriesCs: PrivacyCategory[] = [
+  {
+    title: "Newsletter",
+    source: "Ke kterému se přihlašujete přes webové stránky https://cz.pycon.org",
+    records: [
+      {
+        data: "E-mail",
+        purpose: "Zasílání novinek s informacemi o Akci (několikrát ročně)",
+        retention: "Neomezeně",
+        retentionNote: "(s možností odhlášení kliknutím)",
+      },
+    ],
+  },
+  {
+    title: "Přihlašování přednášek a workshopů",
+    source: "Přes formulář „Call for Proposals (CFP)“",
+    records: [
+      {
+        data: "Jméno a příjmení, jakékoli další údaje, které nám ve formuláři dobrovolně poskytnete",
+        purpose: "Hodnocení a výběr přednášek a workshopů pro Akci",
+        retention: retentionEnd.cs,
+      },
+      {
+        data: "E-mail, jméno a příjmení",
+        purpose: "Zaslání informací o výsledku výběru a o možnostech přihlášení v dalších ročnících Akce",
+        retention: "Neomezeně",
+        retentionNote: "(s možností odhlášení kliknutím)",
+      },
+    ],
+  },
+  {
+    title: "Žádosti o grant „Financial Aid“",
+    records: [
+      {
+        data: "E-mail, jméno a příjmení, jakékoli další údaje, které nám ve formuláři dobrovolně poskytnete",
+        purpose: "Vyhodnocení nároku na udělení grantu pro účastníky Akce",
+        retention: retentionEnd.cs,
+      },
+    ],
+  },
+  {
+    title: "Účastníci Akce (držitelé vstupenek)",
+    records: [
+      {
+        data: "E-mail, jméno a příjmení, jakékoli další údaje, které nám dobrovolně poskytnete při registraci vstupenky na Akci",
+        purpose:
+          "Zasílání informací k Akci, tisk visaček, zaslání žádosti o zpětnou vazbu po skončení Akce a vše další nutné pro realizaci Akce",
+        retention: retentionEnd.cs,
+      },
+      {
+        data: "Fotografie a obrazové nebo zvukové záznamy",
+        purpose:
+          "Propagace Akce na webových stránkách https://cz.pycon.org a v dalších médiích například, ale nejen, na https://youtube.com",
+        retention: "Neomezeně",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Privacy Policy">
+  <Hero compact>
+    <Fragment slot="title">Privacy Policy</Fragment>
+  </Hero>
+
+  <div class="pc-container">
+    <section class="pc-section pc-lead pc-measure">
+      <p>
+        The&nbsp;English text is a&nbsp;layman’s translation provided for your convenience. The&nbsp;binding terms are
+        in the&nbsp;<a href="#cs">Czech version</a> below. Do you have any questions? Write to us at
+        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+      </p>
+    </section>
+
+    <section class="pc-section" id="en">
+      <h2 class="pc-heading">Handling of personal information</h2>
+
+      <div class="pc-lead pc-measure">
+        <p>
+          You authorize <strong>Pyvec,&nbsp;z.s.</strong>, based at Korunní&nbsp;2569/108, 101&nbsp;00 Prague&nbsp;10 –
+          Vinohrady, ID&nbsp;No.&nbsp;22746668, registered at the&nbsp;Municipal Court in Prague, section&nbsp;B, file
+          24180 (“Data Controller”), to process the&nbsp;following personal data in accordance with Regulation
+          (EU)&nbsp;2016/679 (GDPR) and Act No.&nbsp;110/2019&nbsp;Coll., on the&nbsp;processing of personal data, in
+          connection with the&nbsp;conference “PyCon&nbsp;CZ” (“Event”) for the&nbsp;purposes and periods specified
+          below.
+        </p>
+        <p>
+          You can withdraw this consent at any time by sending an e-mail or a&nbsp;letter to the&nbsp;Data Controller.
+        </p>
+      </div>
+
+      <div class="pc-section pc-section--tight">
+        <PrivacyCategories
+          categories={categoriesEn}
+          labels={{ data: "Data types", purpose: "Purpose", retention: "Retention" }}
+        />
+      </div>
+
+      <div class="pc-section pc-section--tight pc-cols pc-cols--halves">
+        <div class="pc-card pc-card--lavender">
+          <h3>Data processors</h3>
+          <p>The&nbsp;Data Controller processes the&nbsp;personal data. It will also be processed by:</p>
+          <ul>{processors.map((processor) => <li>{processor}</li>)}</ul>
+        </div>
+
+        <div class="pc-card pc-card--lime pc-card--cut">
+          <h3>Your rights</h3>
+          <p>Under the&nbsp;GDPR, you have the&nbsp;right to:</p>
+          <ul>
+            <li>withdraw your consent at any time,</li>
+            <li>request information on which of your personal data we process and an&nbsp;explanation of how,</li>
+            <li>request access to this data and have it corrected or updated,</li>
+            <li>request the&nbsp;erasure of your personal data,</li>
+            <li>
+              contact us or the&nbsp;<a href="https://uoou.gov.cz/en">Office for Personal Data Protection</a> if you have
+              any doubts about how we process your data.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="pc-section" id="cs" lang="cs">
+      <h2 class="pc-heading">Zpracování osobních údajů</h2>
+
+      <div class="pc-lead pc-measure">
+        <p>
+          Udělujete souhlas spolku <strong>Pyvec,&nbsp;z.s.</strong>, se sídlem Korunní&nbsp;2569/108, 101&nbsp;00
+          Praha&nbsp;10 – Vinohrady, IČO:&nbsp;22746668, zapsanému v&nbsp;rejstříku vedeném u&nbsp;Městského soudu
+          v&nbsp;Praze, oddíl&nbsp;B, vložka 24180 (dále jen „Správce“), aby v&nbsp;souladu s&nbsp;nařízením Evropského
+          parlamentu a&nbsp;Rady (EU)&nbsp;2016/679 (GDPR) a&nbsp;zákonem č.&nbsp;110/2019&nbsp;Sb., o&nbsp;zpracování
+          osobních údajů, zpracovával následující osobní údaje v&nbsp;souvislosti s&nbsp;konferencí „PyCon&nbsp;CZ“
+          (dále jen „Akce“) k&nbsp;účelům a&nbsp;po dobu, které jsou uvedeny dále.
+        </p>
+        <p>Souhlas lze kdykoliv odvolat, a&nbsp;to zasláním e-mailu nebo dopisu na kontaktní údaje Správce.</p>
+      </div>
+
+      <div class="pc-section pc-section--tight">
+        <PrivacyCategories
+          categories={categoriesCs}
+          labels={{ data: "Typy údajů", purpose: "Účel", retention: "Doba zpracování" }}
+        />
+      </div>
+
+      <div class="pc-section pc-section--tight pc-cols pc-cols--halves">
+        <div class="pc-card pc-card--lavender">
+          <h3>Zpracovatelé</h3>
+          <p>Zpracování osobních údajů provádí Správce. Osobní údaje budou dále zpracovávat:</p>
+          <ul lang="en">{processors.map((processor) => <li>{processor}</li>)}</ul>
+        </div>
+
+        <div class="pc-card pc-card--lime pc-card--cut">
+          <h3>Vaše práva</h3>
+          <p>Podle GDPR máte právo:</p>
+          <ul>
+            <li>vzít souhlas kdykoliv zpět,</li>
+            <li>
+              požadovat po nás informaci, jaké vaše osobní údaje zpracováváme, a&nbsp;vysvětlení ohledně jejich
+              zpracování,
+            </li>
+            <li>vyžádat si u&nbsp;nás přístup k&nbsp;těmto údajům a&nbsp;nechat je aktualizovat nebo opravit,</li>
+            <li>požadovat po nás výmaz těchto osobních údajů,</li>
+            <li>
+              v&nbsp;případě pochybností o&nbsp;dodržování povinností souvisejících se zpracováním osobních údajů se
+              obrátit na nás nebo na <a href="https://uoou.gov.cz/">Úřad pro ochranu osobních údajů</a>.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
