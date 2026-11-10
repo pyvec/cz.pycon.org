@@ -146,15 +146,6 @@
   p {
     margin: 0;
   }
-
-  a {
-    text-decoration: none;
-
-    &:hover,
-    &:focus-visible {
-      text-decoration: underline;
-    }
-  }
 }
 
 .pc-contacts__name {

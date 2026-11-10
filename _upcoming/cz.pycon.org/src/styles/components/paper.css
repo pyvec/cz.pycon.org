@@ -134,13 +134,4 @@
   p {
     margin: 0 0 var(--pc-space-xs);
   }
-
-  a {
-    text-decoration: none;
-
-    &:hover,
-    &:focus-visible {
-      text-decoration: underline;
-    }
-  }
 }
