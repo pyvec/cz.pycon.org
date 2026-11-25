@@ -1,0 +1,119 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import { sponsorTiers } from "../data/sponsors";
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<Layout title="Sponsors and partners">
+  <Hero compact>
+    <Fragment slot="title">Sponsors and partners</Fragment>
+  </Hero>
+
+  <div class="pc-container">
+    <section class="pc-section pc-sponsors-intro">
+      <p class="pc-lead pc-measure">
+        We’re grateful to companies and organizations that help us organize PyCon&nbsp;CZ and allow keeping ticket
+        prices as low as possible.
+      </p>
+      <a class="pc-btn pc-btn--on-dark" href={`${baseUrl}sponsorship/`}>Become our sponsor</a>
+    </section>
+
+    {
+      sponsorTiers.map((tier) => (
+        <section class="pc-section" id={tier.id}>
+          <h2 class="pc-heading">{tier.label}</h2>
+          <ul class="pc-cols pc-sponsors">
+            {tier.sponsors.map((sponsor) => (
+              <li class="pc-card pc-card--cut pc-sponsor">
+                {/* A mouse-only shortcut: the heading link below is the accessible one */}
+                <a class="pc-sponsor__logo" href={sponsor.url} aria-hidden="true" tabindex="-1">
+                  {/* SVGs gain nothing from <Image>, which would also emit each file twice */}
+                  <img
+                    src={sponsor.logo.src}
+                    width={sponsor.logo.width}
+                    height={sponsor.logo.height}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <div class="pc-sponsor__body">
+                  <h3>
+                    <a href={sponsor.url}>{sponsor.name}</a>
+                  </h3>
+                  {sponsor.description.map((paragraph) => (
+                    <p set:html={paragraph} />
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Layout>
+
+<style>
+  @import "../styles/media.css";
+
+  .pc-sponsors-intro .pc-lead {
+    margin-bottom: var(--pc-space-l);
+  }
+
+  .pc-sponsors {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  /* Logo above the text on phones, beside it from lg */
+  .pc-sponsor {
+    display: grid;
+    gap: var(--pc-space-m);
+
+    & + & {
+      margin-top: 0;
+    }
+
+    @media (--lg) {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      gap: var(--pc-space-xl);
+      align-items: start;
+    }
+  }
+
+  /* The logo link keeps the global hover highlight off the image */
+  .pc-sponsor__logo {
+    display: block;
+    max-width: 18rem;
+
+    &:hover {
+      background: none;
+      box-shadow: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (--lg) {
+      max-width: none;
+      padding-top: var(--pc-space-2xs);
+    }
+  }
+
+  .pc-sponsor__body {
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (--xl) {
+      max-width: 48rem;
+    }
+  }
+</style>

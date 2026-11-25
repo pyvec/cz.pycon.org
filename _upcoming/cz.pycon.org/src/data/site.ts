@@ -10,9 +10,10 @@ interface MenuItem {
 export const menuItems: MenuItem[] = [
   { label: "Home", href: baseUrl },
   { label: "Sponsorship", href: `${baseUrl}sponsorship/` },
+  { label: "Sponsors", href: `${baseUrl}sponsors/` },
   { label: "Call for Proposals", shortLabel: "CFP", href: `${baseUrl}cfp/` },
   { label: "Volunteer", href: `${baseUrl}volunteer/` },
-  { label: "Code of Conduct", href: `${baseUrl}coc/` },
+  { label: "Code of Conduct", shortLabel: "CoC", href: `${baseUrl}coc/` },
 ];
 
 export const socialLinks = [
@@ -53,6 +54,7 @@ export const footerGroups: FooterGroup[] = [
     label: "About",
     links: [
       { label: "Sponsorship", href: `${baseUrl}sponsorship/` },
+      { label: "Sponsors", href: `${baseUrl}sponsors/` },
       { label: "Code of Conduct", href: `${baseUrl}coc/` },
       { label: "Privacy Policy", href: `${baseUrl}privacy-policy/` },
     ],
