@@ -51,12 +51,12 @@
 
 .pc-tabs__link {
   /* line-height 1 makes the link exactly as tall as the tab. Narrow sides on
-     tablets, where five links share the row. */
+     tablets, where all the links share the row. Mixed case, not uppercase, so
+     they fit at every width (with short labels below xxl). */
   padding: 0.375rem 0.5rem;
   border-radius: var(--pc-radius) var(--pc-radius) 0 0;
   font-size: var(--pc-text-s);
   line-height: 1;
-  text-transform: uppercase;
   color: var(--pc-text-light);
   text-decoration: none;
   white-space: nowrap;
